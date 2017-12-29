@@ -63,9 +63,12 @@ require "/libs/up.php";
                 $pup=find_where('animals', $key,'puppy');
                 $pol=find_where('animals', $key,'sex');
 /*выводим на экран имя собаки как ссылку*/
-                echo '<a href="/name.php?id=' . $key . '">';?>
+                echo '<a href="/name.php?id=' . $key . '">';
 
-                <img src="<?php echo from_id_to_url($key);?>" width="10%" float="left"></a>
+                  $GLOBALS['Data_dog']=data_animals($key);    //сохраняем данные по собаке
+                ?>
+
+                <img src="<?php echo bdika_age_ret_pic($GLOBALS['Data_dog']);?>" width="10%" float="left"></a>
                 <div><?php   //  вывод на экран количество вязок и щенков
                         echo 'имя: ' . $value;
                         echo '<br> пол : ' . $pol;
@@ -101,10 +104,13 @@ require "/libs/up.php";
                 $lit=find_where('animals', $key,'litter');
                 $pup=find_where('animals', $key,'puppy');
 /*выводим имена сук как ссылки на страничку собаки*/
-                echo '<a href="/name.php?id=' . $key . '">'; ?>
-<!-- выводим картинку собаки -->
+                echo '<a href="/name.php?id=' . $key . '">'; 
+                $GLOBALS['Data_dog']=data_animals($key);    //сохраняем данные по собаке
 
-                <img src="<?php echo from_id_to_url($key);?>" width="10%"> </a>
+            ?>
+<!-- выводим картинку собаки -->
+  
+                <img src="<?php echo bdika_age_ret_pic($GLOBALS['Data_dog']);?>" width="10%"> </a>
                 <div>  <?php //вывод на экран количесва вязок и щенков у сук
                         echo 'имя: ' . $value;
                         //echo '<br> тип : ' . $tip;
@@ -139,9 +145,12 @@ require "/libs/up.php";
                       $pup=find_where('animals', $key,'puppy');
 
 /*выводим имена кобелей как ссылки на страничку собаки*/
-                      echo '<a href="/name.php?id=' . $key . '">'; ?>
+                      echo '<a href="/name.php?id=' . $key . '">'; 
+                      $GLOBALS['Data_dog']=data_animals($key);    //сохраняем данные по собаке
 
-                      <img src="<?php echo from_id_to_url($key);?>" width="10%"> </a>
+                     ?>
+
+                      <img src="<?php echo bdika_age_ret_pic($GLOBALS['Data_dog']);?>" width="10%"> </a>
                  <div>
                       <?php echo 'имя: ' . $value;
                            // echo '<br> тип : ' . $tip;

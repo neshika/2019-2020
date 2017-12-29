@@ -406,6 +406,8 @@ echo '<br>Тестируем! ';
 
 //from_id_to_url_puppy(1);
 
+
+////////////////// Рисует щенка в зависимости от id собаки
 ?>
 <img src="<?php echo from_id_to_url_puppy(5)?>">
 
@@ -413,6 +415,21 @@ echo '<br>Тестируем! ';
 <?php 
 //$sex='кобель';
 //echo wtht($sex,wtht_rand($sex));
+
+///////////////функция дывает array данный по id собаки например (ИМЯ)
+// $id=5;
+//  $GLOBALS['Data_dog']=data_animals($id);
+//  debug($GLOBALS['Data_dog']['name']);
+
+
+$GLOBALS['Data_dog']=data_animals('1');
+//debug($GLOBALS['Data_dog']);
+
+
+?>
+ <img src="<?php echo bdika_age_ret_pic($GLOBALS['Data_dog']);?>">
+<?php
+
 
  require '/libs/down.php';
  ?>

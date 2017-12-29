@@ -29,6 +29,15 @@ function ret_owner(){
 function debug($arr){
     echo '<pre>' . print_r($arr, true). '</pre>';
 }
+
+/*Функция возвращает данные по id собаки из таблицы animals в стиле array*/
+function data_animals($id){
+
+ return R::getRow( 'SELECT * FROM animals WHERE id = :id',
+       [':id' => $id]);
+
+}
+
 /*Функция создает электронную подпись 6 цыфр и записывает ее а поле sign в таблице users*/
 function rand_sign($id){
 	 $row = R::getRow( 'SELECT * FROM users WHERE id = :id',
@@ -73,6 +82,28 @@ function print_item($login,$item_id){
 
 
 //***************** В О З Р А С Т  ****************************
+
+
+// Функция проверяет возраст по id собаки и возвращает нужную картинку
+function bdika_age_ret_pic($data_dog){
+
+  if (4>$data_dog['age_id']){
+
+    //echo "<br>Щенок" . $data_dog['id'];
+    //var_dump(from_id_to_url_puppy($data_dog['id']));
+    return from_id_to_url_puppy($data_dog['id']);
+
+  }
+  else{
+    //echo "<br>взрослая";
+    return from_id_to_url($data_dog['id']);
+  }
+
+
+
+}
+
+
 
 // Функция возвращает возраст по id собаки
 function ret_age($dog_id){

@@ -1,6 +1,7 @@
 <?php
 require "/libs/up.php";
       $id = $_GET['id'];
+      $GLOBALS['Data_dog']=data_animals($id);
 
       //$GLOBALS ['MYDOG'] = 12;
       //echo $MYDOG;
@@ -8,9 +9,10 @@ require "/libs/up.php";
       $owner=ret_owner();
      // $var = find_where('dna',$id,'hr');
       //***************  вносим данные о состоянии энергии. Здоровья. счастья из базы************//
-             $_SESSION['vitality']=find_where('animals',$id,'vitality');
-             $_SESSION['hp']=find_where('animals',$id,'hp');;
-             $_SESSION['joy']=find_where('animals',$id,'joy');;
+             //$_SESSION['vitality']=find_where('animals',$id,'vitality');
+            $_SESSION['vitality']=$GLOBALS['Data_dog']['vitality'];
+             $_SESSION['hp']=$GLOBALS['Data_dog']['hp'];;
+             $_SESSION['joy']=$GLOBALS['Data_dog']['joy'];
       
 
 /*<h1 style="font-size: 120%; font-family: Verdana, Arial, Helvetica, sans-serif; 
@@ -32,22 +34,22 @@ require "/libs/up.php";
 ?>
 
 <!-- ******************** вывод питомника / имя собаки и картинка пола   выводит число счастья *****************-->    
-          <div style="background: white; height: 80px; width: 1170px;"> <h3 align="center"><?php echo find_where('animals',$id,'name');?><?php echo ' "' . find_where('animals',$id,'kennel') . '" ';?> <?php echo ret_pic($id) . find_where('animals',$id,'lucky');?></h3>
+          <div style="background: white; height: 80px; width: 1170px;"> <h3 align="center"><?php echo $GLOBALS['Data_dog']['name'];?><?php echo ' "' . $GLOBALS['Data_dog']['kennel'] . '" ';?> <?php echo ret_pic($id) . $GLOBALS['Data_dog']['lucky'];?></h3>
            </div>
           
 <!-- ******************** вывод доп меню собаки  заводчик / хозяин  *****************-->  
     <div style="background: yellow; height: 80px; width: 1170px;"> 
           <ul style="background: white; width: 45%; float: left;">
-            <li>Заводчик: <?php echo find_where('animals',$id,'breeder');?></li>
-            <li>Хозяин: <?php echo find_where('animals',$id,'owner');?></li>
-            <li>Вязок: <?php echo find_where('animals', $id,'litter');?></li>
+            <li>Заводчик: <?php echo $GLOBALS['Data_dog']['breeder'];?></li>
+            <li>Хозяин: <?php echo $GLOBALS['Data_dog']['owner'];?></li>
+            <li>Вязок: <?php echo $GLOBALS['Data_dog']['litter'];?></li>
 
           </ul>
 <!-- ******************** вывод доп меню собаки  вид \\ Дата рождения \\ окрас    *****************-->       
         <ul style="background: white; width: 40%; float: right;">
           <li>тип:  <?php echo  print_hr(find_where('dna',$id,'hr'));?></li>
           <li>возраст:  <?php echo ret_age($id);?></li>
-          <li>Щенков: <?php echo find_where('animals', $id,'puppy');?></li>
+          <li>Щенков: <?php echo $GLOBALS['Data_dog']['puppy'];?></li>
        </ul>
     </div>
 <!-- ******************** вывод картинки собаки по id  *****************-->
@@ -68,7 +70,7 @@ require "/libs/up.php";
         
     </td>
 
-    <td style="border-width: 10px; text-align: center;"><img src="<?php echo from_id_to_url($id);?>">
+    <td style="border-width: 10px; text-align: center;"><img src="<?php echo bdika_age_ret_pic($GLOBALS['Data_dog']);?>">
         
     </td> 
     <td>
