@@ -127,7 +127,7 @@ echo 'вставляем DNA';
         
       ?>
 <h1 align="center">Доска объявлений</h1>
-<h3 align="center">Актуальное предложение</h3>
+<h3 align="center">Актуальное предложение: предполагаемый окрас</h3>
 <h3 align="center"><?php print_item($owner,1);?></h3>
 
 <div>

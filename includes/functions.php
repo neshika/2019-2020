@@ -87,7 +87,7 @@ function print_item($login,$item_id){
 // Функция проверяет возраст по id собаки и возвращает нужную картинку
 function bdika_age_ret_pic($data_dog){
 
-  if (4>$data_dog['age_id']){
+  if (13>$data_dog['age_id']){   //age_id = 4 (6 мес)  age_id = 9 (15 мес = 1 год 3 мес)
 
     //echo "<br>Щенок" . $data_dog['id'];
     //var_dump(from_id_to_url_puppy($data_dog['id']));
@@ -97,6 +97,24 @@ function bdika_age_ret_pic($data_dog){
   else{
     //echo "<br>взрослая";
     return from_id_to_url($data_dog['id']);
+  }
+
+
+
+}
+// Функция проверяет возраст по id собаки и разрешает вязку для кобелейц и сук
+function bdika_age_for_breeding($data_dog){
+  
+  if (9>$data_dog['age_id']){   //age_id = 4 (6 мес)  age_id = 9 (15 мес = 1 год 3 мес)
+
+    echo "<br>ЩенокНет допуска для вязки";
+    //var_dump(from_id_to_url_puppy($data_dog['id']));
+    
+
+  }
+  else{
+    //echo "<br>взрослая";
+   echo "<br>Взрослая собака! Допускается к разведению";
   }
 
 
@@ -666,7 +684,7 @@ function insert_data($tabl,$id,$cell,$value){  //$tabl - название таб
   $bean = R::load($id, $name);
 	$id = R::store($bean); // int
 }
-/*                                             *************************   голая/пух                     */
+/*                      *************************   голая/пух                     */
 /*Функция возвращает тип собаки hrhr / HrHr / Hrhr*/
 function ret_hr($id){
 	 $string =R::getCol('SELECT hr FROM animals WHERE id = :id',
@@ -851,6 +869,9 @@ function insert_url_puppy($dog_id){
         $ww=find_where('dna',$dog_id,'ww');
        $bb=find_where('dna',$dog_id,'bb');
        $ff=find_where('dna',$dog_id,'ff');
+       $tt=find_where('dna',$dog_id,'tt');
+       $mm=find_where('dna',$dog_id,'mm');
+
     //$hr=hrhr;
    // $bb=Bb;
    // $ww=WW;
@@ -859,10 +880,12 @@ function insert_url_puppy($dog_id){
       echo "<br>ww " . $ww;
       echo "<br>bb " . $bb;
       echo "<br>ff " . $ff;
+      echo "<br>tt " . $tt;
+      echo "<br>mm " . $mm;
 
         if('hrhr'==$hr){   //если пух
-          if('ww'==$ww){   //если не белый
-                if('ff'==$ff){ //если не рыжий
+          if('ww'==$ww && 'mm'==$mm && 'tt'==$tt){   //если не белый без пятен и без крапа
+                if( 'ff'==$ff ){ //если не рыжий
                     if('bb'==$bb)  //если шоко
                       $dna=hr0b0;
                     if('Bb'==$bb || 'BB'==$bb)  //еcли черный
@@ -875,7 +898,7 @@ function insert_url_puppy($dog_id){
           $dna=hr0w1;
         }
         if('Hrhr'==$hr){    //если голый
-           if('ww'==$ww){   //если не белый
+           if('ww'==$ww && 'mm'==$mm && 'tt'==$tt){   //если не белый без пятен и без крапа
                 if('ff'==$ff){ //если не рыжий
                     if('bb'==$bb)  //если шоко
                       $dna=hr1b0;
@@ -2062,11 +2085,13 @@ function  bdika_color($Hr,$W,$F,$B,$T,$M){ //возвращает url /pic/clear
         if('w1'==$W){ //белая
           if('b0'==$B){ //шоко белая
       echo ' hr1w0b0t0m0 белая/шоко';
-        $my_dog=ret_url_from_dna('hr1w0b0t0m0');
+       // $my_dog=ret_url_from_dna('hr1w0b0t0m0');
+      $my_dog=ret_url_from_dna('hr1w1b0t0m0');
       }
       if('b1'==$B){ //черно/белая
        echo ' hr1w0b1t0m0 белая/черный';
-        $my_dog=ret_url_from_dna('hr1w0b1t0m0');
+        //$my_dog=ret_url_from_dna('hr1w0b1t0m0');
+       $my_dog=ret_url_from_dna('hr1w1b1t0m0');
       }
     }
   }
