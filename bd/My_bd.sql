@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Дек 31 2017 г., 00:50
+-- Время создания: Янв 10 2018 г., 01:50
 -- Версия сервера: 5.5.53
 -- Версия PHP: 5.5.38
 
@@ -44,7 +44,7 @@ INSERT INTO `ages` (`id`, `age`, `text`) VALUES
 (5, '20 день', 'появляются первые зубки'),
 (6, '1 месяц', 'уже ест. резцы и клыки уже есть'),
 (7, '45 дней', 'актировка, можно продать'),
-(8, '1,5 месяца', ''),
+(8, '1,5 месяца', 'из щенка в молодняк'),
 (9, '2 месяца', ''),
 (10, '3 месяца', 'соревнования в классе \"Бэби\"'),
 (11, '4 месяца', 'соревнования в классе \"Бэби\"'),
@@ -151,7 +151,7 @@ CREATE TABLE `animals` (
   `status` tinyint(1) NOT NULL DEFAULT '1',
   `puppy` int(11) NOT NULL DEFAULT '0',
   `litter` int(11) NOT NULL DEFAULT '0',
-  `url` int(10) NOT NULL COMMENT 'id на ссылку собаки',
+  `url` varchar(255) NOT NULL COMMENT 'путь к картинке собаки',
   `url_puppy` int(11) NOT NULL COMMENT 'id на щенка на url пса'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -160,11 +160,13 @@ CREATE TABLE `animals` (
 --
 
 INSERT INTO `animals` (`id`, `name`, `lucky`, `sex`, `race`, `breeder`, `owner`, `kennel`, `age_id`, `weight`, `height`, `vitality`, `hp`, `joy`, `birth`, `now`, `mum`, `dad`, `g1dad`, `g1mum`, `g0dad`, `g0mum`, `gg1dad1`, `gg1mum2`, `gg1dad3`, `gg1mum4`, `gg0dad1`, `gg0mum2`, `gg0dad3`, `gg0mum4`, `status`, `puppy`, `litter`, `url`, `url_puppy`) VALUES
-(1, 'Шоко', 12, 'сука', 'КХС', 'nesh', 'nesh', 'Чарующий соблазн', 2, 3830, 25, 100, 100, 100, '15.09.2017', 1440, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 53, 62),
-(2, 'Маленькая', 45, 'сука', 'КХС', 'nesh', 'nesh', 'Чарующий соблазн', 15, 3973, 26, 45, 90, 100, '17.09.2017', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 7, 65),
-(3, '3шоколадкин', 85, 'кобель', 'КХС', 'nesh', 'nesh', 'Чарующий соблазн', 16, 4547, 30, 100, 100, 100, '17.09.2017', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 13, 64),
-(4, '4 кобель', 100, 'кобель', 'КХС', 'nesh', 'nesh', 'Чарующий соблазн', 1, 4547, 30, 100, 100, 100, '17.09.2017', 0, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 46, 61),
-(5, '5он', 58, 'кобель', 'КХС', 'nesh', 'nesh', 'Чарующий соблазн', 1, 4547, 30, 100, 100, 100, '17.09.2017', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 13, 64);
+(1, 'Шоко', 12, 'сука', 'КХС', 'nesh', 'nesh', 'Чарующий соблазн', 2, 3830, 25, 100, 1, 4, '15.09.2017', 1380, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 'pici/TT/hr1w0f0b0t1m0_01.png', 62),
+(2, 'Маленькая', 45, 'сука', 'КХС', 'nesh', 'nesh', 'Чарующий соблазн', 15, 3973, 26, 100, 90, 100, '17.09.2017', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 2, 'pici/hr1w0f1b0t0m0_04.png', 65),
+(3, '3шоколадкин', 85, 'кобель', 'КХС', 'nesh', 'nesh', 'Чарующий соблазн', 16, 4547, 30, 100, 100, 100, '17.09.2017', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 'pici/hr1w0f0b0t0m0_05.png', 64),
+(4, '4 кобель', 99, 'кобель', 'КХС', 'nesh', 'nesh', 'Чарующий соблазн', 1, 4547, 30, 100, 100, 100, '17.09.2017', 0, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 'pici/hrhr/hr0w0f0b0t0m0_01.png', 61),
+(5, '5он', 58, 'кобель', 'КХС', 'nesh', 'nesh', 'Чарующий соблазн', 1, 4547, 30, 100, 100, 100, '17.09.2017', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 'pici/hr1w0f0b0t0m0_03.png', 64),
+(6, 'шестой пух', 0, 'кобель', 'КХС', 'nesh', 'nesh', 'Чарующий соблазн', 1, 0, 0, 100, 100, 100, '10.01.2018', 0, 1, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 'pici/hrhr/hr0w0f0b0t0m0_01.png', 0),
+(7, 'Семь', 0, 'кобель', 'КХС', 'nesh', 'nesh', 'Чарующий соблазн', 1, 0, 0, 100, 100, 100, '10.01.2018', 0, 2, 6, 5, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 'pici/hr1w0f0b0t0m0_05.png', 0);
 
 -- --------------------------------------------------------
 
@@ -175,80 +177,83 @@ INSERT INTO `animals` (`id`, `name`, `lucky`, `sex`, `race`, `breeder`, `owner`,
 CREATE TABLE `coat` (
   `id` int(11) NOT NULL,
   `color` varchar(100) NOT NULL,
-  `url` varchar(255) NOT NULL
+  `url` varchar(255) NOT NULL COMMENT 'базовая раскраска',
+  `url_s` varchar(255) NOT NULL COMMENT 'щенок до 1.5 месяцев',
+  `url_m` varchar(255) NOT NULL COMMENT 'молодняк до 1 года',
+  `url_l` varchar(255) NOT NULL COMMENT 'взрослая с 1 года'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `coat`
 --
 
-INSERT INTO `coat` (`id`, `color`, `url`) VALUES
-(1, 'hr1w0f0b1t0m0', '/pic/clear/black_01.png'),
-(2, 'hr1w0f0b1t0m0', '/pic/clear/black_02.png'),
-(3, 'hr1w0f0b1t0m0', '/pic/clear/black_03.png'),
-(4, 'hr1w0f0b1t0m0', '/pic/clear/black_04.png'),
-(5, 'hr1w0f0b1t0m0', '/pic/clear/black_05.png'),
-(6, 'hr1w0f1t0m0', '/pic/clear/orange_01.png'),
-(7, 'hr1w0f1t0m0', '/pic/clear/orange_02.png'),
-(8, 'hr1w0f1t0m0', '/pic/clear/orange_03.png'),
-(9, 'hr1w0f1t0m0', '/pic/clear/orange_04.png'),
-(10, 'hr1w0f1t0m0', '/pic/clear/orange_05.png'),
-(11, 'hr1w0f0b0t0m0', '/pic/clear/shoko_01.png'),
-(12, 'hr1w0f0b0t0m0', '/pic/clear/shoko_02.png'),
-(13, 'hr1w0f0b0t0m0', '/pic/clear/shoko_03.png'),
-(14, 'hr1w0f0b0t0m0', '/pic/clear/shoko_04.png'),
-(15, 'hr1w0f0b0t0m0', '/pic/clear/shoko_05.png'),
-(16, 'hr1w1b1t0m0', '/pic/clear/white_bl_01.png'),
-(17, 'hr1w1b1t0m0', '/pic/clear/white_bl_02.png'),
-(18, 'hr1w1b1t0m0', '/pic/clear/white_bl_03.png'),
-(19, 'hr1w1b1t0m0', '/pic/clear/white_bl_04.png'),
-(20, 'hr1w1b1t0m0', '/pic/clear/white_bl_05.png'),
-(21, 'hr1w1b0t0m0', '/pic/clear/white_sh_01.png'),
-(22, 'hr1w1b0t0m0', '/pic/clear/white_sh_02.png'),
-(23, 'hr1w1b0t0m0', '/pic/clear/white_sh_03.png'),
-(24, 'hr1w1b0t0m0', '/pic/clear/white_sh_04.png'),
-(25, 'hr1w1b0t0m0', '/pic/clear/white_sh_05.png'),
-(26, 'hr1w0f0b1t0m1', '/pic/MM/blackMM_01.png'),
-(27, 'hr1w0f0b1t0m1', '/pic/MM/blackMM_02.png'),
-(28, 'hr1w0f0b1t0m1', '/pic/MM/blackMM_03.png'),
-(29, 'hr1w0f0b1t0m1', '/pic/MM/blackMM_04.png'),
-(30, 'hr1w0f0b1t0m1', '/pic/MM/blackMM_05.png'),
-(31, 'hr1w0f1t0m0', 'pic/clear/orange_06.png'),
-(32, 'hr1w0f1t0m1', 'pic/MM/orangeMM_01.png'),
-(33, 'hr1w0f1t0m1', 'pic/MM/orangeMM_02.png'),
-(34, 'hr1w0f1t0m1', 'pic/MM/orangeMM_03.png'),
-(35, 'hr1w0f1t0m1', 'pic/MM/orangeMM_04.png'),
-(36, 'hr1w0f1t0m1', 'pic/MM/orangeMM_05.png'),
-(37, 'hr1w0f0b0t0m1', 'pic/MM/shokoMM_01.png'),
-(38, 'hr1w0f0b0t0m1', 'pic/MM/shokoMM_02.png'),
-(39, 'hr1w0f0b0t0m1', 'pic/MM/shokoMM_03.png'),
-(40, 'hr1w0f0b0t0m1', 'pic/MM/shokoMM_04.png'),
-(41, 'hr1w0f0b0t0m1', 'pic/MM/shokoMM_05.png'),
-(42, 'hr0w0f0b1m0', 'pic/hrhr/hr_black_01.png'),
-(43, 'hr0w0f0b1m1', 'pic/hrhr/hr_blackMM_01.png'),
-(44, 'hr0w0f1m0', 'pic/hrhr/hr_orange_01.png'),
-(45, 'hr0w0f1m1', 'pic/hrhr/hr_orangeMM_01.png'),
-(46, 'hr0w0f0b0m0', 'pic/hrhr/hr_shoko_01.png'),
-(47, 'hr0w0f0b0m1', 'pic/hrhr/hr_shokoMM_01.png'),
-(48, 'hr0w1b1', 'pic/hrhr/hr_white_bl_01.png'),
-(49, 'hr0w1b0', 'pic/hrhr/hr_white_sh_01.png'),
-(50, 'vip', 'pic/vip/vip.png'),
-(51, 'hr1w0f0b1t1m1', 'pic/TM/blackTM_01.png'),
-(52, 'hr1w0f0b0t1m1', 'pic/TM/shokoTM_01.png'),
-(53, 'hr1w0f0b0t1m0', 'pic/TT/shokoTT_01.png'),
-(54, 'hr1w0f0b1t1m0', 'pic/TT/blackTT_01.png'),
-(55, 'vip01', 'pic/vip/vip01.png'),
-(56, 'vip02', 'pic/vip/vip02.png'),
-(57, 'vip03', 'pic/vip/vip03.png'),
-(58, 'vip04', 'pic/vip/vip04.png'),
-(59, 'hr0w1', 'pic/puppy/w_puppy.png'),
-(60, 'hr0b1', 'pic/puppy/b_puppy.png'),
-(61, 'hr0b0', 'pic/puppy/sh_puppy.png'),
-(62, 'hr1w1', 'pic/puppy/gol_puppy_w.png'),
-(63, 'hr1b1', 'pic/puppy/gol_puppy_b.png'),
-(64, 'hr1b0', 'pic/puppy/gol_puppy_sh.png'),
-(65, 'hr1f1', 'pic/puppy/gol_puppy_f.png'),
-(66, 'hr0f1', 'pic/puppy/f_puppy.png');
+INSERT INTO `coat` (`id`, `color`, `url`, `url_s`, `url_m`, `url_l`) VALUES
+(1, 'hr1w0f0b1t0m0', '/pic/clear/black_01.png', '0', '0', '0'),
+(2, 'hr1w0f0b1t0m0', '/pic/clear/black_02.png', '0', '0', '0'),
+(3, 'hr1w0f0b1t0m0', '/pic/clear/black_03.png', '0', '0', '0'),
+(4, 'hr1w0f0b1t0m0', '/pic/clear/black_04.png', '0', '0', '0'),
+(5, 'hr1w0f0b1t0m0', '/pic/clear/black_05.png', '0', '0', '0'),
+(6, 'hr1w0f1t0m0', '/pic/clear/orange_01.png', '0', '0', '0'),
+(7, 'hr1w0f1t0m0', '/pic/clear/orange_02.png', '0', '0', '0'),
+(8, 'hr1w0f1t0m0', '/pic/clear/orange_03.png', '0', '0', '0'),
+(9, 'hr1w0f1t0m0', '/pic/clear/orange_04.png', '0', '0', '0'),
+(10, 'hr1w0f1t0m0', '/pic/clear/orange_05.png', '0', '0', '0'),
+(11, 'hr1w0f0b0t0m0', '/pic/clear/shoko_01.png', '0', '0', '0'),
+(12, 'hr1w0f0b0t0m0', '/pic/clear/shoko_02.png', '0', '0', '0'),
+(13, 'hr1w0f0b0t0m0', '/pic/clear/shoko_03.png', '0', '0', '0'),
+(14, 'hr1w0f0b0t0m0', '/pic/clear/shoko_04.png', '0', '0', '0'),
+(15, 'hr1w0f0b0t0m0', '/pic/clear/shoko_05.png', '0', '0', '0'),
+(16, 'hr1w1b1t0m0', '/pic/clear/white_bl_01.png', '0', '0', '0'),
+(17, 'hr1w1b1t0m0', '/pic/clear/white_bl_02.png', '0', '0', '0'),
+(18, 'hr1w1b1t0m0', '/pic/clear/white_bl_03.png', '0', '0', '0'),
+(19, 'hr1w1b1t0m0', '/pic/clear/white_bl_04.png', '0', '0', '0'),
+(20, 'hr1w1b1t0m0', '/pic/clear/white_bl_05.png', '0', '0', '0'),
+(21, 'hr1w1b0t0m0', '/pic/clear/white_sh_01.png', '0', '0', '0'),
+(22, 'hr1w1b0t0m0', '/pic/clear/white_sh_02.png', '0', '0', '0'),
+(23, 'hr1w1b0t0m0', '/pic/clear/white_sh_03.png', '0', '0', '0'),
+(24, 'hr1w1b0t0m0', '/pic/clear/white_sh_04.png', '0', '0', '0'),
+(25, 'hr1w1b0t0m0', '/pic/clear/white_sh_05.png', '0', '0', '0'),
+(26, 'hr1w0f0b1t0m1', '/pic/MM/blackMM_01.png', '0', '0', '0'),
+(27, 'hr1w0f0b1t0m1', '/pic/MM/blackMM_02.png', '0', '0', '0'),
+(28, 'hr1w0f0b1t0m1', '/pic/MM/blackMM_03.png', '0', '0', '0'),
+(29, 'hr1w0f0b1t0m1', '/pic/MM/blackMM_04.png', '0', '0', '0'),
+(30, 'hr1w0f0b1t0m1', '/pic/MM/blackMM_05.png', '0', '0', '0'),
+(31, 'hr1w0f1t0m0', 'pic/clear/orange_06.png', '0', '0', '0'),
+(32, 'hr1w0f1t0m1', 'pic/MM/orangeMM_01.png', '0', '0', '0'),
+(33, 'hr1w0f1t0m1', 'pic/MM/orangeMM_02.png', '0', '0', '0'),
+(34, 'hr1w0f1t0m1', 'pic/MM/orangeMM_03.png', '0', '0', '0'),
+(35, 'hr1w0f1t0m1', 'pic/MM/orangeMM_04.png', '0', '0', '0'),
+(36, 'hr1w0f1t0m1', 'pic/MM/orangeMM_05.png', '0', '0', '0'),
+(37, 'hr1w0f0b0t0m1', 'pic/MM/shokoMM_01.png', '0', '0', '0'),
+(38, 'hr1w0f0b0t0m1', 'pic/MM/shokoMM_02.png', '0', '0', '0'),
+(39, 'hr1w0f0b0t0m1', 'pic/MM/shokoMM_03.png', '0', '0', '0'),
+(40, 'hr1w0f0b0t0m1', 'pic/MM/shokoMM_04.png', '0', '0', '0'),
+(41, 'hr1w0f0b0t0m1', 'pic/MM/shokoMM_05.png', '0', '0', '0'),
+(42, 'hr0w0f0b1m0', 'pic/hrhr/hr_black_01.png', '0', '0', '0'),
+(43, 'hr0w0f0b1m1', 'pic/hrhr/hr_blackMM_01.png', '0', '0', '0'),
+(44, 'hr0w0f1m0', 'pic/hrhr/hr_orange_01.png', '0', '0', '0'),
+(45, 'hr0w0f1m1', 'pic/hrhr/hr_orangeMM_01.png', '0', '0', '0'),
+(46, 'hr0w0f0b0m0', 'pic/hrhr/hr_shoko_01.png', '0', '0', '0'),
+(47, 'hr0w0f0b0m1', 'pic/hrhr/hr_shokoMM_01.png', '0', '0', '0'),
+(48, 'hr0w1b1', 'pic/hrhr/hr_white_bl_01.png', '0', '0', '0'),
+(49, 'hr0w1b0', 'pic/hrhr/hr_white_sh_01.png', '0', '0', '0'),
+(50, 'vip', 'pic/vip/vip.png', '0', '0', '0'),
+(51, 'hr1w0f0b1t1m1', 'pic/TM/blackTM_01.png', '0', '0', '0'),
+(52, 'hr1w0f0b0t1m1', 'pic/TM/shokoTM_01.png', '0', '0', '0'),
+(53, 'hr1w0f0b0t1m0', 'pic/TT/shokoTT_01.png', '0', '0', '0'),
+(54, 'hr1w0f0b1t1m0', 'pic/TT/blackTT_01.png', '0', '0', '0'),
+(55, 'vip01', 'pic/vip/vip01.png', '0', '0', '0'),
+(56, 'vip02', 'pic/vip/vip02.png', '0', '0', '0'),
+(57, 'vip03', 'pic/vip/vip03.png', '0', '0', '0'),
+(58, 'vip04', 'pic/vip/vip04.png', '0', '0', '0'),
+(59, 'hr0w1', 'pic/puppy/w_puppy.png', '0', '0', '0'),
+(60, 'hr0b1', 'pic/puppy/b_puppy.png', '0', '0', '0'),
+(61, 'hr0b0', 'pic/puppy/sh_puppy.png', '0', '0', '0'),
+(62, 'hr1w1', 'pic/puppy/gol_puppy_w.png', '0', '0', '0'),
+(63, 'hr1b1', 'pic/puppy/gol_puppy_b.png', '0', '0', '0'),
+(64, 'hr1b0', 'pic/puppy/gol_puppy_sh.png', '0', '0', '0'),
+(65, 'hr1f1', 'pic/puppy/gol_puppy_f.png', '0', '0', '0'),
+(66, 'hr0f1', 'pic/puppy/f_puppy.png', '0', '0', '0');
 
 -- --------------------------------------------------------
 
@@ -258,28 +263,30 @@ INSERT INTO `coat` (`id`, `color`, `url`) VALUES
 
 CREATE TABLE `dna` (
   `id` int(11) NOT NULL,
-  `dog_id` int(100) NOT NULL,
-  `url_id` int(100) NOT NULL,
-  `hr` varchar(4) NOT NULL,
-  `ww` varchar(3) NOT NULL,
-  `ff` varchar(3) NOT NULL,
-  `bb` varchar(3) NOT NULL,
-  `mm` varchar(3) NOT NULL,
-  `tt` varchar(3) NOT NULL,
-  `aa` varchar(3) NOT NULL
+  `dog_id` int(100) NOT NULL COMMENT 'id собаки',
+  `hr` varchar(4) NOT NULL COMMENT 'hrhr0голая Hrhr1пух',
+  `ww` varchar(3) NOT NULL COMMENT 'белая',
+  `ff` varchar(3) NOT NULL COMMENT 'рыжая',
+  `bb` varchar(3) NOT NULL COMMENT 'шоко/черн',
+  `mm` varchar(3) NOT NULL COMMENT 'пятна',
+  `tt` varchar(3) NOT NULL COMMENT 'крап',
+  `aa` varchar(3) NOT NULL,
+  `lucky` int(11) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `dna`
 --
 
-INSERT INTO `dna` (`id`, `dog_id`, `url_id`, `hr`, `ww`, `ff`, `bb`, `mm`, `tt`, `aa`) VALUES
-(1, 0, 46, 'hrhr', 'ww', 'ff', 'bb', 'mm', 'Tt', 'aa'),
-(9, 1, 53, 'Hrhr', 'ww', 'ff', 'bb', 'mm', 'Tt', 'aa'),
-(24, 2, 7, 'Hrhr', 'ww', 'Ff', 'bb', 'mm', 'tt', 'aa'),
-(30, 3, 13, 'Hrhr', 'ww', 'ff', 'bb', 'mm', 'tt', 'aa'),
-(31, 4, 46, 'hrhr', 'ww', 'ff', 'bb', 'mm', 'tt', 'aa'),
-(33, 5, 13, 'Hrhr', 'ww', 'ff', 'bb', 'mm', 'tt', 'aa');
+INSERT INTO `dna` (`id`, `dog_id`, `hr`, `ww`, `ff`, `bb`, `mm`, `tt`, `aa`, `lucky`) VALUES
+(1, 0, 'hrhr', 'ww', 'ff', 'bb', 'mm', 'Tt', 'aa', NULL),
+(9, 1, 'Hrhr', 'ww', 'ff', 'bb', 'mm', 'Tt', 'aa', NULL),
+(24, 2, 'Hrhr', 'ww', 'Ff', 'bb', 'mm', 'tt', 'aa', NULL),
+(30, 3, 'Hrhr', 'ww', 'ff', 'bb', 'mm', 'tt', 'aa', NULL),
+(31, 4, 'hrhr', 'ww', 'ff', 'bb', 'mm', 'tt', 'aa', NULL),
+(33, 5, 'Hrhr', 'ww', 'ff', 'bb', 'mm', 'tt', 'aa', NULL),
+(34, 6, 'hrhr', 'ww', 'ff', 'bb', 'mm', 'Tt', 'aa', 59),
+(35, 7, 'Hrhr', 'ww', 'ff', 'bb', 'mm', 'tt', 'aa', 28);
 
 -- --------------------------------------------------------
 
@@ -398,7 +405,7 @@ CREATE TABLE `owner_items` (
 --
 
 INSERT INTO `owner_items` (`id`, `owner_id`, `item_id`, `count`) VALUES
-(1, 1, 1, 1260000);
+(1, 1, 1, 1250000);
 
 -- --------------------------------------------------------
 
@@ -449,7 +456,9 @@ INSERT INTO `stats` (`id`, `dog_id`, `speed`, `agility`, `teach`, `jump`, `scent
 (23, 2, 11, 11, 11, 9, 10, 9, 61, 0),
 (29, 3, 11, 11, 11, 9, 10, 9, 61, 0),
 (30, 4, 11.06, 11.06, 11.06, 9.05, 10.06, 9.05, 61.3, 0.55),
-(32, 5, 10, 9, 11, 11, 11, 10, 62, 0);
+(32, 5, 10, 9, 11, 11, 11, 10, 62, 0),
+(33, 6, 10.55, 10.05, 11.05, 10.05, 10.55, 9.55, 61.8, 0.49),
+(34, 7, 10.87, 10.62, 11.12, 9.61, 10.37, 9.36, 62, 0.89);
 
 -- --------------------------------------------------------
 
@@ -475,7 +484,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `login`, `email`, `password`, `kennel`, `f_time`, `l_time`, `online`, `sign`, `visits`) VALUES
-(1, 'nesh', 'stepanova@mail.ru', '$2y$10$pinvDspcODn0zxHMfyEUoufayxxNfwrQoqHGX2.Ky1I.fB7FnDan.', 'Чарующий соблазн', '03.09.2017', '31.12.2017', 1, 0, 40),
+(1, 'nesh', 'stepanova@mail.ru', '$2y$10$pinvDspcODn0zxHMfyEUoufayxxNfwrQoqHGX2.Ky1I.fB7FnDan.', 'Чарующий соблазн', '03.09.2017', '10.01.2018', 0, 0, 47),
 (2, 'test', 'test@test', '$2y$10$Vy0Am7CkZj5SYrzoNR26W.XsiO21HWtuQezqns20CfpcqAqdlm7D.', 'Тестики', '04.09.2017', '10.09.2017', 0, 0, 4);
 
 --
@@ -563,7 +572,7 @@ ALTER TABLE `ages`
 -- AUTO_INCREMENT для таблицы `animals`
 --
 ALTER TABLE `animals`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT для таблицы `coat`
 --
@@ -573,7 +582,7 @@ ALTER TABLE `coat`
 -- AUTO_INCREMENT для таблицы `dna`
 --
 ALTER TABLE `dna`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 --
 -- AUTO_INCREMENT для таблицы `items`
 --
@@ -593,7 +602,7 @@ ALTER TABLE `owner_items`
 -- AUTO_INCREMENT для таблицы `stats`
 --
 ALTER TABLE `stats`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 --
 -- AUTO_INCREMENT для таблицы `users`
 --

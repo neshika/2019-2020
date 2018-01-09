@@ -56,19 +56,19 @@ error_reporting(E_ALL);
 
     <div id="left_breed">
         
-    <?php echo '<br><br><br><br>Мама: ' . var_dump($id_m) . '<br>';?>
-        <img src="<?php echo from_id_to_url($id_m)?>">
-        <?php detalis($id_m);
+    <?php echo '<br><br><br><br>Мама: ' . var_dump($id_m) . '<br>';
+        dog_pic($id_m);
+        detalis($id_m);
         f_tree($id_m);
         ?>
         <br>       
       
     </div>
     <div id="right_breed">
-          <?php echo '<br><br><br><br>Папа: ' . var_dump($id_d);?>
-         <img src="<?php echo from_id_to_url($id_d)?>">
-         <?php detalis($id_d);
-         f_tree($id_d);
+          <?php echo '<br><br><br><br>Папа: ' . var_dump($id_d);
+         dog_pic($id_d);
+        detalis($id_d);
+        f_tree($id_d);
           ?>
          <br>      
 

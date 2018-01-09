@@ -31,10 +31,15 @@ buying($owner,5000);
       echo "<br>Малыш:";
       var_dump($id_new);
 
-      insert_url(find_where('dna',$id_new,'url_id'),$id_new); //вставляет ссылку на картинку в базу
+      //insert_url(find_where('dna',$id_new,'url_id'),$id_new); //вставляет ссылку на картинку в базу
 
-
-      ?><img src="<?php echo from_id_to_url($id_new);?>"><?php
+      $data_dna=do_dna($id_new);
+      echo '<br>' . $data_dna;
+      $url=do_url($data_dna);
+      echo '<br>' . $url;
+      insert_url($id_new,$url);
+      echo '<br>$dog_pic';
+      dog_pic($id_new);
 
     
      /***************функция по получению стат в зависимости от отца и матери************/

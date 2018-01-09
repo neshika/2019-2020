@@ -31,28 +31,28 @@ require "/libs/up.php";
  ?>
 <p class="dog">
     <div id="mydog"><?php echo find_where('animals', $id,'name');?> 
-    <img src="<?php echo from_id_to_url($id);?>" width="15%"></div>
+    <img src="<?php echo find_where('animals', $id,'url');?>" width="15%"></div>
 </p>
 <p class="dad_mum">
     <div id="dad"><?php echo 'Отец<br>'; echo find_where('animals', $dad,'name'); ?>
-      <img src="<?php echo from_id_to_url($dad)?>" width="25%">
+      <img src="<?php echo find_where('animals', $dad,'url');?>" width="25%">
     </div>
     <div id="mum"><?php echo 'Мать<br>'; echo find_where('animals', $mum,'name'); ?>
-      <img src="<?php echo from_id_to_url($mum)?>" width="25%">
+      <img src="<?php echo find_where('animals', $mum,'url');?>" width="25%">
     </div>
 </p>
 <p class="GG_dad_mum">
     <div id="one"><?php echo 'Дедушка по линии отца<br>'; echo find_where('animals', $G1dad,'name'); ?>
-      <img src="<?php echo from_id_to_url($G1dad)?>" width="45%">
+      <img src="<?php echo find_where('animals', $G1dad,'url');?>" width="45%">
     </div>
     <div id="two"><?php echo 'Бабушка по линии отца<br>';echo find_where('animals', $G1mum,'name'); ?>
-      <img src="<?php echo from_id_to_url($G1mum)?>" width="45%">
+      <img src="<?php echo find_where('animals', $G1mum,'url');?>" width="45%">
     </div>
     <div id="three"><?php echo 'Дедушка по линии матери<br>'; echo find_where('animals', $G0dad,'name');?>
-      <img src="<?php echo from_id_to_url($G0dad)?>" width="45%">
+      <img src="<?php echo find_where('animals', $G0dad,'url');?>" width="45%">
     </div>
     <div id="four"><?php echo 'Бабушка по линии матери<br>';echo find_where('animals', $G0mum,'name'); ?>
-      <img src="<?php echo from_id_to_url($G0mum)?>" width="45%">
+      <img src="<?php echo find_where('animals', $G0mum,'url');?>" width="45%">
     </div>
 </p>
 

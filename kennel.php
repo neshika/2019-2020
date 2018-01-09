@@ -21,12 +21,12 @@ require "/libs/up.php";
          echo "<br>Количество собак: " . $count;
          ?><br><img src = "<?php echo ret_item(1);?>"> <?php echo  $coins;
          $vip=Rand(1,5);
-          if('1'==$vip){
-          echo '</br> Вас посетила удача. Сегодня у вас родится больше щенков. ' . '</br>';
-          $vip=ret_url_from_dna('vip');
-          ?><img src="<?php echo $vip;?>" width="10%"><?php
+         // if('1'==$vip){
+         // echo '</br> Вас посетила удача. Сегодня у вас родится больше щенков. ' . '</br>';
+        // $vip=ret_url_from_dna('vip');
+          
 
-        }
+        //}
 
 /*создаем форму с кнопками по сортировке собак на виды*/      
       ?>
@@ -62,13 +62,15 @@ require "/libs/up.php";
                 $lit=find_where('animals', $key,'litter');
                 $pup=find_where('animals', $key,'puppy');
                 $pol=find_where('animals', $key,'sex');
+
+                $GLOBALS['Data_dog']=data_animals($key);    //сохраняем данные по собаке
 /*выводим на экран имя собаки как ссылку*/
-                echo '<a href="/name.php?id=' . $key . '">';
+                 echo '<a href="/name.php?id=' . $key . '">';?>
 
-                  $GLOBALS['Data_dog']=data_animals($key);    //сохраняем данные по собаке
-                ?>
+                <img src="<?php echo find_where('animals',$key,'url');?>" width="10%"></a>
 
-                <img src="<?php echo bdika_age_ret_pic($GLOBALS['Data_dog']);?>" width="10%" float="left"></a>
+
+                            
                 <div><?php   //  вывод на экран количество вязок и щенков
                         echo 'имя: ' . $value;
                         echo '<br> пол : ' . $pol;
@@ -93,7 +95,7 @@ require "/libs/up.php";
             [':owner' => $owner]);  
 /*картинка сук*/
             ?>
-            <p class="right"><img src = "/pic/female.png" alt = "девочки" width="10%">   <?php
+            <p class="right"><img src = "/pic/female.png" alt = "девочки" width="10%"></p>   <?php
         
            foreach($array as $item) {
               foreach ($item as $key => $value) {
@@ -103,24 +105,26 @@ require "/libs/up.php";
                 //$tip=find_where('animals', $key,'hr');
                 $lit=find_where('animals', $key,'litter');
                 $pup=find_where('animals', $key,'puppy');
-/*выводим имена сук как ссылки на страничку собаки*/
-                echo '<a href="/name.php?id=' . $key . '">'; 
                 $GLOBALS['Data_dog']=data_animals($key);    //сохраняем данные по собаке
+/*выводим имена сук как ссылки на страничку собаки*/
+                ?>
+                <p class="right"><?php
+                echo '<a href="/name.php?id=' . $key . '">';?>
 
-            ?>
-<!-- выводим картинку собаки -->
-  
-                <img src="<?php echo bdika_age_ret_pic($GLOBALS['Data_dog']);?>" width="10%"> </a>
-                <div>  <?php //вывод на экран количесва вязок и щенков у сук
-                        echo 'имя: ' . $value;
+                <img src="<?php echo find_where('animals',$key,'url');?>" width="10%"></a>
+                
+                    <?php //вывод на экран количесва вязок и щенков у сук
+                        echo '<br>имя: ' . $value;
                         //echo '<br> тип : ' . $tip;
                         echo '<a href="/lit&pup.php?id=' . $key . '">' . "<br> вязки/дети: ". $lit .'/'. $pup;  ?>
                     
-                 </div><?php
+                 
+                 </p>
+                 <?php
                 }   //foreach ($item as $key => $value)
               echo "<br />"; 
             }   //foreach($array as $item)
-            ?></p><?php
+            ?><?php
           }   //if( isset($_POST['female']) )
 
 
@@ -143,14 +147,12 @@ require "/libs/up.php";
                      // $tip=find_where('animals', $key,'hr');
                       $lit=find_where('animals', $key,'litter');
                       $pup=find_where('animals', $key,'puppy');
-
-/*выводим имена кобелей как ссылки на страничку собаки*/
-                      echo '<a href="/name.php?id=' . $key . '">'; 
                       $GLOBALS['Data_dog']=data_animals($key);    //сохраняем данные по собаке
 
-                     ?>
+/*выводим имена кобелей как ссылки на страничку собаки*/
+                      echo '<a href="/name.php?id=' . $key . '">';?>
 
-                      <img src="<?php echo bdika_age_ret_pic($GLOBALS['Data_dog']);?>" width="10%"> </a>
+                <img src="<?php echo find_where('animals',$key,'url');?>" width="10%" float="left"></a> 
                  <div>
                       <?php echo 'имя: ' . $value;
                            // echo '<br> тип : ' . $tip;

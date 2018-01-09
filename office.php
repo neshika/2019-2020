@@ -43,9 +43,9 @@ require "db.php";
 
 					} 
 
-					if ( find_where('users', $id,'f_time') == $now ) {
+					if ( find_where('users', $id,'l_time') == $now ) {
 						
-						echo 'Сегодня созданы две собаки!<br>';
+						echo 'Чудо свершилось! рождены: <br>';
 
 						//$count = R::count( 'animals', 'owner = :owner && status = 1',[':owner' => $owner]);
 
@@ -55,12 +55,12 @@ require "db.php";
         				//debug($array);
         				         foreach($array as $item) {
               					foreach ($item as $key => $value) {
-              						if ( 'Без имени'==find_where('animals', $key,'name') ){
+              						if ( ('Без имени'==find_where('animals', $key,'name')) || (''==find_where('animals', $key,'name')) ){
               							echo '<br>необходимо дать имя новой собаке: ';
               							echo '<a href="/name.php?id=' . $key . '">';?>
               						
 
-               							<img src="<?php echo from_id_to_url($key);?>" width="5%" float="left"></a><?php
+               							<img src="<?php echo find_where('animals',$key,'url');?>" width="5%" float="left"></a><?php
                						}
               					}
               					

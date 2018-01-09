@@ -23,7 +23,8 @@ $id_dog= $_SESSION['Dog'];// выгружаем из памяти id собак�
 /***************************   рисуем собаку и ее характеристики*********************/
 ?>
 <div style="background: white; text-align: center; height: 350px; width: 350px; margin-left: 180px;">
-    <img src="<?php echo from_id_to_url($id_dog);?>">
+    <?php dog_pic($id_dog);?>
+   
 </div>
     <details>
         <summary> 
@@ -74,7 +75,7 @@ $id_dog= $_SESSION['Dog'];// выгружаем из памяти id собак�
                                 <label for="radio4">Вяжем</label>
                       
                           </div>
-                          <img src="<?php echo from_id_to_url($key);?>" width="100%" >
+                          <img src="<?php echo find_where('animals',$key,'url');?>" width="100%" >
                         
                     
                       </div>
