@@ -35,11 +35,15 @@ buying($owner,5000);
 
       $data_dna=do_dna($id_new);
       echo '<br>' . $data_dna;
-      $url=do_url($data_dna);
-      echo '<br>' . $url;
+      if(FALSE==bdika_url_mum_dad($id_new)){  //проверяем если мать и отец одинаковые, то url берем у матери
+        $url=do_url($data_dna);
+        echo '<br>' . $url;
+      }
       insert_url($id_new,$url);
       echo '<br>$dog_pic';
       dog_pic($id_new);
+      echo 'вносим ссылку на картинку щенка';
+      insert_url_puppy($id_new);
 
     
      /***************функция по получению стат в зависимости от отца и матери************/

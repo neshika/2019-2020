@@ -16,6 +16,7 @@ require "includes/functions.php";
 
 echo "Тестируем: <br>";
 
+$id=7;
 
 
  require '/libs/down.php';

@@ -886,7 +886,7 @@ function insert_url_puppy($dog_id){
 
     $dna=$Hr . $W . $F . $B . $T . $M;
 
-       return $dna;  
+    return $dna;  
 /*  индексы в data_dna  hr0w0f1b0t0m1
 [2] - 1пух/0гол  -hr0
 [4] - 1белый/0нет-wo 
@@ -897,10 +897,25 @@ function insert_url_puppy($dog_id){
 */
 
  }
-                                                      
+/*      проверка если URL мамы = URL папы, т.е. собаки идентичные */
+function bdika_url_mum_dad($id){
+  $id_mum=find_where('animals',$id,'mum');
+  $id_dad=find_where('animals',$id,'dad');
+  $url_mum=find_where('animals',$id_mum,'url');
+  $url_dad=find_where('animals',$id_dad,'url');
+  echo '$url_mum ' . $url_mum . '<br>';
+  echo '$url_dad ' . $url_dad;
+  if($url_mum==$url_dad){     //если равны, то сразу вставляем данные
+    insert_data('animals',$id,'url',$url_mum);
+  }
+  else
+    return false;
+
+}                                                      
 
  /*Функция ссылку на картинку  собаки,     pici/hrhr/hr0w0f1b0t0m1_01.png   */
 Function do_url($data_dna){
+  
     $num=Rand(1,5);  //количество варианций окраса собаки
 
       if(1 == $data_dna[2]){  //если собака голая
@@ -948,6 +963,7 @@ Function do_url($data_dna){
           $url="pici/hrhr/" . $data_dna . '_01.png';
 
       }
+
 
 
     return $url;  //получаем $URL
