@@ -41,32 +41,33 @@ require "db.php";
 					insert_data('animals',$_SESSION['id_new'],'name',$_POST['comment']);
 					  //  insert_name($_SESSION['id_new'],$_POST['comment']);
 
-					} 
+					 
 
-					if ( find_where('users', $id,'l_time') == $now ) {
-						
-						echo 'Чудо свершилось! рождены: <br>';
-
-						//$count = R::count( 'animals', 'owner = :owner && status = 1',[':owner' => $owner]);
-
-						
-        				
-        				$array[] = R::getAssoc('SELECT id FROM animals WHERE owner = :owner && status = 1' ,[':owner' => $_SESSION['logged_user']->login]);
-        				//debug($array);
-        				         foreach($array as $item) {
-              					foreach ($item as $key => $value) {
-              						if ( ('Без имени'==find_where('animals', $key,'name')) || (''==find_where('animals', $key,'name')) ){
-              							echo '<br>необходимо дать имя новой собаке: ';
-              							echo '<a href="/name.php?id=' . $key . '">';?>
+              					if ( find_where('users', $id,'l_time') == $now ) {
               						
+              						echo 'Чудо свершилось! рождены: <br>';
 
-               							<img src="<?php echo find_where('animals',$key,'url');?>" width="5%" float="left"></a><?php
-               						}
-              					}
-              					
-              			           }
-						
-					}
+              						//$count = R::count( 'animals', 'owner = :owner && status = 1',[':owner' => $owner]);
+
+              						
+                      				
+                      				$array[] = R::getAssoc('SELECT id FROM animals WHERE owner = :owner && status = 1' ,[':owner' => $_SESSION['logged_user']->login]);
+                      				//debug($array);
+                      				         foreach($array as $item) {
+                            					foreach ($item as $key => $value) {
+                            						if ( ('Без имени'==find_where('animals', $key,'name')) || (''==find_where('animals', $key,'name')) ){
+                            							echo '<br>необходимо дать имя новой собаке: ';
+                            							echo '<a href="/name.php?id=' . $key . '">';?>
+                            						
+
+                             							<img src="<?php echo find_where('animals',$key,'url');?>" width="5%" float="left"></a><?php
+                             						}
+                            					}
+                            					
+                            			           }
+              						
+              					} //find_where('users', $id,'l_time') == $now 
+                                          } //isset($_POST['comment'])
 
 
 

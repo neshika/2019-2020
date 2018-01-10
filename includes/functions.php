@@ -81,27 +81,10 @@ function print_item($login,$item_id){
 
 
 
-//***************** В О З Р А С Т  ****************************
-
-
-// Функция проверяет возраст по id собаки и возвращает нужную картинку
-function bdika_age_ret_pic($data_dog){
-
-  if (13>$data_dog['age_id']){   //age_id = 4 (6 мес)  age_id = 9 (15 мес = 1 год 3 мес)
-
-    //echo "<br>Щенок" . $data_dog['id'];
-    //var_dump(from_id_to_url_puppy($data_dog['id']));
-    return from_id_to_url_puppy($data_dog['id']);
-
-  }
-  else{
-    //echo "<br>взрослая";
-    return from_id_to_url($data_dog['id']);
-  }
+//******************************************** В О З Р А С Т  ****************************
 
 
 
-}
 // Функция проверяет возраст по id собаки и разрешает вязку для кобелейц и сук
 function bdika_age_for_breeding($data_dog){
   
@@ -779,65 +762,7 @@ function print_stats_d($id){
             }
 }
 
-//  /*Функция возвращает имя владельца по собаке по ее ID*/
-// function ret_breeder($id){
-// 	$string =  R::getCol( 'SELECT breeder FROM animals WHERE id = :id',
-//         [':id' => $id]); 
-		
-// 	      return $string [0];
-                
-// }
-/*Функция возвращает пол собаки по ее ID*/
-// function ret_sex($id){
-// 	$string =  R::getCol( 'SELECT sex FROM animals WHERE id = :id',
-//         [':id' => $id]); 
-		
-// 	      return $string [0];
-                
-// }
-// /*Функция возвращает имя собаки по ее ID*/
-// function ret_name($id){
-// 	If (0!=$id){
-// 	$string =  R::getCol( 'SELECT name FROM animals WHERE id = :id',
-//         [':id' => $id]); 
-// 		return $string[0];
-// 	}
-// 	else return 'не извесно';
-                
-// }
-// /*Функция возвращает название питомника собаки по ее ID*/
-// function ret_ken($id){
-// 	$string =  R::getCol( 'SELECT kennel FROM animals WHERE id = :id',
-//         [':id' => $id]); 
-		
-// 	      return $string [0];
-                
-// }
-// /*Функция возвращает дата создания питомника собаки по ее ID*/
-// function ret_birth($id){
-// 	$string =  R::getCol( 'SELECT birth FROM animals WHERE id = :id',
-//         [':id' => $id]); 
-			
-// 	      return $string [0];
-                
-// }
-// /*Функция возвращает маму собаки по ее ID*/
-// function ret_mum($id){
-// 	$string =  R::getCol( 'SELECT mum FROM animals WHERE id = :id',
-//         [':id' => $id]); 
-// 			if(0==$string [0]) return 0;
-// 			else  return (int)$string [0];
-                
-// }
-// /*Функция возвращает папу собаки по ее ID*/
-// function ret_dad($id){
-// 	$string =  R::getCol( 'SELECT dad FROM animals WHERE id = :id',
-//         [':id' => $id]); 
-			
-// 	      if(0==$string [0]) return 0;
-// 			else  return (int)$string [0];
-                
-// }
+
 /*Функция возвращает название картинки в зависимости от пола собаки по ее ID*/
 function ret_pic($id){
 	if('сука'==find_where('animals',$id,'sex'))
@@ -891,13 +816,14 @@ function insert_url_puppy($dog_id){
     //$hr=hrhr;
    // $bb=Bb;
    // $ww=WW;
+       $num=Rand(1,2);  //количество варианций окраса собаки
 
-       echo "<br>hr " . $hr;
-      echo "<br>ww " . $ww;
-      echo "<br>bb " . $bb;
-      echo "<br>ff " . $ff;
-      echo "<br>tt " . $tt;
-      echo "<br>mm " . $mm;
+      // echo "<br>hr " . $hr;
+    //  echo "<br>ww " . $ww;
+     // echo "<br>bb " . $bb;
+    //  echo "<br>ff " . $ff;
+    //  echo "<br>tt " . $tt;
+    //  echo "<br>mm " . $mm;
 
         if('hrhr'==$hr){   //если пух
           if('ww'==$ww && 'mm'==$mm && 'tt'==$tt){   //если не белый без пятен и без крапа
@@ -928,20 +854,10 @@ function insert_url_puppy($dog_id){
           $dna=hr1w1;
         }
 
-       // echo "<br> DNA " . $dna;
-       // return $dna;
+      $url="pici/puppy/" . $dna . '_0' . $num . '.png';
 
 
-     //  echo  $url= R::getRow( 'SELECT * FROM coat WHERE color = :col',
-      // [':col' => $dna]);
-
-       $row = R::getRow( 'SELECT * FROM coat WHERE color = :co',
-       [':co' => $dna]);
-
-      //  var_dump($row['id']);
-
-
-      R::exec( 'UPDATE animals SET url_puppy=:name WHERE id = :id ', array(':name'=> $row['id'], ':id' => $dog_id));
+      R::exec( 'UPDATE animals SET url_puppy=:url WHERE id = :id ', array(':url'=> $url, ':id' => $dog_id));
 
 }
 
@@ -1042,404 +958,27 @@ Function insert_url($id,$url){
 }
  
  function print_pic($id){
-  return find_where('animals',$id,'url');
+
+   $data_dog=R::getRow( 'SELECT * FROM animals WHERE id = :id',
+      [':id' => $id]);
+
+  if (13>$data_dog['age_id']){   //age_id = 4 (6 мес)  age_id = 9 (15 мес = 1 год 3 мес)
+      return find_where('animals',$id,'url_puppy');
+  }
+  else
+     return find_where('animals',$id,'url');
  }
+
 
  /*Функция печатает собаку  */
 
 Function dog_pic($id){
-  $url=print_pic($id);
+ 
+   $url=print_pic($id);
   ?><img src="<?php echo $url;?>"><?php
 }
 
 
- // /*Функция рисует путь до картинки для пухов собак*/
- // function ret_need($array2, $need){
-
- // 		if (strrpos($array2 , $need)){
-
- // 			$anwer="pic/" . $need . "/" . $array2 . ".png";
- // 			return $anwer;
- // 		}
- 		
- 		
- // }
-//   /*Функция вносит в переменную $_POST['url'] путь до картинки*/
-//  function ret_img($array){ //hr_white
-//  		//$array='hr_shoko';
-    
-//     $num=Rand(1,5);
-//    // $num=1;
-//     $coat=$array . '_0' . $num;
-    
-//     echo $coat;
-
-//     $row = R::getRow( 'SELECT * FROM coat WHERE color = :co',
-//        [':co' => $coat]);
-
-//     //var_dump($row['url']);
-//     $_POST['url']=$row['url'];
-
-	
-// }
-
-
-
-
-// /////////////////////////////////////////////////1.пуховки hrhr///////////////////////////////////////////
-
-
-// //1.3 пуховки шоко (шоко/шоко с пятнами)
-// function hr_shoko_ttmm($M){
-// 	if ($M!='mm')	//если пятна
-// 		ret_img('hr_shokoMM');
-// 	else           //без пятен
-// 		ret_img('hr_shoko');
-// }
-// //1.3 пуховки черный (черный/черный с пятнами)
-// function hr_black_ttmm($M){
-// 	if ($M!='mm')	//если пятна
-// 		ret_img('hr_blackMM');
-// 	else           //без пятен
-// 		ret_img('hr_black');
-// }
-
-// function hr_shoko_black($B, $M){
-// 	if ($B=='bb')	//шоко
-// 		hr_shoko_ttmm($M);
-// 	else  //черный
-// 		hr_black_ttmm($M);
-// }
-// //1.2 пуховки рыжий (рыжий/рыжий с пятнами)
-// function hr_orange_ttmm($M){
-// 	if ($M!='mm')	//если пятна
-// 		ret_img('hr_orangeMM');
-// 	else           //без пятен
-// 		ret_img('hr_orange');
-// }
-
-// function orange($F,$B,$M){
-// 	if ($F!='ff')
-// 		hr_orange_ttmm($M);
-// 	else 
-// 		hr_shoko_black($B, $M);
-
-
-// }
-
-// //1.1 пуховки белый (шоко/черный)
-// function hr_white_ttmm($B){	
-// 	if ($B=='bb')	//шоко
-// 		ret_img('hr_white_sh');
-// 	else 			//черный
-// 		ret_img('hr_white_bl');
-// }
-
-
-// /////////////////////////////////////////////////2.голые Hrhr///////////////////////////////////////////
-
-// //1.1 голый белый (шоко/черный)
-// function white_ttmm($B,$T,$M){	
-// 	if(($T=="tt") && ($M=="mm")){
-//       if($B == "bb")
-//         ret_img('white_sh');
-//       if(($B == "BB") || ($B == "Bb"))
-//         ret_img('white_bl');
-			
-// 		}
-// 		elseif (($T=="tt") && ($M!="mm")){
-// 			if($B == "bb")
-// 				ret_img('shokoMM');
-// 			if(($B == "BB") || ($B == "Bb"))
-// 				ret_img('blackMM');
-// 		}
-// 		elseif (($T!="tt") && ($M=="mm")){
-// 			if($B == "bb") 
-// 				ret_img('shokoTT');
-// 			if(($B == "BB") || ($B == "Bb"))
-// 				ret_img('blackTT');
-// 		}
-// 		else{
-// 			if($B == "bb") 
-// 				ret_img('shokoTM');
-// 			if(($B == "BB") || ($B == "Bb"))
-// 				ret_img('blackTM');
-// 		}
-// }
-// //1.2 пуховки рыжий (рыжий/рыжий с пятнами)
-// function orange_ttmm($M){
-// 	if ($M!='mm')	//если пятна
-// 		ret_img('orangeMM');
-// 	else           //без пятен
-// 		ret_img('orange');
-// }
-// //1.3 пуховки шоко (шоко/шоко с пятнами)
-// function shoko_ttmm(){
-// 	ret_img('shoko');
-// }
-// //1.3 пуховки черный (черный/черный с пятнами)
-// function black_ttmm(){
-// 	ret_img('black');
-// }
-
-
-// //проверка голой=======================================================
-// function f_gol($W,$F,$B,$T,$M){
-// 	if ($W=='ww'){	// если не белый цвет
-// 		if ($F=='ff'){	//если не рыжий
-// 			if ($B=='bb'){	//шоко
-// 				shoko_ttmm();
-// 			}
-// 			if (($B == 'Bb') || ($B == 'BB')){ //черный
-// 				black_ttmm();
-//         echo 'black_ttmm';
-// 			}
-// 		}
-					
-// 		else{
-// 			orange_ttmm($M);
-// 		}
-// 	}
-				
-// 	else{
-// 		//белая
-// 		white_ttmm($B,$T,$M);
-// 	}
-// }
-
-
-// //проверка пуха===============================================================
-// function f_pooh($W,$F,$B,$T,$M){
-		
-// 	if($W=='ww')
-// 		orange($F,$B,$M);
-	
-// 	else
-// 		hr_white_ttmm($B);
-
-// }
-
-// // проверка голая или пух===========================================
-// function f_get_image($Hr,$W,$F,$B,$T,$M){
-// 	//echo 'f_get_image($Hr,$W,$F,$B,$T,$M);';
-	
-// 		if ($Hr=="hrhr") // если пух
-// 			f_pooh($W,$F,$B,$T,$M);
-// 		else 
-// 			f_gol($W,$F,$B,$T,$M);
-			
-// }
-
-
-
-
-// function TT_MM_B_HR1($B,$T,$M){
-//   if('b0'==$B){
-//     if( ('t1'==$T) && ('m1'==$M) ){
-//        echo ' hr1w0f0b0t1m1 шоко c пятнами и крапом';
-//         return ret_url_from_dna('hr1w0f0b0t1m1');
-//     }
-//     if( ('t0'==$T) && ('m1'==$M) ){
-//       echo ' hr1w0f0b0t1m1 шоко c пятнами';
-//         return ret_url_from_dna('hr1w0f0b0t0m1');
-//     }
-//     if( ('t1'==$T) && ('m0'==$M) ){
-//       echo ' hr1w0f0b0t1m0 шоко c крапом';
-//         return ret_url_from_dna('hr1w0f0b0t1m0');
-//     }
-//     if( ('t0'==$T) && ('m0'==$M) ){
-//       echo ' hr1w0f0b0t0m0 шоко';
-//         return ret_url_from_dna('hr1w0f0b0t0m0');
-//     }
-//   }
-//   if('b1'==$B){
-//      if( ('t1'==$T) && ('m1'==$M) ){
-//      echo ' hr1w0f0b0t1m1 черный c пятнами и крапом';
-//         return ret_url_from_dna('hr1w0f0b1t1m1');
-//     }
-//     if( ('t0'==$T) && ('m1'==$M) ){
-//       echo ' hr1w0f0b0t1m1 черный c пятнами';
-//       return ret_url_from_dna('hr1w0f0b1t0m1');
-//     }
-//     if( ('t1'==$T) && ('m0'==$M) ){
-//     echo ' hr1w0f0b0t0m0 черный c крапом';
-//       return ret_url_from_dna('hr1w0f0b1t1m0');
-//     }
-//     if( ('t0'==$T) && ('m0'==$M) ){
-//      echo ' hr1w0f0b0t0m0 черный';
-//       return ret_url_from_dna('hr1w0f0b1t0m0');
-//     }
-//   }
-
-// }//end function TT_MM_B_HR0($B,$T,$M){
-
-// функция пишет в строку hr1w0f0b1t0m0
-// function do_dna($Hr,$W,$F,$B,$T,$M){
-//    ('hrhr'==$Hr ? $Hr='hr1' : $Hr='hr0');
-//     ('ww'==$W ? $W='w0' : $W='w1');
-//     ('ff'==$F ? $F='f0' : $F='f1');
-//     ('bb'==$B ? $B='b0' : $B='b1');
-//     ('tt'==$T ? $T='t0' : $T='t1');
-//     ('mm'==$M ? $M='m0' : $M='m1');
-
-//     $dna=$Hr . $W . $F . $B . $T . $M;
-
-//        return $dna;
-// }
-
-// function ret_id_from_url($url){
-
-//  $string =R::getCol('SELECT id FROM coat WHERE url = :url',
-//         [':url' => $url]);
-
-//    return $string[0];
-
-// }
-// function ret_url_from_dna($dna){ //color = hr0w0f0b1m1 = $dna
-//   $array = R::getAssoc ('SELECT * FROM coat WHERE color =:co', array(':co'=> $dna));
-//  //debug($array);
-//   $id=array_rand($array);//выбирает рандомное значение из массива
-    
-//     return find_where('coat',$id,'url');
-// }
-// //end  function ret_id_from_dna($dna){
-
-// function from_id_to_url($id){  //получаем ссылку на картинку в зависимости от номер URL(animals')
-//                 $url_id=find_where('animals',$id,'url');
-//                 $url_pic=find_where('coat',$url_id,'url');
-//                 return $url_pic;
-// }
-
-// function from_id_to_url_puppy($id){  //получаем ссылку на картинку ЩЕНКА в зависимости от номер URL(animals')
-//                $url_id=find_where('animals',$id,'url_puppy');
-//                $url_pic=find_where('coat',$url_id,'url');
-//                 return $url_pic;
-// }
-
-// function  bdika_color($Hr,$W,$F,$B,$T,$M){ //возвращает url /pic/clear/white_sh_03.png
-//     // $Hr='hrhr';   //голая
-//     // $Hr='Hrhr';   //пух
-//     // $W='WW';
-//     // $F='FF';
-//     // $B='bB';
-//     // $T='tt';
-//     // $M='mm';
-    
-//     ('Hrhr'==$Hr ? $Hr='hr1' : $Hr='hr0');  //hr1 - голая    hr0 - пух
-//     ('ww'==$W ? $W='w0' : $W='w1');
-//     ('ff'==$F ? $F='f0' : $F='f1');
-//     ('bb'==$B ? $B='b0' : $B='b1');
-//     ('tt'==$T ? $T='t0' : $T='t1');
-//     ('mm'==$M ? $M='m0' : $M='m1');
-
-//   if('hr1'==$Hr){   //голая
-//    // echo 'голая';
-//     if('w0'==$W){
-//          // echo ' не белая';
-//       if('f0'==$F){
-//           //echo ' не рыжая';
-//         if('b0'==$B)    //шоколад
-//           $my_dog=TT_MM_B_HR1($B,$T,$M);
-
-//         if('b1'==$B)    //черная
-//           $my_dog=TT_MM_B_HR1($B,$T,$M);
-
-//       }
-//       if('f1'==$F){ //рыжая
-//         if('m1'==$M){ //с пятнами
-//          echo ' hr1w0f1t0m0 рыжая c пятнами';
-//           $my_dog=ret_url_from_dna('hr1w0f1t0m1');
-//         }
-//           if('m0'==$M){ //без пятен
-//           echo ' hr1w0f1t0m0 рыжая';
-//             $my_dog=ret_url_from_dna('hr1w0f1t0m0');
-//           }
-//       }
-
-//       }
-//         if('w1'==$W){ //белая
-//           if('b0'==$B){ //шоко белая
-//       echo ' hr1w0b0t0m0 белая/шоко';
-//        // $my_dog=ret_url_from_dna('hr1w0b0t0m0');
-//       $my_dog=ret_url_from_dna('hr1w1b0t0m0');
-//       }
-//       if('b1'==$B){ //черно/белая
-//        echo ' hr1w0b1t0m0 белая/черный';
-//         //$my_dog=ret_url_from_dna('hr1w0b1t0m0');
-//        $my_dog=ret_url_from_dna('hr1w1b1t0m0');
-//       }
-//     }
-//   }
-
-
-//   if('hr0'==$Hr){   //пух
-//     // echo 'пух';
-  
-//     if('w0'==$W){
-//         //не белая
-//       if('f0'==$F){
-//           //не рыжая
-//         if('b0'==$B){
-//           //шоко
-//           if('m1'==$M){
-//            echo 'hr0w0f0b0m1 шоколад с пятнами';
-//             $my_dog=ret_url_from_dna('hr0w0f0b0m1');
-//           }
-//           if('m0'==$M){
-//            echo 'hr0w0f0b0m0 шоко';
-//             $my_dog=ret_url_from_dna('hr0w0f0b0m0');
-//           }
-//         }
-//         if('b1'==$B){
-//           //черный
-//             if('m1'==$M){
-//            echo 'hr0w0f0b1m1 черный с пятнами';
-//             $my_dog=ret_url_from_dna('hr0w0f0b1m1');
-//             }
-//           if('m0'==$M){
-//           echo 'hr0w0f0b1m0 черныq';
-//             $my_dog=ret_url_from_dna('hr0w0f0b1m0');
-//           }
-
-//         }
-//       }
-
-//       elseif('f1'==$F){
-//         if('m1'==$M){
-//             echo 'hr0w0f1m1 рыжий с пятнами';
-//             $my_dog=ret_url_from_dna('hr0w0f1m1');
-//         }
-//         if('m0'==$M){
-//             echo 'hr0w0f1m0 рыжий';
-//             $my_dog=ret_url_from_dna('hr0w0f1m0');
-
-//         }
-//       }
-
-//     }
-//     elseif('w1'==$W){
-//       if('b0'==$B){
-//          echo 'hr0w1b0 белая/шоко';
-//           $my_dog=ret_url_from_dna('hr0w1b0');
-//       }
-//       if('b1'==$B){
-//          echo 'hr0w1b1 белая/черный';
-//           $my_dog=ret_url_from_dna('hr0w1b1');
-//       }
-//     }
-
-//   }
-//   //var_dump($my_dog);
-//   return $my_dog;
-// } //end function bdika_color
-
-
-
-
-///////////////////////////////////////////////////////////////////////////////////////////
-?>
-
-<?php
 function breedding($on,$ona,$temp, $temp2,$temp3){
 //$on="TT";
 //$ona="Tt";
@@ -1956,6 +1495,11 @@ $dogs->sex=$pol;
 
 $dogs->status='1';
 
+echo '<br>создаем удачу!';
+$lucky=Rand(1,100);
+
+$dogs->lucky=$lucky;
+
 
 
 
@@ -2038,10 +1582,7 @@ $dogs->hr=$hr_new;
 
 
 //$dogs->url_id=ret_id_from_url($url);
-echo '<br>создаем удачу!';
-$lucky=Rand(1,100);
 
-$dogs->lucky=$lucky;
 $id = R::store( $dogs );
 
 $id=$id_temp;
@@ -2284,3 +1825,448 @@ function new_stats($id_m,$id_d,$id_new){
 
 /******************************************конец функций по изменению стат******************************/
 
+//  /*Функция возвращает имя владельца по собаке по ее ID*/
+// function ret_breeder($id){
+//  $string =  R::getCol( 'SELECT breeder FROM animals WHERE id = :id',
+//         [':id' => $id]); 
+    
+//        return $string [0];
+                
+// }
+/*Функция возвращает пол собаки по ее ID*/
+// function ret_sex($id){
+//  $string =  R::getCol( 'SELECT sex FROM animals WHERE id = :id',
+//         [':id' => $id]); 
+    
+//        return $string [0];
+                
+// }
+// /*Функция возвращает имя собаки по ее ID*/
+// function ret_name($id){
+//  If (0!=$id){
+//  $string =  R::getCol( 'SELECT name FROM animals WHERE id = :id',
+//         [':id' => $id]); 
+//    return $string[0];
+//  }
+//  else return 'не извесно';
+                
+// }
+// /*Функция возвращает название питомника собаки по ее ID*/
+// function ret_ken($id){
+//  $string =  R::getCol( 'SELECT kennel FROM animals WHERE id = :id',
+//         [':id' => $id]); 
+    
+//        return $string [0];
+                
+// }
+// /*Функция возвращает дата создания питомника собаки по ее ID*/
+// function ret_birth($id){
+//  $string =  R::getCol( 'SELECT birth FROM animals WHERE id = :id',
+//         [':id' => $id]); 
+      
+//        return $string [0];
+                
+// }
+// /*Функция возвращает маму собаки по ее ID*/
+// function ret_mum($id){
+//  $string =  R::getCol( 'SELECT mum FROM animals WHERE id = :id',
+//         [':id' => $id]); 
+//      if(0==$string [0]) return 0;
+//      else  return (int)$string [0];
+                
+// }
+// /*Функция возвращает папу собаки по ее ID*/
+// function ret_dad($id){
+//  $string =  R::getCol( 'SELECT dad FROM animals WHERE id = :id',
+//         [':id' => $id]); 
+      
+//        if(0==$string [0]) return 0;
+//      else  return (int)$string [0];
+                
+// }
+
+ // /*Функция рисует путь до картинки для пухов собак*/
+ // function ret_need($array2, $need){
+
+ //     if (strrpos($array2 , $need)){
+
+ //       $anwer="pic/" . $need . "/" . $array2 . ".png";
+ //       return $anwer;
+ //     }
+    
+    
+ // }
+//   /*Функция вносит в переменную $_POST['url'] путь до картинки*/
+//  function ret_img($array){ //hr_white
+//      //$array='hr_shoko';
+    
+//     $num=Rand(1,5);
+//    // $num=1;
+//     $coat=$array . '_0' . $num;
+    
+//     echo $coat;
+
+//     $row = R::getRow( 'SELECT * FROM coat WHERE color = :co',
+//        [':co' => $coat]);
+
+//     //var_dump($row['url']);
+//     $_POST['url']=$row['url'];
+
+  
+// }
+
+
+
+
+// /////////////////////////////////////////////////1.пуховки hrhr///////////////////////////////////////////
+
+
+// //1.3 пуховки шоко (шоко/шоко с пятнами)
+// function hr_shoko_ttmm($M){
+//  if ($M!='mm') //если пятна
+//    ret_img('hr_shokoMM');
+//  else           //без пятен
+//    ret_img('hr_shoko');
+// }
+// //1.3 пуховки черный (черный/черный с пятнами)
+// function hr_black_ttmm($M){
+//  if ($M!='mm') //если пятна
+//    ret_img('hr_blackMM');
+//  else           //без пятен
+//    ret_img('hr_black');
+// }
+
+// function hr_shoko_black($B, $M){
+//  if ($B=='bb') //шоко
+//    hr_shoko_ttmm($M);
+//  else  //черный
+//    hr_black_ttmm($M);
+// }
+// //1.2 пуховки рыжий (рыжий/рыжий с пятнами)
+// function hr_orange_ttmm($M){
+//  if ($M!='mm') //если пятна
+//    ret_img('hr_orangeMM');
+//  else           //без пятен
+//    ret_img('hr_orange');
+// }
+
+// function orange($F,$B,$M){
+//  if ($F!='ff')
+//    hr_orange_ttmm($M);
+//  else 
+//    hr_shoko_black($B, $M);
+
+
+// }
+
+// //1.1 пуховки белый (шоко/черный)
+// function hr_white_ttmm($B){  
+//  if ($B=='bb') //шоко
+//    ret_img('hr_white_sh');
+//  else      //черный
+//    ret_img('hr_white_bl');
+// }
+
+
+// /////////////////////////////////////////////////2.голые Hrhr///////////////////////////////////////////
+
+// //1.1 голый белый (шоко/черный)
+// function white_ttmm($B,$T,$M){ 
+//  if(($T=="tt") && ($M=="mm")){
+//       if($B == "bb")
+//         ret_img('white_sh');
+//       if(($B == "BB") || ($B == "Bb"))
+//         ret_img('white_bl');
+      
+//    }
+//    elseif (($T=="tt") && ($M!="mm")){
+//      if($B == "bb")
+//        ret_img('shokoMM');
+//      if(($B == "BB") || ($B == "Bb"))
+//        ret_img('blackMM');
+//    }
+//    elseif (($T!="tt") && ($M=="mm")){
+//      if($B == "bb") 
+//        ret_img('shokoTT');
+//      if(($B == "BB") || ($B == "Bb"))
+//        ret_img('blackTT');
+//    }
+//    else{
+//      if($B == "bb") 
+//        ret_img('shokoTM');
+//      if(($B == "BB") || ($B == "Bb"))
+//        ret_img('blackTM');
+//    }
+// }
+// //1.2 пуховки рыжий (рыжий/рыжий с пятнами)
+// function orange_ttmm($M){
+//  if ($M!='mm') //если пятна
+//    ret_img('orangeMM');
+//  else           //без пятен
+//    ret_img('orange');
+// }
+// //1.3 пуховки шоко (шоко/шоко с пятнами)
+// function shoko_ttmm(){
+//  ret_img('shoko');
+// }
+// //1.3 пуховки черный (черный/черный с пятнами)
+// function black_ttmm(){
+//  ret_img('black');
+// }
+
+
+// //проверка голой=======================================================
+// function f_gol($W,$F,$B,$T,$M){
+//  if ($W=='ww'){  // если не белый цвет
+//    if ($F=='ff'){  //если не рыжий
+//      if ($B=='bb'){  //шоко
+//        shoko_ttmm();
+//      }
+//      if (($B == 'Bb') || ($B == 'BB')){ //черный
+//        black_ttmm();
+//         echo 'black_ttmm';
+//      }
+//    }
+          
+//    else{
+//      orange_ttmm($M);
+//    }
+//  }
+        
+//  else{
+//    //белая
+//    white_ttmm($B,$T,$M);
+//  }
+// }
+
+
+// //проверка пуха===============================================================
+// function f_pooh($W,$F,$B,$T,$M){
+    
+//  if($W=='ww')
+//    orange($F,$B,$M);
+  
+//  else
+//    hr_white_ttmm($B);
+
+// }
+
+// // проверка голая или пух===========================================
+// function f_get_image($Hr,$W,$F,$B,$T,$M){
+//  //echo 'f_get_image($Hr,$W,$F,$B,$T,$M);';
+  
+//    if ($Hr=="hrhr") // если пух
+//      f_pooh($W,$F,$B,$T,$M);
+//    else 
+//      f_gol($W,$F,$B,$T,$M);
+      
+// }
+
+
+
+
+// function TT_MM_B_HR1($B,$T,$M){
+//   if('b0'==$B){
+//     if( ('t1'==$T) && ('m1'==$M) ){
+//        echo ' hr1w0f0b0t1m1 шоко c пятнами и крапом';
+//         return ret_url_from_dna('hr1w0f0b0t1m1');
+//     }
+//     if( ('t0'==$T) && ('m1'==$M) ){
+//       echo ' hr1w0f0b0t1m1 шоко c пятнами';
+//         return ret_url_from_dna('hr1w0f0b0t0m1');
+//     }
+//     if( ('t1'==$T) && ('m0'==$M) ){
+//       echo ' hr1w0f0b0t1m0 шоко c крапом';
+//         return ret_url_from_dna('hr1w0f0b0t1m0');
+//     }
+//     if( ('t0'==$T) && ('m0'==$M) ){
+//       echo ' hr1w0f0b0t0m0 шоко';
+//         return ret_url_from_dna('hr1w0f0b0t0m0');
+//     }
+//   }
+//   if('b1'==$B){
+//      if( ('t1'==$T) && ('m1'==$M) ){
+//      echo ' hr1w0f0b0t1m1 черный c пятнами и крапом';
+//         return ret_url_from_dna('hr1w0f0b1t1m1');
+//     }
+//     if( ('t0'==$T) && ('m1'==$M) ){
+//       echo ' hr1w0f0b0t1m1 черный c пятнами';
+//       return ret_url_from_dna('hr1w0f0b1t0m1');
+//     }
+//     if( ('t1'==$T) && ('m0'==$M) ){
+//     echo ' hr1w0f0b0t0m0 черный c крапом';
+//       return ret_url_from_dna('hr1w0f0b1t1m0');
+//     }
+//     if( ('t0'==$T) && ('m0'==$M) ){
+//      echo ' hr1w0f0b0t0m0 черный';
+//       return ret_url_from_dna('hr1w0f0b1t0m0');
+//     }
+//   }
+
+// }//end function TT_MM_B_HR0($B,$T,$M){
+
+// функция пишет в строку hr1w0f0b1t0m0
+// function do_dna($Hr,$W,$F,$B,$T,$M){
+//    ('hrhr'==$Hr ? $Hr='hr1' : $Hr='hr0');
+//     ('ww'==$W ? $W='w0' : $W='w1');
+//     ('ff'==$F ? $F='f0' : $F='f1');
+//     ('bb'==$B ? $B='b0' : $B='b1');
+//     ('tt'==$T ? $T='t0' : $T='t1');
+//     ('mm'==$M ? $M='m0' : $M='m1');
+
+//     $dna=$Hr . $W . $F . $B . $T . $M;
+
+//        return $dna;
+// }
+
+// function ret_id_from_url($url){
+
+//  $string =R::getCol('SELECT id FROM coat WHERE url = :url',
+//         [':url' => $url]);
+
+//    return $string[0];
+
+// }
+// function ret_url_from_dna($dna){ //color = hr0w0f0b1m1 = $dna
+//   $array = R::getAssoc ('SELECT * FROM coat WHERE color =:co', array(':co'=> $dna));
+//  //debug($array);
+//   $id=array_rand($array);//выбирает рандомное значение из массива
+    
+//     return find_where('coat',$id,'url');
+// }
+// //end  function ret_id_from_dna($dna){
+
+// function from_id_to_url($id){  //получаем ссылку на картинку в зависимости от номер URL(animals')
+//                 $url_id=find_where('animals',$id,'url');
+//                 $url_pic=find_where('coat',$url_id,'url');
+//                 return $url_pic;
+// }
+
+
+
+// function  bdika_color($Hr,$W,$F,$B,$T,$M){ //возвращает url /pic/clear/white_sh_03.png
+//     // $Hr='hrhr';   //голая
+//     // $Hr='Hrhr';   //пух
+//     // $W='WW';
+//     // $F='FF';
+//     // $B='bB';
+//     // $T='tt';
+//     // $M='mm';
+    
+//     ('Hrhr'==$Hr ? $Hr='hr1' : $Hr='hr0');  //hr1 - голая    hr0 - пух
+//     ('ww'==$W ? $W='w0' : $W='w1');
+//     ('ff'==$F ? $F='f0' : $F='f1');
+//     ('bb'==$B ? $B='b0' : $B='b1');
+//     ('tt'==$T ? $T='t0' : $T='t1');
+//     ('mm'==$M ? $M='m0' : $M='m1');
+
+//   if('hr1'==$Hr){   //голая
+//    // echo 'голая';
+//     if('w0'==$W){
+//          // echo ' не белая';
+//       if('f0'==$F){
+//           //echo ' не рыжая';
+//         if('b0'==$B)    //шоколад
+//           $my_dog=TT_MM_B_HR1($B,$T,$M);
+
+//         if('b1'==$B)    //черная
+//           $my_dog=TT_MM_B_HR1($B,$T,$M);
+
+//       }
+//       if('f1'==$F){ //рыжая
+//         if('m1'==$M){ //с пятнами
+//          echo ' hr1w0f1t0m0 рыжая c пятнами';
+//           $my_dog=ret_url_from_dna('hr1w0f1t0m1');
+//         }
+//           if('m0'==$M){ //без пятен
+//           echo ' hr1w0f1t0m0 рыжая';
+//             $my_dog=ret_url_from_dna('hr1w0f1t0m0');
+//           }
+//       }
+
+//       }
+//         if('w1'==$W){ //белая
+//           if('b0'==$B){ //шоко белая
+//       echo ' hr1w0b0t0m0 белая/шоко';
+//        // $my_dog=ret_url_from_dna('hr1w0b0t0m0');
+//       $my_dog=ret_url_from_dna('hr1w1b0t0m0');
+//       }
+//       if('b1'==$B){ //черно/белая
+//        echo ' hr1w0b1t0m0 белая/черный';
+//         //$my_dog=ret_url_from_dna('hr1w0b1t0m0');
+//        $my_dog=ret_url_from_dna('hr1w1b1t0m0');
+//       }
+//     }
+//   }
+
+
+//   if('hr0'==$Hr){   //пух
+//     // echo 'пух';
+  
+//     if('w0'==$W){
+//         //не белая
+//       if('f0'==$F){
+//           //не рыжая
+//         if('b0'==$B){
+//           //шоко
+//           if('m1'==$M){
+//            echo 'hr0w0f0b0m1 шоколад с пятнами';
+//             $my_dog=ret_url_from_dna('hr0w0f0b0m1');
+//           }
+//           if('m0'==$M){
+//            echo 'hr0w0f0b0m0 шоко';
+//             $my_dog=ret_url_from_dna('hr0w0f0b0m0');
+//           }
+//         }
+//         if('b1'==$B){
+//           //черный
+//             if('m1'==$M){
+//            echo 'hr0w0f0b1m1 черный с пятнами';
+//             $my_dog=ret_url_from_dna('hr0w0f0b1m1');
+//             }
+//           if('m0'==$M){
+//           echo 'hr0w0f0b1m0 черныq';
+//             $my_dog=ret_url_from_dna('hr0w0f0b1m0');
+//           }
+
+//         }
+//       }
+
+//       elseif('f1'==$F){
+//         if('m1'==$M){
+//             echo 'hr0w0f1m1 рыжий с пятнами';
+//             $my_dog=ret_url_from_dna('hr0w0f1m1');
+//         }
+//         if('m0'==$M){
+//             echo 'hr0w0f1m0 рыжий';
+//             $my_dog=ret_url_from_dna('hr0w0f1m0');
+
+//         }
+//       }
+
+//     }
+//     elseif('w1'==$W){
+//       if('b0'==$B){
+//          echo 'hr0w1b0 белая/шоко';
+//           $my_dog=ret_url_from_dna('hr0w1b0');
+//       }
+//       if('b1'==$B){
+//          echo 'hr0w1b1 белая/черный';
+//           $my_dog=ret_url_from_dna('hr0w1b1');
+//       }
+//     }
+
+//   }
+//   //var_dump($my_dog);
+//   return $my_dog;
+// } //end function bdika_color
+
+// function from_id_to_url_puppy($id){  //получаем ссылку на картинку ЩЕНКА в зависимости от номер URL(animals')
+//                $url_id=find_where('animals',$id,'url_puppy');
+//                $url_pic=find_where('coat',$url_id,'url');
+//                 return $url_pic;
+// }
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////

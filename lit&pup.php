@@ -27,11 +27,11 @@ require "/libs/up.php";
   echo '<br>Вязок: ' . $lit;
   echo '<br>Щенков: ' . $pup;
 
-    
+
  ?>
 <p class="dog">
     <div id="mydog"><?php echo find_where('animals', $id,'name');?> 
-    <img src="<?php echo find_where('animals', $id,'url');?>" width="15%"></div>
+    <img src="<?php echo print_pic($id);?>" width="13%"></div>
 </p>
 <p class="dad_mum">
     <div id="dad"><?php echo 'Отец<br>'; echo find_where('animals', $dad,'name'); ?>
