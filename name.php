@@ -14,7 +14,7 @@ require "/libs/up.php";
            //  $_SESSION['hp']=$GLOBALS['Data_dog']['hp'];;
             // $_SESSION['joy']=$GLOBALS['Data_dog']['joy'];
 
-             //debug($_POST);
+             debug($timer);
 
 /*<h1 style="font-size: 120%; font-family: Verdana, Arial, Helvetica, sans-serif; 
   color: #336">Заголовок</h1>*/
@@ -174,7 +174,7 @@ if(!isset($_POST['food'])  ){       // если не нажата кнопка "
 
 }
 echo '<br> ===========  food   ';
-var_dump($_POST['food']);
+//var_dump($_POST['food']);
 
 if(isset($_POST['food'])  ){      //если нажали кнопку "еда"
 
@@ -201,7 +201,7 @@ if(isset($_POST['water'])  ){      //если нажали кнопку "пит�
 
   Deem('water');
   
-  $timer=find_where('animals',1,'now');
+  $timer=find_where('animals',$id,'now');
   $timer=$timer-30;
   giveTime($timer);
 
@@ -219,7 +219,7 @@ if(isset($_POST['comp'])  ){      //если нажали кнопку "чеса
 
   Deem('comp');
   
-  $timer=find_where('animals',1,'now');
+  $timer=find_where('animals',$id,'now');
   $timer=$timer-60;
   giveTime($timer);
 
@@ -236,7 +236,7 @@ if(isset($_POST['walk'])  ){      //если нажали кнопку "гуля
 
   Deem('walk');
 
-  $timer=find_where('animals',1,'now');
+  $timer=find_where('animals',$id,'now');
   $timer=$timer-90;
   giveTime($timer);
 
@@ -253,7 +253,7 @@ if(isset($_POST['sleep'])  ){      //если нажали кнопку "спа�
 
   Deem('sleep');
 
-  $timer=find_where('animals',1,'now');
+  $timer=find_where('animals',$id,'now');
   $timer=$timer-480;
   giveTime($timer);
 
@@ -271,7 +271,7 @@ if(isset($_POST['badd'])  ){      //если нажали кнопку "доба
 
   Deem('badd');
 
-  $timer=find_where('animals',1,'now');
+  $timer=find_where('animals',$id,'now');
   $timer=$timer-90;
   giveTime($timer);
 
@@ -301,7 +301,7 @@ if(isset($_POST['train'])  ){      //если нажали кнопку "тре�
 
   Deem('train');
 
-  $timer=find_where('animals',1,'now');
+  $timer=find_where('animals',$id,'now');
   $timer=$timer-540;
   giveTime($timer);
 
@@ -322,7 +322,7 @@ $_POST['train']=NULL;
 
 
 <!-- ******************** вывод питомника / имя собаки и картинка пола   выводит число счастья *****************-->    
-          <div style="background: white; height: 80px; width: 1170px;"> <h3 align="center"><?php echo $GLOBALS['Data_dog']['name'];?><?php echo ' "' . $GLOBALS['Data_dog']['kennel'] . '" ';?> <?php echo ret_pic($id) . $GLOBALS['Data_dog']['lucky'];?></h3>
+          <div style="background: white; height: 80px; width: 1170px;"> <h3 align="center"><?php echo $GLOBALS['Data_dog']['name'];?><?php echo ' "' . $GLOBALS['Data_dog']['kennel'] . '" ';?> <?php echo ret_pic_sex($id) . $GLOBALS['Data_dog']['lucky'];?></h3>
            </div>
           
 <!-- ******************** вывод доп меню собаки  заводчик / хозяин  *****************-->  
@@ -385,7 +385,7 @@ $_POST['train']=NULL;
 
     <details>
       <summary>Генетический код</summary> 
-          <?php print_all_d($id);  
+          <?php //print_all_d($id);  
                 detalis($id);
 
           ?>
@@ -413,7 +413,7 @@ $_POST['train']=NULL;
 <!-- ******************** вывод Генетического кода собаки  скрытый текст*****************--> 
               <details>
                     <summary>Генетический код</summary> 
-                    <?php print_all_d($id_m); detalis($id_m);?>
+                    <?php /*print_all_d($id_m);*/ detalis($id_m);?>
               </details>
 
 
@@ -443,7 +443,7 @@ $_POST['train']=NULL;
 <!-- ******************** вывод Генетического кода собаки  скрытый текст*****************--> 
             <details>
                   <summary>Генетический код</summary> 
-                  <?php print_all_d($id_d); detalis($id_d);?>
+                  <?php /*print_all_d($id_d);*/ detalis($id_d);?>
             </details>
 
 

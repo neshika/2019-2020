@@ -2,232 +2,161 @@
 
        require "/libs/up.php";
    $owner=ret_owner();
+        //$test1=0;
+        //$test2=0;
+        //$test3=0;
+        //$test4=0;
+
+function vip_buy(){
+   $_SESSION['sex']=f_bdika_sex();
+   $_SESSION['spd']=Rand(9,11);
+   $_SESSION['agl']=Rand(9,11);
+  $_SESSION['tch']=Rand(9,11);
+  $_SESSION['jmp']=Rand(9,11);
+  $_SESSION['nuh']=Rand(9,11);
+  $_SESSION['fnd']=Rand(9,11);
+  $_SESSION['ttl']=($_SESSION['spd']+$_SESSION['agl']+$_SESSION['tch']+$_SESSION['jmp']+$_SESSION['nuh']+$_SESSION['fnd']);
+  $_SESSION['ttl']=number_format ($_SESSION['ttl'] , $decimals = 1 ,$dec_point = "." , $thousands_sep = " " );
+
+     $dna = rand_dog();
+     $_SESSION['url']=do_url($dna);
+     $_SESSION['url_rev'] = strrev($_SESSION['url']);
+     $_SESSION['url_rev'] = str_split($_SESSION['url_rev']);
+     //debug($url_rev);
+     $_SESSION['bb']=$_SESSION['url_rev'][11];
+     $_SESSION['hr']=$_SESSION['url_rev'][17];
+
+    //echo '<br>b= ' . $_SESSION['bb'] . 'hr ' . $_SESSION['hr'];
+       
+       if('сука'==$_SESSION['sex'])
+          $_SESSION['pic_sex']='<img src = "/pic/female_mini.png">';
+      else
+          $_SESSION['pic_sex']='<img src = "/pic/male_mini.png">';
+
+
+        //////////////////// проверка цены ........
+    $_SESSION['cost']=0;
+        if('сука'==$_SESSION['sex']){
+          if(1==$_SESSION['hr']){ //голая
+              if(0==$_SESSION['bb'])//шоко
+                $_SESSION['cost']=75000;
+              else
+                $_SESSION['cost']=45000;
+          }
+          if(0==$_SESSION['hr']){ //пух
+            if(0==$_SESSION['bb'])//шоко
+                $_SESSION['cost']=40000;
+              else
+                $_SESSION['cost']=25000;
+          }
+
+        }
+        if('кобель'==$_SESSION['sex']){
+          if(1==$_SESSION['hr']){ //голый
+              if(0==$_SESSION['bb'])//шоко
+                $_SESSION['cost']=55000;
+              else
+                $_SESSION['cost']=35000;
+          }
+          if(0==$_SESSION['hr']){ //пух
+            if(0==$_SESSION['bb'])//шоко
+                $_SESSION['cost']=35000;
+              else
+                $_SESSION['cost']=10000;
+          }
+        }
+}        
 ?>
 
-<?php
-
-if(!isset($_POST['buy']) ){        //если кнопка не нажата
-
-       $_SESSION['hr']=$Hr=f_rand_col('HrHr','Hrhr','hrhr');
-       $_SESSION['ww']=$W=f_rand_col('WW','Ww','ww');
-       $_SESSION['ff']=$F=f_rand_col('FF','Ff','ff');
-       $_SESSION['bb']=$B=f_rand_col('BB','Bb','bb');
-  
-       $_SESSION['tt']=$T=f_rand_col('TT','Tt','tt');
-       $_SESSION['mm']=$M=f_rand_col('MM','Mm','mm');
-       $_SESSION['aa']=$A=f_rand_col('AA','AA','aa');
-
-      $all= "<br>".$Hr."<br>".$W."<br>".$F."<br>".$B."<br>".$T."<br>".$M;
-   // echo $all;
-   
-//возвращает url собаки, чтобы нарисовать картинку
-      $url=bdika_color ($Hr,$W,$F,$B,$T,$M);
-
-// морем картинки из базы
-     $_SESSION['url_id'] = $url_id=ret_id_from_url($url);
-      $_SESSION['url'] = $url;
-   //   echo 'id ' . $url_id;
-
-     // echo "<br>" . f_bdika_sex();      //дает рандомный пол
-/////////////////////////////////////////////////////////////создает temp собаку в stats
-      $id=1;
-      $dog_id=0; 
-
-
-      
-       $sex=f_bdika_sex();
-      $spd=Rand(9,11);
-      $agl=Rand(9,11);
-      $tch=Rand(9,11);
-      $jmp=Rand(9,11);
-      $nuh=Rand(9,11);
-      $fnd=Rand(9,11);
-      $ttl=($spd+$agl+$tch+$jmp+$nuh+$fnd);
-      $ttl=number_format ($ttl , $decimals = 1 ,$dec_point = "." , $thousands_sep = " " );
-
-      
-      // session_start(); 
-       $_SESSION['sex'] = $sex;
-       $_SESSION['own'] = $owner;
-
-
-echo 'вставляем DNA';
-
-//вставляем DNA
- //     $new = R::dispense('dna');
- //     echo '<br>$new->id' . $new->id;
- //   if (0==($new->id)){
- // // echo '<br> start';
- //    // $new->id = '1';
- //      $new->dog_id = $dog_id;
-       
- //        $new->url_id = $_SESSION['url_id'];
- //        $new->hr = $_SESSION['hr'];
- //        $new->ww = $_SESSION['ww'];
- //        $new->ff = $_SESSION['ff'];
- //        $new->bb = $_SESSION['bb'];
- //        $new->mm = $_SESSION['mm'];
- //        $new->tt = $_SESSION['tt'];
- //        $new->aa = $_SESSION['aa'];
- //        R::store( $new );
- //   }
- //   else{
-     
-       
-   
-   // R::exec( 'UPDATE dna SET id=1');
-     R::exec( 'UPDATE dna SET dog_id=:dog_id WHERE id = :id ', array(':dog_id'=> $dog_id, ':id' => $id));
-     R::exec( 'UPDATE dna SET url_id=:url_id WHERE id = :id ', array(':url_id'=> $_SESSION['url_id'], ':id' => $id));
-     R::exec( 'UPDATE dna SET hr=:hr WHERE id = :id ', array(':hr'=> $_SESSION['hr'], ':id' => $id));
-     R::exec( 'UPDATE dna SET ww=:ww WHERE id = :id ', array(':ww'=> $_SESSION['ww'], ':id' => $id));
-     R::exec( 'UPDATE dna SET ff=:ff WHERE id = :id ', array(':ff'=> $_SESSION['ff'], ':id' => $id));
-     R::exec( 'UPDATE dna SET bb=:bb WHERE id = :id ', array(':bb'=> $_SESSION['bb'], ':id' => $id));
-     R::exec( 'UPDATE dna SET mm=:mm WHERE id = :id ', array(':mm'=> $_SESSION['mm'], ':id' => $id));
-     R::exec( 'UPDATE dna SET tt=:tt WHERE id = :id ', array(':tt'=> $_SESSION['tt'], ':id' => $id));
-     R::exec( 'UPDATE dna SET aa=:aa WHERE id = :id ', array(':aa'=> $_SESSION['aa'], ':id' => $id));
-
-   // }
-
-//  вставляем статы
-       
-      //   $new = R::dispense('stats');
-      //  echo '<br>2$new->id' . $new->id;
-
-
-      //   if (0==($new->id)){
-          
-      //     $new->dog_id = $dog_id;
-       
-      //   $new->speed = $spd;
-      //   $new->agility = $agl;
-      //   $new->teach = $tch;
-      //   $new->jump = $jmp;
-      //   $new->scent = $nuh;
-      //   $new->find = $fnd;
-      //   $new->total = $ttl;
-      //   R::store( $new );
-      // }
-      // else{
-       
-   
-     R::exec( 'UPDATE stats SET dog_id=:dog_id WHERE id = :id ', array(':dog_id'=> $dog_id, ':id' => $id));
-     R::exec( 'UPDATE stats SET speed=:speed WHERE id = :id ', array(':speed'=> $spd, ':id' => $id));
-     R::exec( 'UPDATE stats SET agility=:agility WHERE id = :id ', array(':agility'=> $agl, ':id' => $id));
-     R::exec( 'UPDATE stats SET teach=:teach WHERE id = :id ', array(':teach'=> $tch, ':id' => $id));
-     R::exec( 'UPDATE stats SET jump=:jump WHERE id = :id ', array(':jump'=> $jmp, ':id' => $id));
-     R::exec( 'UPDATE stats SET scent=:scent WHERE id = :id ', array(':scent'=> $nuh, ':id' => $id));
-     R::exec( 'UPDATE stats SET find=:find WHERE id = :id ', array(':find'=> $fnd, ':id' => $id));
-     R::exec( 'UPDATE stats SET total=:total WHERE id = :id ', array(':total'=> $ttl, ':id' => $id));
-    //  }
-
-
-
-     $_SESSION['price']=pricing($sex, '0');
-    
+<form method="POST" action="/buy.php">
+    <table border="1" cellpadding="60" text-align="center">
+    <caption><h1>Aктуальные предложения на сегодня</h1></caption>
+         
+      <tr>
         
-      ?>
-<h1 align="center">Доска объявлений</h1>
-<h3 align="center">Актуальное предложение: предполагаемый окрас</h3>
-<h3 align="center"><?php print_item($owner,1);?></h3>
 
-<div>
+                ?><h3 align="center"><?php print_item($owner,1); //  рисует деньги?></h3>
+                  <td>
+                    <?php if ( !isset($_POST['buy']) ){ //усли не нажали кнопку купить
+                           vip_buy();
+                           
+                          
+                       
+                      
+                    ?>Первая ячейка VIP<?php echo $_SESSION['pic_sex'];?>
+                      <img align="center" src = "<?php echo $_SESSION['url'];?>" width="75%">
+               
+                
 
-       <div align="left">
-        <img src = "<?php echo $url; ?>" width="300" >
-        <table width="100" cellpadding="2" cellspacing="0" border="1" >
-              <colgroup width="150">
-                  <colgroup span="9" align="center" width="10">
-                  <col span="5">
-                  <col span="4">
-              </colgroup>
-              <tr border="1"> 
-                     <td>пол</td><td><?php echo $sex; ?></td>
+                            ?><button type="submit" class="knopka" name="buy">Купить</button>
+                            <?php echo $test1=0;?>
+
+                              
+                       
+
+          <h3><img src = "<?php echo ret_item('1');?>"> 
+          <?php echo $_SESSION['cost'];?></h3>
+
+
+            <table width="100" cellpadding="2" cellspacing="0" border="1" >
+                <colgroup width="10" span="9"  width="10">
+                  
+               <tr> 
+                     <td>пол</td><td><?php echo $_SESSION['sex']; ?></td>
               </tr>
-              <tr border="1"> 
-                     <td>Скорость</td><td><?php echo $spd; ?></td>
+              <tr> 
+                     <td>Скорость</td><td><?php echo $_SESSION['spd']; ?></td>
               </tr>
-              <tr border="1"> 
-                     <td>Уворот</td><td><?php echo $agl; ?></td>
+              <tr> 
+                     <td>Уворот</td><td><?php echo $_SESSION['agl']; ?></td>
               </tr>
-              <tr border="1"> 
-                     <td>Обучение</td><td><?php echo $tch; ?></td>
+              <tr> 
+                     <td>Обучение</td><td><?php echo $_SESSION['tch']; ?></td>
               </tr>
-              <tr border="1"> 
-                     <td>Прыжки</td><td><?php echo $jmp; ?></td>
+              <tr> 
+                     <td>Прыжки</td><td><?php echo $_SESSION['jmp']; ?></td>
               </tr>
-              <tr border="1"> 
-                     <td>Обоняние</td><td><?php echo $nuh; ?></td>
+              <tr> 
+                     <td>Обоняние</td><td><?php echo $_SESSION['nuh']; ?></td>
               </tr>
-              <tr border="1"> 
-                     <td>Поиск</td><td><?php echo $fnd; ?></td>
+              <tr> 
+                     <td>Поиск</td><td><?php echo $_SESSION['fnd']; ?></td>
               </tr>
-              <tr border="1"> 
-                     <td>Итого</td><td><?php echo $ttl; ?></td>
+              <tr> 
+                     <td>Итого</td><td><?php echo $_SESSION['ttl']; ?></td>
               </tr>
               </colgroup>
         </table>
-      </div>
 
-       <?php echo $_SESSION['bb']; ?>
-      <h3><?php echo '<br> Цена: ' . number_format (pricing($sex, '0') , $decimals = 0,$dec_point = "." , $thousands_sep = " " ); // формат 10 000  ;?></h3>
+        <?php } //end if
+                else{
+                      
+                      ?><button type="submit" class="knopka" name="buyoff">продана</button><?php 
+                      echo $test1=1;
+                    }
           
-<form action="/buy.php" method="POST">
-       <button type="submit" class="knopka" name="buy">Купить</button>
-       <a class="buttons" href="/kennel.php" >в питомник</a>
-      
+          ?>
+
+
+        </td>
+        <td><?php if ( !isset($_POST['buy2']) ){ //усли не нажали кнопку купить?>
+                          Вторая ячейка<button type="submit" class="knopka" name="buy2" >Купить</button>
+                  <?php echo $test2=0;
+                }
+                  else{
+                      echo $test2=1;
+                      ?><button type="submit" class="knopka" name="buyoff">продана</button><?php 
+                    }
+          
+          ?>
+
+        </td>
+        <td>Третья ячейка<button type="submit" class="knopka" name="money" >Купить</button></td>
+        <td>Четвертая ячейка<button type="submit" class="knopka" name="money" >Купить</button></td>
+
+        
+      </tr>
+
+    </table>
 </form>
-<?php
-} 
-////////////////////////////////////////////////////////////////////////////////////
-      if( isset($_POST['buy']) ){  //если нажата кнопка ЭкупитьЭ
 
-     
-    
-
-
-        //var_dump(bdika_balance($_SESSION['own'],$_SESSION['price']));
-        if( bdika_balance($_SESSION['own'],$_SESSION['price']) ){
-              buying($_SESSION['own'],$_SESSION['price']);
- ?>
-              <h1 align="center">Доска объявлений</h1>
-              <h3 align="center"><?php print_item($owner,1);?></h3>
-
-<?php
-
-              echo 'Проверьте покупку в питомнике! <br> Дайте собаке имя!<br> ';
-             
-             $date=date('d.m.Y');
-
-             echo '<br>вносим в базу собаку';
-             $_SESSION['dog_id']=insert_2_new_dogs('Без имени',$_SESSION['sex'],'КХС',$_SESSION['own'],find_where('users',get_id($_SESSION['own']),'kennel'),$date,$_SESSION['url_id']);
-
-             var_dump($_SESSION['dog_id']);
-
-             echo '<br>вносим статы';
-             insert_new_stats($_SESSION['dog_id'],find_where('stats','0','speed'),find_where('stats','0','agility'),find_where('stats','0','teach'),find_where('stats','0','jump'),find_where('stats','0','scent'),find_where('stats','0','find'),find_where('stats','0','total'),find_where('stats','0','mutation'));
-            
-              echo '<br>вносим DNA';
-
-              insert_new_dna($_SESSION['dog_id'],$_SESSION['url_id'],$_SESSION['hr'],$_SESSION['ww'], $_SESSION['ff'],$_SESSION['bb'],$_SESSION['mm'],$_SESSION['tt'],$_SESSION['aa']);
-
-
-
-              echo '<a href="/name.php?id=' . $_SESSION['dog_id'] . '">';?>
-              <img src = "<?php echo $_SESSION['url']; ?>"></a>
-
-              <?php
-          }//if(bdika_balance($owner,$price))
-          else {
-            echo 'Не достаточно средств для покупки!';
-        ?>
-            <a class="buttons" href="/buy.php" >в магазин</a>
-
-        <?php            
-
-          }
-       }//if( isset($_POST['buy']) )
-
-////////////////////////////////////////////////////////////////////////////////////
-?>
-
- </div>

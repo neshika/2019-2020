@@ -35,7 +35,7 @@ require "includes/functions.php";
 
         	
               ?>
-              <img src = "<?php echo rand_dog(); ?>" width="50%">
+              <img src = "<?php echo do_url(rand_dog()); ?>" width="50%">
        	<!--<div id="my_text">Здесь мы изучаем блоки и CSS</div> -->
        	<p class="text_effect">Ваша удача рядом</p>
        	</div>
