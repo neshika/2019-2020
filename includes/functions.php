@@ -26,6 +26,12 @@ function test(){
 function ret_owner(){
 	return $_SESSION['logged_user']->login;
 }
+function ret_dna($id){
+	 $string =R::getCol('SELECT dna_id FROM animals WHERE id = :id',
+        [':id' => $id]);
+
+	 return $string[0];
+}
 function debug($arr){
     echo '<pre>' . print_r($arr, true). '</pre>';
 }
@@ -161,6 +167,7 @@ function add_age($dog_id){
 /**************************** функция печатает на экран статы и ГП*************************/
 function detalis($id){
 
+    
 ?>
     <div align="left">
       

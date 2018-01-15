@@ -40,9 +40,7 @@ debug($data_dog);
 
 ?><img align="center" src = "<?php echo $data_dog['url'];?>" width="25%"><?php
 */
-$dogs_m =  R::getAssoc('SELECT *  FROM animals WHERE id = :id',
-        [':id' => $id]); 
-debug($dogs_m);
+echo ret_dna($id);
 
 
  require '/libs/down.php';
