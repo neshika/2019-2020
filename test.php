@@ -40,8 +40,8 @@ debug($data_dog);
 
 ?><img align="center" src = "<?php echo $data_dog['url'];?>" width="25%"><?php
 */
-echo ret_dna($id);
-
+$data_dna= take_data_from(ret_dna($id), 'rando_dna');
+debug($data_dna);
 
  require '/libs/down.php';
  ?>

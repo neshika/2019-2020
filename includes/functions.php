@@ -25,7 +25,7 @@ function test(){
 /*Функция возвращает залогиненого пользователя из куки*/
 function ret_owner(){
 	return $_SESSION['logged_user']->login;
-}
+}/*Функция возвращает ссылку на dna*/
 function ret_dna($id){
 	 $string =R::getCol('SELECT dna_id FROM animals WHERE id = :id',
         [':id' => $id]);
@@ -166,7 +166,8 @@ function add_age($dog_id){
 
 /**************************** функция печатает на экран статы и ГП*************************/
 function detalis($id){
-
+    
+    $data_dna= take_data_from(ret_dna($id), 'rando_dna');
     
 ?>
     <div align="left">
@@ -179,37 +180,33 @@ function detalis($id){
               </colgroup>
               <tr border="1"> 
                      <td>имя</td><td><b><?php echo find_where('animals',$id,'name'); ?></b></td>
-                     <td>пол</td><td><b><?php echo find_where('animals',$id,'sex'); ?></b></td>
+                     <td>пол</td><td><b><?php echo w_sex($data_dna['sex']);?></b></td>
               </tr>
               <tr border="1"> 
-                     <td>Скорость</td><td><?php echo find_where('stats',$id,'speed'); ?></td>
-                     <td>вид</td><td><?php echo find_where('dna',$id,'hr'); ?></td>
+                     <td>Скорость</td><td><?php echo $data_dna['spd']; ?></td>
+                     <td>вид</td><td><?php echo $data_dna['hr']; ?></td>
               </tr>
               <tr border="1"> 
-                     <td>Уворот</td><td><?php echo find_where('stats',$id,'agility'); ?></td>
-                      <td>белый</td><td><?php echo find_where('dna',$id,'ww'); ?></td>
+                     <td>Уворот</td><td><?php echo $data_dna['agl']; ?></td>
+                      <td>белый</td><td><?php echo $data_dna['ww']; ?></td>
               </tr>
               <tr border="1"> 
-                     <td>Обучение</td><td><?php echo find_where('stats',$id,'teach'); ?></td>
-                     <td>рыжий</td><td><?php echo find_where('dna',$id,'ff'); ?></td>
+                     <td>Обучение</td><td><?php echo $data_dna['tch']; ?></td>
+                     <td>рыжий</td><td><?php echo $data_dna['ff']; ?></td>
               </tr>
               <tr border="1"> 
-                     <td>Прыжки</td><td><?php echo find_where('stats',$id,'jump'); ?></td>
-                      <td>черный</td><td><?php echo find_where('dna',$id,'bb'); ?></td>
+                     <td>Прыжки</td><td><?php echo $data_dna['jmp']; ?></td>
+                      <td>черный</td><td><?php echo $data_dna['bb']; ?></td>
               </tr>
               <tr border="1"> 
-                     <td>Обоняние</td><td><?php echo find_where('stats',$id,'scent'); ?></td>
-                     <td>пятна</td><td><?php echo find_where('dna',$id,'mm'); ?></td>
+                     <td>Обоняние</td><td><?php echo $data_dna['nuh']; ?></td>
+                     <td>пятна</td><td><?php echo $data_dna['mm']; ?></td>
               </tr>
               <tr border="1"> 
-                     <td>Поиск</td><td><?php echo find_where('stats',$id,'find'); ?></td>
-                     <td>крап</td><td><?php echo find_where('dna',$id,'tt'); ?></td>
+                     <td>Поиск</td><td><?php echo $data_dna['fnd']; ?></td>
+                     <td>крап</td><td><?php echo $data_dna['tt']; ?></td>
               </tr>
-              <tr border="1"> 
-                     <td>Итого</td><td><?php echo find_where('stats',$id,'total'); ?></td>
-                     <td>aa</td><td><?php echo find_where('dna',$id,'aa'); ?></td>
-                     
-              </tr>
+              
               </colgroup>
         </table>
       </div>
