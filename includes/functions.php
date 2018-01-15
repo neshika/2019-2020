@@ -589,7 +589,10 @@ function ret_hr($id){
 	 return $string[0];
 }
 /*Функция пишет тип собаки по русски в зависимоти от Генетического типа*/
-function print_hr($var){
+function print_hr($id){
+    $dna_id=find_where('animals', $id,'dna_id');
+    $var=find_where('rando_dna', $id,'hr');
+    
 	if ($var=='Hrhr') return 'пуховая';
 	else return 'голая';
 }

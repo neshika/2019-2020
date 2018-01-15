@@ -33,13 +33,16 @@ add_sex($id, $sex);
 
      
  <?php
-  */   
+
   $dna_id=find_where('animals',$id,'dna_id');
    $data_dog=take_data_from($dna_id,'rando_dna');
 debug($data_dog);
 
 ?><img align="center" src = "<?php echo $data_dog['url'];?>" width="25%"><?php
-
+*/
+$dogs_m =  R::getAssoc('SELECT *  FROM animals WHERE id = :id',
+        [':id' => $id]); 
+debug($dogs_m);
 
 
  require '/libs/down.php';
