@@ -335,7 +335,7 @@ $_POST['train']=NULL;
           </ul>
 <!-- ******************** вывод доп меню собаки  вид \\ Дата рождения \\ окрас    *****************-->       
         <ul style="background: white; width: 40%; float: right;">
-          <li>тип:  <?php echo  print_hr(find_where('dna',$id,'hr'));?></li>
+          <li>тип:  <?php echo  print_hr($id);?></li>
           <li>возраст:  <?php echo ret_age($id);?></li>
           <li>Щенков: <?php echo $GLOBALS['Data_dog']['puppy'];?></li>
        </ul>
