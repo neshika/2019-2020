@@ -79,6 +79,34 @@ function print_item($login,$item_id){
 
 
 
+//************************ функции связанные с     П О Л    СОБАКИ **********************//
+//////////////////  Функция создания рандомного пола для собаки
+function rand_sex(){
+    return Rand(0,1);
+}
+
+/////////////////  внести пол
+function add_sex($id,$sex){
+    insert_data('rando_dna',$id,'sex',$sex);
+}
+//////////////  вывести пол
+function take_sex($id){
+    return find_where('rando_dna', $id, 'sex');
+}
+////////////////  пол буквами
+function w_sex($id){
+    $sex=take_sex($id);
+    if(0==$sex){
+        return 'сука';
+    }
+    if(1==$sex){
+        return 'кобель';
+    }
+    else{
+        return 'стерильно';
+    }
+}
+//////////////////////////////////////////////////////////////////////
 
 
 //******************************************** В О З Р А С Т  ****************************
@@ -416,8 +444,8 @@ function add_litters($id_m,$id_d){
   insert_data('animals',$id_d,'litter',$lit_d);
 }
 /*****************  НОВАЯ СОБАКА   ******************/
-Function rand_dog(){
- $data_dna['hr']=f_rand_col('HrHr','Hrhr','hrhr');
+function rand_dog1($id){
+  $data_dna['hr']=f_rand_col('HrHr','Hrhr','hrhr');
   $data_dna['ww']=f_rand_col('WW','Ww','ww');
   $data_dna['ff']=f_rand_col('FF','Ff','ff');
   $data_dna['bb']=f_rand_col('BB','Bb','bb');
@@ -430,13 +458,47 @@ Function rand_dog(){
     ('bb'==$data_dna['bb'] ? $B='b0' : $B='b1');
     ('tt'==$data_dna['tt'] ? $T='t0' : $T='t1');
     ('mm'==$data_dna['mm'] ? $M='m0' : $M='m1');
-
     
-    $dna=$Hr . $W . $F . $B . $T . $M;
-
+        
+    echo '<br>' . $dna=$Hr . $W . $F . $B . $T . $M;
+    
+    echo '<br>' . $url=do_url($dna);
+    
+       
+    echo '<br>' . $sex=rand_sex();
+    echo '<br>' . $lucky= rand(1,100);
+    echo '<br>' . $spd= rand(9,11);
+    echo '<br>' . $agl= rand(9,11);
+    echo '<br>' . $tch= rand(9,11);
+    echo '<br>' . $jmp= rand(9,11);
+    echo '<br>' . $nuh= rand(9,11);
+    echo '<br>' . $fnd= rand(9,11);
+    echo '<br>' . $mut= rand(1,100);
+    
+    R::exec( 'UPDATE rando_dna SET id=$id');
+        R::exec( 'UPDATE rando_dna SET hr=:hr WHERE id = :id ', array(':hr'=> $data_dna['hr'], ':id' => $id));
+    R::exec( 'UPDATE rando_dna SET ww=:ww WHERE id = :id ', array(':ww'=> $data_dna['ww'], ':id' => $id));
+    R::exec( 'UPDATE rando_dna SET ff=:ff WHERE id = :id ', array(':ff'=> $data_dna['ff'], ':id' => $id));
+    R::exec( 'UPDATE rando_dna SET bb=:bb WHERE id = :id ', array(':bb'=> $data_dna['bb'], ':id' => $id));
+    R::exec( 'UPDATE rando_dna SET tt=:tt WHERE id = :id ', array(':tt'=> $data_dna['tt'], ':id' => $id));
+    R::exec( 'UPDATE rando_dna SET mm=:mm WHERE id = :id ', array(':mm'=> $data_dna['mm'], ':id' => $id));
+    R::exec( 'UPDATE rando_dna SET sex=:sex WHERE id = :id ', array(':sex'=> $sex, ':id' => $id));
+    R::exec( 'UPDATE rando_dna SET lucky=:lucky WHERE id = :id ', array(':lucky'=> $lucky, ':id' => $id));
+    R::exec( 'UPDATE rando_dna SET spd=:spd WHERE id = :id ', array(':spd'=> $spd, ':id' => $id));
+    R::exec( 'UPDATE rando_dna SET agl=:agl WHERE id = :id ', array(':agl'=> $agl, ':id' => $id));
+     R::exec( 'UPDATE rando_dna SET tch=:tch WHERE id = :id ', array(':tch'=> $tch, ':id' => $id));
+    R::exec( 'UPDATE rando_dna SET jmp=:jmp WHERE id = :id ', array(':jmp'=> $jmp, ':id' => $id));
+     R::exec( 'UPDATE rando_dna SET nuh=:nuh WHERE id = :id ', array(':nuh'=> $nuh, ':id' => $id));
+    R::exec( 'UPDATE rando_dna SET fnd=:fnd WHERE id = :id ', array(':fnd'=> $fnd, ':id' => $id));
+     R::exec( 'UPDATE rando_dna SET mut=:mut WHERE id = :id ', array(':mut'=> $mut, ':id' => $id));
+      R::exec( 'UPDATE rando_dna SET url=:url WHERE id = :id ', array(':url'=> $url, ':id' => $id));
+      
     
     return $dna;
+    
+    
 }
+
 
 //************** функция выводит рандомный размер в зависимости от пола и  числа(роста)собаки *************//
  function wtht($sex,$height){
@@ -1471,6 +1533,9 @@ function find_where($tabl,$id,$value){
             case 'age_id':
               return $row[$value];
               break;
+          case 'dna_id':
+              return $row[$value];
+              break;
             case 'kennel':
               return $row[$value];
               break;
@@ -1723,9 +1788,7 @@ function find_where($tabl,$id,$value){
             case 'url':
               return $row[$value];
               break;
-            case 'prop':
-              return $row[$value];
-              break;
+           
            
           }
      }//$tabl = rando_dna
@@ -1817,6 +1880,9 @@ function insert_data($tabl,$id,$cell,$value){  //$tabl - название таб
           case 'age_id':
              return R::exec( 'UPDATE animals SET age_id=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
              break;
+         case 'dna_id':
+             return R::exec( 'UPDATE animals SET age_id=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
+             break;
            case 'kennel':
              return R::exec( 'UPDATE animals SET kennel=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
              break;
@@ -1899,9 +1965,7 @@ function insert_data($tabl,$id,$cell,$value){  //$tabl - название таб
   if('rando_dna'===$tabl){
    
       switch ($cell) {
-                case 'prop':
-                   return R::exec( 'UPDATE rando_dna SET prop=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-                    break;
+                
               case 'url':
                    return R::exec( 'UPDATE rando_dna SET url=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
                     break;
@@ -1962,6 +2026,9 @@ function insert_data($tabl,$id,$cell,$value){  //$tabl - название таб
 function take_data_from($id,$tabl){   //$id - индекс ; $tabl - таблица с данными
     if('animals'==$tabl){
      return R::getRow( 'SELECT * FROM animals WHERE id = :id',[':id' => $id]);
+    }
+     if('rando_dna'==$tabl){
+     return R::getRow( 'SELECT * FROM rando_dna WHERE id = :id',[':id' => $id]);
     }
     
        
@@ -2413,3 +2480,24 @@ function take_data_from($id,$tabl){   //$id - индекс ; $tabl - табли�
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////
+//Function rand_dog(){
+// $data_dna['hr']=f_rand_col('HrHr','Hrhr','hrhr');
+//  $data_dna['ww']=f_rand_col('WW','Ww','ww');
+//  $data_dna['ff']=f_rand_col('FF','Ff','ff');
+//  $data_dna['bb']=f_rand_col('BB','Bb','bb');
+//  $data_dna['tt']=f_rand_col('TT','Tt','tt');
+//  $data_dna['mm']=f_rand_col('MM','Mm','mm');
+// 
+//   ('Hrhr'==$data_dna['hr'] ? $Hr='hr1' : $Hr='hr0');   //hr1 Hrhr - голая  // hr0 - hrhr  - пух
+//    ('ww'==$data_dna['ww'] ? $W='w0' : $W='w1');
+//    ('ff'==$data_dna['ff'] ? $F='f0' : $F='f1');
+//    ('bb'==$data_dna['bb'] ? $B='b0' : $B='b1');
+//    ('tt'==$data_dna['tt'] ? $T='t0' : $T='t1');
+//    ('mm'==$data_dna['mm'] ? $M='m0' : $M='m1');
+//
+//    
+//    $dna=$Hr . $W . $F . $B . $T . $M;
+//
+//    
+//    return $dna;
+//}
