@@ -496,6 +496,7 @@ function rand_dog1($id){
     R::exec( 'UPDATE rando_dna SET fnd=:fnd WHERE id = :id ', array(':fnd'=> $fnd, ':id' => $id));
      R::exec( 'UPDATE rando_dna SET mut=:mut WHERE id = :id ', array(':mut'=> $mut, ':id' => $id));
       R::exec( 'UPDATE rando_dna SET url=:url WHERE id = :id ', array(':url'=> $url, ':id' => $id));
+      R::exec( 'UPDATE rando_dna SET about=shop WHERE id = :id ', array(':id' => $id));
       
     
     return $dna;
@@ -1199,6 +1200,8 @@ $id = R::store( $dogs );
 
 $id=$id_temp;
 
+unset($dogs);
+
 return $id;
 
 }
@@ -1795,6 +1798,9 @@ function find_where($tabl,$id,$value){
             case 'url':
               return $row[$value];
               break;
+          case 'about':
+              return $row[$value];
+              break;
            
            
           }
@@ -1972,7 +1978,10 @@ function insert_data($tabl,$id,$cell,$value){  //$tabl - название таб
   if('rando_dna'===$tabl){
    
       switch ($cell) {
-                
+               
+            case 'about':
+                   return R::exec( 'UPDATE rando_dna SET url=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
+                    break;
               case 'url':
                    return R::exec( 'UPDATE rando_dna SET url=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
                     break;

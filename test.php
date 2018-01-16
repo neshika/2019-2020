@@ -43,6 +43,25 @@ debug($data_dog);
 $data_dna= take_data_from(ret_dna($id), 'rando_dna');
 debug($data_dna);
 
+foreach ($data_dna as $key => $value) {
+    echo '[' . $key . ']  : ' . $value . "<br />\n";
+}
+//$arr = array("one", "two", "three");
+//reset($arr);
+//while (list($key, $value) = each($arr)) {
+//    echo "Ключ: $key; Значение: $value<br />\n";
+//}
+//
+//foreach ($arr as $key => $value) {
+//    echo "Ключ: $key; Значение: $value<br />\n";
+//}
+////Ключ: 0; Значение: one
+////Ключ: 1; Значение: two
+////Ключ: 2; Значение: three
+////Ключ: 0; Значение: one
+////Ключ: 1; Значение: two
+////Ключ: 2; Значение: three
+
  require '/libs/down.php';
  ?>
 
