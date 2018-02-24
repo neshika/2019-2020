@@ -217,6 +217,54 @@ function detalis($id){
 <?php
 
 }
+
+/**************************** функция печатает на экран статы и ГП с подсветкой для новой собаки*************************/
+function detalis_green($id){
+    
+    $data_dna= take_data_from($id, 'animals');
+    
+    $Fam_id=$data_dna['family_id'];
+    echo $Fam_id;
+    $data_family=take_data_from($id, 'family');
+    echo $data_family[mum];
+    echo $data_family[dad];
+    $data_stats_dog= take_data_from($id, 'stats');
+    $data_stats_m= take_data_from($data_family[mum], 'stats');
+    $data_stats_d= take_data_from($data_family[dad], 'stats');
+    /*echo '<br>ляля:';
+    debug($data_stats_dog);
+    echo '<br>мама:';
+    debug($data_stats_m);
+    echo '<br>папа:';
+    debug($data_stats_d);
+  */  
+if(($data_stats_dog['speed']>$data_stats_m['speed']) && ($data_stats_dog['speed']>$data_stats_d['speed'])){
+    echo 'скорость зеленая';
+}
+if(($data_stats_dog['agility']>$data_stats_m['agility']) && ($data_stats_dog['agility']>$data_stats_d['agility'])){
+    echo 'уворот зеленый';
+}
+if(($data_stats_dog['teach']>$data_stats_m['teach']) && ($data_stats_dog['teach']>$data_stats_d['teach'])){
+    echo '<br>' . $data_stats_dog['teach'];
+    echo '<br>' . $data_stats_m['teach'];
+    echo '<br>' . $data_stats_d['teach'];
+    echo '<br>обучение зеленое';
+}
+if(($data_stats_dog['jump']>$data_stats_m['jump']) && ($data_stats_dog['jump']>$data_stats_d['jump'])){
+    echo 'прыжки зеленые';
+}
+if(($data_stats_dog['scent']>$data_stats_m['scent']) && ($data_stats_dog['scent']>$data_stats_d['scent'])){
+    echo 'нюх зеленый';
+}
+if(($data_stats_dog['find']>$data_stats_m['find']) && ($data_stats_dog['find']>$data_stats_d['find'])){
+    echo 'поиск зеленый';
+}
+    
+    
+    
+
+
+}
 /**************************** функция печатает на экран дерево(родственников)*************************/
 function f_tree($id){
          // echo '<br>Семья: ';
@@ -2049,7 +2097,12 @@ function take_data_from($id,$tabl){   //$id - индекс ; $tabl - табли�
      if('rando_dna'==$tabl){
      return R::getRow( 'SELECT * FROM rando_dna WHERE id = :id',[':id' => $id]);
     }
-    
+     if('family'==$tabl){
+     return R::getRow( 'SELECT * FROM family WHERE id = :id',[':id' => $id]);
+    }
+     if('stats'==$tabl){
+     return R::getRow( 'SELECT * FROM stats WHERE dog_id = :id',[':id' => $id]);
+    }
        
 }
 /******************************************конец функций по изменению стат******************************/

@@ -31,7 +31,8 @@ function change(idName) {
 
 echo "Тестируем: <br>";
 
-$id=3;
+echo $id=6;
+detalis_green($id);
 
 /*
 echo $sex = rand_sex();
@@ -53,7 +54,7 @@ add_sex($id, $sex);
 debug($data_dog);
 
 ?><img align="center" src = "<?php echo $data_dog['url'];?>" width="25%"><?php
-*/
+
 $data_dna= take_data_from(ret_dna($id), 'rando_dna');
 debug($data_dna);
 
@@ -76,7 +77,7 @@ foreach ($data_dna as $key => $value) {
 ////Ключ: 1; Значение: two
 ////Ключ: 2; Значение: three
 
-
+*/
  require '/libs/down.php';
  ?>
 
