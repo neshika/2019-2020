@@ -487,9 +487,10 @@ $_POST['train']=NULL;
       <?php $_SESSION['Dog'] = $id; ?>
   </form>
   <form method="POST" action = "/matting.php">
-      <div align="right"><input id="button" name="knopka" type="submit" value="Вязка" class = "knopka">
+      <?php If (1==bdika_age_for_breeding($GLOBALS['Data_dog'])){?>
+      <div align="right"> <input id="button" name="knopka" type="submit" value="Вязка" class = "knopka" >
       </div>
-      <?php $_SESSION['Dog'] = $id; var_dump($_SESSION['Dog']); ?>
+      <?php $_SESSION['Dog'] = $id; var_dump($_SESSION['Dog']); }?>
       
   </form>
 

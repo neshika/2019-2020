@@ -10,6 +10,20 @@ require "db.php";
         
 ?>
 <div class="content">
+    
+    
+    <script>
+function change(idName) {
+  if(document.getElementById(idName).style.display=='none') {
+    document.getElementById(idName).style.display = '';
+  } else {
+    document.getElementById(idName).style.display = 'none';
+  }
+  return false;
+}
+</script>
+<div style="display:none" id="test">Hi World! </div>
+<a href="#" onclick="change('test')">Change</a>
 
 <?php
 
@@ -61,6 +75,7 @@ foreach ($data_dna as $key => $value) {
 ////Ключ: 0; Значение: one
 ////Ключ: 1; Значение: two
 ////Ключ: 2; Значение: three
+
 
  require '/libs/down.php';
  ?>

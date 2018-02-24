@@ -6,6 +6,7 @@ $GLOBALS['age']='15';
 //***** multipliers множители характеристик ****// 
 $GLOBALS['buy_stats']='100';
 $GLOBALS['timer']=1440;
+$GLOBALS['age_matting']='6';
 
 
 
@@ -119,19 +120,21 @@ function w_sex($id){
 
 
 
-// Функция проверяет возраст по id собаки и разрешает вязку для кобелейц и сук
+// Функция проверяет возраст по id собаки и разрешает вязку для кобелейц и сук возвращает 0, если не может вязаться, возвращает 1, если 0(не может)
 function bdika_age_for_breeding($data_dog){
   
-  if (9>$data_dog['age_id']){   //age_id = 4 (6 мес)  age_id = 9 (15 мес = 1 год 3 мес)
+  if ((13>$data_dog['age_id']) || (('сука' == $data_dog) && (58>=$data_dog['age_id'])) ){   //age_id = 13 (6 мес)  age_id = 58 (15 мес = 7/5 лет)
 
-    echo "<br>ЩенокНет допуска для вязки";
+    echo "<br>Нет допуска для вязки";
     //var_dump(from_id_to_url_puppy($data_dog['id']));
-    
+    return 0;
 
   }
-  else{
+  else {
+    
     //echo "<br>взрослая";
-   echo "<br>Взрослая собака! Допускается к разведению";
+   echo "<br>Допускается к разведению";
+   return 1;
   }
 
 
