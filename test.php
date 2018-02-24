@@ -10,6 +10,7 @@ require "db.php";
         
 ?>
 <div class="content">
+
     
     
     <script>
@@ -31,8 +32,16 @@ function change(idName) {
 
 echo "Тестируем: <br>";
 
-$id=3;
-
+?>
+<form method="POST">
+введите код собаки: <input type="text" name='dog_id'>
+<input type="submit" name="ок" value="ok">
+</form>
+<?php
+if(isset($_POST['dog_id'])  ){ 
+detalis_green($_POST['dog_id']);
+$_POST['dog_id']=0;
+}
 /*
 echo $sex = rand_sex();
 add_sex($id, $sex);
@@ -53,7 +62,7 @@ add_sex($id, $sex);
 debug($data_dog);
 
 ?><img align="center" src = "<?php echo $data_dog['url'];?>" width="25%"><?php
-*/
+
 $data_dna= take_data_from(ret_dna($id), 'rando_dna');
 debug($data_dna);
 
@@ -76,7 +85,7 @@ foreach ($data_dna as $key => $value) {
 ////Ключ: 1; Значение: two
 ////Ключ: 2; Значение: three
 
-
+*/
  require '/libs/down.php';
  ?>
 

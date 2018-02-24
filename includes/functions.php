@@ -217,6 +217,117 @@ function detalis($id){
 <?php
 
 }
+
+/**************************** функция печатает на экран статы и ГП с подсветкой для новой собаки*************************/
+function detalis_green($id){
+    
+    $data_dna= take_data_from($id, 'animals');
+
+    $data_dna_id=take_data_from($id, 'dna');
+    //var_dump($data_dna_id);
+    
+    $Fam_id=$data_dna['family_id'];
+    echo $Fam_id;
+    $data_family=take_data_from($id, 'family');
+    echo $data_family[mum];
+    echo $data_family[dad];
+    $data_stats_dog= take_data_from($id, 'stats');
+    $data_stats_m= take_data_from($data_family[mum], 'stats');
+    $data_stats_d= take_data_from($data_family[dad], 'stats');
+    /*echo '<br>ляля:';
+    debug($data_stats_dog);
+    echo '<br>мама:';
+    debug($data_stats_m);
+    echo '<br>папа:';
+    debug($data_stats_d);
+  */  
+
+    $col_spd='black';
+
+    $col_agl='black';
+
+    $col_tch='black';
+
+    $col_jmp='black';
+
+    $col_nuh='black';
+
+    $col_fnd='black';
+
+if(($data_stats_dog['speed']>$data_stats_m['speed']) && ($data_stats_dog['speed']>$data_stats_d['speed'])){
+    echo 'скорость зеленая';
+    $col_spd='green';
+}
+if(($data_stats_dog['agility']>$data_stats_m['agility']) && ($data_stats_dog['agility']>$data_stats_d['agility'])){
+    echo 'уворот зеленый';
+    $col_agl='green';
+}
+if(($data_stats_dog['teach']>$data_stats_m['teach']) && ($data_stats_dog['teach']>$data_stats_d['teach'])){
+   
+    echo '<br>обучение зеленое';
+    $col_tch='green';
+}
+if(($data_stats_dog['jump']>$data_stats_m['jump']) && ($data_stats_dog['jump']>$data_stats_d['jump'])){
+    echo 'прыжки зеленые';
+    $col_jmp='green';
+}
+if(($data_stats_dog['scent']>$data_stats_m['scent']) && ($data_stats_dog['scent']>$data_stats_d['scent'])){
+    echo 'нюх зеленый';
+    $col_nuh='green';
+}
+if(($data_stats_dog['find']>$data_stats_m['find']) && ($data_stats_dog['find']>$data_stats_d['find'])){
+    echo 'поиск зеленый';
+    $col_fnd='green';
+}
+
+
+?>             <br>
+
+<div align="left">
+      
+        <table width="100" cellpadding="2" cellspacing="0" border="1" >
+              <colgroup width="150">
+                  <colgroup span="9" align="center" width="10">
+                  <col span="5">
+                  <col span="4">
+              </colgroup>
+              <tr border="1"> 
+                     <td>имя</td><td><b><?php echo find_where('animals',$id,'name'); ?></b></td>
+                     <td>пол</td><td><b><?php echo w_sex($data_dna['sex']);?></b></td>
+              </tr>
+              <tr border="1"> 
+                     <td>Скорость</td><td><font color=<?php echo $col_spd;?>><?php echo $data_stats_dog['speed'];?></font></td>
+                     <td>вид</td><td><?php echo $data_dna_id['hr']; ?></td>
+              </tr>
+              <tr border="1"> 
+                     <td>Уворот</td><td><font color=<?php echo $col_agl;?>><?php echo $data_stats_dog['agility'];?></font></td>
+                      <td>белый</td><td><?php echo $data_dna_id['ww']; ?></td>
+              </tr>
+              <tr border="1"> 
+                     <td>Обучение</td><td><font color=<?php echo $col_tch;?>><?php echo $data_stats_dog['teach'];?></font></td>
+                     <td>рыжий</td><td><?php echo $data_dna_id['ff']; ?></td>
+              </tr>
+              <tr border="1"> 
+                     <td>Прыжки</td><td><font color=<?php echo $col_jmp;?>><?php echo $data_stats_dog['jump'];?></font></td>
+                      <td>черный</td><td><?php echo $data_dna_id['bb']; ?></td>
+              </tr>
+              <tr border="1"> 
+                     <td>Обоняние</td><td><font color=<?php echo $col_nuh;?>><?php echo $data_stats_dog['scent']; ?></font></td>
+                     <td>пятна</td><td><?php echo $data_dna_id['mm']; ?></td>
+              </tr>
+              <tr border="1"> 
+                     <td>Поиск</td><td><font color=<?php echo $col_fnd;?>><?php echo $data_stats_dog['find']; ?></font></td>
+                     <td>крап</td><td><?php echo $data_dna_id['tt']; ?></td>
+              </tr>
+              
+              </colgroup>
+        </table>
+      </div>
+
+<?php    
+
+
+}
 /**************************** функция печатает на экран дерево(родственников)*************************/
 function f_tree($id){
          // echo '<br>Семья: ';
@@ -2049,7 +2160,15 @@ function take_data_from($id,$tabl){   //$id - индекс ; $tabl - табли�
      if('rando_dna'==$tabl){
      return R::getRow( 'SELECT * FROM rando_dna WHERE id = :id',[':id' => $id]);
     }
-    
+     if('family'==$tabl){
+     return R::getRow( 'SELECT * FROM family WHERE id = :id',[':id' => $id]);
+    }
+     if('stats'==$tabl){
+     return R::getRow( 'SELECT * FROM stats WHERE dog_id = :id',[':id' => $id]);
+    }
+     if('dna'==$tabl){
+     return R::getRow( 'SELECT * FROM dna WHERE dog_id = :id',[':id' => $id]);
+    }
        
 }
 /******************************************конец функций по изменению стат******************************/
