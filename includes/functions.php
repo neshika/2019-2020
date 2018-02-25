@@ -223,6 +223,7 @@ function detalis_green($id){
     
     $data_dna= take_data_from($id, 'animals');
 
+
     $data_dna_id=take_data_from($id, 'dna');
     //var_dump($data_dna_id);
     
@@ -326,7 +327,7 @@ if(($data_stats_dog['find']>$data_stats_m['find']) && ($data_stats_dog['find']>$
 
 <?php    
 
-
+ 
 }
 /**************************** функция печатает на экран дерево(родственников)*************************/
 function f_tree($id){
@@ -2169,6 +2170,7 @@ function take_data_from($id,$tabl){   //$id - индекс ; $tabl - табли�
      if('dna'==$tabl){
      return R::getRow( 'SELECT * FROM dna WHERE dog_id = :id',[':id' => $id]);
     }
+
        
 }
 /******************************************конец функций по изменению стат******************************/
