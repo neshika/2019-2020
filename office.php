@@ -60,7 +60,7 @@ require "db.php";
                             							echo '<a href="/name.php?id=' . $key . '">';?>
                             						
 
-                             							<img src="<?php echo find_where('animals',$key,'url');?>" width="5%" float="left"></a><?php
+                             							<img src="<?php echo find_where('animals',$key,'url_puppy');?>" width="5%" float="left"></a><?php
                              						}
                             					}
                             					

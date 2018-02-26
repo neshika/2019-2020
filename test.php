@@ -39,7 +39,14 @@ echo "Тестируем: <br>";
 </form>
 <?php
 if(isset($_POST['dog_id'])  ){ 
-insert_url_puppy($_POST['dog_id']);
+    
+    
+echo '<a href="/name.php?id=' . $_POST['dog_id'] . '">';?>
+                            						
+
+<img src="<?php echo find_where('animals',$_POST['dog_id'],'url_puppy');?>" width="5%" float="left"></a>
+    
+<?php    
 $_POST['dog_id']=0;
 }
 /*

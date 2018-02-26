@@ -857,10 +857,10 @@ function insert_url_puppy($dog_id){
                 if( 'ff'==$data_dog['ff'] ){ //если не рыжий
                     if('bb'==$data_dog['bb'])  //если шоко
                       $dna=hr0b0;
-                    if('Bb'==$data_dog['bb'] || 'BB'==$data_dog['bb'])  //еcли черный
+                    if(('Bb'==$data_dog['bb']) || ('BB'==$data_dog['bb']))  //еcли черный
                       $dna=hr0b1;
                 }
-                if('Ff'==$data_dog['ff'] || 'FF'==$data_dog['ff']) //если рыжий
+                if( ('Ff'==$data_dog['ff']) || ('FF'==$data_dog['ff']) ) //если рыжий
                   $dna=hr0f1;
           }      
           else    //если белый
@@ -874,7 +874,7 @@ function insert_url_puppy($dog_id){
                     if( ('Bb'==$data_dog['bb']) || ('BB'==$data_dog['bb']))  //ечли черный
                       $dna=hr1b1;
                 }
-                if('Ff'==$data_dog['ff'] || 'FF'==$data_dog['ff']) //если рыжий
+                if( ('Ff'==$data_dog['ff']) || ('FF'==$data_dog['ff']) ) //если рыжий
                     $dna=hr1f1;
             }
           else    //если белый
@@ -1002,14 +1002,14 @@ Function insert_url($id,$url){
  
  function print_pic($id){
 
-   $data_dog=R::getRow( 'SELECT * FROM animals WHERE id = :id',
-      [':id' => $id]);
+   $data_dog= take_data_from($id, 'animals');
+   
 
   if (13>$data_dog['age_id']){   //age_id = 4 (6 мес)  age_id = 9 (15 мес = 1 год 3 мес)
-      return find_where('animals',$id,'url_puppy');
+      return  $data_dog['url_puppy'];
   }
   else
-     return find_where('animals',$id,'url');
+     return $data_dog['url'];
  }
 
 
@@ -1204,31 +1204,6 @@ $dogs->birth=$birth;
 $dogs->now='0';
 
 
-
-$dogs->id='';
-$dogs->mum=$id_m;
-$dogs->dad=$id_d;
-
-
-/*по линии отца */
-$dogs->g1dad=$G1dad;
-$dogs->g1mum=$G1mum;
-$dogs->gg1dad1=$GG1dad1;
-$dogs->gg1mum2=$GG1mum2;
-$dogs->gg1dad3=$GG1dad3;
-$dogs->gg1mum4=$GG1mum4;
-/*по линии матери*/
-
-$dogs->g0dad=$G0dad;
-$dogs->g0mum=$G0mum;
-$dogs->gg0dad1=$GG0dad1;
-$dogs->gg0mum2=$GG0mum2;
-$dogs->gg0dad3=$GG0dad3;
-$dogs->gg0mum4=$GG0mum4;
-
-
-
-
 $dogs->sex=$pol;
 
 
@@ -1323,8 +1298,36 @@ $dogs->hr=$hr_new;
 //$dogs->url_id=ret_id_from_url($url);
 
 $id = R::store( $dogs );
+insert_data('animals',$id_temp,'dna_id',$id); //вставлянем данные в поле на ссылку dna
+
+echo '<br>создаем семеные узы';
+
+$dogs=R::dispense( 'family' );
+$dogs->id=$id_temp;
+$dogs->mum=$id_m;
+$dogs->dad=$id_d;
+
+
+/*по линии отца */
+$dogs->g1dad=$G1dad;
+$dogs->g1mum=$G1mum;
+$dogs->gg1dad1=$GG1dad1;
+$dogs->gg1mum2=$GG1mum2;
+$dogs->gg1dad3=$GG1dad3;
+$dogs->gg1mum4=$GG1mum4;
+/*по линии матери*/
+
+$dogs->g0dad=$G0dad;
+$dogs->g0mum=$G0mum;
+$dogs->gg0dad1=$GG0dad1;
+$dogs->gg0mum2=$GG0mum2;
+$dogs->gg0dad3=$GG0dad3;
+$dogs->gg0mum4=$GG0mum4;
+
+$id=R::store( $dogs );
 
 $id=$id_temp;
+
 
 unset($dogs);
 
