@@ -386,7 +386,7 @@ $_POST['train']=NULL;
     <details>
       <summary>Генетический код</summary> 
           <?php //print_all_d($id);  
-                detalis($id);
+            detalis_green($id);
 
           ?>
     </details>

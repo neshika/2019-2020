@@ -221,67 +221,88 @@ function detalis($id){
 /**************************** функция печатает на экран статы и ГП с подсветкой для новой собаки*************************/
 function detalis_green($id){
     
-    $data_dna= take_data_from($id, 'animals');
-
-
-    $data_dna_id=take_data_from($id, 'dna');
+    //      по умолчанию черный цвет текста данных по животным
+    $col_spd='black';
+    $col_agl='black';
+    $col_tch='black';
+    $col_jmp='black';
+    $col_nuh='black';
+    $col_fnd='black';
+    
+    $data_dna= take_data_from($id, 'animals');  //данные из таблицы animals по собаке
+    $data_dna_id=take_data_from($id, 'dna');    //данные из таблицы dna по собаке (tt, mm)
     //var_dump($data_dna_id);
     
-    $Fam_id=$data_dna['family_id'];
-    echo $Fam_id;
-    $data_family=take_data_from($id, 'family');
-    echo $data_family[mum];
-    echo $data_family[dad];
-    $data_stats_dog= take_data_from($id, 'stats');
-    $data_stats_m= take_data_from($data_family[mum], 'stats');
-    $data_stats_d= take_data_from($data_family[dad], 'stats');
-    /*echo '<br>ляля:';
-    debug($data_stats_dog);
-    echo '<br>мама:';
-    debug($data_stats_m);
-    echo '<br>папа:';
-    debug($data_stats_d);
-  */  
-
-    $col_spd='black';
-
-    $col_agl='black';
-
-    $col_tch='black';
-
-    $col_jmp='black';
-
-    $col_nuh='black';
-
-    $col_fnd='black';
-
-if(($data_stats_dog['speed']>$data_stats_m['speed']) && ($data_stats_dog['speed']>$data_stats_d['speed'])){
-    echo 'скорость зеленая';
-    $col_spd='green';
-}
-if(($data_stats_dog['agility']>$data_stats_m['agility']) && ($data_stats_dog['agility']>$data_stats_d['agility'])){
-    echo 'уворот зеленый';
-    $col_agl='green';
-}
-if(($data_stats_dog['teach']>$data_stats_m['teach']) && ($data_stats_dog['teach']>$data_stats_d['teach'])){
+    $Fam_id=$data_dna['family_id'];     //id на семью собаки
+   //echo $Fam_id;
+    $data_family=take_data_from($id, 'family');     //данные из таблицы family по собаке ссылка на родителей
+   // var_dump ($data_family['mum']);     //данные мамы id
+    //var_dump ($data_family['dad']);     //данные папы id
+    $data_stats_dog= take_data_from($id, 'stats');  //статы основной собаки
+    
+    
+    if( 0!=$data_family['mum'] ){ //если есть данные по маме, то проверяем
+        
+        $data_stats_m= take_data_from($data_family['mum'], 'stats');      //статы мамы
    
-    echo '<br>обучение зеленое';
-    $col_tch='green';
-}
-if(($data_stats_dog['jump']>$data_stats_m['jump']) && ($data_stats_dog['jump']>$data_stats_d['jump'])){
-    echo 'прыжки зеленые';
-    $col_jmp='green';
-}
-if(($data_stats_dog['scent']>$data_stats_m['scent']) && ($data_stats_dog['scent']>$data_stats_d['scent'])){
-    echo 'нюх зеленый';
-    $col_nuh='green';
-}
-if(($data_stats_dog['find']>$data_stats_m['find']) && ($data_stats_dog['find']>$data_stats_d['find'])){
-    echo 'поиск зеленый';
-    $col_fnd='green';
-}
+        if( $data_stats_dog['speed']>$data_stats_m['speed'] ){
+            //echo 'скорость зеленая';
+            $col_spd='green';
+        }
+        if( $data_stats_dog['agility']>$data_stats_m['agility'] ){
+            //echo 'уворот зеленый';
+            $col_agl='green';
+        }
+        if( $data_stats_dog['teach']>$data_stats_m['teach'] ){
 
+            //echo '<br>обучение зеленое';
+            $col_tch='green';
+        }
+        if( $data_stats_dog['jump']>$data_stats_m['jump'] ){
+            //echo 'прыжки зеленые';
+            $col_jmp='green';
+        }
+        if( $data_stats_dog['scent']>$data_stats_m['scent'] ){
+            //echo 'нюх зеленый';
+            $col_nuh='green';
+        }
+        if( $data_stats_dog['find']>$data_stats_m['find'] ){
+            //echo 'поиск зеленый';
+            $col_fnd='green';
+        }
 
+   }
+   if( 0!=$data_family['dad']){     //если есть данные по папе, то проверяем
+       $data_stats_d= take_data_from($data_family['dad'], 'stats');      //статы папы
+       
+       if ( $data_stats_dog['speed']>$data_stats_d['speed'] ){
+            //echo 'скорость зеленая';
+            $col_spd='green';
+        }
+        if( $data_stats_dog['agility']>$data_stats_d['agility'] ){
+            //echo 'уворот зеленый';
+            $col_agl='green';
+        }
+        if ( $data_stats_dog['teach']>$data_stats_d['teach'] ){
+
+            //echo '<br>обучение зеленое';
+            $col_tch='green';
+        }
+        if ( $data_stats_dog['jump']>$data_stats_d['jump'] ){
+            //echo 'прыжки зеленые';
+            $col_jmp='green';
+        }
+        if ( $data_stats_dog['scent']>$data_stats_d['scent'] ){
+            //echo 'нюх зеленый';
+            $col_nuh='green';
+        }
+        if ( $data_stats_dog['find']>$data_stats_d['find'] ){
+            //echo 'поиск зеленый';
+            $col_fnd='green';
+        }
+       
+   }
+      
 ?>             <br>
 
 <div align="left">
