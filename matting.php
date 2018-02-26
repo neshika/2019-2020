@@ -16,6 +16,13 @@ function bdika_pol($id_dog){  //проверяем пол выбранной с�
             }
         return $array;
 }
+function bdika_age($id){    //$key
+    $data_dog= take_data_from($id, 'animals');
+    if ((13>$data_dog['age_id']) || (('сука' == $data_dog['sex']) && (58>=$data_dog['age_id'])) ){
+        return 1;
+    }
+    else return 0;
+}
 
 $id_dog= $_SESSION['Dog'];// выгружаем из памяти id собаки 
 
@@ -41,19 +48,26 @@ $id_dog= $_SESSION['Dog'];// выгружаем из памяти id собак�
       <h3 align="center"><?php echo 'Партнеры: ';?></h3><?php
    /***************************вывожу на экран возможных парнтеров в зависимости от пола*************************/ 
    debug($array);
+   
    foreach($array as $item) {
               foreach ($item as $key => $value) {
                   
                 echo "<hr><br>";
                 echo '<br>основной: ' . $id_dog;
                 echo '<br>партнер: ' . $key;
-
-                $contact=ret_str_contact($key,$id_dog);  
+                
+                if(1== bdika_age($key)){
+                    $contact=ret_str_contact($key,$id_dog); 
+                }
+                 
                 if(!empty($contact))
                   echo $contact;
 
 
-                  $contact=ret_str_contact($id_dog,$key);
+                if(1== bdika_age($id_dog)){
+                    $contact=ret_str_contact($id_dog,$key); 
+                }  
+                
                 if(!empty($contact))
                    echo ' Партнер - ' . $contact;
 /**********************выводим на экран имя собаки как ссылку*********************************/
