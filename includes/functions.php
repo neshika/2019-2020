@@ -730,11 +730,10 @@ function ret_hr($id){
 }
 /*Функция пишет тип собаки по русски в зависимоти от Генетического типа*/
 function print_hr($id){
-    $dna_id=find_where('animals', $id,'dna_id');
-    $var=find_where('rando_dna', $id,'hr');
+    $var=take_data_from($id, 'dna');
     
-	if ($var=='Hrhr') return 'голая';
-	else return 'пуховая';
+	if ($var['hr']=='Hrhr') return 'голая';
+	else  return 'пуховая';
 }
 /*Функция считает голая или пух в зависимоти от родителей*/
 function gol_pooh($on,$ona){
@@ -854,7 +853,7 @@ function insert_url_puppy($dog_id){
     echo "<br>mm " . $data_dog['mm'];
 
         if('hrhr'==$data_dog['hr']){   //если пух
-          if('ww'==$data_dog['ww']){   //если не белый без пятен и без крапа
+          if('ww'==$data_dog['ww']){   //если не белый
                 if( 'ff'==$data_dog['ff'] ){ //если не рыжий
                     if('bb'==$data_dog['bb'])  //если шоко
                       $dna=hr0b0;
@@ -868,7 +867,7 @@ function insert_url_puppy($dog_id){
           $dna=hr0w1;
         }
         if('Hrhr'==$data_dog['hr']){    //если голый
-           if('ww'==$data_dog['ww'] && 'mm'==$data_dog['mm'] && 'tt'==$data_dog['tt']){   //если не белый без пятен и без крапа
+           if('ww'==$data_dog['ww']){   //если не белый
                 if('ff'==$data_dog['ff']){ //если не рыжий
                     if('bb'==$data_dog['bb'])  //если шоко
                       $dna=hr1b0;

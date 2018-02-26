@@ -39,7 +39,7 @@ echo "Тестируем: <br>";
 </form>
 <?php
 if(isset($_POST['dog_id'])  ){ 
-detalis_green($_POST['dog_id']);
+insert_url_puppy($_POST['dog_id']);
 $_POST['dog_id']=0;
 }
 /*
