@@ -733,8 +733,8 @@ function print_hr($id){
     $dna_id=find_where('animals', $id,'dna_id');
     $var=find_where('rando_dna', $id,'hr');
     
-	if ($var=='Hrhr') return 'пуховая';
-	else return 'голая';
+	if ($var=='Hrhr') return 'голая';
+	else return 'пуховая';
 }
 /*Функция считает голая или пух в зависимоти от родителей*/
 function gol_pooh($on,$ona){
@@ -842,55 +842,47 @@ function f_bdika_sex(){
 
  /*Функция вносит путь до картинки Щенка*/
 function insert_url_puppy($dog_id){
-        $hr=find_where('dna',$dog_id,'hr');
-        $ww=find_where('dna',$dog_id,'ww');
-       $bb=find_where('dna',$dog_id,'bb');
-       $ff=find_where('dna',$dog_id,'ff');
-       $tt=find_where('dna',$dog_id,'tt');
-       $mm=find_where('dna',$dog_id,'mm');
-
-    //$hr=hrhr;
-   // $bb=Bb;
-   // $ww=WW;
+    $data_dog=take_data_from($dog_id, 'dna');
+    
        $num=Rand(1,2);  //количество варианций окраса собаки
 
-      // echo "<br>hr " . $hr;
-    //  echo "<br>ww " . $ww;
-     // echo "<br>bb " . $bb;
-    //  echo "<br>ff " . $ff;
-    //  echo "<br>tt " . $tt;
-    //  echo "<br>mm " . $mm;
+      echo "<br>hr " . $data_dog['hr'];
+    echo "<br>ww " . $data_dog['ww'];
+     echo "<br>bb " . $data_dog['bb'];
+    echo "<br>ff " . $data_dog['ff'];
+    echo "<br>tt " . $data_dog['tt'];
+    echo "<br>mm " . $data_dog['mm'];
 
-        if('hrhr'==$hr){   //если пух
-          if('ww'==$ww && 'mm'==$mm && 'tt'==$tt){   //если не белый без пятен и без крапа
-                if( 'ff'==$ff ){ //если не рыжий
-                    if('bb'==$bb)  //если шоко
+        if('hrhr'==$data_dog['hr']){   //если пух
+          if('ww'==$data_dog['ww']){   //если не белый без пятен и без крапа
+                if( 'ff'==$data_dog['ff'] ){ //если не рыжий
+                    if('bb'==$data_dog['bb'])  //если шоко
                       $dna=hr0b0;
-                    if('Bb'==$bb || 'BB'==$bb)  //еcли черный
+                    if('Bb'==$data_dog['bb'] || 'BB'==$data_dog['bb'])  //еcли черный
                       $dna=hr0b1;
                 }
-                if('Ff'==$ff || 'FF'==$ff) //если рыжий
+                if('Ff'==$data_dog['ff'] || 'FF'==$data_dog['ff']) //если рыжий
                   $dna=hr0f1;
           }      
           else    //если белый
           $dna=hr0w1;
         }
-        if('Hrhr'==$hr){    //если голый
-           if('ww'==$ww && 'mm'==$mm && 'tt'==$tt){   //если не белый без пятен и без крапа
-                if('ff'==$ff){ //если не рыжий
-                    if('bb'==$bb)  //если шоко
+        if('Hrhr'==$data_dog['hr']){    //если голый
+           if('ww'==$data_dog['ww'] && 'mm'==$data_dog['mm'] && 'tt'==$data_dog['tt']){   //если не белый без пятен и без крапа
+                if('ff'==$data_dog['ff']){ //если не рыжий
+                    if('bb'==$data_dog['bb'])  //если шоко
                       $dna=hr1b0;
-                    if( ('Bb'==$bb) || ('BB'==$bb))  //ечли черный
+                    if( ('Bb'==$data_dog['bb']) || ('BB'==$data_dog['bb']))  //ечли черный
                       $dna=hr1b1;
                 }
-                if('Ff'==$ff || 'FF'==$ff) //если рыжий
+                if('Ff'==$data_dog['ff'] || 'FF'==$data_dog['ff']) //если рыжий
                     $dna=hr1f1;
             }
           else    //если белый
           $dna=hr1w1;
         }
 
-      $url="pici/puppy/" . $dna . '_0' . $num . '.png';
+      echo $url="pici/puppy/" . $dna . '_0' . $num . '.png';
 
 
       R::exec( 'UPDATE animals SET url_puppy=:url WHERE id = :id ', array(':url'=> $url, ':id' => $dog_id));
