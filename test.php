@@ -40,18 +40,25 @@ echo "Тестируем: <br>";
 <?php
 
 if(isset($_POST['dog_id'])  ){ 
+  $id=$_POST['dog_id'];
     
-
-    
-echo '<a href="/name.php?id=' . $_POST['dog_id'] . '">';?>
-                            						
-
-<img src="<?php echo find_where('animals',$_POST['dog_id'],'url_puppy');?>" width="5%" float="left"></a>
-    
-<?php    
-$_POST['dog_id']=0;
+  $f_data_m=ret_f_data_by_dog($id);
+  debug($f_data_m);
 }
+ $_POST['dog_id']=0;
+ 
+ if(ret_mutation(8,3)){
+          ?><h3 style="color:red"><?php echo '<br>При вязки близкородственных партнеров возможны ухудшения качеств и получение мутаций! Будьте осторожнее!';?></h3><?php
+        }
+ 
 /*
+ * 
+ *  //$data_dna=do_dna($_POST['dog_id']);
+   //$url=do_url($data_dna);
+   //insert_url($_POST['dog_id'],$url);
+  
+ * 
+ * 
 echo $sex = rand_sex();
 add_sex($id, $sex);
  echo '<br>' . take_sex($id);

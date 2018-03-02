@@ -1392,7 +1392,11 @@ function get_stats($id_m, $id_d, $value, $mutation, $plus){
 
         return $temp;
 }
-
+/*функция получает id собаки и возвращает данные по семье*/
+function ret_f_data_by_dog($id){
+    $f_id=ret_id_by_cell($id, 'family'); //получаем id на фамилию
+    return take_data_from($f_id, 'family'); //Получаем данные из семьи
+}
 /*проверяет партнера на родство и выводит степерь родства*/
 function ret_str_contact($partner,$dog){
   //echo $partner . ' ' . find_where('animals',$dog,'dad');
@@ -1423,8 +1427,8 @@ function ret_str_contact($partner,$dog){
 //      return ' пробабка!';
 //  }
 //  else return '';
-    $f_id=ret_id_by_cell($dog, 'family'); //получаем id на фамилию
-    $f_data= take_data_from($f_id, 'family'); //Получаем данные из семьи
+    
+    $f_data = ret_f_data_by_dog($dog); //функция возвращает данные по родственникам собаки
   if( $partner==$f_data['dad'] ){
 
       return ' отец!';
@@ -1453,117 +1457,60 @@ function ret_str_contact($partner,$dog){
     
 }
 
-/**********************  Проверка шанса мутаций в зависимости от родства партнеров****************/
-function check_mutation($id_m,$id_mum,$id_g1mum,$id_g0mum,$id_gg1mum2,$id_gg0mum2,$id_gg1mum4,$id_gg0mum4,
-                        $id_d,$id_dad,$id_g1dad,$id_g0dad,$id_gg1dad1,$id_gg0dad1,$id_gg1dad3,$id_gg0dad3){
+ 
+/*************Функция возвращает возможность получения мутации при близкородствееном скрещивании*/
+function ret_mutation($id_m,$id_d){
+    
+    $temp =0; //нет мутации
+    $num =Rand(1,100);   //шанс получения мутации
+    $f_data_m = ret_f_data_by_dog($id_m);   //родственники по линии матери
+    $f_data_d = ret_f_data_by_dog($id_d);   //родственники по линии отца
 
-        // $id_dad=2;
-         //$id_gg1dad1=2;
-           $num=Rand(1,100);
-          
-          echo '<br>num' . $num;
-      //    echo '<br> проверка на родство: ';
-          $temp=1;
-          if($id_d==$id_dad){
-           echo '<br>партнер - отец';
-
-            if($num>0 && $num<75){
-              $temp=0;
-              return 0;//echo '<br>mutation -  !';
-            }
-
-
-
-                        
-          }
-          elseif(($id_d==$id_g1dad) || ($id_d==$id_g0dad)){
-              echo '<br>партнер - дед';
-
-           // echo 'num ' . $num=Rand(25,50);
-            if($num>50 && $num<100){
-              $temp=0;
-              return 0;//echo '<br>mutation2 -  !';
-            }
-           
-          }
-          elseif(($id_d==$id_gg1dad1) || ($id_d==$id_gg0dad1) || ($id_d==$id_gg1dad3)|| ($id_d==$id_gg0dad3)){ 
-            echo '<br>партнер - прадед';
-
-            if($num>0 && $num<=25){
-              $temp=0;
-              return 0; //echo '<br>mutation3 -  !';
-            }
-            
-          }
-           
-          //самку
-          if($id_m==$id_mum){
-            echo '<br>партнерша - мать';
-
-             if($num>0 && $num<75){
-              $temp=0;
-              return 0;//echo '<br>mutation0 -  !';
-            }
-          }
-          
-          elseif(($id_m==$id_g1mum) || ($id_m==$id_g0mum)){
-           echo '<br>партнерша - бабка';
-
-             if($num>50 && $num<100){
-              $temp=0;
-              return 0; //echo '<br>mutation0-2 -  !';
-            }
-            
-          }
-          elseif(($id_m==$id_gg1mum2) || ($id_m==$id_gg0mum2) || ($id_m==$id_gg1mum4)|| ($id_m==$id_gg0mum4)){ 
-            echo '<br>партнерша - пробабка';
-
-             if($num>0 && $num<=25){
-              $temp=0;
-              //echo '<br>mutation0 - 3 -  !';
-            return 0;
-               }
-
-          }
-          if(1==$temp)
-            return 1;
-
-
-         
+    ////////////////////////////////////////////////проверка самки и родни партнера
+    
+    if($f_data_m['id']==$f_data_d['mum']){  //самка и мать партнера 75% мутация
+        echo 'партнерша - мать';
+        if($num>0 && $num<75){
+            $temp=1;
+        }
+    }
+     if( ($f_data_m['id']==$f_data_d['g1mum']) || ($f_data_m['id']==$f_data_d['g0mum']) ){  //самка и бабки партнера 50% мутация
+        echo 'партнерша - бабка';
+        if($num>50 && $num<100){
+            $temp=1;
+        }
+    }
+    if( ($f_data_m['id']==$f_data_d['gg1mum2']) || ($f_data_m['id']==$f_data_d['gg0mum2']) || ($f_data_m['id']==$f_data_d['gg1mum4']) || ($f_data_m['id']==$f_data_d['gg0mum4']) ){
+        //самка и пробабки партнера 25% мутация
+        echo 'партнерша - пробабка';
+        if($num>0 && $num<25){
+            $temp=1;
+        }
+    }
+    
+       /////////////////////////////////////////////проверка самца и родни партнера
+    if($f_data_d['id']==$f_data_m['dad']){  //самец и отец партнерши 75%
+        echo 'партнер - отец';
+        if($num>0 && $num<75){
+            $temp=1;
+        }
+    }
+     if( ($f_data_d['id']==$f_data_m['g1dad']) || ($f_data_d['id']==$f_data_m['g0dad']) ){
+         //самец и деды партнерши 50%
+        echo 'партнер - дед';
+        if($num>50 && $num<100){
+            $temp=1;
+        }
+    }
+    if( ($f_data_d['id']==$f_data_m['gg1dad1']) || ($f_data_d['id']==$f_data_m['gg0dad1']) || ($f_data_d['id']==$f_data_m['gg1dad3']) || ($f_data_d['id']==$f_data_m['gg0dad3']) ){
+        //самец и прадеды партнерши 25%
+        echo 'партнер прадед';
+        if($num>0 && $num<25){
+            $temp=1;    //если прошла мутация
+        }
+    }
+    return $temp;
 }
-
-/**********************  Выписка предков по линии матери и отца***********************/
-
-function ancestry ($id_m,$id_d){
-/*******************   данные предков самки мужского пола */
-  //echo '<br>проверка мамы<br>';
-       $id_dad=find_where('animals', $id_m,'dad');
-      $id_g1dad=find_where('animals', $id_m,'g1dad');
-       $id_g0dad=find_where('animals', $id_m,'g0dad');
-       $id_gg1dad1=find_where('animals', $id_m,'gg1dad1');
-       $id_gg0dad1=find_where('animals', $id_m,'gg0dad1');
-      $id_gg1dad3=find_where('animals', $id_m,'gg1dad3');
-      $id_gg0dad3=find_where('animals', $id_m,'gg0dad3');
-        //echo 'отец=' . $id_dad . ' / дед по папе=' . $id_g1dad. ' / дед по маме=' . $id_g0dad. ' / прадед по деду(отец)=' . $id_gg1dad1. ' / прадед по бабке(отец)=' . $id_gg1dad3. ' / прадед по деду(мать)=' . $id_gg0dad1. ' / прадед по бабке(мать)=' . $id_gg0dad3;
-   
-/*******************   данные предков кобеля женского пола */
-
-
-     //   echo '<br>=====================<br>проверка папы<br>';
-        $id_mum=find_where('animals', $id_d,'mum');
-        $id_g1mum=find_where('animals', $id_d,'g1mum');
-        $id_g0mum=find_where('animals', $id_d,'g0mum');
-        $id_gg1mum2=find_where('animals', $id_d,'gg1mum2');
-        $id_gg0mum2=find_where('animals', $id_d,'gg0mum2');
-        $id_gg1mum4=find_where('animals', $id_d,'gg1mum4');
-        $id_gg0mum4=find_where('animals', $id_d,'gg0mum4');
-      //  echo 'мать=' . $id_mum . ' / бабка по папе=' . $id_g1mum. ' / бабка по маме=' . $id_g0mum. ' / пробабка по деду(отец)=' . $id_gg1mum2. ' / пробабка по бабке(отец)=' . $id_gg0mum2. ' / пробабка по деду(мать)=' . $
-      $plus=check_mutation($id_m,$id_mum,$id_g1mum,$id_g0mum,$id_gg1mum2,$id_gg0mum2,$id_gg1mum4,$id_gg0mum4,
-                        $id_d,$id_dad,$id_g1dad,$id_g0dad,$id_gg1dad1,$id_gg0dad1,$id_gg1dad3,$id_gg0dad3);
-     
-      return $plus;
-}  
-
 
 /**********************  получение статов и поля МУТАЦИЯ кобеля и суки***********************/
 function print_stats($id_m,$id_d,$mutation)
@@ -2734,3 +2681,113 @@ function ret_id_by_cell($id, $cell){
 //    
 //    return $dna;
 //}
+/**********************  Проверка шанса мутаций в зависимости от родства партнеров****************/
+//function check_mutation($id_m,$id_mum,$id_g1mum,$id_g0mum,$id_gg1mum2,$id_gg0mum2,$id_gg1mum4,$id_gg0mum4,
+//                        $id_d,$id_dad,$id_g1dad,$id_g0dad,$id_gg1dad1,$id_gg0dad1,$id_gg1dad3,$id_gg0dad3){
+//
+//        // $id_dad=2;
+//         //$id_gg1dad1=2;
+//           $num=Rand(1,100);
+//          
+//          echo '<br>num' . $num;
+//      //    echo '<br> проверка на родство: ';
+//          $temp=1;
+//          if($id_d==$id_dad){
+//           echo '<br>партнер - отец';
+//
+//            if($num>0 && $num<75){
+//              $temp=0;
+//              return 0;//echo '<br>mutation -  !';
+//            }
+//
+//
+//
+//                        
+//          }
+//          elseif(($id_d==$id_g1dad) || ($id_d==$id_g0dad)){
+//              echo '<br>партнер - дед';
+//
+//           // echo 'num ' . $num=Rand(25,50);
+//            if($num>50 && $num<100){
+//              $temp=0;
+//              return 0;//echo '<br>mutation2 -  !';
+//            }
+//           
+//          }
+//          elseif(($id_d==$id_gg1dad1) || ($id_d==$id_gg0dad1) || ($id_d==$id_gg1dad3)|| ($id_d==$id_gg0dad3)){ 
+//            echo '<br>партнер - прадед';
+//
+//            if($num>0 && $num<=25){
+//              $temp=0;
+//              return 0; //echo '<br>mutation3 -  !';
+//            }
+//            
+//          }
+//           
+//          //самку
+//          if($id_m==$id_mum){
+//            echo '<br>партнерша - мать';
+//
+//             if($num>0 && $num<75){
+//              $temp=0;
+//              return 0;//echo '<br>mutation0 -  !';
+//            }
+//          }
+//          
+//          elseif(($id_m==$id_g1mum) || ($id_m==$id_g0mum)){
+//           echo '<br>партнерша - бабка';
+//
+//             if($num>50 && $num<100){
+//              $temp=0;
+//              return 0; //echo '<br>mutation0-2 -  !';
+//            }
+//            
+//          }
+//          elseif(($id_m==$id_gg1mum2) || ($id_m==$id_gg0mum2) || ($id_m==$id_gg1mum4)|| ($id_m==$id_gg0mum4)){ 
+//            echo '<br>партнерша - пробабка';
+//
+//             if($num>0 && $num<=25){
+//              $temp=0;
+//              //echo '<br>mutation0 - 3 -  !';
+//            return 0;
+//               }
+//
+//          }
+//          if(1==$temp)
+//            return 1;
+//
+//
+//         
+//}
+
+/**********************  Выписка предков по линии матери и отца***********************/
+//
+//function ancestry ($id_m,$id_d){
+///*******************   данные предков самки мужского пола */
+//  //echo '<br>проверка мамы<br>';
+//       $id_dad=find_where('animals', $id_m,'dad');
+//      $id_g1dad=find_where('animals', $id_m,'g1dad');
+//       $id_g0dad=find_where('animals', $id_m,'g0dad');
+//       $id_gg1dad1=find_where('animals', $id_m,'gg1dad1');
+//       $id_gg0dad1=find_where('animals', $id_m,'gg0dad1');
+//      $id_gg1dad3=find_where('animals', $id_m,'gg1dad3');
+//      $id_gg0dad3=find_where('animals', $id_m,'gg0dad3');
+//        //echo 'отец=' . $id_dad . ' / дед по папе=' . $id_g1dad. ' / дед по маме=' . $id_g0dad. ' / прадед по деду(отец)=' . $id_gg1dad1. ' / прадед по бабке(отец)=' . $id_gg1dad3. ' / прадед по деду(мать)=' . $id_gg0dad1. ' / прадед по бабке(мать)=' . $id_gg0dad3;
+//   
+///*******************   данные предков кобеля женского пола */
+//
+//
+//     //   echo '<br>=====================<br>проверка папы<br>';
+//        $id_mum=find_where('animals', $id_d,'mum');
+//        $id_g1mum=find_where('animals', $id_d,'g1mum');
+//        $id_g0mum=find_where('animals', $id_d,'g0mum');
+//        $id_gg1mum2=find_where('animals', $id_d,'gg1mum2');
+//        $id_gg0mum2=find_where('animals', $id_d,'gg0mum2');
+//        $id_gg1mum4=find_where('animals', $id_d,'gg1mum4');
+//        $id_gg0mum4=find_where('animals', $id_d,'gg0mum4');
+//      //  echo 'мать=' . $id_mum . ' / бабка по папе=' . $id_g1mum. ' / бабка по маме=' . $id_g0mum. ' / пробабка по деду(отец)=' . $id_gg1mum2. ' / пробабка по бабке(отец)=' . $id_gg0mum2. ' / пробабка по деду(мать)=' . $
+//      $plus=check_mutation($id_m,$id_mum,$id_g1mum,$id_g0mum,$id_gg1mum2,$id_gg0mum2,$id_gg1mum4,$id_gg0mum4,
+//                        $id_d,$id_dad,$id_g1dad,$id_g0dad,$id_gg1dad1,$id_gg0dad1,$id_gg1dad3,$id_gg0dad3);
+//     
+//      return $plus;
+//} 
