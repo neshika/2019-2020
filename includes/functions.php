@@ -372,9 +372,9 @@ function f_tree($id){
     find_where('animals', $id,'family_id');
     $data_dog= take_data_from($id, 'family');
     
-    echo '<br>Семья: ';
+   // echo '<br>Семья: ';
           echo '<hr>';
-          echo '<br>мама: ' . $data_dog['mum'];
+          echo 'мама: ' . $data_dog['mum'];
           echo '<br>дед: ' . $data_dog['g0dad'];
           echo '<br>бабка: ' . $data_dog['g0mum'];
           echo '<br>прадед(по деду): ' . $data_dog['gg0dad1'];
@@ -382,7 +382,6 @@ function f_tree($id){
           echo '<br>прадед(по бабке): ' . $data_dog['gg0dad3'];
           echo '<br>прабабка(по бабке): ' . $data_dog['gg0mum4'];
           echo '<hr>';
-
           echo 'папа: ' . $data_dog['dad'];
            echo '<br>дед: ' . $data_dog['g1dad'];
           echo '<br>бабка: ' . $data_dog['g1mum'];
@@ -948,17 +947,32 @@ function insert_url_puppy($dog_id){
  }
 /*      проверка если URL мамы = URL папы, т.е. собаки идентичные */
 function bdika_url_mum_dad($id){
-  $id_mum=find_where('animals',$id,'mum');
-  $id_dad=find_where('animals',$id,'dad');
-  $url_mum=find_where('animals',$id_mum,'url');
-  $url_dad=find_where('animals',$id_dad,'url');
-  echo '$url_mum ' . $url_mum . '<br>';
-  echo '$url_dad ' . $url_dad;
-  if($url_mum==$url_dad){     //если равны, то сразу вставляем данные
-    insert_data('animals',$id,'url',$url_mum);
-  }
-  else
-    return false;
+//  $id_mum=find_where('animals',$id,'mum');
+//  $id_dad=find_where('animals',$id,'dad');
+//  $url_mum=find_where('animals',$id_mum,'url');
+//  $url_dad=find_where('animals',$id_dad,'url');
+//  echo '$url_mum ' . $url_mum . '<br>';
+//  echo '$url_dad ' . $url_dad;
+//  if($url_mum==$url_dad){     //если равны, то сразу вставляем данные
+//    insert_data('animals',$id,'url',$url_mum);
+//  }
+//  else
+//    return false;
+    
+   $f_id= find_where('animals', $id, 'family');
+    $data_family=take_data_from($id, 'family');
+    $id_mum=$data_family['mum'];
+    $id_dad=$data_family['dad']; 
+    $url_mum=find_where('animals',$id_mum,'url');
+    $url_dad=find_where('animals',$id_dad,'url');
+    echo '$url_mum ' . $url_mum . '<br>';
+    echo '$url_dad ' . $url_dad;
+    if($url_mum==$url_dad){     //если равны, то сразу вставляем данные
+        insert_data('animals',$id,'url',$url_mum);
+    }
+    else
+        return false;
+        
 
 }                                                      
 
@@ -1378,35 +1392,65 @@ function get_stats($id_m, $id_d, $value, $mutation, $plus){
 
         return $temp;
 }
+
+/*проверяет партнера на родство и выводит степерь родства*/
 function ret_str_contact($partner,$dog){
   //echo $partner . ' ' . find_where('animals',$dog,'dad');
   //echo $partner . ' ' . find_where('animals',$dog,'mum');
 
-  if( $partner==find_where('animals',$dog,'dad') ){
+//  if( $partner==find_where('animals',$dog,'dad') ){
+//
+//      return ' отец!';
+//  }
+//  if( $partner==find_where('animals',$dog,'mum') ){
+//
+//      return ' мать!';
+//  }
+//  if( ( $partner==find_where('animals',$dog,'g1dad') ) || ( $partner==find_where('animals',$dog,'g0dad') ) ){
+//
+//      return ' дед!';
+//  }
+//  if( ( $partner==find_where('animals',$dog,'g1mum') ) || ( $partner==find_where('animals',$dog,'g0mum') ) ){
+//
+//      return ' бабка!';
+//  }
+//  if( ( $partner==find_where('animals',$dog,'gg0dad1') ) || ( $partner==find_where('animals',$dog,'gg0dad3') ) || ( $partner==find_where('animals',$dog,'gg1dad1') ) || ( $partner==find_where('animals',$dog,'gg1dad3') )){
+//
+//      return ' прадед!';
+//  }
+//  if( ( $partner==find_where('animals',$dog,'gg0mum2') ) || ( $partner==find_where('animals',$dog,'gg1mum2') ) || ( $partner==find_where('animals',$dog,'gg0mum4') ) || ( $partner==find_where('animals',$dog,'gg1mum4') )){
+//
+//      return ' пробабка!';
+//  }
+//  else return '';
+    $f_id=ret_id_by_cell($dog, 'family'); //получаем id на фамилию
+    $f_data= take_data_from($f_id, 'family'); //Получаем данные из семьи
+  if( $partner==$f_data['dad'] ){
 
       return ' отец!';
   }
-  if( $partner==find_where('animals',$dog,'mum') ){
+  if( $partner==$f_data['mum'] ){
 
       return ' мать!';
   }
-  if( ( $partner==find_where('animals',$dog,'g1dad') ) || ( $partner==find_where('animals',$dog,'g0dad') ) ){
+  if( ( $partner==$f_data['g1dad'] ) || ( $partner==$f_data['g0dad'] ) ){
 
       return ' дед!';
   }
-  if( ( $partner==find_where('animals',$dog,'g1mum') ) || ( $partner==find_where('animals',$dog,'g0mum') ) ){
+  if( ( $partner==$f_data['g1mum'] ) || ( $partner==$f_data['g0mum'] ) ){
 
       return ' бабка!';
   }
-  if( ( $partner==find_where('animals',$dog,'gg0dad1') ) || ( $partner==find_where('animals',$dog,'gg0dad3') ) || ( $partner==find_where('animals',$dog,'gg1dad1') ) || ( $partner==find_where('animals',$dog,'gg1dad3') )){
+  if( ( $partner==$f_data['gg0dad1'] ) || ( $partner==$f_data['gg0dad3'] ) || ( $partner==$f_data['gg1dad1'] ) || ( $partner==$f_data['gg1dad3'] )){
 
       return ' прадед!';
   }
-  if( ( $partner==find_where('animals',$dog,'gg0mum2') ) || ( $partner==find_where('animals',$dog,'gg1mum2') ) || ( $partner==find_where('animals',$dog,'gg0mum4') ) || ( $partner==find_where('animals',$dog,'gg1mum4') )){
+  if( ( $partner==$f_data['gg0mum2'] ) || ( $partner==$f_data['gg1mum2'] ) || ( $partner==$f_data['gg0mum4'] ) || ( $partner==$f_data['gg1mum4'] )){
 
       return ' пробабка!';
   }
   else return '';
+    
 }
 
 /**********************  Проверка шанса мутаций в зависимости от родства партнеров****************/
@@ -2208,6 +2252,19 @@ function take_data_from($id,$tabl){   //$id - индекс ; $tabl - табли�
     }
 
        
+}
+
+/*Функция достает даннные из заданного поля($cell) по ее Id из таблицы animals*/
+function ret_id_by_cell($id, $cell){
+     if('age'==$cell){
+        return R::getCell( 'SELECT age_id FROM animals WHERE id = :id',[':id' => $id] );
+    }
+      if('family'==$cell){
+        return R::getCell( 'SELECT family_id FROM animals WHERE id = :id',[':id' => $id] );
+    }
+      if('dna'==$cell){
+        return R::getCell( 'SELECT dna_id FROM animals WHERE id = :id',[':id' => $id] );
+    }
 }
 /******************************************конец функций по изменению стат******************************/
 
