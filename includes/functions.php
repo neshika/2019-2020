@@ -6,7 +6,7 @@ $GLOBALS['age']='15';
 //***** multipliers множители характеристик ****// 
 $GLOBALS['buy_stats']='100';
 $GLOBALS['timer']=1440;
-$GLOBALS['age_matting']='6';
+
 
 
 
@@ -351,24 +351,46 @@ function detalis_green($id){
 }
 /**************************** функция печатает на экран дерево(родственников)*************************/
 function f_tree($id){
-         // echo '<br>Семья: ';
+//         echo '<br>Семья: ';
+//          echo '<hr>';
+//          echo '<br>мама: ' . find_where('animals',$id,'mum');
+//          echo '<br>дед: ' . find_where('animals',$id,'g0dad');
+//          echo '<br>бабка: ' . find_where('animals',$id,'g0mum');
+//          echo '<br>прадед(по деду): ' . find_where('animals',$id,'gg0dad1');
+//          echo '<br>прабабка(по деду): ' . find_where('animals',$id,'gg0mum2');
+//          echo '<br>прадед(по бабке): ' . find_where('animals',$id,'gg0dad3');
+//          echo '<br>прабабка(по бабке): ' . find_where('animals',$id,'gg0mum4');
+//          echo '<hr>';
+//
+//          echo 'папа: ' . find_where('animals',$id,'dad');
+//           echo '<br>дед: ' . find_where('animals',$id,'g1dad');
+//          echo '<br>бабка: ' . find_where('animals',$id,'g1mum');
+//          echo '<br>прадед(по деду): ' . find_where('animals',$id,'gg1dad1');
+//          echo '<br>прабабка(по деду): ' . find_where('animals',$id,'gg1mum2');
+//          echo '<br>прадед(по бабке): ' . find_where('animals',$id,'gg1dad3');
+//          echo '<br>прабабка(по бабке): ' . find_where('animals',$id,'gg1mum4');
+    find_where('animals', $id,'family_id');
+    $data_dog= take_data_from($id, 'family');
+    
+    echo '<br>Семья: ';
           echo '<hr>';
-          echo '<br>мама: ' . find_where('animals',$id,'mum');
-          echo '<br>дед: ' . find_where('animals',$id,'g0dad');
-          echo '<br>бабка: ' . find_where('animals',$id,'g0mum');
-          echo '<br>прадед(по деду): ' . find_where('animals',$id,'gg0dad1');
-          echo '<br>прабабка(по деду): ' . find_where('animals',$id,'gg0mum2');
-          echo '<br>прадед(по бабке): ' . find_where('animals',$id,'gg0dad3');
-          echo '<br>прабабка(по бабке): ' . find_where('animals',$id,'gg0mum4');
+          echo '<br>мама: ' . $data_dog['mum'];
+          echo '<br>дед: ' . $data_dog['g0dad'];
+          echo '<br>бабка: ' . $data_dog['g0mum'];
+          echo '<br>прадед(по деду): ' . $data_dog['gg0dad1'];
+          echo '<br>прабабка(по деду): ' . $data_dog['gg0mum2'];
+          echo '<br>прадед(по бабке): ' . $data_dog['gg0dad3'];
+          echo '<br>прабабка(по бабке): ' . $data_dog['gg0mum4'];
           echo '<hr>';
 
-          echo 'папа: ' . find_where('animals',$id,'dad');
-           echo '<br>дед: ' . find_where('animals',$id,'g1dad');
-          echo '<br>бабка: ' . find_where('animals',$id,'g1mum');
-          echo '<br>прадед(по деду): ' . find_where('animals',$id,'gg1dad1');
-          echo '<br>прабабка(по деду): ' . find_where('animals',$id,'gg1mum2');
-          echo '<br>прадед(по бабке): ' . find_where('animals',$id,'gg1dad3');
-          echo '<br>прабабка(по бабке): ' . find_where('animals',$id,'gg1mum4');
+          echo 'папа: ' . $data_dog['dad'];
+           echo '<br>дед: ' . $data_dog['g1dad'];
+          echo '<br>бабка: ' . $data_dog['g1mum'];
+          echo '<br>прадед(по деду): ' . $data_dog['gg1dad1'];
+          echo '<br>прабабка(по деду): ' . $data_dog['gg1mum2'];
+          echo '<br>прадед(по бабке): ' . $data_dog['gg1dad3'];
+          echo '<br>прабабка(по бабке): ' . $data_dog['gg1mum4'];
+    
 }
 
 /*****************цена подсчета собаки*****************************/
