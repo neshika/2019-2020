@@ -38,8 +38,10 @@ echo "Тестируем: <br>";
 <input type="submit" name="ок" value="ok">
 </form>
 <?php
+
 if(isset($_POST['dog_id'])  ){ 
     
+
     
 echo '<a href="/name.php?id=' . $_POST['dog_id'] . '">';?>
                             						

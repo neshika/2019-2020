@@ -41,7 +41,7 @@
 57. Проверка озраста+пол(>6 мес, < 7.5 лет) bdika_age_for_breeding
 58.отрисовка щенка исправление функции insert_url_puppy($dog_id)
 59.при создании newDog вносим данные в DNA b Family
-64. При вязке проверять возраст matting.php (bdika_pol) bdika_age
+
 
 
 задания:
@@ -58,6 +58,8 @@
 
 
 63.При создании в офисе дать имя
+
+64. При вязке проверять возраст matting.php (bdika_pol) bdika_age
 
 
 
