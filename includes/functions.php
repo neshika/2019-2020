@@ -877,29 +877,29 @@ function insert_url_puppy($dog_id){
           if('ww'==$data_dog['ww']){   //если не белый
                 if( 'ff'==$data_dog['ff'] ){ //если не рыжий
                     if('bb'==$data_dog['bb'])  //если шоко
-                      $dna=hr0b0;
+                      $dna='hr0b0';
                     if(('Bb'==$data_dog['bb']) || ('BB'==$data_dog['bb']))  //еcли черный
-                      $dna=hr0b1;
+                      $dna='hr0b1';
                 }
                 if( ('Ff'==$data_dog['ff']) || ('FF'==$data_dog['ff']) ) //если рыжий
-                  $dna=hr0f1;
+                  $dna='hr0f1';
           }      
           else    //если белый
-          $dna=hr0w1;
+          $dna='hr0w1';
         }
         if('Hrhr'==$data_dog['hr']){    //если голый
            if('ww'==$data_dog['ww']){   //если не белый
                 if('ff'==$data_dog['ff']){ //если не рыжий
                     if('bb'==$data_dog['bb'])  //если шоко
-                      $dna=hr1b0;
+                      $dna='hr1b0';
                     if( ('Bb'==$data_dog['bb']) || ('BB'==$data_dog['bb']))  //ечли черный
-                      $dna=hr1b1;
+                      $dna='hr1b1';
                 }
                 if( ('Ff'==$data_dog['ff']) || ('FF'==$data_dog['ff']) ) //если рыжий
-                    $dna=hr1f1;
+                    $dna='hr1f1';
             }
           else    //если белый
-          $dna=hr1w1;
+          $dna='hr1w1';
         }
 
       echo $url="pici/puppy/" . $dna . '_0' . $num . '.png';
@@ -1188,8 +1188,8 @@ foreach ($dogs_m as $dog) {
 	
 //echo '<br>предки мамы: ';
 	
-  $G0dad=$dog['dad'];   //отец матери для щенка дед
-  $G0mum=$dog['mum'];    //мать матери для женка бабка
+        $G0dad=$dog['dad'];   //отец матери для щенка дед
+        $G0mum=$dog['mum'];    //мать матери для женка бабка
 	$GG0dad1=$dog['g1dad'];
 	$GG0mum2=$dog['g1mum'];
 	$GG0dad3=$dog['g0dad'];	//прадед
@@ -1554,9 +1554,9 @@ function new_stats($id_m,$id_d,$id_new){
       //  $id_d=15;
        // $id_new=20;
         $mutation=Rand(1,100)/100;
-        $plus='1';
+       // $plus='1';
         
-        $plus=ancestry ($id_m,$id_d);
+        $plus= ret_mutation($id_m,$id_d);
        /*
         if(1==$plus){
           echo 'При вязки близкородственных партнеров возможны ухудшения качеств и получение мутаций! Будьте осторожнее!';
