@@ -398,11 +398,14 @@ if(!isset($id_m)): ?>
     <div style="float: left; width: 35%;">
 <!-- имя мамы--> 
         <details>
-             <summary><?php  echo $id_m=$family_data['mum'];//echo $id_m;//echo find_where('animals',(find_where('animals',$id,'mum')),'name');?></summary> 
+            <summary><?php $id_m=$family_data['mum'];
+                    $mum_name=take_data_from($id_m, 'animals');
+                    echo $mum_name['name'];?>
+            </summary> 
 <!-- картинка мамы--> 
             <?php 
-                  //$id_m=find_where('animals',$id,'mum');
-                  if ('нет данных'!==$id_m){
+                  
+                  if ('0'!==$id_m){
                        // $row = R::getRow( 'SELECT * FROM animals WHERE id = :id',
                        // [':id' => $id_m]);
                         //f_get_image($row['hr'],$row['ww'],$row['ff'],$row['bb'] ,$row['tt'],$row['mm']);
@@ -428,11 +431,14 @@ if(!isset($id_m)): ?>
     <div style="float: right; width: 48%;">
 <!-- имя папы-->  
       <details>
-            <summary><?php echo $id_d=$family_data['dad'];//echo find_where('animals',(find_where('animals',$id,'dad')),'name');?></summary> 
+            <summary><?php $id_d=$family_data['dad'];
+                    $dad_name=take_data_from($id_d, 'animals');
+                    echo $dad_name['name'];?>
+            </summary> 
 <!-- картинка папы-->  
               <?php 
-                   // $id_d=find_where('animals',$id,'dad');
-                    if ('нет данных'!==$id_d){
+                   $id_d=$family_data['dad'];
+                    if ('0'!==$id_d){
                        // $row = R::getRow( 'SELECT * FROM animals WHERE id = :id',
                              // [':id' => $id_d]);
                         //f_get_image($row['hr'],$row['ww'],$row['ff'],$row['bb'] ,$row['tt'],$row['mm']);
