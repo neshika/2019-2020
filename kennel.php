@@ -138,8 +138,7 @@ require "/libs/up.php";
         if( isset($_POST['male']) ){
               $array[] = R::getAssoc('SELECT id,name FROM animals WHERE owner = :owner && sex LIKE "кобель" && status = 1' ,
               [':owner' => $owner]);
-              ?>
-              <img src = "/pic/male.png" alt = "мальчики" width="10%">   <?php
+              ?><img src = "/pic/male.png" alt = "мальчики" width="10%">   <?php
         
               foreach($array as $item) {
                   foreach ($item as $key => $value) {
@@ -170,8 +169,8 @@ require "/libs/up.php";
         if( isset($_POST['puppy']) ){
               $array[] = R::getAssoc('SELECT id,name FROM animals WHERE owner = :owner && status = 1' ,
               [':owner' => $owner]);
-            
-                  
+            ?><img src = "/pic/Puppy_mini.png" alt = "щенки"> <?php
+            echo "<br><hr><a>";
               foreach($array as $item) {
                   foreach ($item as $key => $value) {
                      
