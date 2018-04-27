@@ -738,6 +738,7 @@ function insert_new_dna($dog_id,$url_id,$hr,$ww, $ff,$bb,$mm,$tt,$aa){
     $dna->aa = $aa;
 
     $id = R::store( $dna );
+    return $id;
 }
 
 
@@ -2194,9 +2195,9 @@ function take_data_from($id,$tabl){   //$id - индекс ; $tabl - табли�
      if('stats'==$tabl){
      return R::getRow( 'SELECT * FROM stats WHERE dog_id = :id',[':id' => $id]);
     }
-     if('dna'==$tabl){
-     return R::getRow( 'SELECT * FROM dna WHERE dog_id = :id',[':id' => $id]);
-    }
+     //if('dna'==$tabl){
+    // return R::getRow( 'SELECT * FROM dna WHERE dog_id = :id',[':id' => $id]);
+   // }
 
        
 }
@@ -2209,9 +2210,9 @@ function ret_id_by_cell($id, $cell){
       if('family'==$cell){
         return R::getCell( 'SELECT family_id FROM animals WHERE id = :id',[':id' => $id] );
     }
-      if('dna'==$cell){
-        return R::getCell( 'SELECT dna_id FROM animals WHERE id = :id',[':id' => $id] );
-    }
+      //if('dna'==$cell){
+      // return R::getCell( 'SELECT dna_id FROM animals WHERE id = :id',[':id' => $id] );
+    //}
 }
 /******************************************конец функций по изменению стат******************************/
 

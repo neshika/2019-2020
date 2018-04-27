@@ -2,10 +2,6 @@
 require "/libs/up.php";
       $id = $_GET['id'];
       $GLOBALS['Data_dog']=data_animals($id);
-
-      //$GLOBALS ['MYDOG'] = 12;
-      //echo $MYDOG;
-
       $owner=ret_owner();
      // $var = find_where('dna',$id,'hr');
 //***************  вносим данные о состоянии энергии. Здоровья. счастья из базы************//
@@ -394,16 +390,18 @@ $_POST['train']=NULL;
 <p align="center">Родители:<br>
     
                                   МАМА ========================= ПАПА
-
-<?php if(!isset($id_m)): ?>
+  <?php $family_data=ret_f_data_by_dog($id);
+   
+if(!isset($id_m)): ?>
+                                  
 <!-- левая колонка мамы-->    
     <div style="float: left; width: 35%;">
 <!-- имя мамы--> 
         <details>
-             <summary><?php echo find_where('animals',(find_where('animals',$id,'mum')),'name');?></summary> 
+             <summary><?php  echo $id_m=$family_data['mum'];//echo $id_m;//echo find_where('animals',(find_where('animals',$id,'mum')),'name');?></summary> 
 <!-- картинка мамы--> 
             <?php 
-                  $id_m=find_where('animals',$id,'mum');
+                  //$id_m=find_where('animals',$id,'mum');
                   if ('нет данных'!==$id_m){
                        // $row = R::getRow( 'SELECT * FROM animals WHERE id = :id',
                        // [':id' => $id_m]);
@@ -430,10 +428,10 @@ $_POST['train']=NULL;
     <div style="float: right; width: 48%;">
 <!-- имя папы-->  
       <details>
-            <summary><?php echo find_where('animals',(find_where('animals',$id,'dad')),'name');?></summary> 
+            <summary><?php echo $id_d=$family_data['dad'];//echo find_where('animals',(find_where('animals',$id,'dad')),'name');?></summary> 
 <!-- картинка папы-->  
               <?php 
-                    $id_d=find_where('animals',$id,'dad');
+                   // $id_d=find_where('animals',$id,'dad');
                     if ('нет данных'!==$id_d){
                        // $row = R::getRow( 'SELECT * FROM animals WHERE id = :id',
                              // [':id' => $id_d]);

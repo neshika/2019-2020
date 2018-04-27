@@ -59,17 +59,17 @@ function testim($id_m,$id_d){
     $id=R::store($dog_new); //сохраняем данные первичный ключ создается автоматом
     return $id; //возвращяем id новой собаки
 }
-//создаем DNA
-function greate_family($id,$id_m,$id_d){
+//создаем family
+function greate_family($id_new,$id_m,$id_d){
     
     $dog_m= take_data_from($id_m,'animals');
     $dog_d= take_data_from($id_d,'animals');
-    $dog_new= take_data_from($id,'animals');
+    //$dog_new= take_data_from($id_new,'animals');
     
     $dog_new=R::dispense('family');        //создаем объект в таблицу
     
-        $dogs->mum=$id_m;
-        $dogs->dad=$id_d;
+        $dog_new->mum=$id_m;
+        $dog_new->dad=$id_d;
 
 
         /*по линии матери*/
@@ -91,25 +91,42 @@ function greate_family($id,$id_m,$id_d){
         
          /*по линии отца */
         //echo '<br>предки папы: ';
-	$G1dad=$dog['dad'];
-	$G1mum=$dog['mum'];
-	$GG1dad1=$dog['g1dad'];
-	$GG1mum2=$dog['g1mum'];
-	$GG1dad3=$dog['g0dad'];
-	$GG1mum4=$dog['g0mum'];
+	$dog_new->g1dad=$dog_d['dad'];
+	$dog_new->g1mum=$dog_d['mum'];
+	$dog_new->gg1dad1=$dog_d['g1dad'];
+	$dog_new->gg1mum2=$dog_d['g1mum'];
+	$dog_new->gg1dad3=$dog_d['g0dad'];
+	$dog_new->gg1mum4=$dog_d['g0mum'];
 	
-        $dogs->g1dad=$G1dad;
-        $dogs->g1mum=$G1mum;
-        $dogs->gg1dad1=$GG1dad1;
-        $dogs->gg1mum2=$GG1mum2;
-        $dogs->gg1dad3=$GG1dad3;
-        $dogs->gg1mum4=$GG1mum4;
+        //$dogs->g1dad=$G1dad;
+        //$dogs->g1mum=$G1mum;
+        //$dogs->gg1dad1=$GG1dad1;
+        //$dogs->gg1mum2=$GG1mum2;
+        //$dogs->gg1dad3=$GG1dad3;
+        //$dogs->gg1mum4=$GG1mum4;
         
     
     $id=R::store($dog_new); //сохраняем данные первичный ключ создается автоматом
-   
-   
+   return $id;  //возвращает ID внести в таблицу animals
+   insert_data('animals',$id_new,'dna_id',$id); //вставлянем данные в поле на ссылку dna
     
+}
+//создаем DNA
+function greate_dna($id_new,$id_m,$id_d){
+    
+    $dna_m= take_data_from($id_m,'dna');
+    $dna_d= take_data_from($id_d,'dna');
+    
+    
+    echo '<br>даем окрас!';
+    $tt = breedding($dna_m['tt'],$dna_d['tt'],'TT','tt','Tt');
+    $aa = breedding($dna_m['aa'],$dna_d['aa'],'AA','aa','Aa');
+    $bb = breedding($dna_m['bb'],$dna_d['bb'],'BB','bb','Bb');
+    $mm = breedding($dna_m['mm'],$dna_d['mm'],'MM','mm','Mm');
+    $ww = breedding($dna_m['ww'],$dna_d['ww'],'WW','ww','Ww');
+    $ff = breedding($dna_m['ff'],$dna_d['ff'],'FF','ff','Ff');
+   
+    //insert_new_dna($id_new, $url_id, $hr, $ww, $ff, $bb, $mm, $tt, $aa);
 }
 
 
