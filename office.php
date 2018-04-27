@@ -101,4 +101,7 @@ require "db.php";
                           echo '<br>Выручка составила: ' . $price;
  
                      }
+                     
+                     
+                     
 			   require '/libs/down.php';

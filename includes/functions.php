@@ -752,10 +752,12 @@ function ret_hr($id){
 }
 /*Функция пишет тип собаки по русски в зависимоти от Генетического типа*/
 function print_hr($id){
-    $var=take_data_from($id, 'dna');
-    
-	if ($var['hr']=='Hrhr') return 'голая';
-	else  return 'пуховая';
+    $dna_id=ret_id_by_cell($id, 'dna');
+    $hr_val=find_where('rando_dna', $dna_id, 'hr');
+    if ('Hrhr'==$hr_val)
+        return 'голая';
+    else
+        return 'пуховая';
 }
 /*Функция считает голая или пух в зависимоти от родителей*/
 function gol_pooh($on,$ona){
@@ -2210,9 +2212,9 @@ function ret_id_by_cell($id, $cell){
       if('family'==$cell){
         return R::getCell( 'SELECT family_id FROM animals WHERE id = :id',[':id' => $id] );
     }
-      //if('dna'==$cell){
-      // return R::getCell( 'SELECT dna_id FROM animals WHERE id = :id',[':id' => $id] );
-    //}
+      if('dna'==$cell){
+       return R::getCell( 'SELECT dna_id FROM animals WHERE id = :id',[':id' => $id] );
+    }
 }
 /******************************************конец функций по изменению стат******************************/
 
