@@ -36,6 +36,7 @@ require "/libs/up.php";
           <button type="submit" class="knopka" name="all_dogs">все собаки</button>
           <button type="submit" class="knopka" name="female">суки</button>
           <button type="submit" class="knopka" name="male">кобели</button>
+          <button type="submit" class="knopka" name="puppy">щенки</button>
       </form>
     </p>
 <?php
@@ -162,7 +163,41 @@ require "/libs/up.php";
                 }   //foreach ($item as $key => $value)  
               echo "<br />";
             }   //foreach($array as $item)
-          }   //if( isset($_POST['male']) )
+         }   //if( isset($_POST['male']) )
+/******************************* Если нажата кнопка щенки выводим на экран всех щенков, пренадлежащих владельцу*/
+
+
+        if( isset($_POST['puppy']) ){
+              $array[] = R::getAssoc('SELECT id,name FROM animals WHERE owner = :owner && status = 1' ,
+              [':owner' => $owner]);
+            
+                  
+              foreach($array as $item) {
+                  foreach ($item as $key => $value) {
+                     
+/*сохранение данных о голости собаки + вязки/щенки*/
+                     // $tip=find_where('animals', $key,'hr');
+                      //$lit=find_where('animals', $key,'litter');
+                      //$pup=find_where('animals', $key,'puppy');
+                      $GLOBALS['Data_dog']=data_animals($key);    //сохраняем данные по собаке
+                      if(13>=$GLOBALS['Data_dog']['age_id']){ //возраст <6 месяцев
+/*выводим имена кобелей как ссылки на страничку собаки*/
+                                echo '<a href="/name.php?id=' . $key . '">';?>
+
+                          <img src="<?php echo print_pic($key);?>" width="10%"></a> 
+                           <div>
+                                <?php echo 'имя: ' . $value;
+                                 echo "<br><hr><a>"; 
+                                 ?>
+                                     
+                            </div><?php
+                    }   //foreach ($item as $key => $value)  
+                        
+                  } //if(13>=$GLOBALS['Data_dog']['age_id']){
+                  
+            }   //foreach($array as $item)
+            
+         }   //if( isset($_POST['male']) )
 
 //функция вызывающая футер сайта
 require "/libs/down.php";
