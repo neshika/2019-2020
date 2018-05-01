@@ -65,7 +65,7 @@ require "/libs/up.php";
                 $pol=find_where('animals', $key,'sex');
 
                 $GLOBALS['Data_dog']=data_animals($key);    //сохраняем данные по собаке
-                if(13<$GLOBALS['Data_dog']['age_id']){ //возраст >6 месяцев
+               
 /*выводим на экран имя собаки как ссылку*/
                         echo '<a href="/name.php?id=' . $key . '">';?>
 
@@ -80,7 +80,7 @@ require "/libs/up.php";
                                echo '<a href="/lit&pup.php?id=' . $key . '">' . "<br> вязки/дети: ". $lit .'/'. $pup;?>
 
                        </div><?php
-                }   //if(13<$GLOBALS['Data_dog']['age_id'])
+                
               }    //foreach ($item as $key => $value) {
             echo "<br/>";
             }   // foreach($array as $item)
@@ -102,7 +102,7 @@ require "/libs/up.php";
         
            foreach($array as $item) {
               foreach ($item as $key => $value) {
-                echo "<br><hr><a>";
+                
 
 /*сохранение данных о голости собаки + вязки/щенки*/
                 //$tip=find_where('animals', $key,'hr');
@@ -110,6 +110,7 @@ require "/libs/up.php";
                 $pup=find_where('animals', $key,'puppy');
                 $GLOBALS['Data_dog']=data_animals($key);    //сохраняем данные по собаке
                    if(13<$GLOBALS['Data_dog']['age_id']){ //возраст >6 месяцев
+                       echo "<br><hr><a>";
 /*выводим имена сук как ссылки на страничку собаки*/
                         ?>
                         <p class="right"><?php
@@ -147,14 +148,16 @@ require "/libs/up.php";
               ?><img src = "/pic/male.png" alt = "мальчики" width="10%">   <?php
         
               foreach($array as $item) {
+                  
                   foreach ($item as $key => $value) {
-                      echo "<br><hr><a>";
+                      
 /*сохранение данных о голости собаки + вязки/щенки*/
                      // $tip=find_where('animals', $key,'hr');
                       $lit=find_where('animals', $key,'litter');
                       $pup=find_where('animals', $key,'puppy');
                       $GLOBALS['Data_dog']=data_animals($key);    //сохраняем данные по собаке
                        if(13<$GLOBALS['Data_dog']['age_id']){ //возраст >6 месяцев
+                           echo "<br><hr><a>";
 /*выводим имена кобелей как ссылки на страничку собаки*/
                                 echo '<a href="/name.php?id=' . $key . '">';?>
 
@@ -177,7 +180,7 @@ require "/libs/up.php";
               $array[] = R::getAssoc('SELECT id,name FROM animals WHERE owner = :owner && status = 1' ,
               [':owner' => $owner]);
             ?><img src = "/pic/Puppy_mini.png" alt = "щенки"> <?php
-            echo "<br><hr><a>";
+           
               foreach($array as $item) {
                   foreach ($item as $key => $value) {
                      
@@ -187,13 +190,14 @@ require "/libs/up.php";
                       //$pup=find_where('animals', $key,'puppy');
                       $GLOBALS['Data_dog']=data_animals($key);    //сохраняем данные по собаке
                       if(13>=$GLOBALS['Data_dog']['age_id']){ //возраст <6 месяцев
+                          echo "<br><hr><a>";
 /*выводим имена кобелей как ссылки на страничку собаки*/
                                 echo '<a href="/name.php?id=' . $key . '">';?>
 
                           <img src="<?php echo print_pic($key);?>" width="10%"></a> 
                            <div>
                                 <?php echo 'имя: ' . $value;
-                                 echo "<br><hr><a>"; 
+                                
                                  ?>
                                      
                             </div><?php
