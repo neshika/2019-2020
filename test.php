@@ -131,6 +131,11 @@ function greate_dna($id_new,$id_m,$id_d){
 
 
 
+
+
+
+
+
 echo "Тестируем: <br>";
 
 ?>
@@ -141,11 +146,16 @@ echo "Тестируем: <br>";
 <?php
 
 if(isset($_POST['dog_id'])  ){ 
-  //$id=$_POST['dog_id'];
-    testim (7,8);
+  $id=$_POST['dog_id'];
+    //testim (7,8);
+  $tabl='animals';
+  $data_dog=ret_Row($id,$tabl);
+  debug($data_dog);
+  echo $data_dog['name'] . $data_dog['breeder'];
   
+    
 }
- $_POST['dog_id']=0;
+ //$_POST['dog_id']=0;
  
 /*
  * 
