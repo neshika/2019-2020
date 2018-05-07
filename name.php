@@ -1,6 +1,6 @@
 <?php
 require "/libs/up.php";
-      $id = $_GET['id'];
+     $id = $_GET['id'];
       $GLOBALS['Data_dog']=data_animals($id);
       $owner=ret_owner();
       $family_data= ret_Row($GLOBALS['Data_dog']['family_id'],'family');
@@ -35,7 +35,7 @@ require "/libs/up.php";
    </div>
           
 <!-- ******************** вывод доп меню собаки  заводчик / хозяин  *****************-->  
-    <div style="height: 80px; width: 1170px;"> 
+    <div style="height: 80px; width: 1165px; background-color: #D0D0D0;"> 
           <ul style="width: 45%; float: left;">
             <li>Заводчик: <?php echo $GLOBALS['Data_dog']['breeder'];?></li>
             <li>Хозяин: <?php echo $GLOBALS['Data_dog']['owner'];?></li>
@@ -52,15 +52,12 @@ require "/libs/up.php";
 
     </div>
 
-<hr>
-<hr>
-<!-- ******************** вывод картинки собаки по id  *****************-->
+ <!-- ******************** вывод картинки собаки по id  *****************-->
 
 <form method="POST">
-<table width="1170" cellpadding="3" cellspacing="0">
+<table width="1165" cellpadding="3" cellspacing="0" bgcolor="#D0D0D0">
    <colgroup width="390">
-   
-  <tr>
+     <tr>
       <td><input style="float: left;  margin-left: 30px;" id="button" name="food" type="submit" value="есть" class = "knopka">
           <input style="float: right;  margin-right: 30px;" id="button" name="water" type="submit" value="пить" class = "knopka">
           <br>
@@ -85,10 +82,11 @@ require "/libs/up.php";
   </tr>
 </table>
 <input id="button" name="rand" type="submit" value="рандомное число" class = "knopka">
-<div style="margin-left: 450px""><table>
-         <tr><td>Энергия</td><td><div class="meter"><span style="width: <?php echo$GLOBALS['Data_dog']['vitality'] . '%';?>"></span></div></td><td><?php echo$_SESSION['vitality'];?></td></tr>
-            <tr><td>Здоровье</td><td><div class="meter"><span style="width: <?php echo$GLOBALS['Data_dog']['hp'] . '%';?>"></span></div></td><td><?php echo$_SESSION['hp'];?></td></tr>
-            <tr><td>Счастье</td><td> <div class="meter"><span style="width: <?php echo$GLOBALS['Data_dog']['joy'] . '%';?>"></span></div></td><td><?php echo$_SESSION['joy'];?></td></tr>
+<div style="margin-left: 450px">
+    <table>
+         <tr><td>Энергия</td><td><div class="meter"><span style="width: <?php echo $GLOBALS['Data_dog']['vitality'] . '%';?>"></span></div></td><td><?php echo $GLOBALS['Data_dog']['vitality'];?></td></tr>
+            <tr><td>Здоровье</td><td><div class="meter"><span style="width: <?php echo $GLOBALS['Data_dog']['hp'] . '%';?>"></span></div></td><td><?php echo $GLOBALS['Data_dog']['hp'];?></td></tr>
+            <tr><td>Счастье</td><td> <div class="meter"><span style="width: <?php echo $GLOBALS['Data_dog']['joy'] . '%';?>"></span></div></td><td><?php echo $GLOBALS['Data_dog']['joy'];?></td></tr>
       </table>
 </div>
 
