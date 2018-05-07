@@ -7,6 +7,7 @@
   #291839 - кнопки
   #A575B5 - текст кнопок
   #626262 - т. серый
+#D0D0D0      - чуть серый  
 */
 body{
     background-image:url('/pic/1.jpg');
@@ -339,7 +340,7 @@ a.buttons:not(:hover) {
     float:left;
     width:99%;
     height:200px;
-    background: #9868CE;
+    background: #D0D0D0 ;
 }
 .dad_mum{
   position:relative;
@@ -350,7 +351,7 @@ a.buttons:not(:hover) {
 float:left;
 width:49%;
 height:200px;
-background:green;
+background:#D0D0D0 ;
 }
 
 #mum{
@@ -358,7 +359,7 @@ background:green;
 float:left;
 width:49%;
 height:200px;
-background:blue;
+background:#D0D0D0 ;
 }
 .GG_dad_mum{
   position:relative;
@@ -369,7 +370,7 @@ background:blue;
 float:left;
 width:24%;
 height:200px;
-background:green;
+background:#D0D0D0 ;
 }
 
 #two{
@@ -377,7 +378,7 @@ background:green;
 float:left;
 width:24%;
 height:200px;
-background:blue;
+background:#D0D0D0 ;
 }
 
 #three{
@@ -385,7 +386,7 @@ background:blue;
 float:left;
 width:24%;
 height:200px;
-background:#9C339A;
+background:#D0D0D0 ;
 }
 
 #four{
@@ -393,7 +394,7 @@ background:#9C339A;
 float:left;
 width:24%;
 height:200px;
-background:olive;
+background:#D0D0D0 ;
 }
 
 #left_breed{
