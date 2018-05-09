@@ -186,7 +186,7 @@ if(!isset($id_m)): ?>
    <form method="POST">
       
       
-      <a class="buttons" <?php echo '<a href="/lit&pup.php?id=' . $id . '">'?>Родословная</a>
+      <a class="buttons" <?php echo '<a href="/family_tree.php?id=' . $id . '">'?>Родословная</a>
       <a class="buttons" <?php echo '<a href="/kennel.php">'?>в питомник</a>
       <p>
     <p><strong>Сменить имя:</strong></p>
