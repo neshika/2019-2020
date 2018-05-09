@@ -1040,6 +1040,11 @@ Function dog_pic($id){
   ?><img src="<?php echo $url;?>"><?php
 }
 
+/*Функция печатает собаку  c заданным размером в% или пикселях*/
+function dog_pic_size($id,$size){
+    ?><img src="<?php echo print_pic($id);?>" height="<?php echo $size?>"><?php
+}
+
 /////////////////////////////////////////  ВЯЗКА   /////////////////////////////////
 function breedding($on,$ona,$temp, $temp2,$temp3){
 //$on="TT";
