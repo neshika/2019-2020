@@ -70,7 +70,7 @@ require "/libs/up.php";
         
     </td>
 
-    <td style="border-width: 10px; text-align: center;"><?php dog_pic($id);?>
+    <td style="border-width: 10px; text-align: center;"><?php echo print_pic($id) . "<br>"; dog_pic($id);?>
         
     </td> 
     <td>
@@ -96,10 +96,11 @@ require "/libs/up.php";
 <!-- ******************** вывод статы собаки  *****************--> 
 
     <details>
-      <summary>Генетический код</summary> 
+      <summary>Генетический код 
           <?php //print_all_d($id);  
             detalis_green($id);
           ?>
+          </summary>
     </details>
 <!-- ******************** вывод родителей *****************--> 
 <p align="center">Родители:<br>
@@ -128,8 +129,9 @@ if(!isset($id_m)): ?>
 
 <!-- ******************** вывод Генетического кода собаки  скрытый текст*****************--> 
               <details>
-                    <summary>Генетический код</summary> 
-                    <?php /*print_all_d($id_m);*/ detalis($id_m);?>
+                    <summary>Генетический код
+                    <?php echo "<br>" . print_pic($id_m) . "<br>"; detalis($id_m);?>
+                        </summary> 
               </details>
 
 
@@ -159,8 +161,9 @@ if(!isset($id_m)): ?>
 
 <!-- ******************** вывод Генетического кода собаки  скрытый текст*****************--> 
             <details>
-                  <summary>Генетический код</summary> 
-                  <?php /*print_all_d($id_d);*/ detalis($id_d);?>
+                  <summary>Генетический код
+                  <?php echo "<br>" . print_pic($id_d) . "<br>"; detalis($id_d);?>
+                      </summary> 
             </details>
 
 

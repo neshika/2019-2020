@@ -101,6 +101,48 @@ require "/libs/up.php";
  </tr>
  </tbody></table>
     
+    
+    <table width="980" align="center" cellpadding="0" cellspacing="0" class="main_text" border="0">
+<tbody><tr>
+  <td width="400" align="center" valign="top">
+ <img src="puppies/_br/08-1A.jpg" width="400" height="300" alt="" class="photo">
+  </td>
+  
+  <td width="20" align="center" valign="top">
+  </td>
+  
+  <td align="left" valign="top">
+   <h2 align="left">Помет "А"</h2>
+  дата рождения: 22.12.2008
+  <br>
+  1 голый кобель, 1 пуховый кобель
+  <br>
+  <a class="main_link" href="pometA.php"><strong>страница помета</strong></a>
+  <br><br>
+   <table width="560" align="left" cellpadding="0" cellspacing="0" class="main_text" border="0">
+    <tbody><tr>
+     <td width="560" align="left" valign="top">
+      <img src="puppies/papa1m.jpg" width="120" height="95" alt="" class="photo left_in_text">
+	   отец<br>
+	   Жюльен
+	   <br>
+	   <font color="#569ff6">
+	   Юный Чемпион России,<br>
+	   Чемпион России</font>
+	  <br><br><br>
+	  <img src="puppies/mama1m.jpg" width="120" height="95" alt="" class="photo left_in_text">
+	   мать<br>
+	   Златовласка Королева Бала<br>
+	   <font color="#569ff6">Гранд Чемпион России, Чемпион России, Чемпион НКП,<br>
+	   Чемпион РКФ, Чемпион ОАНКОО, Чемпион РФОС,
+	   Чемпион РФЛС, Чемпион РФСС, Юный Чемпион России</font>
+     </td>
+	</tr>
+   </tbody></table>
+  </td>
+ </tr>
+</tbody></table>
+    
    
       </div>
 </div>
