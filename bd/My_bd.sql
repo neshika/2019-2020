@@ -383,10 +383,10 @@ INSERT INTO `races` (`id_r`, `name_race`) VALUES
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `rando_dna`
+-- Структура таблицы `randodna`
 --
 
-CREATE TABLE `rando_dna` (
+CREATE TABLE `randodna` (
   `id` int(11) NOT NULL,
   `hr` varchar(4) NOT NULL COMMENT 'гол/пух',
   `ww` varchar(3) NOT NULL COMMENT 'белый',
@@ -408,10 +408,10 @@ CREATE TABLE `rando_dna` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Дамп данных таблицы `rando_dna`
+-- Дамп данных таблицы `randodna`
 --
 
-INSERT INTO `rando_dna` (`id`, `hr`, `ww`, `ff`, `bb`, `tt`, `mm`, `sex`, `lucky`, `spd`, `agl`, `tch`, `jmp`, `nuh`, `fnd`, `mut`, `dna`, `about`) VALUES
+INSERT INTO `randodna` (`id`, `hr`, `ww`, `ff`, `bb`, `tt`, `mm`, `sex`, `lucky`, `spd`, `agl`, `tch`, `jmp`, `nuh`, `fnd`, `mut`, `dna`, `about`) VALUES
 (1, 'hrhr', 'Ww', 'Ff', 'Bb', 'tt', 'Mm', '1', 13, 11, 10, 11, 9, 10, 10, 17, 'hr0w1f0b1t0m0', 'shop'),
 (2, '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 0, '', ''),
 (3, '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 0, '', ''),
@@ -551,9 +551,9 @@ ALTER TABLE `races`
   ADD KEY `name_race` (`name_race`);
 
 --
--- Индексы таблицы `rando_dna`
+-- Индексы таблицы `randodna`
 --
-ALTER TABLE `rando_dna`
+ALTER TABLE `randodna`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -609,9 +609,9 @@ ALTER TABLE `litters`
 ALTER TABLE `owner_items`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
--- AUTO_INCREMENT для таблицы `rando_dna`
+-- AUTO_INCREMENT для таблицы `randodna`
 --
-ALTER TABLE `rando_dna`
+ALTER TABLE `randodna`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT для таблицы `stats`

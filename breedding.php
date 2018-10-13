@@ -86,7 +86,7 @@ $_SESSION['id_d']=$id_d;
  <?php
  //$plus=ancestry ($id_m,$id_d);
       // echo '<br>'. $plus;
-        if(ret_mutation($id_m,$id_d)){  //если вернулся 1, то есть мутация
+        if(bdika_mutation($id_m,$id_d)){  //если вернулся 1, то есть мутация
           ?><h3 style="color:red"><?php echo '<br>При вязки близкородственных партнеров возможны ухудшения качеств и получение мутаций! Будьте осторожнее!';?></h3><?php
         }
 ?>

@@ -32,15 +32,22 @@ function ret_dna($id){
 	 return R::getCell('SELECT dna_id FROM animals WHERE id = :id',
        [':id' => $id]);
 }
+/*Функция возвращает id на family*/
+function ret_family($id){
+	 return R::getCell('SELECT family_id FROM animals WHERE id = :id',
+       [':id' => $id]);
+}
 /*Функция возвращает id на mamy*/
 function ret_mum($id){
-    $dog = ret_f_data_by_dog($id);
-    debug($dog['mum']);
+    $data_mum = ret_f_data_by_dog($id);
+    return $data_mum['mum'];
+   
 }
 /*Функция возвращает id на папу*/
 function ret_dad($id){
-    $dog = ret_f_data_by_dog($id);
-    debug($dog['dad']);
+   $data_dad = ret_f_data_by_dog($id);
+   return $data_dad['dad'];
+    
 }
 function debug($arr){
     echo '<pre>' . print_r($arr, true). '</pre>';
@@ -802,9 +809,9 @@ function f_rand_col($param, $param2, $param3){
 /*                                             *************************    1 страница рандомная пол собаки  */
 function f_bdika_sex(){
 	if(Rand(1,2)==1)
-		$sex='кобель';
+		$sex='1';   //кобелль
 	else
-		$sex='сука';
+		$sex='0';   //сука
 	return $sex;
 
 }
@@ -1703,45 +1710,11 @@ function find_where($tabl,$id,$value){
 function insert_data($tabl,$id,$cell,$value){  //$tabl - название таблицы \\ $id-ай ди выбранного\\ $cell-названия столба\\ $value- значение
     if ('animals'===$tabl){
         switch ($cell) {
-           /*данные по папе*/
-           case 'gg1mum4':
-             return R::exec( 'UPDATE animals SET url=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-             break;
-           case 'gg1dad3':
-             return R::exec( 'UPDATE animals SET url=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-             break;
-           case 'gg1mum2':
-             return R::exec( 'UPDATE animals SET url=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-             break;
-           case 'gg1dad1':
-             return R::exec( 'UPDATE animals SET url=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-             break;
-           case 'g1mum':
-             return R::exec( 'UPDATE animals SET url=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-             break;
-           case 'g1dad':
-             return R::exec( 'UPDATE animals SET url=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-             break;
-           case 'gg0mum4':
-             return R::exec( 'UPDATE animals SET url=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-             break;
-           case 'gg0dad3':
-             return R::exec( 'UPDATE animals SET url=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-             break;
-           case 'gg0mum2':
-             return R::exec( 'UPDATE animals SET url=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-             break;
-           case 'gg0dad1':
-             return R::exec( 'UPDATE animals SET url=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-             break;
-          /*данные по маме*/
-           case 'g0mum':
-             return R::exec( 'UPDATE animals SET url=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-             break;
-           case 'g0dad':
-             return R::exec( 'UPDATE animals SET url=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-             break;
+
           /*данные по собаке*/
+        case 'url_puppy':
+             return R::exec( 'UPDATE animals SET url_puppy=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
+             break;
            case 'url':
              return R::exec( 'UPDATE animals SET url=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
              break;
@@ -1754,13 +1727,7 @@ function insert_data($tabl,$id,$cell,$value){  //$tabl - название таб
            case 'status':
              return R::exec( 'UPDATE animals SET status=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
              break;
-          
-           case 'dad':
-               return R::exec( 'UPDATE animals SET dad=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-             break;
-           case 'mum':
-               return R::exec( 'UPDATE animals SET mum=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-             break;
+
            case 'now':
              return R::exec( 'UPDATE animals SET now=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
              break;
@@ -1782,11 +1749,14 @@ function insert_data($tabl,$id,$cell,$value){  //$tabl - название таб
           case 'height':
              return R::exec( 'UPDATE animals SET height=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
              break;
+        case 'family_id':
+             return R::exec( 'UPDATE animals SET family_id=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
+             break;
           case 'age_id':
              return R::exec( 'UPDATE animals SET age_id=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
              break;
          case 'dna_id':
-             return R::exec( 'UPDATE animals SET age_id=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
+             return R::exec( 'UPDATE animals SET dna_id=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
              break;
            case 'kennel':
              return R::exec( 'UPDATE animals SET kennel=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
@@ -1799,12 +1769,6 @@ function insert_data($tabl,$id,$cell,$value){  //$tabl - название таб
              break;
            case 'race':
              return R::exec( 'UPDATE animals SET race=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-             break;
-           case 'sex':
-             return R::exec( 'UPDATE animals SET sex=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-              break;
-          case 'lucky':
-             return R::exec( 'UPDATE animals SET lucky=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
              break;
            case 'name':
              return R::exec( 'UPDATE animals SET name=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
@@ -1834,39 +1798,7 @@ function insert_data($tabl,$id,$cell,$value){  //$tabl - название таб
                       break;
         }
   }//tabl USERS
-  if('stats'===$tabl){
-              
-       switch ($cell) {
-              case 'mutation':
-                        return R::exec( 'UPDATE stats SET total=:value WHERE dog_id = :id ', array(':value'=> $value, ':id' => $id));
-                         break;
-              case 'total':
-                        return R::exec( 'UPDATE stats SET total=:value WHERE dog_id = :id ', array(':value'=> $value, ':id' => $id));
-                         break;
-              case 'find':
-                        return R::exec( 'UPDATE stats SET find=:value WHERE dog_id = :id ', array(':value'=> $value, ':id' => $id));
-                        break;
-            case 'scent':
-                        return R::exec( 'UPDATE stats SET scent=:value WHERE dog_id = :id ', array(':value'=> $value, ':id' => $id));
-                         break;
-              case 'jump':
-                        return R::exec( 'UPDATE stats SET jump=:value WHERE dog_id = :id ', array(':value'=> $value, ':id' => $id));
-                         break;
-              case 'teach':
-                        return R::exec( 'UPDATE stats SET teach=:value WHERE dog_id = :id ', array(':value'=> $value, ':id' => $id));
-                        break;
-             case 'agility':
-                        return R::exec( 'UPDATE stats SET agility=:value WHERE dog_id = :id ', array(':value'=> $value, ':id' => $id));
-                         break;
-              case 'speed':
-                        return R::exec( 'UPDATE stats SET speed=:value WHERE dog_id = :id ', array(':value'=> $value, ':id' => $id));
-
-                         break;
-              case 'dog_id':
-                        return R::exec( 'UPDATE stats SET id=:value WHERE dog_id = :id ', array(':value'=> $value, ':id' => $id));
-                        break;
-        }
-  }//tabl stats
+  
   if('randodna'===$tabl){
    
       switch ($cell) {
@@ -1925,6 +1857,56 @@ function insert_data($tabl,$id,$cell,$value){  //$tabl - название таб
               
         }
   }//tabl randodna
+  
+  if('family'===$tabl){
+   
+      switch ($cell) {
+               
+            case 'gg0mum4':
+                   return R::exec( 'UPDATE family SET gg0mum4=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
+                    break;
+              case 'gg0dad3':
+                   return R::exec( 'UPDATE family SET gg0dad3=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
+                    break;
+                case 'gg0mum2':
+                   return R::exec( 'UPDATE family SET gg0mum2=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
+                    break;
+              case 'gg0dad1':
+                   return R::exec( 'UPDATE family SET gg0dad1=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
+                    break;
+            case 'gg1mum4':
+                   return R::exec( 'UPDATE family SET gg1mum4=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
+                    break;
+              case 'gg1dad3':
+                   return R::exec( 'UPDATE family SET gg1dad3=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
+                    break;
+            case 'gg1mum2':
+                   return R::exec( 'UPDATE family SET gg1mum2=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
+                    break;
+              case 'gg1dad1':
+                   return R::exec( 'UPDATE family SET gg1dad1=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
+                    break;
+             case 'g0mum':
+                   return R::exec( 'UPDATE family SET g0mum=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
+                    break;
+              case 'g0dad':
+                   return R::exec( 'UPDATE family SET g0dad=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
+                    break;
+            case 'g1mum':
+                   return R::exec( 'UPDATE family SET g1mum=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
+                    break;
+              case 'g1dad':
+                   return R::exec( 'UPDATE family SET g1dad=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
+                    break;
+            case 'mum':
+                   return R::exec( 'UPDATE family SET mum=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
+                    break;
+              case 'dad':
+                   return R::exec( 'UPDATE family SET dad=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
+                    break;
+              
+        }
+  }//tabl family
 
 
   $bean = R::load($id, $name);
@@ -2364,24 +2346,31 @@ function greate_animal($id_m,$id_d){
 
 //greate DNA
     $dna_id = greate_dna($id, $id_m, $id_d);
+    echo '<br> insert DNA_ID ' . $dna_id;
     insert_data('animals',$id,'dna_id',$dna_id); //вставлянем данные в поле на ссылку dna
     
     //добавление щенка родителям и вязки Family
     $family_id = greate_family($id, $id_m, $id_d);
-    insert_data('animals',$id,'family_id',$family_id); //вставлянем данные в поле на ссылку dna
-
+    
+   echo '<br> insert_data Fasmily' . $id . ' '.$family_id;
+    insert_data('animals',$id,'family_id',$family_id); //вставлянем данные в поле на ссылку family
+    
+    
+ 
     return $id; //возвращяем id новой собаки
 }
 //создаем family
 function greate_family($id_new,$id_m,$id_d){
     echo '<br>function greate_family';
-    
-    $dog_m= take_data_from($id_m,'animals');
-    //var_dump($dog_m);
-    $dog_d= take_data_from($id_d,'animals');
-    //var_dump($dog_d);
-    //$dog_new= take_data_from($id_new,'animals');
-    
+     echo '<br>new_dog: ' . $id_new;
+     echo '<br>id_m: ' . $id_m;
+     echo '<br>id_d: ' . $id_d;
+  
+        
+    $dog_m = take_data_from(ret_family($id_m),'family');
+    debug($dog_m);
+    $dog_d= take_data_from(ret_family($id_d),'family');
+    debug($dog_d);
     
     //  Проверить  $family_data=ret_f_data_by_dog($id_new);
     
@@ -2392,7 +2381,7 @@ function greate_family($id_new,$id_m,$id_d){
 
 
         /*по линии матери*/
-        //echo '<br>предки мамы: ';
+        echo '<br>предки мамы: ';
 	
         $dog_new->g0dad=$dog_m['dad'];   //отец матери для щенка дед
         $dog_new->g0mum=$dog_m['mum'];    //мать матери для женка бабка
@@ -2402,7 +2391,7 @@ function greate_family($id_new,$id_m,$id_d){
 	$dog_new->gg0mum4=$dog_m['g0mum'];	//прабабка
         
          /*по линии отца */
-        //echo '<br>предки папы: ';
+        echo '<br>предки папы: ';
 	$dog_new->g1dad=$dog_d['dad'];
 	$dog_new->g1mum=$dog_d['mum'];
 	$dog_new->gg1dad1=$dog_d['g1dad'];
@@ -2411,7 +2400,7 @@ function greate_family($id_new,$id_m,$id_d){
 	$dog_new->gg1mum4=$dog_d['g0mum'];
 
     $id=R::store($dog_new); //сохраняем данные первичный ключ создается автоматом
-    insert_data('animals',$id_new,'dna_id',$id); //вставлянем данные в поле на ссылку dna
+       echo '<br>END function greate_family';
    return $id;  //возвращает ID внести в таблицу animals
    
     
@@ -2490,26 +2479,25 @@ function get_stats($param_m,$param_d,$mutation,$plus){
 function greate_dna($id_new,$id_m,$id_d){
     
     echo '<br>function greate_dna';
-    $dna_m= take_data_from($id_m,'randodna');
-    $dna_d= take_data_from($id_d,'randodna');
+    $dna_m= take_data_from(ret_dna($id_m),'randodna');
+    debug($dna_m);
+    $dna_d= take_data_from(ret_dna($id_d),'randodna');
+    debug($dna_d);
     
     
     echo '<br>даем окрас!';
     $tt = breedding($dna_m['tt'],$dna_d['tt'],'TT','tt','Tt');
-   //$aa = breedding($dna_m['aa'],$dna_d['aa'],'AA','aa','Aa');
     $bb = breedding($dna_m['bb'],$dna_d['bb'],'BB','bb','Bb');
     $mm = breedding($dna_m['mm'],$dna_d['mm'],'MM','mm','Mm');
     $ww = breedding($dna_m['ww'],$dna_d['ww'],'WW','ww','Ww');
     $ff = breedding($dna_m['ff'],$dna_d['ff'],'FF','ff','Ff');
     
 
-    $family_data=ret_f_data_by_dog($id_new);
     
     echo $hr_on = $dna_m['hr'];
     echo $hr_ona = $dna_d['hr'];
             
-   // echo $hr_on=ret_hr($family_data['dad']);
-   // echo $hr_ona=ret_hr($family_data['mum']);
+
     $hr=gol_pooh($hr_on,$hr_ona);
     
     $dna = R::dispense( 'randodna' );
@@ -2531,8 +2519,8 @@ function greate_dna($id_new,$id_m,$id_d){
     $dna->lucky = $lucky;
    
          //////////////////////////////   новые статы    
-    $plus= bdika_mutation($id_m, $id_d);
-    $mutation=Rand(1,100)/100;
+    echo '<br> $plus' . $plus= bdika_mutation($id_m, $id_d);
+    echo '<br> $mut' . $mutation=Rand(1,100)/100;
     $spd=get_stats($dna_m['spd'],$dna_d['spd'],$mutation,$plus);
     $agl=get_stats($dna_m['agl'],$dna_d['agl'],$mutation,$plus);
     $tch=get_stats($dna_m['tch'],$dna_d['tch'],$mutation,$plus);
@@ -2554,6 +2542,8 @@ function greate_dna($id_new,$id_m,$id_d){
     $id = R::store( $dna );
     
     $data_dna= do_dna($id);
+    debug($data_dna);
+    
     insert_data('randodna',$id,'dna',$data_dna);
     
     return $id;
