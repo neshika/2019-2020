@@ -70,7 +70,7 @@ require "/libs/up.php";
         
     </td>
 
-    <td style="border-width: 10px; text-align: center;"><?php echo print_pic($id) . "<br>"; dog_pic($id);?>
+    <td style="border-width: 10px; text-align: center;"><?php echo bdika_url($id) . "<br>"; dog_pic($id);?>
         
     </td> 
     <td>
@@ -130,7 +130,7 @@ if(!isset($id_m)): ?>
 <!-- ******************** вывод Генетического кода собаки  скрытый текст*****************--> 
               <details>
                     <summary>Генетический код
-                    <?php echo "<br>" . print_pic($id_m) . "<br>"; detalis($id_m);?>
+                    <?php echo "<br>" . bdika_url($id_m) . "<br>"; detalis($id_m);?>
                         </summary> 
               </details>
 
@@ -162,7 +162,7 @@ if(!isset($id_m)): ?>
 <!-- ******************** вывод Генетического кода собаки  скрытый текст*****************--> 
             <details>
                   <summary>Генетический код
-                  <?php echo "<br>" . print_pic($id_d) . "<br>"; detalis($id_d);?>
+                  <?php echo "<br>" . bdika_url($id_d) . "<br>"; detalis($id_d);?>
                       </summary> 
             </details>
 

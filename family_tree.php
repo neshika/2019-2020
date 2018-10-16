@@ -16,7 +16,7 @@ require "/libs/up.php";
  ?>
 <p class="dog">
     <div id="mydog"><?php echo  $data_dog['name'];?> 
-    <img src="<?php echo print_pic($id);?>" width="13%"></div>
+    <img src="<?php echo bdika_url($id);?>" width="13%"></div>
 </p>
 <p class="dad_mum">
 <div id="dad"><?php echo 'Отец<br>'; echo ret_Cell('name', $f_data['dad'], 'animals'); ?>

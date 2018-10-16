@@ -587,8 +587,8 @@ function get_id($login){
 /*Функция добавления количества вязок для папы и мамы*/
 function add_litters($id_m,$id_d){
 
-  echo $lit_m=find_where('animals',$id_m,'litter');
-  echo $lit_d=find_where('animals',$id_d,'litter');
+  echo $lit_m=ret_Cell('litter',$id_m,'animals');
+  echo $lit_d= ret_Cell('litter',$id_d,'animals');
   $lit_m += 1;
   $lit_d += 1;
 
@@ -678,33 +678,43 @@ function rand_dog1($id){
 
 
 
-/*Функция вносит данные с таблицу Генетический код*/
-function insert_new_dna($dog_id,$url_id,$hr,$ww, $ff,$bb,$mm,$tt,$aa){
 
-   $dna = R::dispense( 'dna' );
-    $dna->dog_id = $dog_id;
-    $dna->url_id = $url_id;
-    $dna->hr = $hr;
-    $dna->ww = $ww;
-    $dna->ff = $ff;
-    $dna->bb = $bb;
-    $dna->mm= $mm;
-    $dna->tt = $tt;
-    $dna->aa = $aa;
 
-    $id = R::store( $dna );
-    return $id;
+
+?>
+<!-------------------<img src="<?php echo $_POST['url']?>" width="100%"> -----$_POST['url']= $anwer;---------->
+
+ 
+ <?php
+
+ /*                                *************************    РАСПЕЧАТКА Собаки на экране КАРТИНКА  */
+ 
+  
+ function bdika_url($id){
+
+   $data_dog= take_data_from($id, 'animals');
+   
+
+  if (13>$data_dog['age_id']){   //age_id = 4 (6 мес)  age_id = 9 (15 мес = 1 год 3 мес)
+      return  $data_dog['url_puppy'];
+  }
+  else
+     return $data_dog['url'];
+ }
+
+
+ /*Функция печатает собаку  */
+
+Function dog_pic($id){
+   $url=bdika_url($id);
+   ?><img src="<?php echo $url;?>"><?php
 }
 
+/*Функция печатает собаку  c заданным размером в% или пикселях*/
+function dog_pic_size($id,$size){
+    ?><img src="<?php echo bdika_url($id);?>" height="<?php echo $size?>"><?php
+}
 
-/*                      *************************   голая/пух                     */
-/*Функция возвращает тип собаки hrhr / HrHr / Hrhr*/
-//function ret_hr($id){
-//	 $string =R::getCol('SELECT hr FROM animals WHERE id = :id',
-//        [':id' => $id]);
-//
-//	 return $string[0];
-//}
 /*Функция пишет тип собаки по русски в зависимоти от Генетического типа*/
 function print_hr($id){
     
@@ -717,44 +727,6 @@ function print_hr($id){
     else
         return 'пуховая';
 }
-/*Функция считает голая или пух в зависимоти от родителей*/
-function gol_pooh($on,$ona){
-	//Hrhr - голый
-	//hrhr - пух
-	
-	$temp='hrhr';
-	if('hrhr'==$on){			//он пух
-		if('hrhr'==$ona) return $ona;	//она пух= малыш пух
-		else {							//она голая
-			$num=Rand(1,2);
-			if(1==$num) return $ona;	//шанс 50% на 50%
-			else return $on;
-		}
-	}
-	if('Hrhr'==$on){			//он голый
-		if('Hrhr'==$ona){	//она Голая
-			$num=Rand(1,3);
-			//ECHO $num;
-			//echo $ona;
-			if(1==$num || 2==$num){
-			 return $ona; //шанс 75% голый 25% пух
-			}
-			if(3==$num){
-			 return $temp; // 25% пух
-			}
-			
-		}
-		else {							//она пух
-			$num=Rand(1,2);
-			if(1==$num) return $ona;		//шанс 50% на 50%
-			else return $on;
-		}
-	}
-
-}
-
-/*                                             *************************    данные по ID                 */
-
  /*Функция возвращает данные по собаке по ее ID*/
 function print_all_d($id){
 	
@@ -794,7 +766,10 @@ function ret_pic_sex($id){
                 
 }
 
-/*                                             *************************    1 страница рандомная собака  */
+//////////////////////// ///////////////////////////РАБОТА с DNA //////////////////
+
+
+/*                                             *************************  рандомная собака  */
 function f_rand_col($param, $param2, $param3){
 	$num=Rand(1,3);
 	if ( $num == 1)
@@ -806,7 +781,7 @@ function f_rand_col($param, $param2, $param3){
 	return $col;
 	
 }
-/*                                             *************************    1 страница рандомная пол собаки  */
+/*                                             *************************   рандомная пол собаки  */
 function f_bdika_sex(){
 	if(Rand(1,2)==1)
 		$sex='1';   //кобелль
@@ -815,69 +790,7 @@ function f_bdika_sex(){
 	return $sex;
 
 }
-?>
-<!-------------------<img src="<?php echo $_POST['url']?>" width="100%"> -----$_POST['url']= $anwer;---------->
-
- 
- <?php
-
- /*                                *************************    РАСПЕЧАТКА Собаки на экране КАРТИНКА  */
-
-
-
- /*Функция вносит путь до картинки Щенка*/
-function insert_url_puppy($dog_id){
-   // $data_dog=take_data_from($dog_id, 'dna');
-    $data_dog=take_data_from($dog_id, 'randodna');
-       $num=Rand(1,2);  //количество варианций окраса собаки
-
-      echo "<br>hr " . $data_dog['hr'];
-    echo "<br>ww " . $data_dog['ww'];
-     echo "<br>bb " . $data_dog['bb'];
-    echo "<br>ff " . $data_dog['ff'];
-    echo "<br>tt " . $data_dog['tt'];
-    echo "<br>mm " . $data_dog['mm'];
-
-        if('hrhr'==$data_dog['hr']){   //если пух
-          if('ww'==$data_dog['ww']){   //если не белый
-                if( 'ff'==$data_dog['ff'] ){ //если не рыжий
-                    if('bb'==$data_dog['bb'])  //если шоко
-                      $dna='hr0b0';
-                    if(('Bb'==$data_dog['bb']) || ('BB'==$data_dog['bb']))  //еcли черный
-                      $dna='hr0b1';
-                }
-                if( ('Ff'==$data_dog['ff']) || ('FF'==$data_dog['ff']) ) //если рыжий
-                  $dna='hr0f1';
-          }      
-          else    //если белый
-          $dna='hr0w1';
-        }
-        if('Hrhr'==$data_dog['hr']){    //если голый
-           if('ww'==$data_dog['ww']){   //если не белый
-                if('ff'==$data_dog['ff']){ //если не рыжий
-                    if('bb'==$data_dog['bb'])  //если шоко
-                      $dna='hr1b0';
-                    if( ('Bb'==$data_dog['bb']) || ('BB'==$data_dog['bb']))  //ечли черный
-                      $dna='hr1b1';
-                }
-                if( ('Ff'==$data_dog['ff']) || ('FF'==$data_dog['ff']) ) //если рыжий
-                    $dna='hr1f1';
-            }
-          else    //если белый
-          $dna='hr1w1';
-        }
-
-      echo $url="pici/puppy/" . $dna . '_0' . $num . '.png';
-
-
-      R::exec( 'UPDATE animals SET url_puppy=:url WHERE id = :id ', array(':url'=> $url, ':id' => $dog_id));
-
-}
-
-
- /*Функция получаем номер собаки, возвращаем ее ГК     str($data_dna) hr1w0f0b0t1m1   */
-
- function do_dna($id){
+function do_dna($id){
 
  //$data_dna=R::getRow( 'SELECT * FROM dna WHERE dog_id = :id',
    //   [':id' => $id]);
@@ -908,37 +821,6 @@ function insert_url_puppy($dog_id){
 */
 
  }
-/*      проверка если URL мамы = URL папы, т.е. собаки идентичные */
-function bdika_url_mum_dad($id){
-//  $id_mum=find_where('animals',$id,'mum');
-//  $id_dad=find_where('animals',$id,'dad');
-//  $url_mum=find_where('animals',$id_mum,'url');
-//  $url_dad=find_where('animals',$id_dad,'url');
-//  echo '$url_mum ' . $url_mum . '<br>';
-//  echo '$url_dad ' . $url_dad;
-//  if($url_mum==$url_dad){     //если равны, то сразу вставляем данные
-//    insert_data('animals',$id,'url',$url_mum);
-//  }
-//  else
-//    return false;
-    
-   $f_id= find_where('animals', $id, 'family');
-    $data_family=take_data_from($id, 'family');
-    $id_mum=$data_family['mum'];
-    $id_dad=$data_family['dad']; 
-    $url_mum=find_where('animals',$id_mum,'url');
-    $url_dad=find_where('animals',$id_dad,'url');
-    echo '$url_mum ' . $url_mum . '<br>';
-    echo '$url_dad ' . $url_dad;
-    if($url_mum==$url_dad){     //если равны, то сразу вставляем данные
-        insert_data('animals',$id,'url',$url_mum);
-    }
-    else
-        return false;
-        
-
-}                                                      
-
  /*Функция ссылку на картинку  собаки,     pici/hrhr/hr0w0f1b0t0m1_01.png   */
 Function do_url($data_dna){
   
@@ -998,34 +880,115 @@ Function do_url($data_dna){
 Function insert_url($id,$url){
   insert_data('animals',$id,'url', $url);  //вставляем новые данные в таблицу по id
 }
+
+ /*Функция вносит путь до картинки Щенка*/
+function insert_url_puppy($dog_id){
+   // $data_dog=take_data_from($dog_id, 'dna');
+    $data_dog=take_data_from($dog_id, 'randodna');
+       $num=Rand(1,2);  //количество варианций окраса собаки
+
+      echo "<br>hr " . $data_dog['hr'];
+    echo "<br>ww " . $data_dog['ww'];
+     echo "<br>bb " . $data_dog['bb'];
+    echo "<br>ff " . $data_dog['ff'];
+    echo "<br>tt " . $data_dog['tt'];
+    echo "<br>mm " . $data_dog['mm'];
+
+        if('hrhr'==$data_dog['hr']){   //если пух
+          if('ww'==$data_dog['ww']){   //если не белый
+                if( 'ff'==$data_dog['ff'] ){ //если не рыжий
+                    if('bb'==$data_dog['bb'])  //если шоко
+                      $dna='hr0b0';
+                    if(('Bb'==$data_dog['bb']) || ('BB'==$data_dog['bb']))  //еcли черный
+                      $dna='hr0b1';
+                }
+                if( ('Ff'==$data_dog['ff']) || ('FF'==$data_dog['ff']) ) //если рыжий
+                  $dna='hr0f1';
+          }      
+          else    //если белый
+          $dna='hr0w1';
+        }
+        if('Hrhr'==$data_dog['hr']){    //если голый
+           if('ww'==$data_dog['ww']){   //если не белый
+                if('ff'==$data_dog['ff']){ //если не рыжий
+                    if('bb'==$data_dog['bb'])  //если шоко
+                      $dna='hr1b0';
+                    if( ('Bb'==$data_dog['bb']) || ('BB'==$data_dog['bb']))  //ечли черный
+                      $dna='hr1b1';
+                }
+                if( ('Ff'==$data_dog['ff']) || ('FF'==$data_dog['ff']) ) //если рыжий
+                    $dna='hr1f1';
+            }
+          else    //если белый
+          $dna='hr1w1';
+        }
+
+      echo $url="pici/puppy/" . $dna . '_0' . $num . '.png';
+
+
+      R::exec( 'UPDATE animals SET url_puppy=:url WHERE id = :id ', array(':url'=> $url, ':id' => $dog_id));
+
+}
+
+
+ /*Функция получаем номер собаки, возвращаем ее ГК     str($data_dna) hr1w0f0b0t1m1   */
+
  
- function print_pic($id){
+ /*Функция вносит данные с таблицу Генетический код*/
+function insert_new_dna($dog_id,$url_id,$hr,$ww, $ff,$bb,$mm,$tt,$aa){
 
-   $data_dog= take_data_from($id, 'animals');
-   
+   $dna = R::dispense( 'dna' );
+    $dna->dog_id = $dog_id;
+    $dna->url_id = $url_id;
+    $dna->hr = $hr;
+    $dna->ww = $ww;
+    $dna->ff = $ff;
+    $dna->bb = $bb;
+    $dna->mm= $mm;
+    $dna->tt = $tt;
+    $dna->aa = $aa;
 
-  if (13>$data_dog['age_id']){   //age_id = 4 (6 мес)  age_id = 9 (15 мес = 1 год 3 мес)
-      return  $data_dog['url_puppy'];
-  }
-  else
-     return $data_dog['url'];
- }
-
-
- /*Функция печатает собаку  */
-
-Function dog_pic($id){
-   $url=print_pic($id);
-   ?><img src="<?php echo $url;?>"><?php
+    $id = R::store( $dna );
+    return $id;
 }
 
-/*Функция печатает собаку  c заданным размером в% или пикселях*/
-function dog_pic_size($id,$size){
-    ?><img src="<?php echo print_pic($id);?>" height="<?php echo $size?>"><?php
-}
+
+
+/*      проверка если URL мамы = URL папы, т.е. собаки идентичные */
+//                    
+
+//function bdika_url_mum_dad($id){
+////  $id_mum=find_where('animals',$id,'mum');
+////  $id_dad=find_where('animals',$id,'dad');
+////  $url_mum=find_where('animals',$id_mum,'url');
+////  $url_dad=find_where('animals',$id_dad,'url');
+////  echo '$url_mum ' . $url_mum . '<br>';
+////  echo '$url_dad ' . $url_dad;
+////  if($url_mum==$url_dad){     //если равны, то сразу вставляем данные
+////    insert_data('animals',$id,'url',$url_mum);
+////  }
+////  else
+////    return false;
+//    
+//   $f_id= find_where('animals', $id, 'family');
+//    $data_family=take_data_from($id, 'family');
+//    $id_mum=$data_family['mum'];
+//    $id_dad=$data_family['dad']; 
+//    $url_mum=find_where('animals',$id_mum,'url');
+//    $url_dad=find_where('animals',$id_dad,'url');
+//    echo '$url_mum ' . $url_mum . '<br>';
+//    echo '$url_dad ' . $url_dad;
+//    if($url_mum==$url_dad){     //если равны, то сразу вставляем данные
+//        insert_data('animals',$id,'url',$url_mum);
+//    }
+//    else
+//        return false;
+//        
+//
+//}                                  
 
 /////////////////////////////////////////  ВЯЗКА   /////////////////////////////////
-function breedding($on,$ona,$temp, $temp2,$temp3){
+function breeding($on,$ona,$temp, $temp2,$temp3){
 //$on="TT";
 //$ona="Tt";
 //$temp="TT";
@@ -1269,17 +1232,17 @@ $hr_new=gol_pooh($hr_on,$hr_ona);
 
 
 echo '<br>даем окрас!';
-$tt_new = breedding($TT_d,$TT_m,'TT','tt','Tt');
+$tt_new = breeding($TT_d,$TT_m,'TT','tt','Tt');
 //echo "<br> tt_new: " . $tt_new;
-$aa_new = breedding($AA_d,$AA_m,'AA','aa','Aa');
+$aa_new = breeding($AA_d,$AA_m,'AA','aa','Aa');
 //echo "<br> aa_new: " . $aa_new;
-$bb_new = breedding($BB_d,$BB_m,'BB','bb','Bb');
+$bb_new = breeding($BB_d,$BB_m,'BB','bb','Bb');
 //echo "<br> bb_new: " . $bb_new;
-$mm_new = breedding($MM_d,$MM_m,'MM','mm','Mm');
+$mm_new = breeding($MM_d,$MM_m,'MM','mm','Mm');
 //echo "<br> mm_new: " . $mm_new;
-$ww_new = breedding($WW_d,$WW_m,'WW','ww','Ww');
+$ww_new = breeding($WW_d,$WW_m,'WW','ww','Ww');
 //echo "<br> ww_new: " . $ww_new;
-$ff_new = breedding($FF_d,$FF_m,'FF','ff','Ff');
+$ff_new = breeding($FF_d,$FF_m,'FF','ff','Ff');
 // "<br> ff_new: " . $ff_new;
 
 
@@ -1338,14 +1301,14 @@ return $id;
 
 }
 
-
+///////////////////////  Работа с FAMILY СЕМЬЕЙ ////////////////
 
 /*функция получает id собаки и возвращает данные по семье*/
 function ret_f_data_by_dog($id){
     $f_id=ret_id_by_cell($id, 'family'); //получаем id на фамилию
     return take_data_from($f_id, 'family'); //Получаем данные из семьи
 }
-/*проверяет партнера на родство и выводит степерь родства*/
+/*проверяет партнера на родство и выводит степень родства*/
 function ret_str_contact($partner,$dog){
 
     
@@ -1705,6 +1668,7 @@ function find_where($tabl,$id,$value){
           }
      }//$tabl = randodna
 }
+////////////////////////////  Работа с ТАБЛИЦЕЙ /////////////////////////
 
 /*Функция вносит изменения имени собаки по ее Id*/
 function insert_data($tabl,$id,$cell,$value){  //$tabl - название таблицы \\ $id-ай ди выбранного\\ $cell-названия столба\\ $value- значение
@@ -2317,6 +2281,18 @@ function insert_2_new_dogs($name,$sex,$race,$owner,$kennel,$birth,$url_id){
 //    }
 //    return $temp;
 //}
+///////////////////////////////////////////// создание СОБАКИ //////////////////////////////////
+
+
+
+/* Функция возвращает тип собаки Hrhr / hrhr  */
+
+Function ret_hr($id){
+    
+    return ret_cell('hr',ret_dna($id),'randodna');
+  
+}
+/* функция Создает данные по собаке    */ 
 
 function greate_animal($id_m,$id_d){
             echo '<br>function greate_animal';
@@ -2486,11 +2462,11 @@ function greate_dna($id_new,$id_m,$id_d){
     
     
     echo '<br>даем окрас!';
-    $tt = breedding($dna_m['tt'],$dna_d['tt'],'TT','tt','Tt');
-    $bb = breedding($dna_m['bb'],$dna_d['bb'],'BB','bb','Bb');
-    $mm = breedding($dna_m['mm'],$dna_d['mm'],'MM','mm','Mm');
-    $ww = breedding($dna_m['ww'],$dna_d['ww'],'WW','ww','Ww');
-    $ff = breedding($dna_m['ff'],$dna_d['ff'],'FF','ff','Ff');
+    $tt = breeding($dna_m['tt'],$dna_d['tt'],'TT','tt','Tt');
+    $bb = breeding($dna_m['bb'],$dna_d['bb'],'BB','bb','Bb');
+    $mm = breeding($dna_m['mm'],$dna_d['mm'],'MM','mm','Mm');
+    $ww = breeding($dna_m['ww'],$dna_d['ww'],'WW','ww','Ww');
+    $ff = breeding($dna_m['ff'],$dna_d['ff'],'FF','ff','Ff');
     
 
     
@@ -2541,7 +2517,7 @@ function greate_dna($id_new,$id_m,$id_d){
     $dna->about = 'owner';
     $id = R::store( $dna );
     
-    $data_dna= do_dna($id);
+    echo $data_dna= do_dna($id);
     debug($data_dna);
     
     insert_data('randodna',$id,'dna',$data_dna);
@@ -2549,8 +2525,41 @@ function greate_dna($id_new,$id_m,$id_d){
     return $id;
 }
 
-Function ret_hr($id){
-    
-    return ret_cell('hr',ret_dna($id),'randodna');
-  
+
+
+/*Функция считает голая или пух в зависимоти от родителей*/
+function gol_pooh($on,$ona){
+	//Hrhr - голый
+	//hrhr - пух
+	
+	$temp='hrhr';
+	if('hrhr'==$on){			//он пух
+		if('hrhr'==$ona) return $ona;	//она пух= малыш пух
+		else {							//она голая
+			$num=Rand(1,2);
+			if(1==$num) return $ona;	//шанс 50% на 50%
+			else return $on;
+		}
+	}
+	if('Hrhr'==$on){			//он голый
+		if('Hrhr'==$ona){	//она Голая
+			$num=Rand(1,3);
+			//ECHO $num;
+			//echo $ona;
+			if(1==$num || 2==$num){
+			 return $ona; //шанс 75% голый 25% пух
+			}
+			if(3==$num){
+			 return $temp; // 25% пух
+			}
+			
+		}
+		else {							//она пух
+			$num=Rand(1,2);
+			if(1==$num) return $ona;		//шанс 50% на 50%
+			else return $on;
+		}
+	}
+
 }
+

@@ -69,7 +69,7 @@ require "/libs/up.php";
 /*выводим на экран имя собаки как ссылку*/
                         echo '<a href="/name.php?id=' . $key . '">';?>
 
-                       <img src="<?php echo print_pic($key);?>" width="10%"></a>
+                       <img src="<?php echo bdika_url($key);?>" width="10%"></a>
 
 
 
@@ -116,7 +116,7 @@ require "/libs/up.php";
                         <p class="right"><?php
                         echo '<a href="/name.php?id=' . $key . '">';?>
 
-                        <img src="<?php echo print_pic($key);?>" width="10%"></a>
+                        <img src="<?php echo bdika_url($key);?>" width="10%"></a>
 
                             <?php //вывод на экран количесва вязок и щенков у сук
                                 echo '<br>имя: ' . $value;
@@ -161,7 +161,7 @@ require "/libs/up.php";
 /*выводим имена кобелей как ссылки на страничку собаки*/
                                 echo '<a href="/name.php?id=' . $key . '">';?>
 
-                          <img src="<?php echo print_pic($key);?>" width="10%"></a> 
+                          <img src="<?php echo bdika_url($key);?>" width="10%"></a> 
                            <div>
                                 <?php echo 'имя: ' . $value;
                                     
@@ -194,7 +194,7 @@ require "/libs/up.php";
 /*выводим имена кобелей как ссылки на страничку собаки*/
                                 echo '<a href="/name.php?id=' . $key . '">';?>
 
-                          <img src="<?php echo print_pic($key);?>" width="10%"></a> 
+                          <img src="<?php echo bdika_url($key);?>" width="10%"></a> 
                            <div>
                                 <?php echo 'имя: ' . $value;
                                 

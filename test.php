@@ -29,82 +29,63 @@ function change(idName) {
 <?php
 
 echo "Тестируем: <br>";
-?><img src="/pici/vip/test.png"><?php
+if(isset($_POST['dog_id'])  ){ 
+    echo $id=$_POST['dog_id'];
+    echo '<br> вязок : ' . ret_Cell('litter',$id,'animals') . '<br>===';
+    ////////////////////////
+    echo $id_m=1;
+    echo $id_d=6;
+    echo '<br>function greate_dna';
+    $dna_m= take_data_from(ret_dna($id_m),'randodna');
+    debug($dna_m);
+    $dna_d= take_data_from(ret_dna($id_d),'randodna');
+    debug($dna_d);
+    
+    
+    echo '<br>даем окрас!';
+    $tt = breeding($dna_m['tt'],$dna_d['tt'],'TT','tt','Tt');
+    $bb = breeding($dna_m['bb'],$dna_d['bb'],'BB','bb','Bb');
+    $mm = breeding($dna_m['mm'],$dna_d['mm'],'MM','mm','Mm');
+    $ww = breeding($dna_m['ww'],$dna_d['ww'],'WW','ww','Ww');
+    $ff = breeding($dna_m['ff'],$dna_d['ff'],'FF','ff','Ff');
+    
+
+    
+    echo '<br> hr_m' . $hr_on = $dna_m['hr'];
+    echo '<br> hr_d' . $hr_ona = $dna_d['hr'];
+            
+
+    $hr=gol_pooh($hr_on,$hr_ona);
+    
+    ('Hrhr'==$hr ? $Hr='hr1' : $Hr='hr0');   //hr1 Hrhr - голая  // hr0 - hrhr  - пух
+    ('ww'==$ww ? $W='w0' : $W='w1');
+    ('ff'==$ff ? $F='f0' : $F='f1');
+    ('bb'==$bb ? $B='b0' : $B='b1');
+    ('tt'==$tt ? $T='t0' : $T='t1');
+    ('mm'==$mm ? $M='m0' : $M='m1');
+
+    echo '<br> DNA new ' . $dna=$Hr . $W . $F . $B . $T . $M;
+    
+    
+    ////////////////////////////
+    
+    
+    
+    //echo '<br>' . do_dna($id);
+    //dog_pic($id);
+}   
+
+
 ?>
+
 <form method="POST">
 введите код собаки: <input type="text" name='dog_id'>
 <input type="submit" name="ок" value="ok">
 </form>
 <?php
 
-if(isset($_POST['dog_id'])  ){ 
-    echo $id=$_POST['dog_id'];
-     
-   echo ret_hr($id); 
-    
-    
-//  $id=$_POST['dog_id'];
-//    echo do_url(do_dna($id));
-//    dog_pic($id);
-//     $family_data=ret_f_data_by_dog($id);
-//     dog_pic($family_data['mum']);
-//     echo ret_hr($family_data['mum']) . '// ' . ret_hr($family_data['dad']);
-//     dog_pic($family_data['dad']);
+
    
-}
- //$_POST['dog_id']=0;
- 
-/*
- * 
- *  //$data_dna=do_dna($_POST['dog_id']);
-   //$url=do_url($data_dna);
-   //insert_url($_POST['dog_id'],$url);
-  
- * 
- * 
-echo $sex = rand_sex();
-add_sex($id, $sex);
- echo '<br>' . take_sex($id);
- echo w_sex($id);
- 
- 
- $url=do_url(rand_dog1($id));
- ?>
- 
- 
-
-     
- <?php
-
-  $dna_id=find_where('animals',$id,'dna_id');
-   $data_dog=take_data_from($dna_id,'randodna');
-debug($data_dog);
-
-?><img align="center" src = "<?php echo $data_dog['url'];?>" width="25%"><?php
-
-$data_dna= take_data_from(ret_dna($id), 'randodna');
-debug($data_dna);
-
-foreach ($data_dna as $key => $value) {
-    echo '[' . $key . ']  : ' . $value . "<br />\n";
-}
-//$arr = array("one", "two", "three");
-//reset($arr);
-//while (list($key, $value) = each($arr)) {
-//    echo "Ключ: $key; Значение: $value<br />\n";
-//}
-//
-//foreach ($arr as $key => $value) {
-//    echo "Ключ: $key; Значение: $value<br />\n";
-//}
-////Ключ: 0; Значение: one
-////Ключ: 1; Значение: two
-////Ключ: 2; Значение: three
-////Ключ: 0; Значение: one
-////Ключ: 1; Значение: two
-////Ключ: 2; Значение: three
-
-*/
  require '/libs/down.php';
  ?>
 
