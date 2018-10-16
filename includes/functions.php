@@ -595,6 +595,17 @@ function add_litters($id_m,$id_d){
   insert_data('animals',$id_m,'litter',$lit_m);
   insert_data('animals',$id_d,'litter',$lit_d);
 }
+/*Функция добавления количества щенков для папы и мамы*/
+function add_puppies($id_m,$id_d){
+
+  echo $pup_m=ret_Cell('puppy',$id_m,'animals');
+  echo $pup_d= ret_Cell('puppy',$id_d,'animals');
+  $pup_m += 1;
+  $pup_d += 1;
+
+  insert_data('animals',$id_m,'litter',$pup_m);
+  insert_data('animals',$id_d,'litter',$pup_d);
+}
 /*****************  НОВАЯ СОБАКА   ******************/
 function rand_dog1($id){
   $data_dna['hr']=f_rand_col('HrHr','Hrhr','hrhr');

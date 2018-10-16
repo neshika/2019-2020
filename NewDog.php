@@ -52,6 +52,8 @@ buying($owner,5000);
      //new_stats($id_m,$id_d,$id_new);
      
      add_litters($id_m,$id_d);
+     add_puppies($id_m,$id_d);
+     
 
      detalis_green($id_new);
 
