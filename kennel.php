@@ -60,9 +60,15 @@ require "/libs/up.php";
 
 /*сохранение данных о голости собаки + вязки/щенки*/
                // $tip=find_where('animals', $key,'hr');
-                $lit=find_where('animals', $key,'litter');
-                $pup=find_where('animals', $key,'puppy');
-                $pol=find_where('animals', $key,'sex');
+                $lit= ret_Cell('litter', $key,'animals');
+                $pup=ret_cell('puppy', $key,'animals');
+                $pol=ret_cell('sex', ret_dna($key),'randodna');
+                if(0==$pol){
+                    $sex='сука';
+                }
+                if(1==$pol){
+                    $sex='кобель';
+                }
 
                 $GLOBALS['Data_dog']=data_animals($key);    //сохраняем данные по собаке
                
@@ -75,7 +81,7 @@ require "/libs/up.php";
 
                        <div><?php   //  вывод на экран количество вязок и щенков
                                echo 'имя: ' . $value;
-                               echo '<br> пол : ' . $pol;
+                               echo '<br> пол : ' . $sex;
                              //  echo '<br> тип : ' . $tip;
                                echo '<a href="/lit&pup.php?id=' . $key . '">' . "<br> вязки/дети: ". $lit .'/'. $pup;?>
 

@@ -35,7 +35,7 @@ require "db.php";
 <?php 
 					if (isset($_POST['comment'])) { //если в форме NewDog включена кнопка отправки имени собаки
 						//echo 'Поле было заполнено';
-					echo 'родился малыш: ';
+					echo '<br> родился малыш: ';
 					echo $a = $_POST['comment'];
 					   // echo $_SESSION['id_new'];
 					insert_data('animals',$_SESSION['id_new'],'name',$_POST['comment']);
@@ -43,9 +43,9 @@ require "db.php";
 
 					 
 
-              					if ( find_where('users', $id,'l_time') == $now ) {
+              					if (ret_Cell('l_time', $id, 'users') == $now ) {
               						
-              						echo 'Чудо свершилось! рождены: <br>';
+              						echo '<br> Чудо свершилось! рождены: <br>';
 
               						//$count = R::count( 'animals', 'owner = :owner && status = 1',[':owner' => $owner]);
 
@@ -55,12 +55,12 @@ require "db.php";
                       				//debug($array);
                       				         foreach($array as $item) {
                             					foreach ($item as $key => $value) {
-                            						if ( ('Без имени'==find_where('animals', $key,'name')) || (''==find_where('animals', $key,'name')) ){
+                            						if ( ('Без имени'==ret_cell('name', $key,'animals')) || (''==ret_cell('name', $key,'animals')) ){
                             							echo '<br>необходимо дать имя новой собаке: ';
                             							echo '<a href="/name.php?id=' . $key . '">';?>
                             						
 
-                             							<img src="<?php echo find_where('animals',$key,'url_puppy');?>" width="5%" float="left"></a><?php
+                             							<img src="<?php echo ret_cell('url_puppy',$key,'animals');?>" width="5%" float="left"></a><?php
                              						}
                             					}
                             					

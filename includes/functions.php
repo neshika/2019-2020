@@ -895,15 +895,16 @@ Function insert_url($id,$url){
  /*Функция вносит путь до картинки Щенка*/
 function insert_url_puppy($dog_id){
    // $data_dog=take_data_from($dog_id, 'dna');
-    $data_dog=take_data_from($dog_id, 'randodna');
+   $dna_id = ret_dna($dog_id);
+    $data_dog=take_data_from($dna_id, 'randodna');
        $num=Rand(1,2);  //количество варианций окраса собаки
 
-      echo "<br>hr " . $data_dog['hr'];
-    echo "<br>ww " . $data_dog['ww'];
-     echo "<br>bb " . $data_dog['bb'];
-    echo "<br>ff " . $data_dog['ff'];
-    echo "<br>tt " . $data_dog['tt'];
-    echo "<br>mm " . $data_dog['mm'];
+      echo "<br>hr: " . $data_dog['hr'];
+    echo "<br>ww: " . $data_dog['ww'];
+     echo "<br>bb: " . $data_dog['bb'];
+    echo "<br>ff: " . $data_dog['ff'];
+    echo "<br>tt: " . $data_dog['tt'];
+    echo "<br>mm: " . $data_dog['mm'];
 
         if('hrhr'==$data_dog['hr']){   //если пух
           if('ww'==$data_dog['ww']){   //если не белый
@@ -1898,6 +1899,9 @@ function take_data_from($id,$tabl){   //$id - индекс ; $tabl - табли�
      if('family'==$tabl){
      return R::getRow( 'SELECT * FROM family WHERE id = :id',[':id' => $id]);
     }
+      if('users'==$tabl){
+     return R::getRow( 'SELECT * FROM users WHERE id = :id',[':id' => $id]);
+    }
 
 
        
@@ -2528,10 +2532,10 @@ function greate_dna($id_new,$id_m,$id_d){
     $dna->about = 'owner';
     $id = R::store( $dna );
     
-    echo $data_dna= do_dna($id);
-    debug($data_dna);
+    //echo '<br>!!! DNA в табл. randodnd' . $data_dna= do_dna($id_new);
+    //debug($data_dna);
     
-    insert_data('randodna',$id,'dna',$data_dna);
+    //
     
     return $id;
 }

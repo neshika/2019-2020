@@ -33,17 +33,23 @@ buying($owner,5000);
 
       //insert_url(find_where('dna',$id_new,'url_id'),$id_new); //вставляет ссылку на картинку в базу
 
-      $data_dna=do_dna($id_new);
-      echo '<br>' . $data_dna;
-      if(FALSE==bdika_url_mum_dad($id_new)){  //проверяем если мать и отец одинаковые, то url берем у матери
-        $url=do_url($data_dna);
-        echo '<br>' . $url;
-      }
-      insert_url($id_new,$url);
-      echo '<br>$dog_pic';
-      dog_pic($id_new);
+      $data_dna=do_dna($id_new);    //полцчаем Генетический код hr0w0f1b1t1m0
+      $dna_id= ret_dna($id_new);    //ссылка на его dna_id
+      echo '<br> ДНА Малыша: ' . $data_dna;
+      insert_data('randodna', $dna_id, 'dna', $data_dna);   //вставляем ГК в поле DNA
+     
+      //if(FALSE==bdika_url_mum_dad($id_new)){  //проверяем если мать и отец одинаковые, то url берем у матери
+      
+      $url=do_url($data_dna);       //создаем url собаки
+      echo '<br> ссылка на URL щенка' . $url;
+      //}
+      insert_url($id_new,$url);     //вставляем в табл url
+     
       echo 'вносим ссылку на картинку щенка';
       insert_url_puppy($id_new);
+      
+      echo '<br>$dog_pic';
+      dog_pic($id_new);
       
       
 
