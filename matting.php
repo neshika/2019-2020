@@ -3,10 +3,11 @@ require "/libs/up.php";
 
 //*******************проверяем пол выбранной собаки, чтобы вывести противоположных партнеров
 function bdika_pol($id_dog){  
-  $owner = find_where('animals',$id_dog,'owner'); 
+  $owner = ret_cell('owner',$id_dog,'animals'); 
   //echo $owner;
       
-          if ('сука' === find_where('animals',$id_dog,'sex')){
+        $dna_id= ret_dna($id_dog);  
+        if ('0' === ret_cell('sex',$dna_id,'randodna')){
 
               $array [] = get_where('animals', 'кобель', $owner);
               

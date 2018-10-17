@@ -29,44 +29,66 @@ function change(idName) {
 <?php
 
 echo "Тестируем: <br>";
+
+function ret_dogs_by_owner($owner){
+    return R::getAssoc ('SELECT name,dna_id FROM animals WHERE owner =:owner and status=1', array(':owner' => $owner));
+}
+function ret_id_by_param($dna_id){
+   return R::getcell('SELECT id FROM animals WHERE dna_id =:dna_id', array(':dna_id'=> $dna_id));
+    
+}
+function print_partner($test){
+    dog_pic_size($test, 100);
+    
+}
+
+function ret_dna_dogs($owner){
+    $data[] =  ret_dogs_by_owner($owner);
+     debug($data);
+     foreach($data as $item) {
+         foreach ($item as $key => $value) {
+             
+             //echo '/key ' . $key . 'val' . $value;
+             //$data_2[] = R::getAssoc ('SELECT id FROM randodna WHERE sex=:sex and id=:id', array(':sex' => $sex, ':id' => $value));
+             $sex_param_id=ret_Cell('sex', $value, randodna);
+             if('0'==$sex_param_id){
+               // echo '<br> пол собаки суки' . $value . ': ' . $sex_param_id ;
+             
+                $test=ret_id_by_param($value);
+                //debug($test);
+                echo '<br><hr>';
+                
+                $name=ret_Cell('name', $test, 'animals');
+                 echo '<a href="/name.php?id=' . $test . '">' . "$name" . '  сука';  //$name - имя собаки // $test = id 
+                 print_partner($test);
+             }
+             else{
+                //echo '<br> пол собаки кобель' . $value . ': ' . $sex_param_id ;
+             
+                $test=ret_id_by_param($value);
+                
+                echo '<br><hr>';
+                //debug($test);
+                $name=ret_Cell('name', $test, 'animals');
+                 echo '<a href="/name.php?id=' . $test . '">' . "$name" . '  кобель';  //$value - имя собаки // $key = id 
+                 print_partner($test);
+             }
+             
+         }    
+     }
+}
+
+
 if(isset($_POST['dog_id'])  ){ 
     echo $id=$_POST['dog_id'];
-    echo '<br> вязок : ' . ret_Cell('litter',$id,'animals') . '<br>===';
-    ////////////////////////
-    echo $id_m=1;
-    echo $id_d=6;
-    echo '<br>function greate_dna';
-    $dna_m= take_data_from(ret_dna($id_m),'randodna');
-    debug($dna_m);
-    $dna_d= take_data_from(ret_dna($id_d),'randodna');
-    debug($dna_d);
+    $owner='Nesh';
     
-    
-    echo '<br>даем окрас!';
-    $tt = breeding($dna_m['tt'],$dna_d['tt'],'TT','tt','Tt');
-    $bb = breeding($dna_m['bb'],$dna_d['bb'],'BB','bb','Bb');
-    $mm = breeding($dna_m['mm'],$dna_d['mm'],'MM','mm','Mm');
-    $ww = breeding($dna_m['ww'],$dna_d['ww'],'WW','ww','Ww');
-    $ff = breeding($dna_m['ff'],$dna_d['ff'],'FF','ff','Ff');
-    
+    $sex='0';
+    ret_dna_dogs($owner);
 
-    
-    echo '<br> hr_m' . $hr_on = $dna_m['hr'];
-    echo '<br> hr_d' . $hr_ona = $dna_d['hr'];
-            
-
-    $hr=gol_pooh($hr_on,$hr_ona);
-    
-    ('Hrhr'==$hr ? $Hr='hr1' : $Hr='hr0');   //hr1 Hrhr - голая  // hr0 - hrhr  - пух
-    ('ww'==$ww ? $W='w0' : $W='w1');
-    ('ff'==$ff ? $F='f0' : $F='f1');
-    ('bb'==$bb ? $B='b0' : $B='b1');
-    ('tt'==$tt ? $T='t0' : $T='t1');
-    ('mm'==$mm ? $M='m0' : $M='m1');
-
-    echo '<br> DNA new ' . $dna=$Hr . $W . $F . $B . $T . $M;
-    
-    
+     
+     
+     
     ////////////////////////////
     
     
