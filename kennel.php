@@ -62,7 +62,7 @@ require "/libs/up.php";
                // $tip=find_where('animals', $key,'hr');
                 $lit= ret_Cell('litter', $key,'animals');
                 $pup=ret_cell('puppy', $key,'animals');
-                $pol=ret_cell('sex', ret_dna($key),'randodna');
+                $pol= ret_sex($key);
                 if(0==$pol){
                     $sex='сука';
                 }
@@ -112,8 +112,8 @@ require "/libs/up.php";
 
 /*сохранение данных о голости собаки + вязки/щенки*/
                 //$tip=find_where('animals', $key,'hr');
-                $lit=find_where('animals', $key,'litter');
-                $pup=find_where('animals', $key,'puppy');
+                $lit= ret_Cell('litter', $key,'animals');
+                $pup=ret_cell('puppy', $key,'animals');
                 $GLOBALS['Data_dog']=data_animals($key);    //сохраняем данные по собаке
                    if(13<$GLOBALS['Data_dog']['age_id']){ //возраст >6 месяцев
                        echo "<br><hr><a>";
@@ -159,8 +159,8 @@ require "/libs/up.php";
                       
 /*сохранение данных о голости собаки + вязки/щенки*/
                      // $tip=find_where('animals', $key,'hr');
-                      $lit=find_where('animals', $key,'litter');
-                      $pup=find_where('animals', $key,'puppy');
+                      $lit= ret_Cell('litter', $key,'animals');
+                     $pup=ret_cell('puppy', $key,'animals'); 
                       $GLOBALS['Data_dog']=data_animals($key);    //сохраняем данные по собаке
                        if(13<$GLOBALS['Data_dog']['age_id']){ //возраст >6 месяцев
                            echo "<br><hr><a>";

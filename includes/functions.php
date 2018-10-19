@@ -27,6 +27,12 @@ function test(){
 function ret_owner(){
 	return $_SESSION['logged_user']->login;
 }
+/* функция выводит собак по владельцу */
+ 
+function ret_dogs_by_owner($owner){
+    return R::getAssoc ('SELECT id,name,dna_id FROM animals WHERE owner =:owner and status=1', array(':owner' => $owner));
+}
+
 /* функция возвращает пол собаки по ее id*/
 function ret_sex($id){
     return ret_Cell('sex', ret_Cell('dna_id', $id, 'animals'), 'randodna');
@@ -2580,4 +2586,46 @@ function gol_pooh($on,$ona){
 	}
 
 }
+/******************************* функции по выводу на экран собак нужного ПОЛА SEX **************/
 
+//функция выводит картинку собаки по параметру сука / кобель
+function maleFemale($id,$param_sex){
+    $sex= ret_sex($id);
+    if(($param_sex==$sex) && ('0'== $sex)){
+        echo '<br><hr>';
+        //echo '<br> пол:'. $sex . '<hr>';
+        $name=ret_Cell('name', $id, 'animals');
+                 echo '<a href="/name.php?id=' . $id . '">' . "$name" . '  сука';  //$name - имя собаки // $test = id 
+                 print_partner($id);
+    }
+    if($param_sex==$sex && ('1'== $sex)){
+        echo '<br><hr>';
+        $name=ret_Cell('name', $id, 'animals');
+                 echo '<a href="/name.php?id=' . $id . '">' . "$name" . '  кобель';  //$name - имя собаки // $test = id 
+                 print_partner($id);
+    }
+    
+}
+//выводит функция id собаки по параметру dna_id
+function ret_id_by_param($dna_id){  //4
+   return R::getcell('SELECT id FROM animals WHERE dna_id =:dna_id', array(':dna_id'=> $dna_id));
+    
+}
+//печатает картинку партнера размера 100 пикселей
+function print_partner($test){
+    dog_pic_size($test, 100);
+    
+}
+
+function ret_dog_by_sex($owner,$param_sex){
+    $data[] =  ret_dogs_by_owner($owner);
+    // debug($data);
+     foreach($data as $item) {
+         foreach ($item as $id => $value) {
+             
+             //echo '<br>/id ' . $id . '   dna_id ' . $value[dna_id];
+             maleFemale($id,$param_sex);
+             
+         }    
+     }
+}

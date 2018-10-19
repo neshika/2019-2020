@@ -30,62 +30,61 @@ function change(idName) {
 
 echo "Тестируем: <br>";
 
-function ret_dogs_by_owner($owner){
-    return R::getAssoc ('SELECT name,dna_id FROM animals WHERE owner =:owner and status=1', array(':owner' => $owner));
-}
-function ret_id_by_param($dna_id){
-   return R::getcell('SELECT id FROM animals WHERE dna_id =:dna_id', array(':dna_id'=> $dna_id));
-    
-}
-function print_partner($test){
-    dog_pic_size($test, 100);
-    
-}
-
-function ret_dna_dogs($owner){
-    $data[] =  ret_dogs_by_owner($owner);
-     debug($data);
-     foreach($data as $item) {
-         foreach ($item as $key => $value) {
-             
-             //echo '/key ' . $key . 'val' . $value;
-             //$data_2[] = R::getAssoc ('SELECT id FROM randodna WHERE sex=:sex and id=:id', array(':sex' => $sex, ':id' => $value));
-             $sex_param_id=ret_Cell('sex', $value, randodna);
-             if('0'==$sex_param_id){
-               // echo '<br> пол собаки суки' . $value . ': ' . $sex_param_id ;
-             
-                $test=ret_id_by_param($value);
-                //debug($test);
-                echo '<br><hr>';
-                
-                $name=ret_Cell('name', $test, 'animals');
-                 echo '<a href="/name.php?id=' . $test . '">' . "$name" . '  сука';  //$name - имя собаки // $test = id 
-                 print_partner($test);
-             }
-             else{
-                //echo '<br> пол собаки кобель' . $value . ': ' . $sex_param_id ;
-             
-                $test=ret_id_by_param($value);
-                
-                echo '<br><hr>';
-                //debug($test);
-                $name=ret_Cell('name', $test, 'animals');
-                 echo '<a href="/name.php?id=' . $test . '">' . "$name" . '  кобель';  //$value - имя собаки // $key = id 
-                 print_partner($test);
-             }
-             
-         }    
-     }
-}
+////функция выводит картинку собаки по параметру сука / кобель
+//function maleFemale($id,$param_sex){
+//    $sex= ret_sex($id);
+//    if(($param_sex==$sex) && ('0'== $sex)){
+//        echo '<br> пол:'. $sex . '<hr>';
+//        $name=ret_Cell('name', $id, 'animals');
+//                 echo '<a href="/name.php?id=' . $id . '">' . "$name" . '  сука';  //$name - имя собаки // $test = id 
+//                 print_partner($id);
+//    }
+//    if($param_sex==$sex && ('1'== $sex)){
+//        echo '<br><hr>';
+//        $name=ret_Cell('name', $id, 'animals');
+//                 echo '<a href="/name.php?id=' . $id . '">' . "$name" . '  кобель';  //$name - имя собаки // $test = id 
+//                 print_partner($id);
+//    }
+//    
+//}
+////выводит функция id собаки по параметру dna_id
+//function ret_id_by_param($dna_id){  //4
+//   return R::getcell('SELECT id FROM animals WHERE dna_id =:dna_id', array(':dna_id'=> $dna_id));
+//    
+//}
+////печатает картинку партнера размера 100 пикселей
+//function print_partner($test){
+//    dog_pic_size($test, 100);
+//    
+//}
+//
+//function ret_dog_by_sex($owner,$param_sex){
+//    $data[] =  ret_dogs_by_owner($owner);
+//    // debug($data);
+//     foreach($data as $item) {
+//         foreach ($item as $id => $value) {
+//             
+//             echo '<br>/id ' . $id . '   dna_id ' . $value[dna_id];
+//             maleFemale($id,$param_sex);
+//             
+//         }    
+//     }
+//}
 
 
 if(isset($_POST['dog_id'])  ){ 
     echo $id=$_POST['dog_id'];
-    $owner='Nesh';
+    echo '<br> Владелец: ' . $owner='Nesh';
     
-    $sex='0';
-    echo '<br> пол: ' . ret_sex($id);
-    ret_dna_dogs($owner);
+    if(0== ret_sex($id)){
+        ret_dog_by_sex($owner,0);
+    }
+    if(1== ret_sex($id)){
+        ret_dog_by_sex($owner,1);
+    }
+    //echo '<br> выводим сук: ' .$param_sex='0';
+     //echo '<br> выводим кобелей: ' .$param_sex='1';
+    ret_dog_by_sex($owner,$param_sex);
 
      
      
