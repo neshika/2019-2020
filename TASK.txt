@@ -72,7 +72,8 @@ bdika_mutation)
 81. ошибка рисования и расчета url_puppy
 82.удалить табл stats и sex(animals)
 83. kennel не пишет пол собаки
-
+- 18.10.2018 -
+85. функция ret_sex($id), изменение функции ret_pic_sex
 
 
 

@@ -27,6 +27,10 @@ function test(){
 function ret_owner(){
 	return $_SESSION['logged_user']->login;
 }
+/* функция возвращает пол собаки по ее id*/
+function ret_sex($id){
+    return ret_Cell('sex', ret_Cell('dna_id', $id, 'animals'), 'randodna');
+}
 /*Функция возвращает id на dna*/
 function ret_dna($id){
 	 return R::getCell('SELECT dna_id FROM animals WHERE id = :id',
@@ -762,12 +766,11 @@ function print_stats_d($id){
             }
 }
 
-
 /*Функция возвращает название картинки в зависимости от пола собаки по ее ID*/
 function ret_pic_sex($id){
     
         
-    $sex=ret_Cell('sex', ret_Cell('dna_id', $id, 'animals'), 'randodna');
+    $sex=ret_sex($id);
 	if(0==$sex){
 		return '<img src = "/pic/female_mini.png">';
         }

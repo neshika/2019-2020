@@ -84,6 +84,7 @@ if(isset($_POST['dog_id'])  ){
     $owner='Nesh';
     
     $sex='0';
+    echo '<br> пол: ' . ret_sex($id);
     ret_dna_dogs($owner);
 
      
