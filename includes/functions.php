@@ -174,7 +174,7 @@ function ret_age($dog_id){
     
    //var_dump($age_id);
 
-    return find_where('ages',$age_id[0],'age'); // находим аналог(2 месяца) этой цыфры в таблице ages и выводим текст возраста
+    return ret_cell('age',$age_id[0],'ages'); // находим аналог(2 месяца) этой цыфры в таблице ages и выводим текст возраста
 }
 
 // функция увеличивает возраст собаки
@@ -906,7 +906,7 @@ function insert_url_puppy($dog_id){
    // $data_dog=take_data_from($dog_id, 'dna');
    $dna_id = ret_dna($dog_id);
     $data_dog=take_data_from($dna_id, 'randodna');
-       $num=Rand(1,2);  //количество варианций окраса собаки
+       $num=Rand(1,3);  //количество варианций окраса собаки
 
       echo "<br>hr: " . $data_dog['hr'];
     echo "<br>ww: " . $data_dog['ww'];
@@ -2591,20 +2591,36 @@ function gol_pooh($on,$ona){
 //функция выводит картинку собаки по параметру сука / кобель
 function maleFemale($id,$param_sex){
     $sex= ret_sex($id);
-    if(($param_sex==$sex) && ('0'== $sex)){
+    $lit= ret_Cell('litter', $id,'animals');
+    $pup=ret_cell('puppy', $id,'animals');
+    $age= ret_age($id);
+    $age_norma=ret_cell('age_id',$id,'animals');
+    if(($param_sex==$sex) && ('0'== $sex) && (13<$age_norma)){
         echo '<br><hr>';
         //echo '<br> пол:'. $sex . '<hr>';
         $name=ret_Cell('name', $id, 'animals');
-                 echo '<a href="/name.php?id=' . $id . '">' . "$name" . '  сука';  //$name - имя собаки // $test = id 
-                 print_partner($id);
+        
+         echo '<a href="/name.php?id=' . $id . '">';
+         print_partner($id);
+         echo '</a>';
+         echo '<br>имя: ' . $name;
+         echo '<br> возраст ' . $age;
+         echo '<a href="/lit&pup.php?id=' . $id . '">' . "<br> вязки/дети: ". $lit .'/'. $pup . '</a>'; 
+                
+                
     }
-    if($param_sex==$sex && ('1'== $sex)){
+    if(($param_sex==$sex) && ('1'== $sex) && (13<$age_norma)){
         echo '<br><hr>';
         $name=ret_Cell('name', $id, 'animals');
-                 echo '<a href="/name.php?id=' . $id . '">' . "$name" . '  кобель';  //$name - имя собаки // $test = id 
-                 print_partner($id);
+         
+        echo '<a href="/name.php?id=' . $id . '">';
+         print_partner($id);
+         echo '</a>';
+         echo '<br>имя: ' . $name;
+         echo '<br> возраст ' . $age;
+         echo '<a href="/lit&pup.php?id=' . $id . '">' . "<br> вязки/дети: ". $lit .'/'. $pup . '</a>'; 
     }
-    
+       
 }
 //выводит функция id собаки по параметру dna_id
 function ret_id_by_param($dna_id){  //4

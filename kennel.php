@@ -97,88 +97,19 @@ require "/libs/up.php";
 
 
 /****************************** Если нажата кнопка СУКИ выводим на экран всех собак, пренадлежащих владельцу*/
+          
+          if( isset($_POST['female']) ){
+              ?><p class="left"><img src = "/pic/female.png" alt = "девочки" width="10%"></p><?php
+              ret_dog_by_sex($owner,0);
+              
+          }
+           if( isset($_POST['male']) ){
+              ?><p class="left"><img src = "/pic/male.png" alt = "мальчики" width="10%"></p><?php
+              ret_dog_by_sex($owner,1);
+              
+          }
+       
 
-
-        if( isset($_POST['female']) ){
-            $array[] = R::getAssoc('SELECT id,name FROM animals WHERE owner = :owner && sex LIKE "сука" && status = 1' ,
-            [':owner' => $owner]);  
-/*картинка сук*/
-            ?>
-            <p class="right"><img src = "/pic/female.png" alt = "девочки" width="10%"></p>   <?php
-        
-           foreach($array as $item) {
-              foreach ($item as $key => $value) {
-                
-
-/*сохранение данных о голости собаки + вязки/щенки*/
-                //$tip=find_where('animals', $key,'hr');
-                $lit= ret_Cell('litter', $key,'animals');
-                $pup=ret_cell('puppy', $key,'animals');
-                $GLOBALS['Data_dog']=data_animals($key);    //сохраняем данные по собаке
-                   if(13<$GLOBALS['Data_dog']['age_id']){ //возраст >6 месяцев
-                       echo "<br><hr><a>";
-/*выводим имена сук как ссылки на страничку собаки*/
-                        ?>
-                        <p class="right"><?php
-                        echo '<a href="/name.php?id=' . $key . '">';?>
-
-                        <img src="<?php echo bdika_url($key);?>" width="10%"></a>
-
-                            <?php //вывод на экран количесва вязок и щенков у сук
-                                echo '<br>имя: ' . $value;
-                                //echo '<br> тип : ' . $tip;
-                                echo '<a href="/lit&pup.php?id=' . $key . '">' . "<br> вязки/дети: ". $lit .'/'. $pup;  ?>
-
-
-                            </p>
-                         
-                
-                 <?php
-                  }
-                }   //foreach ($item as $key => $value)
-              echo "<br />"; 
-            }   //foreach($array as $item)
-            ?><?php
-          }   //if( isset($_POST['female']) )
-
-
-
-
-
-/******************************* Если нажата кнопка КОБЕЛИ выводим на экран всех собак, пренадлежащих владельцу*/
-
-
-        if( isset($_POST['male']) ){
-              $array[] = R::getAssoc('SELECT id,name FROM animals WHERE owner = :owner && sex LIKE "кобель" && status = 1' ,
-              [':owner' => $owner]);
-              ?><img src = "/pic/male.png" alt = "мальчики" width="10%">   <?php
-        
-              foreach($array as $item) {
-                  
-                  foreach ($item as $key => $value) {
-                      
-/*сохранение данных о голости собаки + вязки/щенки*/
-                     // $tip=find_where('animals', $key,'hr');
-                      $lit= ret_Cell('litter', $key,'animals');
-                     $pup=ret_cell('puppy', $key,'animals'); 
-                      $GLOBALS['Data_dog']=data_animals($key);    //сохраняем данные по собаке
-                       if(13<$GLOBALS['Data_dog']['age_id']){ //возраст >6 месяцев
-                           echo "<br><hr><a>";
-/*выводим имена кобелей как ссылки на страничку собаки*/
-                                echo '<a href="/name.php?id=' . $key . '">';?>
-
-                          <img src="<?php echo bdika_url($key);?>" width="10%"></a> 
-                           <div>
-                                <?php echo 'имя: ' . $value;
-                                    
-                                      echo '<a href="/lit&pup.php?id=' . $key . '">' . "<br> вязки/дети: ". $lit .'/'. $pup;  ?>
-
-                            </div><?php
-                       }
-                }   //foreach ($item as $key => $value)  
-              echo "<br />";
-            }   //foreach($array as $item)
-         }   //if( isset($_POST['male']) )
 /******************************* Если нажата кнопка щенки выводим на экран всех щенков, пренадлежащих владельцу*/
 
 
@@ -191,10 +122,7 @@ require "/libs/up.php";
                   foreach ($item as $key => $value) {
                      
 /*сохранение данных о голости собаки + вязки/щенки*/
-                     // $tip=find_where('animals', $key,'hr');
-                      //$lit=find_where('animals', $key,'litter');
-                      //$pup=find_where('animals', $key,'puppy');
-                      $GLOBALS['Data_dog']=data_animals($key);    //сохраняем данные по собаке
+                    $GLOBALS['Data_dog']=data_animals($key);    //сохраняем данные по собаке
                       if(13>=$GLOBALS['Data_dog']['age_id']){ //возраст <6 месяцев
                           echo "<br><hr><a>";
 /*выводим имена кобелей как ссылки на страничку собаки*/
@@ -202,7 +130,9 @@ require "/libs/up.php";
 
                           <img src="<?php echo bdika_url($key);?>" width="10%"></a> 
                            <div>
-                                <?php echo 'имя: ' . $value;
+                                <?php echo '<br>имя: ' . $value;
+                                echo '<br>возраст: ' . ret_age($key);
+                                
                                 
                                  ?>
                                      
@@ -213,7 +143,7 @@ require "/libs/up.php";
                   
             }   //foreach($array as $item)
             
-         }   //if( isset($_POST['male']) )
+         }   //if( isset($_POST['puppy']) )
 
 //функция вызывающая футер сайта
 require "/libs/down.php";
