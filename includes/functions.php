@@ -2595,7 +2595,7 @@ function maleFemale($id,$param_sex){
     $pup=ret_cell('puppy', $id,'animals');
     $age= ret_age($id);
     $age_norma=ret_cell('age_id',$id,'animals');
-    if(($param_sex==$sex) && ('0'== $sex) && (13<$age_norma)){
+    if(($param_sex==$sex) && ('0'== $sex) && (13<$age_norma)){  //и старше 6 месяцев
         echo '<br><hr>';
         //echo '<br> пол:'. $sex . '<hr>';
         $name=ret_Cell('name', $id, 'animals');
