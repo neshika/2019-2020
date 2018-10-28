@@ -82,7 +82,7 @@ bdika_mutation)
 88. breeding.php ошибочно работает
 - 28.10.2018 -
 89.Зеленый цвет , если статы увеличились detalis_green($id)
-
+90. отрисовываем breeding.php
 
 
 
