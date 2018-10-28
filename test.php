@@ -33,16 +33,11 @@ function change(idName) {
 echo "Тестируем: <br>";
 
 
-
 if(isset($_POST['dog_id'])  ){ 
     echo $id=$_POST['dog_id'];
     echo '<br> Владелец: ' . $owner='Nesh';
-    
-
-}   
-
-?>
-
+}    
+ ?>
 <form method="POST">
 введите код собаки: <input type="text" name='dog_id'>
 <input type="submit" name="ок" value="ok">

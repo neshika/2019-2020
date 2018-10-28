@@ -33,10 +33,6 @@ function ret_dogs_by_owner($owner){
     return R::getAssoc ('SELECT id,name,dna_id FROM animals WHERE owner =:owner and status=1', array(':owner' => $owner));
 }
 
-/* функция возвращает пол собаки по ее id*/
-function ret_sex($id){
-    return ret_Cell('sex', ret_Cell('dna_id', $id, 'animals'), 'randodna');
-}
 /*Функция возвращает id на dna*/
 function ret_dna($id){
 	 return R::getCell('SELECT dna_id FROM animals WHERE id = :id',
@@ -98,7 +94,7 @@ function print_all(){
 }
 //  возвращает путь до иконки нужного предмета по ID
 function ret_item($item_id){
-  return find_where('items',$item_id,'icons');
+  return ret_cell('icons',$item_id,'item');
 }
 //  рисует предмет и его количство
 function print_item($login,$item_id){
@@ -118,17 +114,14 @@ function rand_sex(){
     return Rand(0,1);
 }
 
-/////////////////  внести пол
-function add_sex($id,$sex){
-    insert_data('randodna',$id,'sex',$sex);
+/* функция возвращает пол собаки по ее id*/
+function ret_sex($id){
+    return ret_Cell('sex', ret_Cell('dna_id', $id, 'animals'), 'randodna');
 }
-//////////////  вывести пол
-function take_sex($id){
-    return find_where('randodna', $id, 'sex');
-}
+
 ////////////////  пол буквами
 function w_sex($id){
-    $sex=take_sex($id);
+    $sex=ret_sex($id);
     if(0==$sex){
         return 'сука';
     }
@@ -139,7 +132,65 @@ function w_sex($id){
         return 'стерильно';
     }
 }
-//////////////////////////////////////////////////////////////////////
+/*** функции по выводу на экран собак нужного ПОЛА SEX **************/
+
+//функция выводит картинку собаки по параметру сука / кобель
+function maleFemale($id,$param_sex){
+    $sex= ret_sex($id);
+    $lit= ret_Cell('litter', $id,'animals');
+    $pup=ret_cell('puppy', $id,'animals');
+    $age= ret_age($id);
+    $age_norma=ret_cell('age_id',$id,'animals');
+    if(($param_sex==$sex) && ('0'== $sex) && (13<$age_norma)){  //и старше 6 месяцев
+        echo '<br><hr>';
+        //echo '<br> пол:'. $sex . '<hr>';
+        $name=ret_Cell('name', $id, 'animals');
+        
+         echo '<a href="/name.php?id=' . $id . '">';
+         print_partner($id);
+         echo '</a>';
+         echo '<br>имя: ' . $name;
+         echo '<br> возраст ' . $age;
+         echo '<a href="/lit&pup.php?id=' . $id . '">' . "<br> вязки/дети: ". $lit .'/'. $pup . '</a>'; 
+                
+                
+    }
+    if(($param_sex==$sex) && ('1'== $sex) && (13<$age_norma)){
+        echo '<br><hr>';
+        $name=ret_Cell('name', $id, 'animals');
+         
+        echo '<a href="/name.php?id=' . $id . '">';
+         print_partner($id);
+         echo '</a>';
+         echo '<br>имя: ' . $name;
+         echo '<br> возраст ' . $age;
+         echo '<a href="/lit&pup.php?id=' . $id . '">' . "<br> вязки/дети: ". $lit .'/'. $pup . '</a>'; 
+    }
+       
+}
+//выводит функция id собаки по параметру dna_id
+function ret_id_by_param($dna_id){  //4
+   return R::getcell('SELECT id FROM animals WHERE dna_id =:dna_id', array(':dna_id'=> $dna_id));
+    
+}
+//печатает картинку партнера размера 100 пикселей
+function print_partner($test){
+    dog_pic_size($test, 100);
+    
+}
+
+function ret_dog_by_sex($owner,$param_sex){
+    $data[] =  ret_dogs_by_owner($owner);
+    // debug($data);
+     foreach($data as $item) {
+         foreach ($item as $id => $value) {
+             
+             //echo '<br>/id ' . $id . '   dna_id ' . $value[dna_id];
+             maleFemale($id,$param_sex);
+             
+         }    
+     }
+}
 
 
 //******************************************** В О З Р А С Т  ****************************
@@ -206,8 +257,8 @@ function detalis($id){
                   <col span="4">
               </colgroup>
               <tr border="1"> 
-                     <td>имя</td><td><b><?php echo find_where('animals',$id,'name'); ?></b></td>
-                     <td>пол</td><td><b><?php echo w_sex($data_dna['sex']);?></b></td>
+                     <td>имя</td><td><b><?php echo ret_cell('name',$id,'animals'); ?></b></td>
+                     <td>пол</td><td><b><?php echo w_sex($id);?></b></td>
               </tr>
               <tr border="1"> 
                      <td>Скорость</td><td><?php echo $data_dna['spd']; ?></td>
@@ -242,88 +293,87 @@ function detalis($id){
 
 }
 
-/**************************** функция печатает на экран статы и ГП с подсветкой для новой собаки*************************/
+/**************************** функции печатает на экран статы и ГП с подсветкой для новой собаки*************************/
+/*************** проверка собака и родитель и возврат "зеленый" если 
+ * статлы дучше, сем у родителей ****************/
+function bdika_param($dog, $parent){
+    if($dog>$parent){
+        return 'green';
+    }
+    else
+        return 'black';
+    
+}
+/************ проверка родителей статы и вызов функции по проверка 
+ * параметров, если статы собаки лучше , чем у родителя ****************/ 
+function bdika_parent($id,$parent){
+    
+     $data_dna = take_data_from(ret_dna($id),'randodna');
+        //debug($data_dna);
+        $data_family= take_data_from(ret_family($id),'family');
+       // debug($data_family);
+        
+        
+    if('mum'==$parent){
+      
+    $parent_id_dna= ret_dna(ret_mum($id));
+    //echo '<br> мама: ' . ret_mum($id) . ' dna_id_ ' . $parent_id_dna;
+    //echo '<br> $data_family[$parent] ' . $data_family[$parent];
+    }
+      if('dad'==$parent){
+      
+    $parent_id_dna= ret_dna(ret_dad($id));
+    //echo '<br> мама: ' . ret_dad($id);
+    }
+   
+    if(0!=$data_family[$parent]){
+        //echo '<br> тут ';
+       
+        $data_parent= take_data_from($parent_id_dna,'randodna');
+        //debug($data_parent);
+        $col_spd= bdika_param($data_dna['spd'], $data_parent['spd']);
+        $col_agl= bdika_param($data_dna['agl'], $data_parent['agl']);
+        $col_tch= bdika_param($data_dna['tch'], $data_parent['tch']);
+        $col_jmp= bdika_param($data_dna['jmp'], $data_parent['jmp']);
+        $col_nuh= bdika_param($data_dna['nuh'], $data_parent['nuh']);
+        $col_fnd= bdika_param($data_dna['fnd'], $data_parent['fnd']);
+        
+         return $data_col = array ($col_spd,$col_agl,$col_tch,$col_jmp,$col_nuh,$col_fnd);
+        
+        
+    }
+}       
+ /***********  сравнение цвета у мамы и папы, слияние массива цвета   ****/   
+function bdika_col ($arr1,$arr2){
+    for($i=0;$i<count($arr1);$i++){
+        if(('green' == $arr1[$i]) || ('green'==$arr2[$i]))
+        $arr1[$i] = 'green';
+    }
+    return $arr1;
+    
+    
+}
 function detalis_green($id){
     
-    //      по умолчанию черный цвет текста данных по животным
-    $col_spd='black';
-    $col_agl='black';
-    $col_tch='black';
-    $col_jmp='black';
-    $col_nuh='black';
-    $col_fnd='black';
+   $data_col = array_fill(0, 6, 'black'); 
+    //debug($data_col);
     
-    $data_dog= ret_Row($id, 'animals');  //данные из таблицы animals по собаке
-    $data_dna= take_data_from($data_dog['dna_id'], 'randodna');   //данные из таблицы dna по собаке (tt, mm)
+    /****** данные Дна кода собаки  *///////////////
+    $data_dna = take_data_from(ret_dna($id),'randodna');
+    $parent='mum';
+    $array1=bdika_parent($id,$parent);  
+    $parent='dad';
+    $array2=bdika_parent($id,$parent);  
     
-    $Fam_id=$data_dog['family_id'];     //id на семью собаки
-    $data_family=take_data_from($Fam_id, 'family');     //данные из таблицы family по собаке ссылка на родителей
-   
     
-    if( 0!=$data_family['mum'] ){ //если есть данные по маме, то проверяем
-          $data_stats_m= take_data_from(ret_dna($data_family['mum']), 'randodna');      //статы мамы     
-        
-        if( $data_dna['spd']>$data_stats_m['spd'] ){
-            //echo 'скорость зеленая';
-            $col_spd='green';
-        }
-        if( $data_dna['agl']>$data_stats_m['agl'] ){
-            //echo 'уворот зеленый';
-            $col_agl='green';
-        }
-        if( $data_dna['tch']>$data_stats_m['tch'] ){
+    //debug($array1);
+    //debug($array2);
+    $array3=bdika_col($array1,$array2);
+    //debug($array3);
+    
+    
 
-            //echo '<br>обучение зеленое';
-            $col_tch='green';
-        }
-        if( $data_dna['jmp']>$data_stats_m['jmp'] ){
-            //echo 'прыжки зеленые';
-            $col_jmp='green';
-        }
-        if( $data_dna['nuh']>$data_stats_m['nuh'] ){
-            //echo 'нюх зеленый';
-            $col_nuh='green';
-        }
-        if( $data_dna['fnd']>$data_stats_m['fnd'] ){
-            //echo 'поиск зеленый';
-            $col_fnd='green';
-        }
-
-   }
-   if( 0!=$data_family['dad']){     //если есть данные по папе, то проверяем
-       
-       $data_stats_d= take_data_from(ret_dna($data_family['dad']), 'randodna');      //статы папы
-       
-       if ( $data_dna['spd']>$data_stats_d['spd'] ){
-            //echo 'скорость зеленая';
-            $col_spd='green';
-        }
-        if( $data_dna['agl']>$data_stats_d['agl'] ){
-            //echo 'уворот зеленый';
-            $col_agl='green';
-        }
-        if ( $data_dna['tch']>$data_stats_d['tch'] ){
-
-            //echo '<br>обучение зеленое';
-            $col_tch='green';
-        }
-        if ( $data_dna['jmp']>$data_stats_d['jmp'] ){
-            //echo 'прыжки зеленые';
-            $col_jmp='green';
-        }
-        if ( $data_dna['nuh']>$data_stats_d['nuh'] ){
-            //echo 'нюх зеленый';
-            $col_nuh='green';
-        }
-        if ( $data_dna['fnd']>$data_stats_d['fnd'] ){
-            //echo 'поиск зеленый';
-            $col_fnd='green';
-        }
-       
-   }
-      
-?>             <br>
-
+?>
 <div align="left">
       
         <table width="100" cellpadding="2" cellspacing="0" border="1" >
@@ -333,40 +383,38 @@ function detalis_green($id){
                   <col span="4">
               </colgroup>
               <tr border="1"> 
-                     <td>имя</td><td><b><?php echo $data_dog['name']; ?></b></td>
-                     <td>пол</td><td><b><?php echo w_sex($data_dna['sex']);?></b></td>
+                  <td>имя</td><td><b><?php echo ret_Cell('name', $id, 'animals'); ?></b></td>
+                     <td>пол</td><td><b><?php echo w_sex($id);?></b></td>
               </tr>
               <tr border="1"> 
-                     <td>Скорость</td><td><font color=<?php echo $col_spd;?>><?php echo $data_dna['spd'];?></font></td>
+                     <td>Скорость</td><td><font color=<?php echo $array3[0];?>><?php echo $data_dna['spd'];?></font></td>
                      <td>вид</td><td><?php echo $data_dna['hr']; ?></td>
               </tr>
               <tr border="1"> 
-                     <td>Уворот</td><td><font color=<?php echo $col_agl;?>><?php echo $data_dna['agl'];?></font></td>
+                     <td>Уворот</td><td><font color=<?php echo $array3[1];?>><?php echo $data_dna['agl'];?></font></td>
                       <td>белый</td><td><?php echo $data_dna['ww']; ?></td>
               </tr>
               <tr border="1"> 
-                     <td>Обучение</td><td><font color=<?php echo $col_tch;?>><?php echo $data_dna['tch'];?></font></td>
+                     <td>Обучение</td><td><font color=<?php echo $array3[2];?>><?php echo $data_dna['tch'];?></font></td>
                      <td>рыжий</td><td><?php echo $data_dna['ff']; ?></td>
               </tr>
               <tr border="1"> 
-                     <td>Прыжки</td><td><font color=<?php echo $col_jmp;?>><?php echo $data_dna['jmp'];?></font></td>
+                     <td>Прыжки</td><td><font color=<?php echo $array3[3];?>><?php echo $data_dna['jmp'];?></font></td>
                       <td>черный</td><td><?php echo $data_dna['bb']; ?></td>
               </tr>
               <tr border="1"> 
-                     <td>Обоняние</td><td><font color=<?php echo $col_nuh;?>><?php echo $data_dna['nuh']; ?></font></td>
+                     <td>Обоняние</td><td><font color=<?php echo $array3[4];?>><?php echo $data_dna['nuh']; ?></font></td>
                      <td>пятна</td><td><?php echo $data_dna['mm']; ?></td>
               </tr>
               <tr border="1"> 
-                     <td>Поиск</td><td><font color=<?php echo $col_fnd;?>><?php echo $data_dna['fnd']; ?></font></td>
+                     <td>Поиск</td><td><font color=<?php echo $array3[5];?>><?php echo $data_dna['fnd']; ?></font></td>
                      <td>крап</td><td><?php echo $data_dna['tt']; ?></td>
               </tr>
               
               </colgroup>
         </table>
-      </div>
-
-<?php    
-
+</div>
+<?php
 }
 /**************************** функция печатает на экран дерево(родственников)*************************/
 function f_tree($id){
@@ -874,21 +922,22 @@ Function do_url($data_dna){
       }
       if(0 == $data_dna[2]){  //если собака пуховая
           $data_dna[10]=0; //tt=0    собака нет крапа
+          $num2=Rand(1,3);  //количество варианций окраса собаки
           if(1==$data_dna[4]){   //если собака бела пух, то нет пятен и крапа    
               $data_dna[6]=0; //ff=0    собака не модет быть рыжей
               $data_dna[12]=0; //mm=0    собака нет пятен
               
-              $url="pici/hrhr/" . $data_dna . '_01.png';
+              $url="pici/hrhr/" . $data_dna . '_0' . $num2 . '.png';
           }
           else if(1==$data_dna[6]){   //если соабка рыжая
               $data_dna[4]=0;   //всегда не белая
               $data_dna[8]=0;   //всегда шоко
               
-              $url="pici/hrhr/" . $data_dna . '_01.png';
+              $url="pici/hrhr/" . $data_dna . '_0' . $num2 . '.png';
           }   
           else
             
-          $url="pici/hrhr/" . $data_dna . '_01.png';
+          $url="pici/hrhr/" . $data_dna . '_0' . $num2 . '.png';
 
       }
 
@@ -2199,112 +2248,7 @@ function insert_2_new_dogs($name,$sex,$race,$owner,$kennel,$birth,$url_id){
     return $id;
 
 }
-/********************************************************Изменение стат****************************/
 
-//
-///**********************  Рандомный подсчет стат в зависимости от мутаций и родителей***************/
-//function get_stats($id_m, $id_d, $value, $mutation, $plus){
-//
-//
-//       //echo '$id_m ' . $id_m . '/ $id_d ' . $id_d . '/ $value ' . $value . '/ $mutation' . $mutation . '/ $plus ' . $plus;
-//
-//
-//        $temp=((find_where('stats',$id_m,$value)+find_where('stats',$id_d,$value))/2);
-//        if(1==$plus)
-//          $temp=$temp+($temp*$mutation/100);
-//        if(0==$plus)
-//          $temp=$temp-($temp*$mutation/100);
-//       //echo '<br>===' . $temp . '===<br>';
-//        $temp = number_format ($temp , $decimals = 2 ,$dec_point = "." , $thousands_sep = " " );
-//
-//        return $temp;
-//}
-///******************************** внесение новых стат по ID мамы иID папы и даем ID новой собаки ******************************************/
-//function new_stats($id_m,$id_d,$id_new){
-//
-//
-//       // $id_m=17;
-//      //  $id_d=15;
-//       // $id_new=20;
-//        $mutation=Rand(1,100)/100;
-//       // $plus='1';
-//        
-//        $plus= ret_mutation($id_m,$id_d);
-//       /*
-//        if(1==$plus){
-//          echo 'При вязки близкородственных партнеров возможны ухудшения качеств и получение мутаций! Будьте осторожнее!';
-//        }
-//        
-//     */   
-//        $speed_new= get_stats($id_m, $id_d, 'speed', $mutation, $plus);
-//       // print_stats($id_m,$id_d,$mutation);
-//       
-//        $agility_new= get_stats($id_m, $id_d, 'agility', $mutation, $plus);
-//        $teach_new= get_stats($id_m, $id_d, 'teach', $mutation, $plus);
-//        $jump_new= get_stats($id_m, $id_d, 'jump', $mutation, $plus);
-//        $scent_new= get_stats($id_m, $id_d, 'scent', $mutation, $plus);
-//        $find_new= get_stats($id_m, $id_d, 'find', $mutation, $plus);
-//        $total_new= get_stats($id_m, $id_d, 'total', $mutation, $plus);
-//     
-//    
-//       insert_new_stats($id_new,$speed_new,$agility_new,$teach_new, $jump_new,$scent_new,$find_new,$total_new,$mutation);
-//
-//
-//
-//}
-///*************Функция возвращает возможность получения мутации при близкородствееном скрещивании*/
-//function ret_mutation($id_m,$id_d){
-//    
-//    $temp =0; //нет мутации
-//    $num =Rand(1,100);   //шанс получения мутации
-//    $f_data_m = ret_f_data_by_dog($id_m);   //родственники по линии матери
-//    $f_data_d = ret_f_data_by_dog($id_d);   //родственники по линии отца
-//
-//    ////////////////////////////////////////////////проверка самки и родни партнера
-//    
-//    if($f_data_m['id']==$f_data_d['mum']){  //самка и мать партнера 75% мутация
-//        echo 'партнерша - мать';
-//        if($num>0 && $num<75){
-//            $temp=1;
-//        }
-//    }
-//     if( ($f_data_m['id']==$f_data_d['g1mum']) || ($f_data_m['id']==$f_data_d['g0mum']) ){  //самка и бабки партнера 50% мутация
-//        echo 'партнерша - бабка';
-//        if($num>50 && $num<100){
-//            $temp=1;
-//        }
-//    }
-//    if( ($f_data_m['id']==$f_data_d['gg1mum2']) || ($f_data_m['id']==$f_data_d['gg0mum2']) || ($f_data_m['id']==$f_data_d['gg1mum4']) || ($f_data_m['id']==$f_data_d['gg0mum4']) ){
-//        //самка и пробабки партнера 25% мутация
-//        echo 'партнерша - пробабка';
-//        if($num>0 && $num<25){
-//            $temp=1;
-//        }
-//    }
-//    
-//       /////////////////////////////////////////////проверка самца и родни партнера
-//    if($f_data_d['id']==$f_data_m['dad']){  //самец и отец партнерши 75%
-//        echo 'партнер - отец';
-//        if($num>0 && $num<75){
-//            $temp=1;
-//        }
-//    }
-//     if( ($f_data_d['id']==$f_data_m['g1dad']) || ($f_data_d['id']==$f_data_m['g0dad']) ){
-//         //самец и деды партнерши 50%
-//        echo 'партнер - дед';
-//        if($num>50 && $num<100){
-//            $temp=1;
-//        }
-//    }
-//    if( ($f_data_d['id']==$f_data_m['gg1dad1']) || ($f_data_d['id']==$f_data_m['gg0dad1']) || ($f_data_d['id']==$f_data_m['gg1dad3']) || ($f_data_d['id']==$f_data_m['gg0dad3']) ){
-//        //самец и прадеды партнерши 25%
-//        echo 'партнер прадед';
-//        if($num>0 && $num<25){
-//            $temp=1;    //если прошла мутация
-//        }
-//    }
-//    return $temp;
-//}
 ///////////////////////////////////////////// создание СОБАКИ //////////////////////////////////
 
 
@@ -2585,63 +2529,4 @@ function gol_pooh($on,$ona){
 		}
 	}
 
-}
-/******************************* функции по выводу на экран собак нужного ПОЛА SEX **************/
-
-//функция выводит картинку собаки по параметру сука / кобель
-function maleFemale($id,$param_sex){
-    $sex= ret_sex($id);
-    $lit= ret_Cell('litter', $id,'animals');
-    $pup=ret_cell('puppy', $id,'animals');
-    $age= ret_age($id);
-    $age_norma=ret_cell('age_id',$id,'animals');
-    if(($param_sex==$sex) && ('0'== $sex) && (13<$age_norma)){  //и старше 6 месяцев
-        echo '<br><hr>';
-        //echo '<br> пол:'. $sex . '<hr>';
-        $name=ret_Cell('name', $id, 'animals');
-        
-         echo '<a href="/name.php?id=' . $id . '">';
-         print_partner($id);
-         echo '</a>';
-         echo '<br>имя: ' . $name;
-         echo '<br> возраст ' . $age;
-         echo '<a href="/lit&pup.php?id=' . $id . '">' . "<br> вязки/дети: ". $lit .'/'. $pup . '</a>'; 
-                
-                
-    }
-    if(($param_sex==$sex) && ('1'== $sex) && (13<$age_norma)){
-        echo '<br><hr>';
-        $name=ret_Cell('name', $id, 'animals');
-         
-        echo '<a href="/name.php?id=' . $id . '">';
-         print_partner($id);
-         echo '</a>';
-         echo '<br>имя: ' . $name;
-         echo '<br> возраст ' . $age;
-         echo '<a href="/lit&pup.php?id=' . $id . '">' . "<br> вязки/дети: ". $lit .'/'. $pup . '</a>'; 
-    }
-       
-}
-//выводит функция id собаки по параметру dna_id
-function ret_id_by_param($dna_id){  //4
-   return R::getcell('SELECT id FROM animals WHERE dna_id =:dna_id', array(':dna_id'=> $dna_id));
-    
-}
-//печатает картинку партнера размера 100 пикселей
-function print_partner($test){
-    dog_pic_size($test, 100);
-    
-}
-
-function ret_dog_by_sex($owner,$param_sex){
-    $data[] =  ret_dogs_by_owner($owner);
-    // debug($data);
-     foreach($data as $item) {
-         foreach ($item as $id => $value) {
-             
-             //echo '<br>/id ' . $id . '   dna_id ' . $value[dna_id];
-             maleFemale($id,$param_sex);
-             
-         }    
-     }
 }
