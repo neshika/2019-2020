@@ -15,74 +15,118 @@ error_reporting(E_ALL);
 <title>Cимулятор заводчика</title>
 </head>
 <body>
+    <style>
+      body,html {
+          width: 100%;
+          height: 100%;
+      }
+      .wrapper{
+            margin-left: 15%; /* Отступ слева */
+            width: 1250px; /* Ширина слоя */
+            height: auto;
+            background: #D0D0D0; /* Цвет фона */
+            border: 1px groove #9868CE;
+            padding: 10px; /* Поля вокруг текста */
+          
+      }
+  
+   TD {
+    vertical-align: top; /* Выравнивание по верхнему краю ячейки */
+   }
+   #col1 {
+   width: 450px;
+    background: #F5F5DC; /* Цвет фона первой колонки */
+   }
+   #col2 {
+   width: 450px;
+    background: #F5F5DC; /* Цвет фона второй колонки */
+   }
+   #buttom {
+   
+    }
+   #lf{
+        width: 450px;
+        background: #F5F5DC; /* Цвет фона  колонки */
+        
+   }
+   #rt{
+      width: 450px;
+      background: #F5F5DC;; /* Цвет фона  колонки */
+   }
+   
+     
+  </style>
+ 
 <?php
-
-$id_m=$_SESSION['id_m'];
-$id_d=$_SESSION['id_d'];
-
+//$id_m=$_SESSION['id_m'];
+//$id_d=$_SESSION['id_d'];
 $owner=$_SESSION['owner'];
 //************ Списываем средста за вязку 5 000 ***********//
-buying($owner,5000);
-
-
-
- $id_new=greate_animal($id_m,$id_d); // функция для получания параметров собаки 
+//buying($owner,5000);
+ //$id_new=greate_animal($id_m,$id_d); // функция для получания параметров собаки 
         // ******************** вывод картинки собаки по id  *****************-->  
       echo "<br>Малыш:";
-      var_dump($id_new);
+      $id_new=7;
+      //var_dump($id_new);
 
-      //insert_url(find_where('dna',$id_new,'url_id'),$id_new); //вставляет ссылку на картинку в базу
-
-      $data_dna=do_dna($id_new);    //полцчаем Генетический код hr0w0f1b1t1m0
-      $dna_id= ret_dna($id_new);    //ссылка на его dna_id
+     // $data_dna=do_dna($id_new);    //полцчаем Генетический код hr0w0f1b1t1m0
+     //$dna_id= ret_dna($id_new);    //ссылка на его dna_id
       echo '<br> ДНА Малыша: ' . $data_dna;
-      insert_data('randodna', $dna_id, 'dna', $data_dna);   //вставляем ГК в поле DNA
-     
-      //if(FALSE==bdika_url_mum_dad($id_new)){  //проверяем если мать и отец одинаковые, то url берем у матери
-      
-      $url=do_url($data_dna);       //создаем url собаки
+      //insert_data('randodna', $dna_id, 'dna', $data_dna);   //вставляем ГК в поле DNA
+    
+      //$url=do_url($data_dna);       //создаем url собаки
       echo '<br> ссылка на URL щенка' . $url;
-      //}
-      insert_url($id_new,$url);     //вставляем в табл url
+ 
+      //insert_url($id_new,$url);     //вставляем в табл url
      
       echo 'вносим ссылку на картинку щенка';
-      insert_url_puppy($id_new);
-      
-      echo '<br>$dog_pic';
-      dog_pic($id_new);
+      //insert_url_puppy($id_new);
       
       
+   /***************функция по получению стат в зависимости от отца и матери************/
 
-    
-     /***************функция по получению стат в зависимости от отца и матери************/
-     //new_stats($id_m,$id_d,$id_new);
-     
-     add_litters($id_m,$id_d);
-     add_puppies($id_m,$id_d);
-     
-
-     detalis_green($id_new);
+    // add_litters($id_m,$id_d);
+     //add_puppies($id_m,$id_d);
+  
 
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!//внесни данные об увеличении вязок мама и папа
-
      $_SESSION['id_new'] = $id_new;
 
-          //insert_name($_SESSION['id_new'],$_POST['comment']);
 ?>
-        
-<form method="POST" action="/kennel.php">
-    <input type="submit" name="exit" value="Вернуться" class="knopka">
-</form>
-<form method="POST" action="/office.php">
-<p>Имя щенка: 
-   <textarea name="comment"></textarea></p>
-  <p><input type="submit" value="Отправить" name="send" class="knopka">
+  <div class="wrapper">
+  <table width="100%" cellpadding="5" cellspacing="0">
+  <tr>
   
-</form>
+ 
+      <td id="col1"><h3>Щенок: </h3>
+             <div align="center">
+                 <?php echo dog_pic($id_new);
+                 ?></div>
+      </td>
+      <td id="col2"><h3>Характеристики: </h3>
+                     <?php  detalis_green($id_new);?>
+                      
+                         
+             
+         </td>
+         <td id="buttom"><h3>Кнопки: </h3>
+             <form method="POST" action="/kennel.php">
+                <input type="submit" name="exit" value="В питомник" class="knopka">
+             </form>
+            <form method="POST" action="/office.php">
+            <p>Имя щенка: 
+            <textarea name="comment"></textarea></p>
+            <input type="submit" value="Отправить" name="send" class="knopka">
+  
+            </form>
+         </td>
+  </tr>   
+  
+       <td id="lf"><h3>Мама: </h3> <?php dog_pic_size(2,100); detalis(2);?>  </td>
+      <td id="rt"><h3>Папа:: </h3> <?php dog_pic_size(6,100); detalis(6);?>  </td>
+      
 </div>
-<p>Родители: </p>
-<div id="left_breed"><?php detalis($id_m);?> </div>
-<div id="right_breed"><?php detalis($id_d);?></div>
+
 </body>
 </html>
 
