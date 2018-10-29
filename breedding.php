@@ -33,16 +33,16 @@ error_reporting(E_ALL);
     vertical-align: top; /* Выравнивание по верхнему краю ячейки */
    }
    #col1 {
-   
-    background: red; /* Цвет фона первой колонки */
+   width: 350px;
+    background: #F5F5DC; /* Цвет фона первой колонки */
    }
    #col2 {
    
-    background: blueviolet; /* Цвет фона второй колонки */
+    background: #FFEBCD; /* Цвет фона второй колонки */
    }
    #col3 {
-    
-    background: yellowgreen; /* Цвет фона третьей колонки */
+     width: 350px;
+    background: #F5F5DC; /* Цвет фона третьей колонки */
    }
      
   </style>
@@ -79,14 +79,23 @@ $temp2=(int)$_POST['ONONA'];
 
        </td>
         <td id="col2"><h3 align="center">Особенности: </h3>
-                    <?php if(bdika_balance($_SESSION['owner'],5000)){ //проверка остатка средств на вязку. если хватает активна кнопка "ВЯЗКА" ?>
-                            <form method="POST" action="/NewDog.php">
+                 
+                <?php
+                    $_SESSION['id_m']=$id_m;
+                    $_SESSION['id_d']=$id_d;
+                        
+                    if(bdika_mutation($id_m,$id_d)){  //если вернулся 1, то есть мутация
+                      ?><h3 style="color:red" align="center"><?php echo '<br>При вязки близкородственных партнеров возможны ухудшения качеств и получение мутаций! Будьте осторожнее!';?></h3><?php
+                    }
+                    if(bdika_balance($_SESSION['owner'],5000)){ //проверка остатка средств на вязку. если хватает активна кнопка "ВЯЗКА" ?>
+                          
+                      <form method="POST" action="/NewDog.php">
                                 <input type="submit" name="nazvanie_knopki" value="Вяжем" class="knopka"/>
-                            </form>
-                          <?php }else 
-                                echo 'не достаточно средст для вязки!';
+                      </form>
+                    <?php }else 
+                        echo 'не достаточно средст для вязки!';
 
-                            ?>
+                    ?>
                             <form method="POST" action="/kennel.php">
                                 <input type="submit" name="exit" value="Вернуться" class="knopka"/>
                             </form>
@@ -103,12 +112,7 @@ $temp2=(int)$_POST['ONONA'];
   </table>
     </div>        
  <?php 
-$_SESSION['id_m']=$id_m;
-$_SESSION['id_d']=$id_d;
 
-        if(bdika_mutation($id_m,$id_d)){  //если вернулся 1, то есть мутация
-          ?><h3 style="color:red"><?php echo '<br>При вязки близкородственных партнеров возможны ухудшения качеств и получение мутаций! Будьте осторожнее!';?></h3><?php
-        }
 ?>
 </body>
 </html>

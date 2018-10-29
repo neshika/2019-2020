@@ -2350,7 +2350,7 @@ function greate_family($id_new,$id_m,$id_d){
     
 }
 function bdika_mutation($id_m,$id_d){
-    echo '<br>function bdika_mutation';
+    //echo '<br>function bdika_mutation';
     $temp =0; //нет мутации
     $num =Rand(1,100);   //шанс получения мутации
     $f_data_m = ret_f_data_by_dog($id_m);   //родственники по линии матери
@@ -2359,20 +2359,20 @@ function bdika_mutation($id_m,$id_d){
     ////////////////////////////////////////////////проверка самки и родни партнера
     
     if($f_data_m['id']==$f_data_d['mum']){  //самка и мать партнера 75% мутация
-        echo 'партнерша - мать';
+       // echo 'партнерша - мать';
         if($num>0 && $num<75){
             $temp=1;
         }
     }
      if( ($f_data_m['id']==$f_data_d['g1mum']) || ($f_data_m['id']==$f_data_d['g0mum']) ){  //самка и бабки партнера 50% мутация
-        echo 'партнерша - бабка';
+        //echo 'партнерша - бабка';
         if($num>50 && $num<100){
             $temp=1;
         }
     }
     if( ($f_data_m['id']==$f_data_d['gg1mum2']) || ($f_data_m['id']==$f_data_d['gg0mum2']) || ($f_data_m['id']==$f_data_d['gg1mum4']) || ($f_data_m['id']==$f_data_d['gg0mum4']) ){
         //самка и пробабки партнера 25% мутация
-        echo 'партнерша - пробабка';
+        //echo 'партнерша - пробабка';
         if($num>0 && $num<25){
             $temp=1;
         }
@@ -2380,21 +2380,21 @@ function bdika_mutation($id_m,$id_d){
     
        /////////////////////////////////////////////проверка самца и родни партнера
     if($f_data_d['id']==$f_data_m['dad']){  //самец и отец партнерши 75%
-        echo 'партнер - отец';
+       // echo 'партнер - отец';
         if($num>0 && $num<75){
             $temp=1;
         }
     }
      if( ($f_data_d['id']==$f_data_m['g1dad']) || ($f_data_d['id']==$f_data_m['g0dad']) ){
          //самец и деды партнерши 50%
-        echo 'партнер - дед';
+        //echo 'партнер - дед';
         if($num>50 && $num<100){
             $temp=1;
         }
     }
     if( ($f_data_d['id']==$f_data_m['gg1dad1']) || ($f_data_d['id']==$f_data_m['gg0dad1']) || ($f_data_d['id']==$f_data_m['gg1dad3']) || ($f_data_d['id']==$f_data_m['gg0dad3']) ){
         //самец и прадеды партнерши 25%
-        echo 'партнер прадед';
+       // echo 'партнер прадед';
         if($num>0 && $num<25){
             $temp=1;    //если прошла мутация
         }
