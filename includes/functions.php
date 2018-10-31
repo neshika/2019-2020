@@ -783,6 +783,9 @@ Function dog_pic($id){
 function dog_pic_size($id,$size){
     ?><img src="<?php echo bdika_url($id);?>" height="<?php echo $size?>"><?php
 }
+function pic_link($id,$size){
+    ?><a href="/name.php?id=<?php echo $id?>"><img src="<?php echo bdika_url($id);?>" width="<?php echo $size?>"%></a><?php
+}
 
 /*Функция пишет тип собаки по русски в зависимоти от Генетического типа*/
 function print_hr($id){
