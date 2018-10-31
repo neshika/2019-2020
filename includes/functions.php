@@ -779,12 +779,14 @@ Function dog_pic($id){
    ?><img src="<?php echo $url;?>"><?php
 }
 
-/*Функция печатает собаку  c заданным размером в% или пикселях*/
+/*Функция печатает собаку  c заданным размером в% или пикселях + пишет имя во всплыв. окне*/
 function dog_pic_size($id,$size){
     ?><img src="<?php echo bdika_url($id);?>" height="<?php echo $size?>"><?php
 }
 function pic_link($id,$size){
-    ?><a href="/name.php?id=<?php echo $id?>"><img src="<?php echo bdika_url($id);?>" width="<?php echo $size?>"%></a><?php
+    ?><a href="/name.php?id=<?php echo $id?>">
+        <img src="<?php echo bdika_url($id);?>" title="<?php echo ret_Cell('name', $id, 'animals')?> " width="<?php echo $size?>">
+            </a><?php
 }
 
 /*Функция пишет тип собаки по русски в зависимоти от Генетического типа*/

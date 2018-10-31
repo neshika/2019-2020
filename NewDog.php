@@ -91,8 +91,10 @@ $owner=$_SESSION['owner'];
 
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!//внесни данные об увеличении вязок мама и папа
      $_SESSION['id_new'] = $id_new;
+   
 
 ?>
+  
   <div class="wrapper">
   <table width="100%" cellpadding="5" cellspacing="0">
   <tr>
@@ -100,7 +102,7 @@ $owner=$_SESSION['owner'];
  
       <td id="col1"><h3>Щенок: </h3>
              <div align="center">
-                 <?php echo dog_pic($id_new);
+                 <?php pic_link($id_new, 120);
                  ?></div>
       </td>
       <td id="col2"><h3>Характеристики: </h3>
@@ -122,8 +124,8 @@ $owner=$_SESSION['owner'];
          </td>
   </tr>   
   
-       <td id="lf"><h3>Мама: </h3> <?php dog_pic_size(2,100); detalis(2);?>  </td>
-      <td id="rt"><h3>Папа:: </h3> <?php dog_pic_size(6,100); detalis(6);?>  </td>
+       <td id="lf"><h3>Мама: </h3> <?php pic_link(2, 75); detalis(2);?>  </td>
+      <td id="rt"><h3>Папа:: </h3> <?php pic_link(6, 75); detalis(6);?>  </td>
       
 </div>
 
