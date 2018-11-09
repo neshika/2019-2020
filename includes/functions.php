@@ -838,6 +838,13 @@ function ret_pic_sex($id){
         }
                 
 }
+function print_lit_pup($id){
+    
+    $lit= ret_Cell('litter', $id,'animals');
+    $pup=ret_cell('puppy', $id,'animals');
+    $array='<a href="/lit&pup.php?id=' . $id . '">' . "<br> вязки/дети: ". $lit .'/'. $pup. '</a>';
+    echo $array;
+}
 
 //////////////////////// ///////////////////////////РАБОТА с DNA //////////////////
 
