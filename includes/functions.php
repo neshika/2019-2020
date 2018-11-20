@@ -43,11 +43,12 @@ function ret_family($id){
 	 return R::getCell('SELECT family_id FROM animals WHERE id = :id',
        [':id' => $id]);
 }
-/*Функция возвращает id на mark*/
+/*Функция возвращает id на оценку*/
 function ret_mark($id){
 	 return R::getCell('SELECT mark_id FROM animals WHERE id = :id',
        [':id' => $id]);
 }
+
 /*Функция возвращает id на mamy*/
 function ret_mum($id){
     $data_mum = ret_f_data_by_dog($id);
@@ -112,8 +113,26 @@ function print_item($login,$item_id){
 
 
 
+//************************ функции связанные со выставками    СОБАКИ **********************//
+//функция печатает свидетельство об происхождении РКФ
+function print_origin($id){
+    if( 0!=ret_Cell('origin',$id,'animals') ){
+     echo 'РКФ' ;
+    }
+ else {
+    echo 'нет документов';    
+    }
+}
 
-//************************ функции связанные с     П О Л    СОБАКИ **********************//
+// Функция печатает оценку по id собаки
+function print_mark($id){
+    if(0!=ret_mark($id)){
+     echo ret_Cell('namerus',ret_mark($id),'marks');
+    }
+ else {
+    echo 'нет оценок';    
+    }
+}
 //////////////////  Функция создания рандомного пола для собаки
 function rand_sex(){
     return Rand(0,1);
@@ -220,6 +239,7 @@ function bdika_age_for_breeding($data_dog){
   }
 
 }
+
 
 
 
@@ -1195,7 +1215,7 @@ $dogs_m =  R::getAssoc('SELECT *  FROM animals WHERE id = :id',
 foreach ($dogs_m as $dog) {
 
 	$race_m=$dog['race'];
-	$breeder_m=$dog['breeder'];
+        $breeder_m=$dog['breeder'];
 	$owner_m=$dog['owner'];
 	$kennel_m=$dog['kennel'];
 	$puppy=$dog['puppy'];
@@ -1251,6 +1271,7 @@ $birth=date("d.m.Y");
 $dogs=R::dispense( 'animals' );
 //$dogs->name='';
 $dogs->race=$race_m;
+$dog->origin='1';
 $dogs->breeder=$breeder_m;
 $dogs->owner=$owner_m;
 $dogs->kennel=$kennel_m;
@@ -1587,6 +1608,9 @@ function find_where($tabl,$id,$value){
             case 'race':
               return $row[$value];
               break;
+          case 'origin':
+              return $row[$value];
+              break;
             case 'sex':
               return $row[$value];
               break;
@@ -1822,6 +1846,9 @@ function insert_data($tabl,$id,$cell,$value){  //$tabl - название таб
            case 'breeder':
              return R::exec( 'UPDATE animals SET breeder=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
              break;
+            case 'origin':
+             return R::exec( 'UPDATE animals SET origin=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
+             break;
            case 'race':
              return R::exec( 'UPDATE animals SET race=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
              break;
@@ -1963,7 +1990,7 @@ function insert_data($tabl,$id,$cell,$value){  //$tabl - название таб
         }
   }//tabl family
 
-
+  
   $bean = R::load($id, $name);
   $id = R::store($bean); // int
 }
@@ -2068,6 +2095,9 @@ function ret_Cell($value,$id,$tabl){
                 case 'breeder':
                   return $row[$value];
                   break;
+              case 'origin':
+                  return $row[$value];
+                  break;
                 case 'race':
                   return $row[$value];
                   break;
@@ -2098,6 +2128,19 @@ function ret_Cell($value,$id,$tabl){
               break;
           }
      }//$tabl = owner_items
+      if ('marks'===$tabl){
+     $row = R::getRow( 'SELECT * FROM marks WHERE id = :id',
+       [':id' => $id]);
+          switch ($value) {
+
+            case 'mark':
+              return $row[$value];
+              break;
+            case 'namerus':
+              return $row[$value];
+              break;
+          }
+     }//$tabl = marks
     
     if ('users'===$tabl){
      $row = R::getRow( 'SELECT * FROM users WHERE id = :id',

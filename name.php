@@ -21,6 +21,9 @@ require "/libs/up.php";
 
     add_age($_SESSION['Dog']);
   }
+  if ( isset($_POST['train']) ){
+      insert_data('animals',$id,'mark_id',2);
+  }
 
 
 ?>
@@ -40,6 +43,8 @@ require "/libs/up.php";
             <li>Заводчик: <?php echo $GLOBALS['Data_dog']['breeder'];?></li>
             <li>Хозяин: <?php echo $GLOBALS['Data_dog']['owner'];?></li>
             <li>Вязок: <?php echo $GLOBALS['Data_dog']['litter'];?></li>
+            <li>Оценка: <?php print_mark($id);?></li>
+            <li>Происхождение: <?php print_origin($id);?></li>
 
           </ul>
         
@@ -77,7 +82,7 @@ require "/libs/up.php";
       <input id="button" name="badd" type="submit" value="добавка" class = "knopka">
       <input id="button" name="knopka" type="submit" value="спа уход" class = "knopka">
       <input id="button" name="vet" type="submit" value="ветеринар" class = "knopka">
-      <input id="button" name="tra" type="submit" value="тренировки" class = "knopka">
+      <input id="button" name="train" type="submit" value="тренировки" class = "knopka">
     </td>
   </tr>
 </table>

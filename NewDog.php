@@ -58,35 +58,35 @@ error_reporting(E_ALL);
   </style>
  
 <?php
-//$id_m=$_SESSION['id_m'];
-//$id_d=$_SESSION['id_d'];
+$id_m=$_SESSION['id_m'];
+$id_d=$_SESSION['id_d'];
 $owner=$_SESSION['owner'];
 //************ Списываем средста за вязку 5 000 ***********//
-//buying($owner,5000);
- //$id_new=greate_animal($id_m,$id_d); // функция для получания параметров собаки 
+buying($owner,5000);
+ $id_new=greate_animal($id_m,$id_d); // функция для получания параметров собаки 
         // ******************** вывод картинки собаки по id  *****************-->  
       echo "<br>Малыш:";
       $id_new=7;
-      //var_dump($id_new);
+      var_dump($id_new);
 
-     // $data_dna=do_dna($id_new);    //полцчаем Генетический код hr0w0f1b1t1m0
-     //$dna_id= ret_dna($id_new);    //ссылка на его dna_id
+     $data_dna=do_dna($id_new);    //полцчаем Генетический код hr0w0f1b1t1m0
+     $dna_id= ret_dna($id_new);    //ссылка на его dna_id
       echo '<br> ДНА Малыша: ' . $data_dna;
-      //insert_data('randodna', $dna_id, 'dna', $data_dna);   //вставляем ГК в поле DNA
+      insert_data('randodna', $dna_id, 'dna', $data_dna);   //вставляем ГК в поле DNA
     
-      //$url=do_url($data_dna);       //создаем url собаки
+      $url=do_url($data_dna);       //создаем url собаки
       echo '<br> ссылка на URL щенка' . $url;
  
-      //insert_url($id_new,$url);     //вставляем в табл url
+      insert_url($id_new,$url);     //вставляем в табл url
      
       echo 'вносим ссылку на картинку щенка';
-      //insert_url_puppy($id_new);
+      insert_url_puppy($id_new);
       
       
    /***************функция по получению стат в зависимости от отца и матери************/
 
-    // add_litters($id_m,$id_d);
-     //add_puppies($id_m,$id_d);
+     add_litters($id_m,$id_d);
+     add_puppies($id_m,$id_d);
   
 
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!//внесни данные об увеличении вязок мама и папа
@@ -124,8 +124,8 @@ $owner=$_SESSION['owner'];
          </td>
   </tr>   
   
-       <td id="lf"><h3>Мама: </h3> <?php pic_link(2, 75); detalis(2);?>  </td>
-      <td id="rt"><h3>Папа:: </h3> <?php pic_link(6, 75); detalis(6);?>  </td>
+       <td id="lf"><h3>Мама: </h3> <?php pic_link($id_m, 75); detalis($id_m);?>  </td>
+      <td id="rt"><h3>Папа:: </h3> <?php pic_link($id_d, 75); detalis($id_d);?>  </td>
       
 </div>
 

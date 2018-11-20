@@ -74,6 +74,7 @@ $temp2=(int)$_POST['ONONA'];
       
            <?php echo $id_m;
            dog_pic($id_m);
+           print_lit_pup($id_m);
            detalis($id_m);
            f_tree($id_m);    ?>
 
@@ -104,6 +105,7 @@ $temp2=(int)$_POST['ONONA'];
         <td id="col3"><h3 align="center">Папа:</h3>
                 <?php echo $id_d;
                dog_pic($id_d);
+               print_lit_pup($id_d);
                detalis($id_d);
                f_tree($id_d);?>
              
