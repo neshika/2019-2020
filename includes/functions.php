@@ -43,6 +43,11 @@ function ret_family($id){
 	 return R::getCell('SELECT family_id FROM animals WHERE id = :id',
        [':id' => $id]);
 }
+/*Функция возвращает id на mark*/
+function ret_mark($id){
+	 return R::getCell('SELECT mark_id FROM animals WHERE id = :id',
+       [':id' => $id]);
+}
 /*Функция возвращает id на mamy*/
 function ret_mum($id){
     $data_mum = ret_f_data_by_dog($id);
@@ -838,6 +843,7 @@ function ret_pic_sex($id){
         }
                 
 }
+/*  Функция дает ссылку на страничку lit/puppy*/
 function print_lit_pup($id){
     
     $lit= ret_Cell('litter', $id,'animals');
@@ -1798,6 +1804,9 @@ function insert_data($tabl,$id,$cell,$value){  //$tabl - название таб
         case 'family_id':
              return R::exec( 'UPDATE animals SET family_id=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
              break;
+           case 'mark_id':
+             return R::exec( 'UPDATE animals SET mark_id=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
+             break;
           case 'age_id':
              return R::exec( 'UPDATE animals SET age_id=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
              break;
@@ -1985,6 +1994,9 @@ function ret_id_by_cell($id, $cell){
       if('family'==$cell){
         return R::getCell( 'SELECT family_id FROM animals WHERE id = :id',[':id' => $id] );
     }
+     if('mark'==$cell){
+        return R::getCell( 'SELECT mark_id FROM animals WHERE id = :id',[':id' => $id] );
+    }
       if('dna'==$cell){
        return R::getCell( 'SELECT dna_id FROM animals WHERE id = :id',[':id' => $id] );
     }
@@ -2036,6 +2048,9 @@ function ret_Cell($value,$id,$tabl){
                   return $row[$value];
                   break;
                case 'family_id':
+                  return $row[$value];
+                  break;
+              case 'mark_id':
                   return $row[$value];
                   break;
                 case 'age_id':
