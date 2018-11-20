@@ -38,7 +38,7 @@ require "/libs/up.php";
    </div>
           
 <!-- ******************** вывод доп меню собаки  заводчик / хозяин  *****************-->  
-    <div style="height: 80px; width: 1165px; background-color: #D0D0D0;"> 
+    <div style="height: 110px; width: 1165px; background-color: #D0D0D0;"> 
           <ul style="width: 45%; float: left;">
             <li>Заводчик: <?php echo $GLOBALS['Data_dog']['breeder'];?></li>
             <li>Хозяин: <?php echo $GLOBALS['Data_dog']['owner'];?></li>
@@ -51,8 +51,9 @@ require "/libs/up.php";
 <!-- ******************** вывод доп меню собаки  вид \\ Дата рождения \\ окрас    *****************-->       
         <ul style="width: 40%; float: right;">
           <li>тип:  <?php echo  print_hr($id);?></li>
-          <li>возраст:  <?php echo ret_age($id);?></li>
+          <li>возраст:  <?php echo print_age($id);?></li>
           <li>Щенков: <?php echo $GLOBALS['Data_dog']['puppy'];?></li>
+                <?php bdika_estrus($id);?>
        </ul>
 
     </div>

@@ -13,7 +13,7 @@ function bdika_pol($id_dog){
 //*******************проверяем возраст выбранной собаки, чтобы вывести в рамках
 function bdika_age($id){    //$key
     $data_dog= take_data_from($id, 'animals');
-    //echo ret_age($id);
+    //echo print_age($id);
     if ((13>$data_dog['age_id']) || (('сука' == $data_dog['sex']) && (58>=$data_dog['age_id']) && (13>$data_dog['age_id'])) ){ //кобель >6 мес. сука>6 мес, < 7лет
         return 0;
     }
@@ -59,7 +59,7 @@ $id_dog= $_SESSION['Dog'];// выгружаем из памяти id собак�
              
             $lit= ret_Cell('litter', $id,'animals');
             $pup=ret_cell('puppy', $id,'animals');
-            $age= ret_age($id);
+            $age= print_age($id);
             $age_norma=ret_cell('age_id',$id,'animals');
             $name=ret_Cell('name', $id, 'animals');
             $_SESSION['para']=$id_dog; 

@@ -36,7 +36,8 @@ echo "Тестируем: <br>";
 if(isset($_POST['dog_id'])  ){ 
     echo $id=$_POST['dog_id'];
     echo '<br> Владелец: ' . $owner='Nesh';
-    print_lit_pup($id);
+    
+    bdika_estrus($id);
 }    
  ?>
 <form method="POST">

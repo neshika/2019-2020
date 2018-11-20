@@ -81,9 +81,11 @@ require "/libs/up.php";
 
                        <div><?php   //  вывод на экран количество вязок и щенков
                                echo 'имя: ' . $value;
-                               echo '<br> пол : ' . $sex;
+                               echo '<br> пол : ' . $sex . '<br>';
+                               bdika_estrus($key);
                              //  echo '<br> тип : ' . $tip;
                                echo '<a href="/lit&pup.php?id=' . $key . '">' . "<br> вязки/дети: ". $lit .'/'. $pup;?>
+                                       
 
                        </div><?php
                 
@@ -131,7 +133,7 @@ require "/libs/up.php";
                           <img src="<?php echo bdika_url($key);?>" width="10%"></a> 
                            <div>
                                 <?php echo '<br>имя: ' . $value;
-                                echo '<br>возраст: ' . ret_age($key);
+                                echo '<br>возраст: ' . print_age($key);
                                 
                                 
                                  ?>

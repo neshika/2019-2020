@@ -158,12 +158,50 @@ function w_sex($id){
 }
 /*** функции по выводу на экран собак нужного ПОЛА SEX **************/
 
+
+//функция дает суке течку при рождении
+function get_estrus($id){
+    $est = rand(12,15);
+    echo ret_sex($id);
+    if( '0' == ret_sex($id)){
+       insert_data('animals',$id, 'estrus', $est);
+    }
+}
+//функция пишет когда следующая течка
+function bdika_estrus($id){
+    $est=ret_Cell('estrus', $id, 'animals');
+   echo 'в: ' . ret_age($id) . 'т: ' .$est . '<br>';
+    if( '0' == ret_sex($id)){   //если собака сука
+        ;
+        if(ret_age($id) == $est){
+           
+            echo 'у суки течка';
+        }
+        if(ret_age($id) < $est){
+                     
+          $age=ret_Cell('estrus', $id, 'animals');
+          $age2=ret_Cell('age', $age, 'ages');
+          echo 'течка будет в: ' . $age2;
+        }
+        if (ret_age($id) > $est) {
+            $est=$est+3;
+            insert_data('animals',$id, 'estrus', $est);
+             $age=ret_Cell('estrus', $id, 'animals');
+          $age2=ret_Cell('age', $age, 'ages');
+          echo 'течка будет в: ' . $age2;
+        
+        }
+                
+    }
+      
+}
+
 //функция выводит картинку собаки по параметру сука / кобель
 function maleFemale($id,$param_sex){
     $sex= ret_sex($id);
     $lit= ret_Cell('litter', $id,'animals');
     $pup=ret_cell('puppy', $id,'animals');
-    $age= ret_age($id);
+    $age= print_age($id);
     $age_norma=ret_cell('age_id',$id,'animals');
     if(($param_sex==$sex) && ('0'== $sex) && (13<$age_norma)){  //и старше 6 месяцев
         echo '<br><hr>';
@@ -174,7 +212,8 @@ function maleFemale($id,$param_sex){
          print_partner($id);
          echo '</a>';
          echo '<br>имя: ' . $name;
-         echo '<br> возраст ' . $age;
+         echo '<br> возраст ' . $age . '<br>';
+          bdika_estrus($id);
          echo '<a href="/lit&pup.php?id=' . $id . '">' . "<br> вязки/дети: ". $lit .'/'. $pup . '</a>'; 
                 
                 
@@ -243,14 +282,18 @@ function bdika_age_for_breeding($data_dog){
 
 
 
-// Функция возвращает возраст по id собаки
-function ret_age($dog_id){
+// Функция возвращает возраст по id собаки полное название
+function print_age($dog_id){
    $age_id = R::getCol( 'SELECT age_id FROM animals WHERE id = :id',[':id' => $dog_id]);  //получаем цыфру возраста из табл animals
       
     
    //var_dump($age_id);
 
     return ret_cell('age',$age_id[0],'ages'); // находим аналог(2 месяца) этой цыфры в таблице ages и выводим текст возраста
+}
+// Функция возвращает возраст по id 
+function ret_age($id){
+       return ret_cell('age_id',$id,'animals'); // находим аналог(2 месяца) этой цыфры в таблице ages и выводим текст возраста
 }
 
 // функция увеличивает возраст собаки
@@ -1596,6 +1639,9 @@ function find_where($tabl,$id,$value){
           case 'dna_id':
               return $row[$value];
               break;
+           case 'estrus':
+              return $row[$value];
+              break;
             case 'kennel':
               return $row[$value];
               break;
@@ -1839,6 +1885,9 @@ function insert_data($tabl,$id,$cell,$value){  //$tabl - название таб
              break;
            case 'kennel':
              return R::exec( 'UPDATE animals SET kennel=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
+             break;
+          case 'estrus':
+             return R::exec( 'UPDATE animals SET estrus=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
              break;
            case 'owner':
              return R::exec( 'UPDATE animals SET owner=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
@@ -2087,6 +2136,9 @@ function ret_Cell($value,$id,$tabl){
                   return $row[$value];
                   break;
                 case 'kennel':
+                  return $row[$value];
+                  break;
+                 case 'estrus':
                   return $row[$value];
                   break;
                 case 'owner':
