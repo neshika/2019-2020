@@ -27,8 +27,13 @@ function test(){
 function ret_owner(){
 	return $_SESSION['logged_user']->login;
 }
+/* Функция выводит дату в формате 12.01.2001  */ 
+ function do_date($date){
+        $date = new DateTime($date);
+        return $date->Format('d.m.Y');
+                 
+}
 /* функция выводит собак по владельцу */
- 
 function ret_dogs_by_owner($owner){
     return R::getAssoc ('SELECT id,name,dna_id FROM animals WHERE owner =:owner and status=1', array(':owner' => $owner));
 }
@@ -41,6 +46,11 @@ function ret_dna($id){
 /*Функция возвращает id на family*/
 function ret_family($id){
 	 return R::getCell('SELECT family_id FROM animals WHERE id = :id',
+       [':id' => $id]);
+}
+/*Функция возвращает id на registry*/
+function ret_reg($id){
+	 return R::getCell('SELECT reg_id FROM animals WHERE id = :id',
        [':id' => $id]);
 }
 /*Функция возвращает id на оценку*/
@@ -1925,6 +1935,9 @@ function insert_data($tabl,$id,$cell,$value){  //$tabl - название таб
         case 'family_id':
              return R::exec( 'UPDATE animals SET family_id=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
              break;
+          case 'reg_id':
+             return R::exec( 'UPDATE animals SET reg_id=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
+             break;
            case 'mark_id':
              return R::exec( 'UPDATE animals SET mark_id=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
              break;
@@ -1980,6 +1993,42 @@ function insert_data($tabl,$id,$cell,$value){  //$tabl - название таб
                       break;
         }
   }//tabl USERS
+  if('registry'===$tabl){
+   
+      switch ($cell) {
+                case 'lit':
+                   return R::exec( 'UPDATE registry SET lit=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
+                    break;
+              case 'date':
+                   return R::exec( 'UPDATE registry SET date=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
+                    break;
+               case 'mum':
+                      return R::exec( 'UPDATE registry SET mum=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
+                      break;
+              case 'dad':
+                      return R::exec( 'UPDATE registry SET dad=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
+                       break;
+            case 'datebirth':
+                      return R::exec( 'UPDATE registry SET datebirth=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
+                      break;
+            case 'count':
+                   return R::exec( 'UPDATE registry SET count=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
+                    break;
+               case 'count45':
+                      return R::exec( 'UPDATE registry SET count45=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
+                      break;
+              case 'female':
+                      return R::exec( 'UPDATE registry SET female=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
+                       break;
+            case 'male':
+                      return R::exec( 'UPDATE registry SET male=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
+                      break;
+            case 'tatoo':
+                      return R::exec( 'UPDATE registry SET tatoo=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
+                      break;
+        
+        }
+  }//tabl registry
   
   if('randodna'===$tabl){
    
@@ -2127,6 +2176,9 @@ function ret_id_by_cell($id, $cell){
       if('dna'==$cell){
        return R::getCell( 'SELECT dna_id FROM animals WHERE id = :id',[':id' => $id] );
     }
+     if('reg'==$cell){
+        return R::getCell( 'SELECT reg_id FROM animals WHERE id = :id',[':id' => $id] );
+    }
     
 }
 
@@ -2172,6 +2224,9 @@ function ret_Cell($value,$id,$tabl){
                   return $row[$value];
                   break;
                   case 'height':
+                  return $row[$value];
+                  break;
+                case 'reg_id':
                   return $row[$value];
                   break;
                case 'family_id':
@@ -2231,6 +2286,45 @@ function ret_Cell($value,$id,$tabl){
               break;
           }
      }//$tabl = owner_items
+     if ('registry'===$tabl){
+         
+     $row = R::getRow( 'SELECT * FROM registry WHERE id = :id',
+       [':id' => $id]);
+    
+          switch ($value) {
+
+            case 'lit':
+              return $row[$value];
+              break;
+            case 'date':
+              return $row[$value];
+              break;
+          case 'mum':
+              return $row[$value];
+              break;
+            case 'dad':
+              return $row[$value];
+              break;
+          case 'datebirth':
+              return $row[$value];
+              break;
+            case 'count':
+              return $row[$value];
+              break;
+          case 'count45':
+              return $row[$value];
+              break;
+            case 'female':
+              return $row[$value];
+              break;
+          case 'male':
+              return $row[$value];
+              break;
+            case 'tatoo':
+              return $row[$value];
+              break;
+          }
+     }//$tabl = registry
       if ('marks'===$tabl){
      $row = R::getRow( 'SELECT * FROM marks WHERE id = :id',
        [':id' => $id]);
@@ -2703,4 +2797,18 @@ function gol_pooh($on,$ona){
 		}
 	}
 
+}
+
+/**********************  Регистрационная книга ***************/
+/*функция возвращае данные по помету*/
+function do_do($reg_id){
+     $arr = R::getAssoc( 'SELECT id,name FROM animals WHERE reg_id = :id',[':id' => $reg_id]);  
+  //debug($arr); 
+  $newAr=array_keys($arr);
+   foreach ($newAr as $key => $value){
+           echo '<br>' . $newAr[$key] . ' '  . ret_Cell('name', $newAr[$key], 'animals');
+           //$url=ret_Cell('url_puppy', $newAr[$key], 'animals');
+           dog_pic_size($newAr[$key],150);
+          
+   } 
 }
