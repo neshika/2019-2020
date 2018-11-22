@@ -213,10 +213,11 @@ if(!isset($id_m)): ?>
       <?php $_SESSION['Dog'] = $id; ?>
   </form>
   <form method="POST" action = "/matting.php">
-      <?php If (1==bdika_age_for_breeding($GLOBALS['Data_dog'])){?>
+      <?php If (1==bdika_age_for_breeding($GLOBALS['Data_dog'])):?>
+      <?php bdika_for_breed($id);?>
       <div align="right"> <input id="button" name="knopka" type="submit" value="Вязка" class = "knopka" >
       </div>
-      <?php $_SESSION['Dog'] = $id;}?>
+      <?php $_SESSION['Dog'] = $id;Endif;?>
       
   </form>
 

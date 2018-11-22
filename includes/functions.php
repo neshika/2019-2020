@@ -170,7 +170,7 @@ function get_estrus($id){
 //функция пишет когда следующая течка
 function bdika_estrus($id){
     $est=ret_Cell('estrus', $id, 'animals');
-   echo 'в: ' . ret_age($id) . 'т: ' .$est . '<br>';
+  // echo 'в: ' . ret_age($id) . 'т: ' .$est . '<br>';
     if( '0' == ret_sex($id)){   //если собака сука
         ;
         if(ret_age($id) == $est){
@@ -258,14 +258,60 @@ function ret_dog_by_sex($owner,$param_sex){
 
 //******************************************** В О З Р А С Т  ****************************
 
-
+function bdika_for_breed($id){
+    $sex= ret_sex($id);
+    $mark=ret_mark($id);
+   // echo '<br> собака:' . $id;
+   // echo '<br> пол:' . $sex;
+    //echo '<br> оценка: ' . $mark;
+    $error = false;
+    $errort = '';
+   if( '1' != ret_Cell('origin', $id, 'animals') ):
+       $error = true;
+       $errort = 'Не документов РКФ';
+ 
+        elseif( $mark >2 || 0==$mark): //если  нет "хорошо" или "очень хорошо"
+           $error = true;
+            $errort = 'не получены положительные оценки';
+   
+        elseif( '1'==$sex )://кобель
+   
+            if( ret_age($id)<17 ):
+                    $error = true;
+                    $errort = 'кобель слишком молодой';
+            else:
+                echo 'собака кобель. готов к вязке';    
+            endif;
+        elseif(0==$sex): //сука
+            if( ret_Cell('estrus', $id, 'animals')<15 &&  (ret_Cell('estrus', $id, 'animals'))!= ret_age($id) ):
+                    $error = true;
+                    $errort = 'сука не готова к вязке';
+            elseif( ret_age($id)>58):
+            $error = true;
+            $errort = 'возраст суки превышен';
+             elseif( ret_Cell('litter', $id,'animals')>7):
+            $error = true;
+            $errort = 'количество вязоу уже 7';
+            else:
+                 echo 'собака сука. готов к вязке';  
+            endif;
+    else:
+         echo 'Что-то пошло не так! ';
+            
+     endif;
+     
+     if ($error) {
+         echo '<br>' . $errort;
+        
+     }
+}
 
 // Функция проверяет возраст по id собаки и разрешает вязку для кобелейц и сук возвращает 0, если не может вязаться, возвращает 1, если 0(не может)
 function bdika_age_for_breeding($data_dog){
   
   if ((13>$data_dog['age_id']) || (('сука' == $data_dog) && (58>=$data_dog['age_id'])) ){   //age_id = 13 (6 мес)  age_id = 58 (15 мес = 7/5 лет)
 
-    echo "<br>Нет допуска для вязки";
+    echo "<br>Нет допуска для вязки, не проходит по возрасту";
     //var_dump(from_id_to_url_puppy($data_dog['id']));
     return 0;
 
@@ -273,7 +319,7 @@ function bdika_age_for_breeding($data_dog){
   else {
     
     //echo "<br>взрослая";
-   echo "<br>Допускается к разведению";
+   echo "Возраст подходитю для разведения , но ";
    return 1;
   }
 

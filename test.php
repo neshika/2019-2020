@@ -33,11 +33,12 @@ function change(idName) {
 echo "Тестируем: <br>";
 
 
+
+
 if(isset($_POST['dog_id'])  ){ 
-    echo $id=$_POST['dog_id'];
-    echo '<br> Владелец: ' . $owner='Nesh';
-    
-    bdika_estrus($id);
+    $id=$_POST['dog_id'];
+  bdika_for_breed($id);
+   
 }    
  ?>
 <form method="POST">
