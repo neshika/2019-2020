@@ -70,7 +70,7 @@ $id_dog= $_SESSION['Dog'];// выгружаем из памяти id собак�
               
               
                 <hr>                                        
-                    <a href="/name.php?id=<?php echo $id?>"><h3><?php echo $name?></h3>
+                <a href="/name.php?id=<?php echo $id?>"><h3><?php //echo $name;?></h3>
                                                     
                      <div style="background:#E0E0E0;width: 300px;">
                      <?php echo $name . dog_pic_size($id,145);?>
@@ -86,7 +86,7 @@ $id_dog= $_SESSION['Dog'];// выгружаем из памяти id собак�
                   
                          
               <div style="background: #E0E0E0;height: 200px;">       
-                   <?php  detalis($id); ?>
+                   <?php  echo '<br>' . bdika_for_breed($id);detalis($id); ?>
               </div>
                 <input type="submit" class="knopka" value="Вяжем">
         </form> 
@@ -118,7 +118,7 @@ $id_dog= $_SESSION['Dog'];// выгружаем из памяти id собак�
                   
                          
               <div style="background: #E0E0E0;height: 200px;">       
-                   <?php  detalis($id); ?>
+                   <?php  echo '<br>' . bdika_for_breed($id);detalis($id); ?>
               </div>
                 <input type="submit" class="knopka" value="Вяжем">
         </form> 

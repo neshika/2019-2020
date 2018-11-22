@@ -167,31 +167,32 @@ function get_estrus($id){
        insert_data('animals',$id, 'estrus', $est);
     }
 }
-//функция пишет когда следующая течка
+//функция возвращает данные (стринг) когда следующая течка
 function bdika_estrus($id){
     $est=ret_Cell('estrus', $id, 'animals');
+    $array='';
   // echo 'в: ' . ret_age($id) . 'т: ' .$est . '<br>';
     if( '0' == ret_sex($id)){   //если собака сука
         ;
         if(ret_age($id) == $est){
            
-            echo 'у суки течка';
+            $array = 'у суки течка';
         }
         if(ret_age($id) < $est){
                      
           $age=ret_Cell('estrus', $id, 'animals');
           $age2=ret_Cell('age', $age, 'ages');
-          echo 'течка будет в: ' . $age2;
+          $array = 'течка будет в: ' . $age2;
         }
         if (ret_age($id) > $est) {
             $est=$est+3;
             insert_data('animals',$id, 'estrus', $est);
              $age=ret_Cell('estrus', $id, 'animals');
           $age2=ret_Cell('age', $age, 'ages');
-          echo 'течка будет в: ' . $age2;
+          $array= 'течка будет в: ' . $age2;
         
         }
-                
+         return $array;       
     }
       
 }
@@ -213,7 +214,7 @@ function maleFemale($id,$param_sex){
          echo '</a>';
          echo '<br>имя: ' . $name;
          echo '<br> возраст ' . $age . '<br>';
-          bdika_estrus($id);
+          echo bdika_estrus($id);
          echo '<a href="/lit&pup.php?id=' . $id . '">' . "<br> вязки/дети: ". $lit .'/'. $pup . '</a>'; 
                 
                 
@@ -280,7 +281,7 @@ function bdika_for_breed($id){
                     $error = true;
                     $errort = 'кобель слишком молодой';
             else:
-                echo 'собака кобель. готов к вязке';    
+                $errort = 'Кобель готов к вязке';    
             endif;
         elseif(0==$sex): //сука
             if( ret_Cell('estrus', $id, 'animals')<15 &&  (ret_Cell('estrus', $id, 'animals'))!= ret_age($id) ):
@@ -293,17 +294,17 @@ function bdika_for_breed($id){
             $error = true;
             $errort = 'количество вязоу уже 7';
             else:
-                 echo 'собака сука. готов к вязке';  
+                 $errort = 'Сука готова к вязке';    
             endif;
     else:
          echo 'Что-то пошло не так! ';
             
      endif;
      
-     if ($error) {
-         echo '<br>' . $errort;
-        
-     }
+    // if ($error) {
+       //  echo '<br>' . $errort;
+     //}
+     return $errort;
 }
 
 // Функция проверяет возраст по id собаки и разрешает вязку для кобелейц и сук возвращает 0, если не может вязаться, возвращает 1, если 0(не может)

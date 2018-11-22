@@ -53,7 +53,7 @@ require "/libs/up.php";
           <li>тип:  <?php echo  print_hr($id);?></li>
           <li>возраст:  <?php echo print_age($id);?></li>
           <li>Щенков: <?php echo $GLOBALS['Data_dog']['puppy'];?></li>
-                <?php bdika_estrus($id);?>
+                <?php echo bdika_estrus($id);?>
        </ul>
 
     </div>
@@ -214,7 +214,7 @@ if(!isset($id_m)): ?>
   </form>
   <form method="POST" action = "/matting.php">
       <?php If (1==bdika_age_for_breeding($GLOBALS['Data_dog'])):?>
-      <?php bdika_for_breed($id);?>
+      <?php echo bdika_for_breed($id);?>
       <div align="right"> <input id="button" name="knopka" type="submit" value="Вязка" class = "knopka" >
       </div>
       <?php $_SESSION['Dog'] = $id;Endif;?>

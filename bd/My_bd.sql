@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Окт 12 2018 г., 16:38
+-- Время создания: Ноя 22 2018 г., 13:24
 -- Версия сервера: 5.5.53
 -- Версия PHP: 5.5.38
 
@@ -120,15 +120,16 @@ INSERT INTO `ages` (`id`, `age`, `text`) VALUES
 CREATE TABLE `animals` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL DEFAULT 'без имени',
-  `lucky` int(20) NOT NULL COMMENT 'число счастья',
-  `sex` varchar(10) NOT NULL,
   `race` varchar(100) NOT NULL,
+  `origin` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'происхождение РКФ',
   `breeder` varchar(100) NOT NULL COMMENT 'заводчик',
   `owner` varchar(100) NOT NULL COMMENT 'владелец',
   `kennel` varchar(255) NOT NULL,
+  `estrus` int(10) NOT NULL COMMENT 'течка у сук',
   `age_id` int(50) NOT NULL DEFAULT '1',
   `dna_id` int(11) NOT NULL,
   `family_id` int(11) NOT NULL,
+  `mark_id` int(11) NOT NULL,
   `weight` int(11) NOT NULL COMMENT 'вес собаки',
   `height` int(11) NOT NULL COMMENT 'рост собаки',
   `vitality` int(11) NOT NULL DEFAULT '100',
@@ -147,14 +148,14 @@ CREATE TABLE `animals` (
 -- Дамп данных таблицы `animals`
 --
 
-INSERT INTO `animals` (`id`, `name`, `lucky`, `sex`, `race`, `breeder`, `owner`, `kennel`, `age_id`, `dna_id`, `family_id`, `weight`, `height`, `vitality`, `hp`, `joy`, `birth`, `now`, `status`, `puppy`, `litter`, `url`, `url_puppy`) VALUES
-(1, 'Шоко', 12, 'сука', 'КХС', 'nesh', 'nesh', 'Чарующий соблазн', 14, 11, 1, 3830, 25, 100, 1, 4, '15.09.2017', 1380, 1, 2, 1, 'pici/TT/hr1w0f0b0t1m0_01.png', 'pici/puppy/hr1b0_02.png'),
-(2, 'Маленькая', 45, 'сука', 'КХС', 'nesh', 'nesh', 'Чарующий соблазн', 15, 12, 2, 3973, 26, -2, 90, 100, '17.09.2017', 0, 1, 5, 5, 'pici/hr1w0f1b0t0m0_04.png', 'pici/puppy/hr1f1_01.png'),
-(3, '3шоколадкин', 85, 'кобель', 'КХС', 'nesh', 'nesh', 'Чарующий соблазн', 16, 13, 3, 4547, 30, 100, 100, 100, '17.09.2017', 0, 1, 3, 3, 'pici/hr1w0f0b0t0m0_05.png', 'pici/puppy/hr1b0_01.png'),
-(4, '4 кобель', 100, 'кобель', 'КХС', 'nesh', 'nesh', 'Чарующий соблазн', 1, 14, 4, 4547, 30, 100, 100, 100, '17.09.2017', 0, 1, 0, 0, 'pici/hrhr/hr0w0f0b0t0m0_01.png', 'pici/puppy/hr0b0_01.png'),
-(5, '5он', 58, 'кобель', 'КХС', 'nesh', 'nesh', 'Чарующий соблазн', 14, 15, 5, 4547, 30, 100, 100, 100, '17.09.2017', 0, 1, 3, 2, 'pici/hr1w0f0b0t0m0_03.png', 'pici/puppy/hr1b0_02.png'),
-(6, 'шестой пух', 27, 'кобель', 'КХС', 'nesh', 'nesh', 'Чарующий соблазн', 14, 16, 6, 0, 0, 100, 100, 100, '10.01.2018', 0, 1, 1, 1, 'pici/hrhr/hr0w0f0b0t0m0_01.png', 'pici/puppy/hr0b0_01.png'),
-(7, 'Семь', 13, 'кобель', 'КХС', 'nesh', 'nesh', 'Чарующий соблазн', 1, 17, 7, 0, 0, 100, 100, 100, '10.01.2018', 0, 1, 0, 0, 'pici/hr1w0f0b0t0m0_05.png', 'pici/puppy/hr1b0_01.png');
+INSERT INTO `animals` (`id`, `name`, `race`, `origin`, `breeder`, `owner`, `kennel`, `estrus`, `age_id`, `dna_id`, `family_id`, `mark_id`, `weight`, `height`, `vitality`, `hp`, `joy`, `birth`, `now`, `status`, `puppy`, `litter`, `url`, `url_puppy`) VALUES
+(1, 'Шоко', 'КХС', 0, 'nesh', 'nesh', 'Чарующий соблазн', 14, 14, 11, 1, 2, 3830, 25, 100, 1, 4, '15.09.2017', 1380, 1, 2, 1, 'pici/TT/hr1w0f0b0t1m0_01.png', 'pici/puppy/hr1b0_02.png'),
+(2, 'Маленькая', 'КХС', 1, 'nesh', 'nesh', 'Чарующий соблазн', 15, 14, 12, 2, 2, 3973, 26, -2, 90, 100, '17.09.2017', 0, 1, 5, 5, 'pici/hr1w0f1b0t0m0_04.png', 'pici/puppy/hr1f1_01.png'),
+(3, '3шоколадкин', 'КХС', 0, 'nesh', 'nesh', 'Чарующий соблазн', 0, 16, 13, 3, 2, 4547, 30, 100, 100, 100, '17.09.2017', 0, 1, 3, 3, 'pici/hr1w0f0b0t0m0_05.png', 'pici/puppy/hr1b0_01.png'),
+(4, '4 кобель', 'КХС', 1, 'nesh', 'nesh', 'Чарующий соблазн', 0, 1, 14, 4, 0, 4547, 30, 100, 100, 100, '17.09.2017', 0, 1, 0, 0, 'pici/hrhr/hr0w0f0b0t0m0_01.png', 'pici/puppy/hr0b0_01.png'),
+(5, '5он', 'КХС', 0, 'nesh', 'nesh', 'Чарующий соблазн', 0, 14, 15, 5, 0, 4547, 30, 100, 100, 100, '17.09.2017', 0, 1, 3, 2, 'pici/hr1w0f0b0t0m0_03.png', 'pici/puppy/hr1b0_02.png'),
+(6, 'шестой пух', 'КХС', 1, 'nesh', 'nesh', 'Чарующий соблазн', 0, 17, 16, 6, 2, 0, 0, 100, 100, 100, '10.01.2018', 0, 1, 1, 1, 'pici/hrhr/hr0w0f0b0t0m0_01.png', 'pici/puppy/hr0b0_01.png'),
+(7, 'Семь', 'КХС', 1, 'nesh', 'nesh', 'Чарующий соблазн', 0, 1, 17, 7, 0, 0, 0, 100, 100, 100, '10.01.2018', 0, 1, 0, 0, 'pici/hr1w0f0b0t0m0_05.png', 'pici/puppy/hr1b0_01.png');
 
 -- --------------------------------------------------------
 
@@ -343,6 +344,30 @@ INSERT INTO `male` (`wt`, `ht`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `marks`
+--
+
+CREATE TABLE `marks` (
+  `id` int(11) NOT NULL,
+  `mark` varchar(35) NOT NULL,
+  `namerus` varchar(35) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `marks`
+--
+
+INSERT INTO `marks` (`id`, `mark`, `namerus`) VALUES
+(1, 'excellent', 'отлично '),
+(2, 'very good', 'очень хорошо'),
+(3, 'good', 'хорошо'),
+(4, 'satisfactory', 'удовлетворительно '),
+(5, 'out of the ring', 'снят с ринга '),
+(6, 'disqualification', 'дисквалифицирующий порок ');
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `owner_items`
 --
 
@@ -394,7 +419,7 @@ CREATE TABLE `randodna` (
   `bb` varchar(3) NOT NULL COMMENT 'черн/шоко',
   `tt` varchar(3) NOT NULL COMMENT 'крап',
   `mm` varchar(3) NOT NULL COMMENT 'пятна',
-  `sex` varchar(10) NOT NULL COMMENT 'пол',
+  `sex` varchar(10) NOT NULL COMMENT '0-сука/1-кобель',
   `lucky` int(11) NOT NULL COMMENT 'удача',
   `spd` float NOT NULL COMMENT 'скорость',
   `agl` float NOT NULL COMMENT 'уворот',
@@ -433,42 +458,6 @@ INSERT INTO `randodna` (`id`, `hr`, `ww`, `ff`, `bb`, `tt`, `mm`, `sex`, `lucky`
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `stats`
---
-
-CREATE TABLE `stats` (
-  `id` int(11) NOT NULL,
-  `dog_id` int(11) NOT NULL,
-  `speed` float NOT NULL,
-  `agility` float NOT NULL,
-  `teach` float NOT NULL,
-  `jump` float NOT NULL,
-  `scent` float NOT NULL,
-  `find` float NOT NULL,
-  `total` float NOT NULL,
-  `mutation` float NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Дамп данных таблицы `stats`
---
-
-INSERT INTO `stats` (`id`, `dog_id`, `speed`, `agility`, `teach`, `jump`, `scent`, `find`, `total`, `mutation`) VALUES
-(1, 0, 10, 10, 9, 9, 11, 11, 60, 0),
-(8, 1, 11, 11, 11, 9, 10, 9, 61, 0),
-(23, 2, 11, 11, 11, 9, 10, 9, 61, 0),
-(29, 3, 11, 11, 11, 9, 10, 9, 61, 0),
-(30, 4, 11.06, 11.06, 11.06, 9.05, 10.06, 9.05, 61.3, 0.55),
-(32, 5, 10, 9, 11, 11, 11, 10, 62, 0),
-(33, 6, 10.55, 10.05, 11.05, 10.05, 10.55, 9.55, 61.8, 0.49),
-(34, 7, 10.87, 10.62, 11.12, 9.61, 10.37, 9.36, 62, 0.89),
-(35, 8, 11.06, 11.06, 11.06, 9.05, 10.05, 9.05, 61.3, 0.54),
-(36, 10, 10.41, 9.91, 10.9, 9.91, 10.41, 9.42, 61, 0.89),
-(37, 8, 10.95, 10.95, 10.95, 8.96, 9.95, 8.96, 60.7, 0.48);
-
--- --------------------------------------------------------
-
---
 -- Структура таблицы `users`
 --
 
@@ -490,7 +479,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `login`, `email`, `password`, `kennel`, `f_time`, `l_time`, `online`, `sign`, `visits`) VALUES
-(1, 'nesh', 'stepanova@mail.ru', '$2y$10$pinvDspcODn0zxHMfyEUoufayxxNfwrQoqHGX2.Ky1I.fB7FnDan.', 'Чарующий соблазн', '03.09.2017', '12.10.2018', 1, 0, 101),
+(1, 'nesh', 'stepanova@mail.ru', '$2y$10$pinvDspcODn0zxHMfyEUoufayxxNfwrQoqHGX2.Ky1I.fB7FnDan.', 'Чарующий соблазн', '03.09.2017', '22.11.2018', 1, 0, 121),
 (2, 'test', 'test@test', '$2y$10$Vy0Am7CkZj5SYrzoNR26W.XsiO21HWtuQezqns20CfpcqAqdlm7D.', 'Тестики', '04.09.2017', '10.09.2017', 0, 0, 4);
 
 --
@@ -508,7 +497,6 @@ ALTER TABLE `ages`
 --
 ALTER TABLE `animals`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `sex` (`sex`),
   ADD KEY `race` (`race`),
   ADD KEY `breeder` (`breeder`),
   ADD KEY `owner` (`owner`);
@@ -538,6 +526,12 @@ ALTER TABLE `litters`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Индексы таблицы `marks`
+--
+ALTER TABLE `marks`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Индексы таблицы `owner_items`
 --
 ALTER TABLE `owner_items`
@@ -554,12 +548,6 @@ ALTER TABLE `races`
 -- Индексы таблицы `randodna`
 --
 ALTER TABLE `randodna`
-  ADD PRIMARY KEY (`id`);
-
---
--- Индексы таблицы `stats`
---
-ALTER TABLE `stats`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -604,6 +592,11 @@ ALTER TABLE `kennels`
 ALTER TABLE `litters`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT для таблицы `marks`
+--
+ALTER TABLE `marks`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
 -- AUTO_INCREMENT для таблицы `owner_items`
 --
 ALTER TABLE `owner_items`
@@ -613,11 +606,6 @@ ALTER TABLE `owner_items`
 --
 ALTER TABLE `randodna`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
---
--- AUTO_INCREMENT для таблицы `stats`
---
-ALTER TABLE `stats`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 --
 -- AUTO_INCREMENT для таблицы `users`
 --

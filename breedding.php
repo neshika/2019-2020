@@ -84,6 +84,9 @@ $temp2=(int)$_POST['ONONA'];
                 <?php
                     $_SESSION['id_m']=$id_m;
                     $_SESSION['id_d']=$id_d;
+                   
+                    echo ' самка: ' . bdika_for_breed($id_m);
+                    echo ' <br>самец: ' . bdika_for_breed($id_d);
                         
                     if(bdika_mutation($id_m,$id_d)){  //если вернулся 1, то есть мутация
                       ?><h3 style="color:red" align="center"><?php echo '<br>При вязки близкородственных партнеров возможны ухудшения качеств и получение мутаций! Будьте осторожнее!';?></h3><?php
