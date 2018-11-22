@@ -16,9 +16,9 @@ require "db.php";
 		echo ' Сегодня: ' . date('d.m.Y');
 
 		$id=get_id($_SESSION['logged_user']->login);
-		$l_time=find_where('users', $id,'l_time');
+		$l_time= ret_Cell('l_time', $id,'users');
 				$now=date('d.m.Y');  //03.08.2017
-				$visits=find_where('users',$id,'visits');
+				$visits= ret_Cell('visits',$id,'users');
 				//echo '<br>' . $visits . '<br>now ' .$now .'<br>f_time '. find_where('users', $id,'f_time');
 
 				if($now!=$l_time){
@@ -37,6 +37,7 @@ require "db.php";
 						//echo 'Поле было заполнено';
 					echo '<br> родился малыш: ';
 					echo $a = $_POST['comment'];
+                                        
 					   // echo $_SESSION['id_new'];
 					insert_data('animals',$_SESSION['id_new'],'name',$_POST['comment']);
 					  //  insert_name($_SESSION['id_new'],$_POST['comment']);
@@ -45,7 +46,7 @@ require "db.php";
 
               					if (ret_Cell('l_time', $id, 'users') == $now ) {
               						
-              						echo '<br> Чудо свершилось! рождены: <br>';
+              						//echo '<br> Чудо свершилось! рождены: <br>';
 
               						//$count = R::count( 'animals', 'owner = :owner && status = 1',[':owner' => $owner]);
 

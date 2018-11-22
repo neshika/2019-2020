@@ -37,7 +37,7 @@ echo "Тестируем: <br>";
 
 if(isset($_POST['dog_id'])  ){ 
     $id=$_POST['dog_id'];
-  bdika_for_breed($id);
+  
    
 }    
  ?>

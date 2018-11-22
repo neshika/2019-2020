@@ -65,28 +65,28 @@ $owner=$_SESSION['owner'];
 buying($owner,5000);
  $id_new=greate_animal($id_m,$id_d); // функция для получания параметров собаки 
         // ******************** вывод картинки собаки по id  *****************-->  
-      echo "<br>Малыш:";
-      $id_new=7;
-      var_dump($id_new);
+     // echo "<br>Малыш:";
+     // $id_new=7;
+      //var_dump($id_new);
 
      $data_dna=do_dna($id_new);    //полцчаем Генетический код hr0w0f1b1t1m0
      $dna_id= ret_dna($id_new);    //ссылка на его dna_id
-      echo '<br> ДНА Малыша: ' . $data_dna;
+    // echo '<br> ДНА Малыша: ' . $data_dna;
       insert_data('randodna', $dna_id, 'dna', $data_dna);   //вставляем ГК в поле DNA
     
       $url=do_url($data_dna);       //создаем url собаки
-      echo '<br> ссылка на URL щенка' . $url;
+     // echo '<br> ссылка на URL щенка' . $url;
  
       insert_url($id_new,$url);     //вставляем в табл url
      
-      echo 'вносим ссылку на картинку щенка';
+     // echo 'вносим ссылку на картинку щенка';
       insert_url_puppy($id_new);
       
       
    /***************функция по получению стат в зависимости от отца и матери************/
-
-     add_litters($id_m,$id_d);
-     add_puppies($id_m,$id_d);
+//echo 'добавляем щенков и вязки';
+     add_litters($_SESSION['id_m'],$_SESSION['id_d']);
+     add_puppies($_SESSION['id_m'],$_SESSION['id_d']);
      get_estrus($id_new);   //дает первую течку сукам
   
 

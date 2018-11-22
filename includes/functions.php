@@ -162,7 +162,7 @@ function w_sex($id){
 //функция дает суке течку при рождении
 function get_estrus($id){
     $est = rand(12,15);
-    echo ret_sex($id);
+    //echo ret_sex($id);
     if( '0' == ret_sex($id)){
        insert_data('animals',$id, 'estrus', $est);
     }
@@ -284,7 +284,7 @@ function bdika_for_breed($id){
                 $errort = 'Кобель готов к вязке';    
             endif;
         elseif(0==$sex): //сука
-            if( ret_Cell('estrus', $id, 'animals')<15 &&  (ret_Cell('estrus', $id, 'animals'))!= ret_age($id) ):
+            if( ret_Cell('estrus', $id, 'animals')<15 ||  (ret_Cell('estrus', $id, 'animals'))!= ret_age($id) ):
                     $error = true;
                     $errort = 'сука не готова к вязке';
             elseif( ret_age($id)>58):
@@ -292,7 +292,7 @@ function bdika_for_breed($id){
             $errort = 'возраст суки превышен';
              elseif( ret_Cell('litter', $id,'animals')>7):
             $error = true;
-            $errort = 'количество вязоу уже 7';
+            $errort = 'количество вязок уже 7';
             else:
                  $errort = 'Сука готова к вязке';    
             endif;
@@ -320,7 +320,7 @@ function bdika_age_for_breeding($data_dog){
   else {
     
     //echo "<br>взрослая";
-   echo "Возраст подходитю для разведения , но ";
+   //echo "Возраст подходитю для разведения , но ";
    return 1;
   }
 
@@ -714,17 +714,17 @@ function put_money($owner,$price){
 function buying($owner,$price){
   $id=get_id($owner);
 
-  echo '<br>$owner ' . $owner;
+  //echo '<br>$owner ' . $owner;
 
   //number_format ($price , $decimals = 0,$dec_point = "." , $thousands_sep = " " ); // формат 10 000  
-  echo '<br>$price ' . $price;
+  //echo '<br>$price ' . $price;
 
  // echo '<br>get_id($owner) ' . get_id($owner);
 
   $money=get_count('1', $id);
   $money=$money-$price;
    
-echo '<br>$money ' . $money;
+//echo '<br>$money ' . $money;
   //echo number_format ($money , $decimals = 0,$dec_point = "." , $thousands_sep = " " ); // формат 10 000 ;
  R::exec( 'UPDATE owner_items SET count= :coins WHERE owner_id = :id AND item_id = :item', array(':coins' => $money,':item'=> '1', ':id' => $id));
 
@@ -760,24 +760,28 @@ function get_id($login){
 /*Функция добавления количества вязок для папы и мамы*/
 function add_litters($id_m,$id_d){
 
-  echo $lit_m=ret_Cell('litter',$id_m,'animals');
-  echo $lit_d= ret_Cell('litter',$id_d,'animals');
-  $lit_m += 1;
-  $lit_d += 1;
+  (int)$lit_m=ret_Cell('litter',$id_m,'animals');
+  (int)$lit_d= ret_Cell('litter',$id_d,'animals');
+  $lit_m ++;
+  $lit_d ++;
 
-  insert_data('animals',$id_m,'litter',$lit_m);
-  insert_data('animals',$id_d,'litter',$lit_d);
+  //echo '<br>' . $lit_m;
+ //echo '<br>' . $lit_d;
+ insert_data('animals', $id_m, 'litter',$lit_m);
+ insert_data('animals', $id_d, 'litter',$lit_d);
 }
 /*Функция добавления количества щенков для папы и мамы*/
 function add_puppies($id_m,$id_d){
 
-  echo $pup_m=ret_Cell('puppy',$id_m,'animals');
-  echo $pup_d= ret_Cell('puppy',$id_d,'animals');
-  $pup_m += 1;
-  $pup_d += 1;
-
-  insert_data('animals',$id_m,'litter',$pup_m);
-  insert_data('animals',$id_d,'litter',$pup_d);
+  (int)$pup_m=ret_Cell('puppy',$id_m,'animals');
+  (int)$pup_d= ret_Cell('puppy',$id_d,'animals');
+  $pup_m++;
+  $pup_d++;
+   //echo '<br>' . $pup_m;
+ //echo '<br>' . $pup_d;
+ insert_data('animals', $id_m, 'puppy',$pup_m);
+ insert_data('animals', $id_d, 'puppy',$pup_d);
+ 
 }
 /*****************  НОВАЯ СОБАКА   ******************/
 function rand_dog1($id){
@@ -1085,12 +1089,12 @@ function insert_url_puppy($dog_id){
     $data_dog=take_data_from($dna_id, 'randodna');
        $num=Rand(1,3);  //количество варианций окраса собаки
 
-      echo "<br>hr: " . $data_dog['hr'];
-    echo "<br>ww: " . $data_dog['ww'];
-     echo "<br>bb: " . $data_dog['bb'];
-    echo "<br>ff: " . $data_dog['ff'];
-    echo "<br>tt: " . $data_dog['tt'];
-    echo "<br>mm: " . $data_dog['mm'];
+     // echo "<br>hr: " . $data_dog['hr'];
+   // echo "<br>ww: " . $data_dog['ww'];
+    // echo "<br>bb: " . $data_dog['bb'];
+    //echo "<br>ff: " . $data_dog['ff'];
+   // echo "<br>tt: " . $data_dog['tt'];
+   // echo "<br>mm: " . $data_dog['mm'];
 
         if('hrhr'==$data_dog['hr']){   //если пух
           if('ww'==$data_dog['ww']){   //если не белый
@@ -1121,7 +1125,7 @@ function insert_url_puppy($dog_id){
           $dna='hr1w1';
         }
 
-      echo $url="pici/puppy/" . $dna . '_0' . $num . '.png';
+      $url="pici/puppy/" . $dna . '_0' . $num . '.png';
 
 
       R::exec( 'UPDATE animals SET url_puppy=:url WHERE id = :id ', array(':url'=> $url, ':id' => $dog_id));
@@ -2432,7 +2436,7 @@ Function ret_hr($id){
 /* функция Создает данные по собаке    */ 
 
 function greate_animal($id_m,$id_d){
-            echo '<br>function greate_animal';
+           // echo '<br>function greate_animal';
     $dog_m= take_data_from($id_m,'animals');
     //$dog_d= take_data_from($id_d,'animals');
     
@@ -2445,6 +2449,7 @@ function greate_animal($id_m,$id_d){
     $dog_new->name='';
     
     $dog_new->race=$dog_m['race'];
+    $dog_new->origin='1';
    
     $dog_new->breeder=$dog_m['owner'];
     $dog_new->owner=$dog_m['owner'];
@@ -2459,13 +2464,13 @@ function greate_animal($id_m,$id_d){
 
 //greate DNA
     $dna_id = greate_dna($id, $id_m, $id_d);
-    echo '<br> insert DNA_ID ' . $dna_id;
+    //echo '<br> insert DNA_ID ' . $dna_id;
     insert_data('animals',$id,'dna_id',$dna_id); //вставлянем данные в поле на ссылку dna
     
     //добавление щенка родителям и вязки Family
     $family_id = greate_family($id, $id_m, $id_d);
     
-   echo '<br> insert_data Fasmily' . $id . ' '.$family_id;
+   //echo '<br> insert_data Fasmily' . $id . ' '.$family_id;
     insert_data('animals',$id,'family_id',$family_id); //вставлянем данные в поле на ссылку family
     
     
@@ -2474,16 +2479,16 @@ function greate_animal($id_m,$id_d){
 }
 //создаем family
 function greate_family($id_new,$id_m,$id_d){
-    echo '<br>function greate_family';
-     echo '<br>new_dog: ' . $id_new;
-     echo '<br>id_m: ' . $id_m;
-     echo '<br>id_d: ' . $id_d;
+   // echo '<br>function greate_family';
+    // echo '<br>new_dog: ' . $id_new;
+     //echo '<br>id_m: ' . $id_m;
+     //echo '<br>id_d: ' . $id_d;
   
         
     $dog_m = take_data_from(ret_family($id_m),'family');
-    debug($dog_m);
+    //debug($dog_m);
     $dog_d= take_data_from(ret_family($id_d),'family');
-    debug($dog_d);
+    //debug($dog_d);
     
     //  Проверить  $family_data=ret_f_data_by_dog($id_new);
     
@@ -2494,7 +2499,7 @@ function greate_family($id_new,$id_m,$id_d){
 
 
         /*по линии матери*/
-        echo '<br>предки мамы: ';
+      //  echo '<br>предки мамы: ';
 	
         $dog_new->g0dad=$dog_m['dad'];   //отец матери для щенка дед
         $dog_new->g0mum=$dog_m['mum'];    //мать матери для женка бабка
@@ -2504,7 +2509,7 @@ function greate_family($id_new,$id_m,$id_d){
 	$dog_new->gg0mum4=$dog_m['g0mum'];	//прабабка
         
          /*по линии отца */
-        echo '<br>предки папы: ';
+       // echo '<br>предки папы: ';
 	$dog_new->g1dad=$dog_d['dad'];
 	$dog_new->g1mum=$dog_d['mum'];
 	$dog_new->gg1dad1=$dog_d['g1dad'];
@@ -2513,7 +2518,7 @@ function greate_family($id_new,$id_m,$id_d){
 	$dog_new->gg1mum4=$dog_d['g0mum'];
 
     $id=R::store($dog_new); //сохраняем данные первичный ключ создается автоматом
-       echo '<br>END function greate_family';
+       //echo '<br>END function greate_family';
    return $id;  //возвращает ID внести в таблицу animals
    
     
@@ -2572,11 +2577,11 @@ function bdika_mutation($id_m,$id_d){
 }
 /**********************  Рандомный подсчет стат в зависимости от мутаций и родителей***************/
 function get_stats($param_m,$param_d,$mutation,$plus){
-        echo '<br> function get_stats';
+       // echo '<br> function get_stats';
         $temp=0;
         
         $temp=($param_m+$param_d)/2;
-        echo '<br> m: ' .  $param_m . ' +d:' . $param_d . ' = ' . $temp;
+       // echo '<br> m: ' .  $param_m . ' +d:' . $param_d . ' = ' . $temp;
         if(1==$plus){
           $temp=$temp+($temp*$mutation/100);
         }
@@ -2591,14 +2596,14 @@ function get_stats($param_m,$param_d,$mutation,$plus){
 //создаем DNA
 function greate_dna($id_new,$id_m,$id_d){
     
-    echo '<br>function greate_dna';
+  //  echo '<br>function greate_dna';
     $dna_m= take_data_from(ret_dna($id_m),'randodna');
-    debug($dna_m);
+    //debug($dna_m);
     $dna_d= take_data_from(ret_dna($id_d),'randodna');
-    debug($dna_d);
+   // debug($dna_d);
     
     
-    echo '<br>даем окрас!';
+   // echo '<br>даем окрас!';
     $tt = breeding($dna_m['tt'],$dna_d['tt'],'TT','tt','Tt');
     $bb = breeding($dna_m['bb'],$dna_d['bb'],'BB','bb','Bb');
     $mm = breeding($dna_m['mm'],$dna_d['mm'],'MM','mm','Mm');
@@ -2607,8 +2612,8 @@ function greate_dna($id_new,$id_m,$id_d){
     
 
     
-    echo $hr_on = $dna_m['hr'];
-    echo $hr_ona = $dna_d['hr'];
+  $hr_on = $dna_m['hr'];
+  $hr_ona = $dna_d['hr'];
             
 
     $hr=gol_pooh($hr_on,$hr_ona);
@@ -2622,18 +2627,18 @@ function greate_dna($id_new,$id_m,$id_d){
     $dna->mm= $mm;
     $dna->tt = $tt;
     
-     echo '<br> рандомный пол!';
+    // echo '<br> рандомный пол!';
     $pol=f_bdika_sex();
  
- echo '<br>создаем удачу!';
+ //echo '<br>создаем удачу!';
     $lucky=Rand(1,100);   
     
     $dna->sex = $pol;
     $dna->lucky = $lucky;
    
          //////////////////////////////   новые статы    
-    echo '<br> $plus' . $plus= bdika_mutation($id_m, $id_d);
-    echo '<br> $mut' . $mutation=Rand(1,100)/100;
+   $plus= bdika_mutation($id_m, $id_d);
+   $mutation=Rand(1,100)/100;
     $spd=get_stats($dna_m['spd'],$dna_d['spd'],$mutation,$plus);
     $agl=get_stats($dna_m['agl'],$dna_d['agl'],$mutation,$plus);
     $tch=get_stats($dna_m['tch'],$dna_d['tch'],$mutation,$plus);
@@ -2654,7 +2659,7 @@ function greate_dna($id_new,$id_m,$id_d){
     $dna->about = 'owner';
     $id = R::store( $dna );
     
-    //echo '<br>!!! DNA в табл. randodnd' . $data_dna= do_dna($id_new);
+    $data_dna= do_dna($id_new);
     //debug($data_dna);
     
     //
