@@ -35,7 +35,8 @@ echo "Тестируем: <br>";
 
 if(isset($_POST['dog_id'])  ){ 
     $id=$_POST['dog_id'];
-    
+   dog_pic($id);
+       
    
        
 }    

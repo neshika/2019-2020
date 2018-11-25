@@ -907,7 +907,9 @@ Function dog_pic($id){
    $url=bdika_url($id);
    ?><img src="<?php echo $url;?>"><?php
 }
-
+function dog_pic_mesh(){
+    ?><img style="position:relative;left:-200px" src="pici/mesh.png"><?php
+}
 /*Функция печатает собаку  c заданным размером в% или пикселях + пишет имя во всплыв. окне*/
 function dog_pic_size($id,$size){
     ?><img src="<?php echo bdika_url($id);?>" height="<?php echo $size?>"><?php
@@ -2806,7 +2808,8 @@ function do_do($reg_id){
   //debug($arr); 
   $newAr=array_keys($arr);
    foreach ($newAr as $key => $value){
-           echo '<br>' . $newAr[$key] . ' '  . ret_Cell('name', $newAr[$key], 'animals');
+           //echo '<br>' . $newAr[$key] . ' '  . 
+           echo ret_Cell('name', $newAr[$key], 'animals');
            //$url=ret_Cell('url_puppy', $newAr[$key], 'animals');
            dog_pic_size($newAr[$key],150);
           
