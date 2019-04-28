@@ -33,25 +33,17 @@ function change(idName) {
 
 echo "Тестируем: <br>";
 
-if(isset($_POST['dog_id'])  ){ 
-    $id=$_POST['dog_id'];
-   dog_pic($id);
-       
-   
-       
-}    
- ?>
-<form method="POST">
-введите код собаки: <input type="text" name='dog_id'>
-<input type="submit" name="ок" value="ok">
-</form>
+ function test_ok(){
+     $testok=Rand(1,100);
+     if('13'!=$testok){
+        echo 'newdog '  . $testok;
+     }
+     else{
+         echo 'kennel ' . $testok; 
+     }
+ }
+ test_ok();
 
-
-
-<?php
-
-
-   
  require '/libs/down.php';
  ?>
 

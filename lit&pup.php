@@ -43,8 +43,8 @@ require "/libs/up.php";
     echo "<br>Владелец: " . $data_dog['owner'];
 
 /*печать данных*/
-  echo '<br>Вязок: ' .  $data_dog['litter'];
-  echo '<br>Щенков: ' .  $data_dog['puppy'] . '<br>';
+  //echo '<br>Вязок: ' .  $data_dog['litter'];
+ //echo '<br>Щенков: ' .  $data_dog['puppy'] . '<br>';
 
     if($array): //если есть данные по пометам, то выводим текст
         foreach ($array as $key => $value){?>
@@ -52,18 +52,20 @@ require "/libs/up.php";
             <caption><h1>Помет "<?php echo $array[$key]['lit'];?>"</h1></caption>
             <tbody><tr><td width="40%" align="center" valign="top">
                         отец: <br><br><strong><?php echo ret_cell('name',$array[$key]['dad'],'animals');?></strong> <br>
-                        оценка: <font color="#569ff6"><strong><?php print_mark($array[$key]['dad'])?></strong></font>
+                        <?php print_lit_pup($array[$key]['dad']);?>
+                        <br>оценка: <font color="#569ff6"><strong><?php print_mark($array[$key]['dad'])?></strong></font>
                         </td> 
                         <td width="20%" align="center" valign="middle"></td>
                         <td width="40%" align="center" valign="top">
                          мать: <br><br><strong><?php echo ret_cell('name',$array[$key]['mum'],'animals');?></strong><br>
-                         оценка: <font color="#569ff6"> <strong><?php print_mark($array[$key]['mum'])?><br></strong></font>
+                         <?php print_lit_pup($array[$key]['mum']);?>
+                        <br>оценка: <font color="#569ff6"> <strong><?php print_mark($array[$key]['mum'])?><br></strong></font>
                         </td>
                     </tr> 
 
                     <tr><td colspan="3" height="10"></td></tr>
                     <tr><td width="40%" align="center" valign="top">
-                            <?php dog_pic_size($array[$key]['dad'], 150); //картинка папы?>
+                            <?php pic_link($array[$key]['dad'], 155); //картинка папы?>
                         </td>
                         <td width="20%" align="center" valign="middle"><br><br><strong>
                             дата рождения:</strong><br><?php echo do_date($array[$key]['date']);?>
@@ -71,7 +73,7 @@ require "/libs/up.php";
                         </td>
                         
                         <td width="40%" align="center" valign="top">
-                            <?php dog_pic_size($array[$key]['mum'], 150);//картинка мамы?>
+                            <?php pic_link($array[$key]['mum'], 155);//картинка мамы?>
                         </td>
             </tr></tbody></table>
 

@@ -150,7 +150,9 @@ function rand_sex(){
 
 /* функция возвращает пол собаки по ее id*/
 function ret_sex($id){
-    return ret_Cell('sex', ret_Cell('dna_id', $id, 'animals'), 'randodna');
+    $id_dna=ret_Cell('dna_id', $id, 'animals');
+    //echo ret_Cell('sex',$id_dna,'randodna');
+    return ret_Cell('sex',$id_dna, 'randodna');
 }
 
 ////////////////  пол буквами
@@ -436,13 +438,14 @@ function bdika_parent($id,$parent){
      $data_dna = take_data_from(ret_dna($id),'randodna');
         //debug($data_dna);
         $data_family= take_data_from(ret_family($id),'family');
-       // debug($data_family);
+      //debug($data_family);
         
         
     if('mum'==$parent){
       
-    $parent_id_dna= ret_dna(ret_mum($id));
-    //echo '<br> мама: ' . ret_mum($id) . ' dna_id_ ' . $parent_id_dna;
+    echo $parent_id_dna= ret_dna(ret_mum($id));
+    debug($parent_id_dna);
+   //echo '<br> мама: ' . ret_mum($id) . ' dna_id_ ' . $parent_id_dna;
     //echo '<br> $data_family[$parent] ' . $data_family[$parent];
     }
       if('dad'==$parent){
@@ -485,6 +488,7 @@ function detalis_green($id){
     
     /****** данные Дна кода собаки  *///////////////
     $data_dna = take_data_from(ret_dna($id),'randodna');
+    //debug($data_dna);
     $parent='mum';
     $array1=bdika_parent($id,$parent);  
     $parent='dad';
@@ -1520,7 +1524,7 @@ return $id;
 
 /*функция получает id собаки и возвращает данные по семье*/
 function ret_f_data_by_dog($id){
-    $f_id=ret_id_by_cell($id, 'family'); //получаем id на фамилию
+    $f_id= ret_Cell('family_id', $id, 'animals'); //получаем id на фамилию
     return take_data_from($f_id, 'family'); //Получаем данные из семьи
 }
 /*проверяет партнера на родство и выводит степень родства*/
@@ -1555,928 +1559,55 @@ function ret_str_contact($partner,$dog){
   else return '';
     
 }
-
- 
-
-/**********************  получение статов и поля МУТАЦИЯ кобеля и суки***********************/
-//function print_stats($id_m,$id_d,$mutation)
-//{
-//      
-//
-//      echo '<br> mutat ' . $mutation;
-//            
-//      echo '<br> / sp /';
-//      echo ' / agl / ';
-//      echo '/ tch / ';
-//      echo '/ jmp / ';
-//      echo '/ nuh / ';
-//      echo '/ fnd / ';
-//      echo '/ ttl / ';
-//      echo '/ данные';
-//      
-//      echo ' <br>/' . find_where('stats',$id_m,'speed');
-//      echo ' --- ' . find_where('stats',$id_m,'agility');
-//      echo '  --- ' . find_where('stats',$id_m,'teach');
-//      echo '  --- ' .find_where('stats',$id_m,'jump');
-//      echo '  --- ' .find_where('stats',$id_m,'scent');
-//      echo '  --- ' .find_where('stats',$id_m,'find');
-//      echo '  ---/ ' .find_where('stats',$id_m,'total') . ' мать ' . $id_m;
-//      
-//      echo '<br>/' . find_where('stats',$id_d,'speed');
-//      echo ' --- ' . find_where('stats',$id_d,'agility');
-//      echo ' --- ' . find_where('stats',$id_d,'teach');
-//      echo ' --- ' .find_where('stats',$id_d,'jump');
-//      echo ' --- ' .find_where('stats',$id_d,'scent');
-//      echo ' --- ' .find_where('stats',$id_d,'find');
-//      echo ' ---/ ' .find_where('stats',$id_d,'total') . ' отец ' . $id_d;
-//   
-//}
-
-
-//find_where('animals', $key,'hr');
-function find_where($tabl,$id,$value){
-  if ('animals'===$tabl){
-     $row = R::getRow( 'SELECT * FROM animals WHERE id = :id',
-       [':id' => $id]);
-      // debug($row);
-       
-       switch ($value) {
-            case 'url_puppy':
-              return $row[$value];
-              break;
-
-            case 'url':
-              return $row[$value];
-              break;
-            case 'litter':
-              return $row[$value];
-              break;
-            case 'puppy':
-              return $row[$value];
-              break;
-            case 'status':
-              return $row[$value];
-              break;
-           
-            
-            case 'gg0dad1':   //прадед по линии мамы
-              return $row[$value];
-                break;
-            case 'gg0mum2':   //пробабка по линии мамы
-              return $row[$value];
-                break;
-            case 'gg0dad3':   //прадед по линии мамы
-              return $row[$value];
-                break;
-            case 'gg0mum4':   //пробабка по линии мамы
-              return $row[$value];
-                break;
-            
-           
-            
-            
-            case 'gg1dad3':   //прадед по линии отца 
-              return $row[$value];
-                break;
-            case 'gg1mum4':   //пробабка по линии отца
-              return $row[$value];
-                break;  
-
-            case 'gg1mum2':   //бабка по линии отца
-              return $row[$value];
-                break;
-            case 'gg1dad1':   //дед по линии отца 
-              return $row[$value];
-                break;
-            case 'g0mum':   //бабка по линии мамы
-              return $row[$value];
-                break;
-            case 'g0dad':  //дед по линии мамы
-              return $row[$value];
-                break;
-            
-            case 'g1mum':    //бабка по линии мамы
-              return $row[$value];
-                break;
-            case 'g1dad':   //дед по линии мамы
-              return $row[$value];
-                break;
-            case 'dad':
-              if ('0'!==$row[$value])
-                    return $row[$value];
-                else 
-                    return 'нет данных';
-              
-              break;
-            case 'mum':
-              if ('0'!==$row[$value])
-                    return $row[$value];
-                else 
-                    return 'нет данных';
-              
-              break;
-            case 'now':
-              return $row[$value];
-              break;
-            case 'birth':
-              return $row[$value];
-              break;
-            case 'joy':
-              return $row[$value];
-              break;
-            case 'hp':
-              return $row[$value];
-              break;
-            case 'vitality':
-              return $row[$value];
-              break;
-            case 'weight':
-              return $row[$value];
-              break;
-              case 'height':
-              return $row[$value];
-              break;
-            case 'age_id':
-              return $row[$value];
-              break;
-          case 'dna_id':
-              return $row[$value];
-              break;
-           case 'estrus':
-              return $row[$value];
-              break;
-            case 'kennel':
-              return $row[$value];
-              break;
-            case 'owner':
-              return $row[$value];
-              break;
-            case 'breeder':
-              return $row[$value];
-              break;
-            case 'race':
-              return $row[$value];
-              break;
-          case 'origin':
-              return $row[$value];
-              break;
-            case 'sex':
-              return $row[$value];
-              break;
-            case 'lucky':
-              return $row[$value];
-              break;
-            case 'name':
-              return $row[$value];
-              break;
-            case 'id':
-              return $row[$value];
-              break;
-        }
-     } //$tabl = animals
-     if ('owner_items'===$tabl){
-     $row = R::getRow( 'SELECT * FROM owner_items WHERE owner_id = :id',
-       [':id' => $id]);
-          switch ($value) {
-
-            case 'item_id':
-              return $row[$value];
-              break;
-            case 'count':
-              return $row[$value];
-              break;
-          }
-     }//$tabl = owner_items
-     
-    if ('users'===$tabl){
-     $row = R::getRow( 'SELECT * FROM users WHERE id = :id',
-       [':id' => $id]);
-          switch ($value) {
-
-            case 'login':
-              return $row[$value];
-              break;
-            case 'email':
-              return $row[$value];
-              break;
-            case 'kennel':
-              return $row[$value];
-              break;
-            case 'f_time':
-              return $row[$value];
-              break;
-            case 'l_time':
-              return $row[$value];
-              break;
-            case 'online':
-              return $row[$value];
-              break;
-            case 'sing':
-              return $row[$value];
-              break;
-            case 'visits':
-              return $row[$value];
-              break;
-          }
-     }//$tabl = owner_items
-   
-     if ('items'===$tabl){
-     $row = R::getRow( 'SELECT * FROM items WHERE id = :id',
-       [':id' => $id]);
-          switch ($value) {
-
-            case 'name':
-              return $row[$value];
-              break;
-            case 'icons':
-              return $row[$value];
-              break;
-            
-          }
-     }//$tabl = items
-   
-     if ('ages'===$tabl){
-     $row = R::getRow( 'SELECT * FROM ages WHERE id = :id',
-       [':id' => $id]);
-          switch ($value) {
-
-            case 'age':
-              return $row[$value];
-              break;
-            case 'text':
-              return $row[$value];
-              break;
-            
-          }
-     }//$tabl = ages
-     if ('male'===$tabl){
-          $row = R::getRow( 'SELECT * FROM male WHERE ht = :id', [':id' => $id]);
-          switch ($value) {
-            case 'wt':
-              return $row[$value];
-              break;
-            
-          }
-      }//$tabl = male
-      if ('female'===$tabl){
-          $row = R::getRow( 'SELECT * FROM female WHERE ht = :id', [':id' => $id]);
-          switch ($value) {
-            case 'wt':
-              return $row[$value];
-              break;
-            
-          }
-      }//$tabl = female
-       if ('randodna'===$tabl){
-     $row = R::getRow( 'SELECT * FROM randodna WHERE id = :id',
-       [':id' => $id]);
-          switch ($value) {
-
-          
-            case 'hr':
-              return $row[$value];
-              break;
-            case 'ww':
-              return $row[$value];
-              break;
-            case 'ff':
-              return $row[$value];
-              break;
-            case 'bb':
-              return $row[$value];
-              break;
-            case 'tt':
-              return $row[$value];
-              break;
-            case 'mm':
-              return $row[$value];
-              break;
-            case 'sex':
-              return $row[$value];
-              break;
-           case 'lucky':
-              return $row[$value];
-              break;
-            case 'spd':
-              return $row[$value];
-              break;
-            case 'agl':
-              return $row[$value];
-              break;
-            case 'tch':
-              return $row[$value];
-              break;
-            case 'jmp':
-              return $row[$value];
-              break;
-            case 'nuh':
-              return $row[$value];
-              break;
-            case 'fnd':
-              return $row[$value];
-              break;
-           case 'mut':
-              return $row[$value];
-              break;
-            case 'dna':
-              return $row[$value];
-              break;
-          case 'about':
-              return $row[$value];
-              break;
-           
-           
-          }
-     }//$tabl = randodna
-}
 ////////////////////////////  Работа с ТАБЛИЦЕЙ /////////////////////////
 
 /*Функция вносит изменения имени собаки по ее Id*/
 function insert_data($tabl,$id,$cell,$value){  //$tabl - название таблицы \\ $id-ай ди выбранного\\ $cell-названия столба\\ $value- значение
-    if ('animals'===$tabl){
-        switch ($cell) {
-
-          /*данные по собаке*/
-        case 'url_puppy':
-             return R::exec( 'UPDATE animals SET url_puppy=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-             break;
-           case 'url':
-             return R::exec( 'UPDATE animals SET url=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-             break;
-           case 'litter':
-             return R::exec( 'UPDATE animals SET litter=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-             break;
-           case 'puppy':
-             return R::exec( 'UPDATE animals SET puppy=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-             break;
-           case 'status':
-             return R::exec( 'UPDATE animals SET status=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-             break;
-
-           case 'now':
-             return R::exec( 'UPDATE animals SET now=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-             break;
-           case 'birth':
-             return R::exec( 'UPDATE animals SET birth=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-             break;
-          case 'joy':
-             return R::exec( 'UPDATE animals SET joy=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-             break;
-          case 'hp':
-             return R::exec( 'UPDATE animals SET hp=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-             break;
-          case 'vitality':
-             return R::exec( 'UPDATE animals SET vitality=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-             break;
-          case 'weight':
-             return R::exec( 'UPDATE animals SET weight=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-             break;
-          case 'height':
-             return R::exec( 'UPDATE animals SET height=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-             break;
-        case 'family_id':
-             return R::exec( 'UPDATE animals SET family_id=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-             break;
-          case 'reg_id':
-             return R::exec( 'UPDATE animals SET reg_id=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-             break;
-           case 'mark_id':
-             return R::exec( 'UPDATE animals SET mark_id=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-             break;
-          case 'age_id':
-             return R::exec( 'UPDATE animals SET age_id=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-             break;
-         case 'dna_id':
-             return R::exec( 'UPDATE animals SET dna_id=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-             break;
-           case 'kennel':
-             return R::exec( 'UPDATE animals SET kennel=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-             break;
-          case 'estrus':
-             return R::exec( 'UPDATE animals SET estrus=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-             break;
-           case 'owner':
-             return R::exec( 'UPDATE animals SET owner=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-             break;
-           case 'breeder':
-             return R::exec( 'UPDATE animals SET breeder=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-             break;
-            case 'origin':
-             return R::exec( 'UPDATE animals SET origin=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-             break;
-           case 'race':
-             return R::exec( 'UPDATE animals SET race=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-             break;
-           case 'name':
-             return R::exec( 'UPDATE animals SET name=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-             break;
-           case 'id':
-             return R::exec( 'UPDATE animals SET id=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-             break;
-        }
-  }//tabl animals
-  if('users'===$tabl){
-   
-      switch ($cell) {
-                case 'visits':
-                   return R::exec( 'UPDATE users SET visits=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-                    break;
-              case 'l_time':
-                   return R::exec( 'UPDATE users SET l_time=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-                    break;
-               case 'email':
-                      return R::exec( 'UPDATE users SET email=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-                      break;
-              case 'login':
-                      return R::exec( 'UPDATE users SET login=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-                       break;
-            case 'id':
-                      return R::exec( 'UPDATE users SET id=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-                      break;
-        }
-  }//tabl USERS
-  if('registry'===$tabl){
-   
-      switch ($cell) {
-                case 'lit':
-                   return R::exec( 'UPDATE registry SET lit=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-                    break;
-              case 'date':
-                   return R::exec( 'UPDATE registry SET date=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-                    break;
-               case 'mum':
-                      return R::exec( 'UPDATE registry SET mum=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-                      break;
-              case 'dad':
-                      return R::exec( 'UPDATE registry SET dad=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-                       break;
-            case 'datebirth':
-                      return R::exec( 'UPDATE registry SET datebirth=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-                      break;
-            case 'count':
-                   return R::exec( 'UPDATE registry SET count=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-                    break;
-               case 'count45':
-                      return R::exec( 'UPDATE registry SET count45=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-                      break;
-              case 'female':
-                      return R::exec( 'UPDATE registry SET female=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-                       break;
-            case 'male':
-                      return R::exec( 'UPDATE registry SET male=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-                      break;
-            case 'tatoo':
-                      return R::exec( 'UPDATE registry SET tatoo=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-                      break;
-        
-        }
-  }//tabl registry
-  
-  if('randodna'===$tabl){
-   
-      switch ($cell) {
-               
-            case 'about':
-                   return R::exec( 'UPDATE randodna SET about=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-                    break;
-              case 'dna':
-                   return R::exec( 'UPDATE randodna SET dna=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-                    break;
-               case 'mut':
-                      return R::exec( 'UPDATE randodna SET mut=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-                      break;
-              case 'fnd':
-                      return R::exec( 'UPDATE randodna SET fnd=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-                       break;
-            case 'nuh':
-                      return R::exec( 'UPDATE randodna SET nuh=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-                      break;
-            case 'jmp':
-                   return R::exec( 'UPDATE randodna SET jmp=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-                    break;
-              case 'tch':
-                   return R::exec( 'UPDATE randodna SET tch=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-                    break;
-               case 'agl':
-                      return R::exec( 'UPDATE randodna SET agl=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-                      break;
-              case 'spd':
-                      return R::exec( 'UPDATE randodna SET spd=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-                       break;
-            case 'lucky':
-                      return R::exec( 'UPDATE randodna SET lucky=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-                      break;
-            case 'sex':
-                   return R::exec( 'UPDATE randodna SET sex=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-                    break;
-              case 'mm':
-                   return R::exec( 'UPDATE randodna SET mm=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-                    break;
-               case 'tt':
-                      return R::exec( 'UPDATE randodna SET tt=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-                      break;
-              case 'bb':
-                      return R::exec( 'UPDATE randodna SET bb=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-                       break;
-            case 'ff':
-                      return R::exec( 'UPDATE randodna SET ff=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-                      break;
-            case 'ww':
-                   return R::exec( 'UPDATE randodna SET ww=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-                    break;
-              case 'hr':
-                   return R::exec( 'UPDATE randodna SET hr=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-                    break;
-              
-        }
-  }//tabl randodna
-  
-  if('family'===$tabl){
-   
-      switch ($cell) {
-               
-            case 'gg0mum4':
-                   return R::exec( 'UPDATE family SET gg0mum4=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-                    break;
-              case 'gg0dad3':
-                   return R::exec( 'UPDATE family SET gg0dad3=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-                    break;
-                case 'gg0mum2':
-                   return R::exec( 'UPDATE family SET gg0mum2=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-                    break;
-              case 'gg0dad1':
-                   return R::exec( 'UPDATE family SET gg0dad1=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-                    break;
-            case 'gg1mum4':
-                   return R::exec( 'UPDATE family SET gg1mum4=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-                    break;
-              case 'gg1dad3':
-                   return R::exec( 'UPDATE family SET gg1dad3=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-                    break;
-            case 'gg1mum2':
-                   return R::exec( 'UPDATE family SET gg1mum2=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-                    break;
-              case 'gg1dad1':
-                   return R::exec( 'UPDATE family SET gg1dad1=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-                    break;
-             case 'g0mum':
-                   return R::exec( 'UPDATE family SET g0mum=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-                    break;
-              case 'g0dad':
-                   return R::exec( 'UPDATE family SET g0dad=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-                    break;
-            case 'g1mum':
-                   return R::exec( 'UPDATE family SET g1mum=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-                    break;
-              case 'g1dad':
-                   return R::exec( 'UPDATE family SET g1dad=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-                    break;
-            case 'mum':
-                   return R::exec( 'UPDATE family SET mum=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-                    break;
-              case 'dad':
-                   return R::exec( 'UPDATE family SET dad=:value WHERE id = :id ', array(':value'=> $value, ':id' => $id));
-                    break;
-              
-        }
-  }//tabl family
-
-  
-  $bean = R::load($id, $name);
-  $id = R::store($bean); // int
+     R::exec( 'UPDATE ' .  $tabl . ' SET ' . $cell . '=:aa WHERE id = :id ', [
+            ':aa'=> $value,
+            ':id' => $id]);
+    
 }
 /*Функция достает даннные собаки по ее Id из нужно таблицы*/
 function take_data_from($id,$tabl){   //$id - индекс ; $tabl - таблица с данными
-    if('animals'==$tabl){
-     return R::getRow( 'SELECT * FROM animals WHERE id = :id',[':id' => $id]);
-    }
-     if('randodna'==$tabl){
-     return R::getRow( 'SELECT * FROM randodna WHERE id = :id',[':id' => $id]);
-    }
-     if('family'==$tabl){
-     return R::getRow( 'SELECT * FROM family WHERE id = :id',[':id' => $id]);
-    }
-      if('users'==$tabl){
-     return R::getRow( 'SELECT * FROM users WHERE id = :id',[':id' => $id]);
-    }
-
-
-       
+    
+    $sql = 'SELECT * FROM ' . $tabl. ' WHERE id=' . $id; 
+    return R::getRow($sql);
+      
 }
 
 /*Функция достает даннные из заданного поля($cell) по ее Id из таблицы animals*/
 function ret_id_by_cell($id, $cell){
-     if('age'==$cell){
-        return R::getCell( 'SELECT age_id FROM animals WHERE id = :id',[':id' => $id] );
-    }
-      if('family'==$cell){
-        return R::getCell( 'SELECT family_id FROM animals WHERE id = :id',[':id' => $id] );
-    }
-     if('mark'==$cell){
-        return R::getCell( 'SELECT mark_id FROM animals WHERE id = :id',[':id' => $id] );
-    }
-      if('dna'==$cell){
-       return R::getCell( 'SELECT dna_id FROM animals WHERE id = :id',[':id' => $id] );
-    }
-     if('reg'==$cell){
-        return R::getCell( 'SELECT reg_id FROM animals WHERE id = :id',[':id' => $id] );
-    }
-    
+    $sql = 'SELECT ' . $cell . ' FROM animals WHERE id=' . $id; 
+    return R::getCell($sql);
 }
+
+
+
+/*Функция создает строку запроса и возвращает ее как тескт*/
+function get_sql($id,$tabl){
+    $sql = 'SELECT * FROM ' . $tabl . ' WHERE id=' . $id; 
+    return $sql;
+}
+
 
 /*Функция возвращает данные по параметру $cell из таблицы $tabl по индексу $id*/
-function ret_Cell($value,$id,$tabl){
-    if('animals'==$tabl){
-        $row = R::getRow( 'SELECT * FROM animals WHERE id = :id',
-       [':id' => $id]);
-        switch ($value) {
-                case 'url_puppy':
-                  return $row[$value];
-                  break;
-
-                case 'url':
-                  return $row[$value];
-                  break;
-                case 'litter':
-                  return $row[$value];
-                  break;
-                case 'puppy':
-                  return $row[$value];
-                  break;
-                case 'status':
-                  return $row[$value];
-                  break;
-
-                case 'now':
-                  return $row[$value];
-                  break;
-                case 'birth':
-                  return $row[$value];
-                  break;
-                case 'joy':
-                  return $row[$value];
-                  break;
-                case 'hp':
-                  return $row[$value];
-                  break;
-                case 'vitality':
-                  return $row[$value];
-                  break;
-                case 'weight':
-                  return $row[$value];
-                  break;
-                  case 'height':
-                  return $row[$value];
-                  break;
-                case 'reg_id':
-                  return $row[$value];
-                  break;
-               case 'family_id':
-                  return $row[$value];
-                  break;
-              case 'mark_id':
-                  return $row[$value];
-                  break;
-                case 'age_id':
-                  return $row[$value];
-                  break;
-              case 'dna_id':
-                  return $row[$value];
-                  break;
-                case 'kennel':
-                  return $row[$value];
-                  break;
-                 case 'estrus':
-                  return $row[$value];
-                  break;
-                case 'owner':
-                  return $row[$value];
-                  break;
-                case 'breeder':
-                  return $row[$value];
-                  break;
-              case 'origin':
-                  return $row[$value];
-                  break;
-                case 'race':
-                  return $row[$value];
-                  break;
-                case 'sex':
-                  return $row[$value];
-                  break;
-                case 'lucky':
-                  return $row[$value];
-                  break;
-                case 'name':
-                  return $row[$value];
-                  break;
-                case 'id':
-                  return $row[$value];
-                  break;
+function ret_Cell($bdika,$id,$tabl){
+    //if('animals'==$tabl){
+    $array = R::getAssoc(get_sql($id,$tabl));
+        foreach($array as $item) {
+            foreach ($item as $key => $value) {
+                if($key==$bdika){
+                    return $item[$bdika];
+                }
+            }
         }
-     } //$tabl = animals
-     if ('owner_items'===$tabl){
-     $row = R::getRow( 'SELECT * FROM owner_items WHERE owner_id = :id',
-       [':id' => $id]);
-          switch ($value) {
-
-            case 'item_id':
-              return $row[$value];
-              break;
-            case 'count':
-              return $row[$value];
-              break;
-          }
-     }//$tabl = owner_items
-     if ('registry'===$tabl){
-         
-     $row = R::getRow( 'SELECT * FROM registry WHERE id = :id',
-       [':id' => $id]);
-    
-          switch ($value) {
-
-            case 'lit':
-              return $row[$value];
-              break;
-            case 'date':
-              return $row[$value];
-              break;
-          case 'mum':
-              return $row[$value];
-              break;
-            case 'dad':
-              return $row[$value];
-              break;
-          case 'datebirth':
-              return $row[$value];
-              break;
-            case 'count':
-              return $row[$value];
-              break;
-          case 'count45':
-              return $row[$value];
-              break;
-            case 'female':
-              return $row[$value];
-              break;
-          case 'male':
-              return $row[$value];
-              break;
-            case 'tatoo':
-              return $row[$value];
-              break;
-          }
-     }//$tabl = registry
-      if ('marks'===$tabl){
-     $row = R::getRow( 'SELECT * FROM marks WHERE id = :id',
-       [':id' => $id]);
-          switch ($value) {
-
-            case 'mark':
-              return $row[$value];
-              break;
-            case 'namerus':
-              return $row[$value];
-              break;
-          }
-     }//$tabl = marks
-    
-    if ('users'===$tabl){
-     $row = R::getRow( 'SELECT * FROM users WHERE id = :id',
-       [':id' => $id]);
-          switch ($value) {
-
-            case 'login':
-              return $row[$value];
-              break;
-            case 'email':
-              return $row[$value];
-              break;
-            case 'kennel':
-              return $row[$value];
-              break;
-            case 'f_time':
-              return $row[$value];
-              break;
-            case 'l_time':
-              return $row[$value];
-              break;
-            case 'online':
-              return $row[$value];
-              break;
-            case 'sing':
-              return $row[$value];
-              break;
-            case 'visits':
-              return $row[$value];
-              break;
-          }
-     }//$tabl = owner_items
-    if ('coat'===$tabl){
-     $row = R::getRow( 'SELECT * FROM coat WHERE id = :id',
-       [':id' => $id]);
-          switch ($value) {
-
-            case 'color':
-              return $row[$value];
-              break;
-            case 'url':
-              return $row[$value];
-              break;
-            
-          }
-     }//$tabl = coat
-     if ('items'===$tabl){
-     $row = R::getRow( 'SELECT * FROM items WHERE id = :id',
-       [':id' => $id]);
-          switch ($value) {
-
-            case 'name':
-              return $row[$value];
-              break;
-            case 'icons':
-              return $row[$value];
-              break;
-            
-          }
-     }//$tabl = items
-    
-
-     if ('ages'===$tabl){
-     $row = R::getRow( 'SELECT * FROM ages WHERE id = :id',
-       [':id' => $id]);
-          switch ($value) {
-
-            case 'age':
-              return $row[$value];
-              break;
-            case 'text':
-              return $row[$value];
-              break;
-            
-          }
-     }//$tabl = ages
-     if ('male'===$tabl){
-          $row = R::getRow( 'SELECT * FROM male WHERE ht = :id', [':id' => $id]);
-          switch ($value) {
-            case 'wt':
-              return $row[$value];
-              break;
-            
-          }
-      }//$tabl = male
-      if ('female'===$tabl){
-          $row = R::getRow( 'SELECT * FROM female WHERE ht = :id', [':id' => $id]);
-          switch ($value) {
-            case 'wt':
-              return $row[$value];
-              break;
-            
-          }
-      }//$tabl = female
-     if ('randodna'===$tabl){
-     $row = R::getRow( 'SELECT * FROM randodna WHERE id = :id',
-       [':id' => $id]);
-          switch ($value) {
-
-           
-            case 'hr':
-              return $row[$value];
-              break;
-            case 'ww':
-              return $row[$value];
-              break;
-            case 'ff':
-              return $row[$value];
-              break;
-            case 'bb':
-              return $row[$value];
-              break;
-            case 'mm':
-              return $row[$value];
-              break;
-            case 'tt':
-              return $row[$value];
-              break;
-            case 'sex':
-              return $row[$value];
-              break;
-            
-          }
-     }//$tabl = dna
-   
 }
+
 /*Функция возвращает данные из таблицы $tabl по индексу $id*/
 function ret_Row($id,$tabl){
-     if('animals'==$tabl){
-     return R::getRow( 'SELECT * FROM animals WHERE id = :id',[':id' => $id]);
-    }
-     if('randodna'==$tabl){
-     return R::getRow( 'SELECT * FROM randodna WHERE id = :id',[':id' => $id]);
-    }
-     if('family'==$tabl){
-     return R::getRow( 'SELECT * FROM family WHERE id = :id',[':id' => $id]);
-    }
+    
+    return R::getRow(get_sql($id,$tabl));
     
 }
 
@@ -2811,7 +1942,68 @@ function do_do($reg_id){
            //echo '<br>' . $newAr[$key] . ' '  . 
            echo ret_Cell('name', $newAr[$key], 'animals');
            //$url=ret_Cell('url_puppy', $newAr[$key], 'animals');
-           dog_pic_size($newAr[$key],150);
+           pic_link($newAr[$key],100);
           
    } 
+}
+
+/******************* ВНЕСЕНИЕ В табл REGISTRY   ************************/
+/*ФУНКЦИЯ проверяет последнюю будку помета и увеличивает ее на 1*/
+
+function add_lit($id){
+    $lit=ret_Cell('lit', $id, 'registry');
+//echo $lit=$litt++;
+if('z'==$lit){ //если конец алфавита, начинаем с начала
+    $lit='a';
+    return $lit;
+    //break;
+}
+$array[]=range('a', 'z');
+
+foreach($array as $item) {
+     foreach ($item as $key => $value) {
+        if($lit==$value){
+           echo $key;
+           $key++;
+           $lit=$item[$key];
+           return $lit;
+           break;
+        }
+        
+    }
+}
+}
+
+function insert_reg($id_m,$id_d){
+
+//$res = R::exec("INSERT INTO book (title, author, price) VALUES (?,?,?)", ['New Book', 'New Author', 10]);
+$date= date("Y-m-d");    
+$datebirth=Rand(55,70);
+$count=Rand(1,3);
+$count45=$count;
+$female=Rand(0,$count);
+$male=$count-$female;
+
+    
+    // Указываем, что будем работать с таблицей book
+$book = R::dispense('registry');
+// Заполняем объект свойствами
+$book->date = $date;
+$book->mum = $id_m;
+$book->dad = $id_d;
+
+$book->datebirth = $datebirth;
+$book->count = $count;
+$book->count45 = $count45;
+$book->female = $female;
+$book->male = $male;
+$book->tatoo = 0;
+// Сохраняем объект
+R::store($book);
+$id = R::getInsertID();
+$id--;
+//$lit=ret_Cell('lit', $id, 'registry');
+$lit=add_lit($id);
+$id++;
+insert_data('registry', $id, 'lit', $lit);
 }

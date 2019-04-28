@@ -48,9 +48,11 @@ error_reporting(E_ALL);
   </style>
  <?php
  $temp=(int)$_SESSION['para'];
-$temp2=(int)$_POST['ONONA'];
-
+$temp2=(int)$_SESSION['ONONA'];
  $_SESSION['owner']= ret_Cell('owner', $temp,'animals');
+ 
+
+ 
  
   if ('0' === ret_sex($temp)){
             $id_m = $temp;
@@ -102,7 +104,12 @@ $temp2=(int)$_POST['ONONA'];
                     ?>
                             <form method="POST" action="/kennel.php">
                                 <input type="submit" name="exit" value="Вернуться" class="knopka"/>
+                               
                             </form>
+                      <form method="POST" action="/actmating.php">
+                                <input type="submit" name="actmat" value="Акт вязки" class="knopka"/>
+                            </form>
+                      
                  </h3>
         </td>
         <td id="col3"><h3 align="center">Папа:</h3>
