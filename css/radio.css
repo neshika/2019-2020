@@ -65,3 +65,42 @@
     transition: 0.6s;
     outline: none;
 }
+
+
+/******************* меню сверху *****************/
+ #navbar ul{
+        display: none;
+        background-color: #33253E;
+        position: absolute;
+        top: 100%;
+      }
+      #navbar li:hover ul { display: block; }
+      #navbar, #navbar ul{
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+      }
+      #navbar {
+        height: 30px;
+       /* background-color: #21252E;*/
+        padding-left: 25px;
+        min-width: 470px;
+      }
+      #navbar li {
+        
+        float: left;
+        position: relative;
+        height: 100%;
+      }
+      #navbar li a {
+        background-color: #21252E;
+        display: block;
+        padding: 6px;
+        width: 100px;
+        color: #fff;
+        text-decoration: none;
+        text-align: center;
+      }  
+      #navbar ul li { float: none;}
+      #navbar li:hover { /*background-color: #33253E;*/text-decoration: underline;}
+      #navbar ul li:hover { background-color: #21252E; }

@@ -16,6 +16,7 @@ body{
  
 }
 a{ font-size: 16px; color: #66029A;  }
+
 h1{color:#626262;}
 div{
   margin:3px;
@@ -486,4 +487,12 @@ box-shadow        : inset 0 -1px 1px rgba(255,255,255,0.3);
         background-image: -webkit-linear-gradient(#f0a3a3, #f42323);
 }
 
+/************** адаптация в мобильнику ******************/
+
+@media screen and (max-device-width: 480px) {
+    html {
+      -webkit-text-size-adjust: none;
+   }
+    h1{color:#00FFA9;}
+}
 

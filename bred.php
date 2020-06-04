@@ -2,17 +2,38 @@
 <html>
 <head>
 <meta http-equiv='Content-Type' content='text/html; charset=utf8'>
-<link rel="stylesheet" href="/css/style.css" type="text/css" />
-<link rel="stylesheet" href="/css/radio.css" type="text/css" />
+<script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
 <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script> 
-<script type="text/javascript" src="js/script.js"></script> 
+<script type="text/javascript" src="js/script.js"></script> <img src=""/>
+
+<!-- <link rel="stylesheet" href="/css/style.css" type="text/css" /> -->
+
+<link rel="stylesheet" href="/css/styleagt.css" type="text/css" />
+<link rel="stylesheet" href="/css/radio.css" type="text/css" />
 
 <title>Cимулятор заводчика</title>
 </head>
-<body>
+<body bgcolor="#22252F" body text="#CABDCF">
+    <ul id="navbar">
+      <li><a href="/index.php">Главная</a></li>
+      <li><a href="#">КХС</a>
+       <ul>
+            <li><a href="/kennel.php">Питомник</a></li>
+            <li><a href="/office.php.php">Офис</a></li>
+            <li><a href="/buy.php.php">магазин</a></li>
+        </ul>
+       </li>
+      <li><a href="#">АГТ</a>
+        <ul>
+            <li><a href="/ears.php">Редактор глаз</a></li>
+          <li><a href="/bred.php">Редактор окраса</a></li>
+          <li><a href="/mumdad.php">Проверка родиетлей</a></li>
+        </ul>
+      </li>
+      <li><a href="logout.php">Выход</a></li>
+    </ul>
 <div class="content">
-     <a href=http://dog.ru/index.php>на главную</a>
-     <br>
+
      <!-- начало кода -->
       
 <?php 
@@ -44,19 +65,19 @@ function bdika_col_ears($p,$d,$c,$a){
 
 
             if($p=='pp' && $a=='aa'){
-                ?><img src="<?php echo 'pici/ears/bl.png';?>"><?php
+                ?><img src="<?php echo 'pici/ears/blue.png';?>"><?php
                 echo '<div style="color: blue">'  . 'blue/green' . '</div>';
             }
             elseif($p=='pp' && $a!='aa'){
-                ?><img src="<?php echo 'pici/ears/ye.png';?>"><?php
+                ?><img src="<?php echo 'pici/ears/yellow.png';?>"><?php
                 echo '<div style="color: yellow">'  . 'yellow' . '</div>';
             }
             elseif($d=='dd'){
-                ?><img src="<?php echo 'pici/ears/br.png';?>"><?php
+                ?><img src="<?php echo 'pici/ears/brown.png';?>"><?php
                 echo '<div style="color: brown">'  . 'brown' . '</div>';
             }
             else{
-                ?><img src="<?php echo 'pici/ears/ba.png';?>"><?php
+                ?><img src="<?php echo 'pici/ears/black.png';?>"><?php
                 echo '<div style="color: black">'  . 'black' . '</div>';;
             }
     }
@@ -65,7 +86,7 @@ function bdika_col_ears($p,$d,$c,$a){
 function bdika_col_dog($a,$b,$c,$d,$p,$m){
     echo '<br><br>тут работает функция <br>';
     ?>
-     <input type="submit" class="knopka" value="Обновить" onClick="window.location.reload( true );">
+     <input type="submit" class="knopka2" value="Обновить" onClick="window.location.reload( true );">
      
     <?php
     /*************** ЛОКУС с/с - это голубоглазый адьбинос - брак***********/

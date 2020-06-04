@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Май 14 2020 г., 19:06
+-- Время создания: Июн 04 2020 г., 14:05
 -- Версия сервера: 5.5.53
 -- Версия PHP: 5.5.38
 
@@ -199,6 +199,32 @@ INSERT INTO `characteristics` (`id`, `dog_id`, `charact_ru`, `charact_en`) VALUE
 (0, 0, 'обжора', 'gluttonous'),
 (0, 0, 'ласковый', 'tender'),
 (0, 0, 'лежебока', 'lazy');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `dna_agt`
+--
+
+CREATE TABLE `dna_agt` (
+  `id` int(11) NOT NULL COMMENT 'индекс',
+  `a` varchar(4) NOT NULL COMMENT 'Локус А',
+  `b` varchar(4) NOT NULL COMMENT 'Локус B',
+  `c` varchar(4) NOT NULL COMMENT 'Локус C',
+  `d` varchar(4) NOT NULL COMMENT 'Локус D',
+  `p` varchar(4) NOT NULL COMMENT 'Локус P',
+  `m` varchar(4) NOT NULL COMMENT 'Локус M',
+  `t` varchar(4) NOT NULL COMMENT 'Локус T',
+  `sex` varchar(2) NOT NULL COMMENT 'пол 0сука 1 кобель'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `dna_agt`
+--
+
+INSERT INTO `dna_agt` (`id`, `a`, `b`, `c`, `d`, `p`, `m`, `t`, `sex`) VALUES
+(1, 'Aa', 'bb', 'CC', 'dd', 'pp', 'mm', 'tt', '0'),
+(2, 'aa', 'Bb', 'CC', 'dd', 'Pp', 'mm', 'tt', '1');
 
 -- --------------------------------------------------------
 
@@ -404,7 +430,7 @@ CREATE TABLE `owner_items` (
 --
 
 INSERT INTO `owner_items` (`id`, `owner_id`, `item_id`, `count`) VALUES
-(1, 1, 1, 1270000);
+(1, 1, 1, 1320000);
 
 -- --------------------------------------------------------
 
@@ -422,6 +448,8 @@ CREATE TABLE `races` (
 --
 
 INSERT INTO `races` (`id`, `name_race`) VALUES
+(0, 'АГТ'),
+(4, 'дог'),
 (1, 'КХС'),
 (3, 'пудель'),
 (2, 'шпиц');
@@ -534,7 +562,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `login`, `email`, `password`, `kennel`, `f_time`, `l_time`, `online`, `sign`, `visits`) VALUES
-(1, 'nesh', 'stepanova@mail.ru', '$2y$10$pinvDspcODn0zxHMfyEUoufayxxNfwrQoqHGX2.Ky1I.fB7FnDan.', 'Чарующий соблазн', '03.09.2017', '14.05.2020', 1, 0, 148),
+(1, 'nesh', 'stepanova@mail.ru', '$2y$10$pinvDspcODn0zxHMfyEUoufayxxNfwrQoqHGX2.Ky1I.fB7FnDan.', 'Чарующий соблазн', '03.09.2017', '29.05.2020', 1, 0, 158),
 (2, 'test', 'test@test', '$2y$10$Vy0Am7CkZj5SYrzoNR26W.XsiO21HWtuQezqns20CfpcqAqdlm7D.', 'Тестики', '04.09.2017', '10.09.2017', 0, 0, 4);
 
 --
@@ -561,6 +589,12 @@ ALTER TABLE `animals`
   ADD KEY `race` (`race`),
   ADD KEY `breeder` (`breeder`),
   ADD KEY `owner` (`owner`);
+
+--
+-- Индексы таблицы `dna_agt`
+--
+ALTER TABLE `dna_agt`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Индексы таблицы `family`
@@ -603,6 +637,7 @@ ALTER TABLE `owner_items`
 --
 ALTER TABLE `races`
   ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id` (`id`),
   ADD KEY `name_race` (`name_race`);
 
 --
@@ -643,6 +678,11 @@ ALTER TABLE `ages`
 --
 ALTER TABLE `animals`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+--
+-- AUTO_INCREMENT для таблицы `dna_agt`
+--
+ALTER TABLE `dna_agt`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'индекс', AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT для таблицы `family`
 --

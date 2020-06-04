@@ -1,0 +1,12 @@
+/************** адаптация в мобильнику ******************/
+
+@media screen and (max-width: 600px) {
+  .mini {
+   
+    text-decoration: #00FFA9 underline;
+  }
+  .h1{
+      color: #0000cc;
+  }
+  
+ }

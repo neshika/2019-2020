@@ -9,11 +9,27 @@
 
 <title>Cимулятор заводчика</title>
 </head>
+<marquee behavior="alternate" direction="right" bgcolor="#5E3561">Американский голый терьер</marquee>  
+<ul id="navbar">
+      <li><a href="/index.php">Главная</a></li>
+      <li><a href="#">КХС</a>
+       <ul>
+            <li><a href="/kennel.php">Питомник</a></li>
+            <li><a href="/office.php.php">Офис</a></li>
+            <li><a href="/buy.php.php">магазин</a></li>
+        </ul>
+       </li>
+      <li><a href="#">АГТ</a>
+        <ul>
+            <li><a href="/ears.php">Редактор глаз</a></li>
+          <li><a href="/bred.php">Редактор окраса</a></li>
+          <li><a href="/mumdad.php">Проверка родиетлей</a></li>
+        </ul>
+      </li>
+      <li><a href="logout.php">Выход</a></li>
+    </ul>
 <body bgcolor="#22252F" body text="#C6BCD1">
-     <a href=http://dog.ru/index.php>на главную</a>
-     <a href=http://dog.ru/agt.php>База данных АГТ</a>
-     <!-- <a href=https://bg-m.000webhostapp.com/index.php>на главную</a> -->
-     
+    
      <br>
      <!-- начало кода -->
      <style>
@@ -50,7 +66,7 @@
 require "includes/functions.php"; 
 
  echo "Parents: <br><hr>";?>
-<marquee behavior="alternate" direction="right" bgcolor="#5E3561">Американский голый терьер</marquee>     
+   
 <?php
  $a_mum= f_rand_col('AA', 'Aa', 'aa');
  $b_mum= f_rand_col('BB', 'Bb', 'bb');
