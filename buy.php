@@ -6,6 +6,11 @@
         //$test2=0;
         //$test3=0;
         //$test4=0;
+function No(){
+    echo 'нет собак в продаже!';
+    ?><a class="buttons" href="/kennel.php" >в питомник</a><?php
+    exit;
+}
 
 function vip_buy(){
    $_SESSION['sex']=f_bdika_sex();
@@ -75,10 +80,11 @@ function vip_buy(){
       <tr>
         
 
-                ?><h3 align="center"><?php print_item($owner,1); //  рисует деньги?></h3>
+                <h3 align="center">сумма в вашем кошельке: <?php print_item($owner,1); //  рисует деньги?></h3>
                   <td>
                     <?php if ( !isset($_POST['buy']) ){ //усли не нажали кнопку купить
-                           vip_buy();
+                           //vip_buy(); //запускаем фукцию
+                        No();
                            
                           
                        
