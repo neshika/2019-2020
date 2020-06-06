@@ -23,6 +23,7 @@
             <li><a href="/ears.php">Редактор глаз</a></li>
           <li><a href="/bred.php">Редактор окраса</a></li>
           <li><a href="/mumdad.php">Проверка родиетлей</a></li>
+          <li><a href="/agt.php">База АГТ</a></li>
         </ul>
       </li>
       <li><a href="logout.php">Выход</a></li>

@@ -116,6 +116,6 @@ body{
                        border-top: 3px solid #33253E;
                         /*text-shadow: 2px 2px #732372, 2px -2px #732372, -2px 2px #732372, -2px -2px #732372, 3px 3px 6px rgba(0,0,0,.5);*/
                         text-shadow: 0 0 21px rgba(223, 206, 228, 0.5), 0 -1px 0 #311d47;
-                        transition: 0.6s;
+                        transition: 0.3s;
 }
 

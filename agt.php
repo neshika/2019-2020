@@ -13,9 +13,7 @@ require __DIR__."/includes/functions.php";
 <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
 <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script> 
 <script type="text/javascript" src="js/script.js"></script> <img src=""/>
-
-
-<link rel="stylesheet" href="/css/radio.css" type="text/css" />
+<link rel="stylesheet" href="/css/styleagt.css" type="text/css" />
 <link rel="stylesheet" media="screen and (max-width: 600px)" href="/css/small.css" type="text/css" />
 
 
@@ -38,6 +36,7 @@ require __DIR__."/includes/functions.php";
             <li><a href="/ears.php">Редактор глаз</a></li>
           <li><a href="/bred.php">Редактор окраса</a></li>
           <li><a href="/mumdad.php">Проверка родиетлей</a></li>
+          <li><a href="/agt.php">База АГТ</a></li>
         </ul>
       </li>
       <li><a href="logout.php">Выход</a></li>
@@ -45,12 +44,7 @@ require __DIR__."/includes/functions.php";
  
     <p>Абзац с текстом был добавлен для демонстрации того, что при открытии подпунктов меню они будут скрывать часть контента, а не сдвигать его.</p>
 <marquee behavior="alternate" direction="right" bgcolor="#5E3561"><?php echo date('d.m.Y : h.m');?></marquee> 
-  
-    
-    
-     <a href="/index.php">на главную</a>
-     <a href=http://dog.ru/mumdad.php>ВЕРНУТЬСЯ</a><br>
-     <!-- https://bg-m.000webhostapp.com/office.php -->    
+ 
 <style>
       table {
         table-layout: fixed;
