@@ -1,6 +1,6 @@
 <?php 
 //require "db.php";
-require "includes/functions.php"; 
+require "includes/functions.php";
 
 function bdika_color($col_m,$col_d){
     $broun = ' = Карие'; //br
@@ -217,20 +217,14 @@ $pic_col2="pici/ears/" . $col_d . '.png';
 
 ?>
 
-
+<!DOCTYPE html> 
 <html>
 <head>
 <meta http-equiv='Content-Type' content='text/html; charset=utf8'>
-
 <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
 <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script> 
 <script type="text/javascript" src="js/script.js"></script> <img src=""/>
-
-<!-- <link rel="stylesheet" href="/css/style.css" type="text/css" /> -->
-
 <link rel="stylesheet" href="/css/styleagt.css" type="text/css" />
-<!--<link rel="stylesheet" href="/css/radio.css" type="text/css" />-->
-
 <title>Cимулятор заводчика</title>
 </head>
 <body bgcolor="#22252F" body text="#CABDCF">

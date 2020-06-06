@@ -1,3 +1,6 @@
+body{
+    background-color: #22252F
+}
 .radio_buttons {
     font: 8px Tahoma;
 
@@ -68,40 +71,51 @@
 
 
 /******************* меню сверху *****************/
- #navbar ul{
+#navbar {
+        height: 30px;
+        /*background-color:#0000cc;*/
+        padding-left: 25px;
+        min-width: 470px;
+        
+      } 
+#navbar ul{
         display: none;
         background-color: #33253E;
         position: absolute;
         top: 100%;
+        
       }
-      #navbar li:hover ul { display: block; }
-      #navbar, #navbar ul{
+#navbar li:hover ul { display: block; }
+#navbar, #navbar ul{
         margin: 0;
         padding: 0;
         list-style-type: none;
-      }
-      #navbar {
-        height: 30px;
-       /* background-color: #21252E;*/
-        padding-left: 25px;
-        min-width: 470px;
-      }
-      #navbar li {
         
+      }
+#navbar li {
         float: left;
         position: relative;
         height: 100%;
+        
       }
-      #navbar li a {
-        background-color: #21252E;
-        display: block;
+#navbar li a {
+    /*кнопки меню Главная, агт*/
+    /*background-color: #21252E;*/
+    background-color: #5E3561;
+       display: block;
         padding: 6px;
         width: 100px;
         color: #fff;
         text-decoration: none;
         text-align: center;
       }  
-      #navbar ul li { float: none;}
-      #navbar li:hover { /*background-color: #33253E;*/text-decoration: underline;}
-      #navbar ul li:hover { background-color: #21252E; }
+#navbar ul li { float: none;}
+#navbar li:hover { /*background-color: #33253E;***text-decoration: underline;*/font-weight: bold;}
+#navbar ul li:hover { background-color: #21252E; 
+                       border-bottom: 2px solid #33253E;
+                       border-top: 3px solid #33253E;
+                        /*text-shadow: 2px 2px #732372, 2px -2px #732372, -2px 2px #732372, -2px -2px #732372, 3px 3px 6px rgba(0,0,0,.5);*/
+                        text-shadow: 0 0 21px rgba(223, 206, 228, 0.5), 0 -1px 0 #311d47;
+                        transition: 0.6s;
+}
 

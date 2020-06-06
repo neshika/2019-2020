@@ -5,11 +5,7 @@
 <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
 <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script> 
 <script type="text/javascript" src="js/script.js"></script> <img src=""/>
-
-<!-- <link rel="stylesheet" href="/css/style.css" type="text/css" /> -->
-
 <link rel="stylesheet" href="/css/styleagt.css" type="text/css" />
-<link rel="stylesheet" href="/css/radio.css" type="text/css" />
 
 <title>Cимулятор заводчика</title>
 </head>
