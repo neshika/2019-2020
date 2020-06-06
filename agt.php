@@ -21,26 +21,7 @@ require __DIR__."/includes/functions.php";
 <title>Cимулятор заводчика</title>
 </head>
 <body bgcolor="#22252F" body text="#CABDCF">
-
-    <ul id="navbar">
-      <li><a href="/index.php">Главная</a></li>
-      <li><a href="#">КХС</a>
-       <ul>
-            <li><a href="/kennel.php">Питомник</a></li>
-            <li><a href="/office.php.php">Офис</a></li>
-            <li><a href="/buy.php.php">магазин</a></li>
-        </ul>
-       </li>
-      <li><a href="#">АГТ</a>
-        <ul>
-            <li><a href="/ears.php">Редактор глаз</a></li>
-          <li><a href="/bred.php">Редактор окраса</a></li>
-          <li><a href="/mumdad.php">Проверка родиетлей</a></li>
-          <li><a href="/agt.php">База АГТ</a></li>
-        </ul>
-      </li>
-      <li><a href="logout.php">Выход</a></li>
-    </ul>
+<?php require __DIR__ . "/html/navagt.html";// вставляем шапку АГТ?>
  
     <p>Абзац с текстом был добавлен для демонстрации того, что при открытии подпунктов меню они будут скрывать часть контента, а не сдвигать его.</p>
 <marquee behavior="alternate" direction="right" bgcolor="#5E3561"><?php echo date('d.m.Y : h.m');?></marquee> 

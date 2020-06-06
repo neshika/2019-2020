@@ -9,25 +9,8 @@
 <title>Cимулятор заводчика</title>
 </head>
 <marquee behavior="alternate" direction="right" bgcolor="#5E3561">Американский голый терьер</marquee>  
-<ul id="navbar">
-      <li><a href="/index.php">Главная</a></li>
-      <li><a href="#">КХС</a>
-       <ul>
-            <li><a href="/kennel.php">Питомник</a></li>
-            <li><a href="/office.php.php">Офис</a></li>
-            <li><a href="/buy.php.php">магазин</a></li>
-        </ul>
-       </li>
-      <li><a href="#">АГТ</a>
-        <ul>
-            <li><a href="/ears.php">Редактор глаз</a></li>
-          <li><a href="/bred.php">Редактор окраса</a></li>
-          <li><a href="/mumdad.php">Проверка родиетлей</a></li>
-          <li><a href="/agt.php">База АГТ</a></li>
-        </ul>
-      </li>
-      <li><a href="logout.php">Выход</a></li>
-    </ul>
+<?php require __DIR__ . "/html/navagt.html";// вставляем шапку АГТ?>
+
 <body bgcolor="#22252F" body text="#C6BCD1">
     
      <br>
