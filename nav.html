@@ -1,11 +1,12 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Симулятор заводчика</title>
-   <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="css/main.css" />
+    <title>{{ title }} - Симулятор заводчика</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'app/content/bootstrap.min.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'app/content/main.css' %}" />
     <script src="{% static 'app/scripts/modernizr-2.6.2.js' %}"></script>
 </head>
 <body>
@@ -14,15 +15,15 @@
         <table width="900">
             <tr>
                 <td><h1>Симулятор заводчика</h1></td>
-                <h2><td><img src="pici/test.png" /></td></h2>
+                <h2><td><img src="{% static 'app/img/test.png' %}" /></td></h2>
             </tr>
         </table>
                 
     </div>
     <div id="nav">
         <ul>
-            <li><a href="/index.php"><span>главная</span></a></li>
-            <li><a href="/office.php"><span>офис</span></a></li>
+            <li><a href="{% url 'home' %}"><span>главная</span></a></li>
+            <li><a href="{% url 'office' %}"><span>офис</span></a></li>
             <li class="dropdown">
                 <a href="#"><span>КХС</span></a>
                 <ul>
@@ -41,7 +42,22 @@
                     <li><a href="#"><span>расчет окраса</span></a></li>
                 </ul>
             </li>
-                    <li><a href="#">выйти</a></li>
-            </ul>
+            <form id="logoutForm" action="/logout/" method="post">
+                {% csrf_token %}
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">выйти</a></li>
+            </form>
+        </ul>
     </div>
-
+</div>
+    {# {% include 'app/left_sidebar.html' %} #}
+    <div class="content"> 
+    {% if user.is_authenticated %}  {# если пользователь авторизован, показываем контент#}
+     
+        {% block content %}{% endblock %}{# тут вставляем текст из блока в about.html#}
+    
+    {% else %}
+        <a href="{% url 'login' %}">Для вывода данных авторизуйтесь</a>
+    {% endif %}
+    </div>
+</body>
+</html>
