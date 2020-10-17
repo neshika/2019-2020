@@ -12,6 +12,7 @@
   #A575B5 - текст кнопок
   #626262 - т. серый
 #D0D0D0      - чуть серый  
+#2c2c2c - фон
 */
 
 
@@ -72,6 +73,9 @@ a {
 
 a:hover {
     color: #555;    
+}
+div{
+    color: silver;
 }
 .content{
     width: 1170px;  /*520*/
@@ -786,3 +790,24 @@ fieldset[disabled] .btn-link2:focus {
     color: #999999;
     text-decoration: none;
 }
+
+.table{
+    border-collapse:collapse;
+    width: 100%;
+    margin-bottom: 1rem;
+   
+    
+}
+
+.table th,
+.table td {
+  padding: 0.75rem;
+  /*vertical-align: top;*/
+  border-style: solid;
+  margin: 3px;
+  border-color: #626262;
+  text-align: center;
+  
+}
+
+
