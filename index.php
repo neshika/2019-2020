@@ -1,8 +1,6 @@
 <?php
-
 require "db.php";
 require "includes/functions.php";?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,12 +12,12 @@ require "includes/functions.php";?>
     <script src="{% static 'app/scripts/modernizr-2.6.2.js' %}"></script>
 </head>
 <body>
-    <div class="image_wrap">
+    <div class="image_wrap" style="text-align: center;">
         <p>
 <?php  
 /** Проверяет залогинен ли польззователь Если да, дает выбр действий **/
 if ( isset($_SESSION['logged_user'])){
-    $a=7;
+    
 echo "Привет, " . $_SESSION['logged_user']->login . '!  Чем займемся?';?>
              
     <a class="buttons" href="/office.php" >В офис</a>

@@ -391,7 +391,6 @@ div.title_cont {
 }
 
 div.image_wrap {
-    width: 50%;
     height: 600px;
     border: 5px solid #626262;
     border-radius: 10px;
@@ -400,19 +399,24 @@ div.image_wrap {
     padding-left: 10px;
     padding-top: 20px;
     padding-bottom: 10px;
-    text-align: center;
+    /*text-align: center;*/
     position: relative;
-    margin-left: 50%;
+    margin: 0 auto;
+    margin-top: 10px;
 }
 div.image_wrap p{
     color: white;
     font-size: 30px;
-    margin: 0;
+    margin: 0 auto;
     position: relative;
     top: 50%;
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%)
+}
+div.center {
+ margin: 0 auto;
+  width: 500px; /*по серидине экрана, при ширине 500 px*/
 }
 
 
