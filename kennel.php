@@ -5,21 +5,15 @@ require "/html/nav.html";
 require "/html/aside.html";
 */
 require "/libs/up.php";
-
-        $owner=ret_owner(); //сохраняем название владельца в переменную из куки
-
+$owner=ret_owner(); //сохраняем название владельца в переменную из куки
 /*Получаем запросом  навание питомника, при условии что владелец идентифицируется по куку Сессии*/
         $kennel = R::getCell('SELECT kennel FROM users WHERE login = :owner',
         [':owner' => $owner]);
-        ?> <p class="kennel"><?php echo "<br>Питомник: " . '"' . $kennel . '"';
-        echo "<br>Владелец: " . $_SESSION['logged_user']->login;
-        
-/*каунтом считаем сколько строк с собаками по владельцу*/        
+        /*каунтом считаем сколько строк с собаками по владельцу*/        
          $count = R::count( 'animals', 'owner = :owner && status = 1',
         [':owner' => $owner]);
-        $coins = print_money($owner);
-         echo "<br>Количество собак: " . $count;
-         ?><br><img src = "<?php echo ret_item(1);?>"> <?php echo  $coins;
+        $coins = print_money($owner);?>
+<p class="kennel"><br>Питомник: <?php echo $kennel;?> // Владелец: <?php echo $owner;?> // Количество собак: <?php echo $count;?><br><img src = "/pici/coins_mini.png"> <?php echo  $coins;
          $vip=Rand(1,5);
          // if('1'==$vip){
          // echo '</br> Вас посетила удача. Сегодня у вас родится больше щенков. ' . '</br>';
@@ -146,7 +140,3 @@ require "/libs/up.php";
             }   //foreach($array as $item)
             
          }   //if( isset($_POST['puppy']) )
-
-//функция вызывающая футер сайта
-require "/libs/down.php";
-?> 

@@ -10,15 +10,6 @@ require "includes/functions.php";
 ini_set('display_errors',1);
 error_reporting(E_ALL);
 
-/*//функция, вызывающая шапку сайта
-include_once "html/header.html";
-
-//функция, вызывающая навигацию по сайту
-include_once "html/nav.html";
-
-//функция, вызывающая меню слева по сайту + начало мейна
-include_once "html/aside.html";
-*/
 require "/html/header.html";
 //require "/html/aside.html";
 ?><div class="content">
