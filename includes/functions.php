@@ -221,20 +221,21 @@ function maleFemale($id,$param_sex){
         //echo '<br> пол:'. $sex . '<hr>';
         $name=ret_Cell('name', $id, 'animals');
         
-         echo '<a href="/name.php?id=' . $id . '">';
-         print_partner($id);
-         echo '</a>';
-         echo '<br>имя: ' . $name;
+        ?><a href="/name.php?id=<?php echo $id;?>"><img src="<?php echo bdika_url($id);?>" width="100px"> </a> <?php
+        // echo '<a href="/name.php?id=' . $id . '">';
+        // print_partner($id);
+?><div><?php
+        echo '<br>имя: ' . $name;
          echo '<br> возраст ' . $age . '<br>';
           echo bdika_estrus($id);
          echo '<a href="/lit&pup.php?id=' . $id . '">' . "<br> вязки/дети: ". $lit .'/'. $pup . '</a>'; 
-                
+?></div><?php                
                 
     }
     if(($param_sex==$sex) && ('1'== $sex) && (13<$age_norma)){
         echo '<br><hr>';
         $name=ret_Cell('name', $id, 'animals');
-         
+        
         echo '<a href="/name.php?id=' . $id . '">';
          print_partner($id);
          echo '</a>';
@@ -258,12 +259,24 @@ function print_partner($test){
 function ret_dog_by_sex($owner,$param_sex){
     $data[] =  ret_dogs_by_owner($owner);
     // debug($data);
-     foreach($data as $item) {
+?>
+  <table class="table">
+      <tr>
+          
+<?php     foreach($data as $item) {
+         $count='0'; // считает количество столбиков не больше 4
          foreach ($item as $id => $value) {
-             
-             //echo '<br>/id ' . $id . '   dna_id ' . $value[dna_id];
-             maleFemale($id,$param_sex);
-             
+             If('5'!=$count){ //если еще не 4 столбика, вписываем  
+ ?>
+          <td> <!-- строка таблицы --> 
+ <?php             
+                 maleFemale($id,$param_sex);
+                 $count=$count+1;
+             }
+             else{
+                 ?></td></tr><?php
+                 $count=0;
+             }
          }    
      }
 }

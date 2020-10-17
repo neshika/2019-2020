@@ -93,8 +93,9 @@ if( isset($_POST['all_dogs']) ){
 <?php
 /****************************** Если нажата кнопка СУКИ выводим на экран всех собак, пренадлежащих владельцу*/
 if( isset($_POST['female']) ){
-              ?><p class="left"><img src = "/pic/female.png" alt = "девочки" width="10%"></p><?php
-              ret_dog_by_sex($owner,0);
+            ?><p class="left"><img src = "/pic/female.png" alt = "девочки" width="10%"></p>
+             <?php ret_dog_by_sex($owner,0);
+                          
               
 }
            if( isset($_POST['male']) ){
@@ -105,32 +106,39 @@ if( isset($_POST['female']) ){
        
 
 /******************************* Если нажата кнопка щенки выводим на экран всех щенков, пренадлежащих владельцу*/
-
-
-        if( isset($_POST['puppy']) ){
-              $array[] = R::getAssoc('SELECT id,name FROM animals WHERE owner = :owner && status = 1' ,
+if( isset($_POST['puppy']) ){
+    $array[] = R::getAssoc('SELECT id,name FROM animals WHERE owner = :owner && status = 1' ,
               [':owner' => $owner]);
-            ?><img src = "/pic/Puppy_mini.png" alt = "щенки"> <?php
+    ?><img src = "/pic/Puppy_mini.png" alt = "щенки"> 
+    <table class="table">
+        <tr>
+        
+        
+        <?php
            
               foreach($array as $item) {
+                  $count=0; // считает количество столбиков не больше 4
                   foreach ($item as $key => $value) {
                      
 /*сохранение данных о голости собаки + вязки/щенки*/
                     $GLOBALS['Data_dog']=data_animals($key);    //сохраняем данные по собаке
                       if(13>=$GLOBALS['Data_dog']['age_id']){ //возраст <6 месяцев
-                          echo "<br><hr><a>";
+                      If('5'!=$count){ //если еще не 4 столбика, вписываем
+                          
+                      ?>
+                <td> <!-- строка таблицы --> 
+                <?php
 /*выводим имена кобелей как ссылки на страничку собаки*/
-                                echo '<a href="/name.php?id=' . $key . '">';?>
-
-                          <img src="<?php echo bdika_url($key);?>" width="10%"></a> 
-                           <div>
-                                <?php echo '<br>имя: ' . $value;
-                                echo '<br>возраст: ' . print_age($key);
-                                
-                                
-                                 ?>
-                                     
-                            </div><?php
+                    echo '<a href="/name.php?id=' . $key . '">';?>
+                    <img src="<?php echo bdika_url($key);?>" width="10%"></a> 
+                    <div>
+                    <?php echo '<br>имя: ' . $value;
+                    echo '<br>возраст: ' . print_age($key);?>
+                    </div><?php
+                 }else{ //если закончилась стрка перехрдить на следующую
+                ?></td></tr><?php
+                 $count=0;   
+            }
                     }   //foreach ($item as $key => $value)  
                         
                   } //if(13>=$GLOBALS['Data_dog']['age_id']){
