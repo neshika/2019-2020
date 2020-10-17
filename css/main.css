@@ -6,7 +6,7 @@
   #F2F2F2 - серый
   #FFCCFF - розовый
   #9868CE - сиреневый
-  #9C339A - малиновый
+  #9C339A - малиновыйF
   #66029A - фиолетовый
   #291839 - кнопки
   #A575B5 - текст кнопок
@@ -390,7 +390,7 @@ div.title_cont {
     /*text-align: center;  выровнять текст и картинки по горизонтали */
 }
 
-div.image_wrap {
+.image_wrap {
     height: 600px;
     border: 5px solid #626262;
     border-radius: 10px;
@@ -404,8 +404,8 @@ div.image_wrap {
     margin: 0 auto;
     margin-top: 10px;
 }
-div.image_wrap p{
-    color: white;
+.image_wrap p{
+    color: silver;
     font-size: 30px;
     margin: 0 auto;
     position: relative;
@@ -415,9 +415,11 @@ div.image_wrap p{
     transform: translate(-50%, -50%)
 }
 div.center {
+ 
  margin: 0 auto;
-  width: 500px; /*по серидине экрана, при ширине 500 px*/
+  width: 600px; /*по серидине экрана, при ширине 500 px*/
 }
+
 
 
 .def_pic {
