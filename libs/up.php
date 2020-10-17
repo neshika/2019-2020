@@ -20,9 +20,5 @@ include_once "html/nav.html";
 include_once "html/aside.html";
 */
 require "/html/header.html";
-require "/html/nav.html";
-require "/html/aside.html";
-
-
-
+//require "/html/aside.html";
 ?><div class="content">

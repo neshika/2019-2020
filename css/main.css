@@ -1,4 +1,4 @@
-﻿/*============================*/
+/*============================*/
 /* General
 /*============================*/
 
@@ -29,7 +29,7 @@ html, body {
 }
 
 #container {
-    margin: 40px auto;
+    margin: 10px auto;
     width: 800px;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
@@ -45,7 +45,7 @@ html, body {
 
 h1 {
     color: #fff;
-    float: left;
+   /* float: left;*/
     font-size: 30px;
     font-weight: normal;
     letter-spacing: -1px;
@@ -65,106 +65,112 @@ a {
     font-weight: bold;
     text-decoration: none;
     -moz-transition: all 300ms ease-out;
-    -webkit-transition: all 300ms ease-out;
-    -ms-transition: all 300ms ease-out;
+    -webkit-transition: all 300ms ease-out; 
+    -ms-transition: all 300ms ease-out; 
     transition: all 300ms ease-out;
 }
 
-    a:hover {
-        color: #555;
-    }
+a:hover {
+    color: #555;    
+}
+.content{
+    width: 1170px;  /*520*/
+    height: auto;
+   /* background: #E0E0E0;*/
+   /* border: 1px groove #9868CE;*/
+    padding: 10px;
+    /*margin-left: 50px;*/
 
+}
 /*============================*/
 /* Main Navigation
 /*============================*/
-#nav {
+#nav {            
     height: 50px;
-    line-height: 50px;
+    line-height: 50px;            
     width: 100%;
 }
 
-    #nav ul {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-    }
+#nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
 
-    #nav li {
-        background: #333;
-        background-image: -o-linear-gradient(bottom, #222222 0%, #555555 100%);
-        background-image: -moz-linear-gradient(bottom, #222222 0%, #555555 100%);
-        background-image: -webkit-linear-gradient(bottom, #222222 0%, #555555 100%);
-        background-image: -ms-linear-gradient(bottom, #222222 0%, #555555 100%);
-        background-image: -webkit-gradient(linear,left bottom,left top,color-stop(0, #222222),color-stop(1, #555555));
-        background-image: linear-gradient(bottom, #222222 0%, #555555 100%);
-        float: left;
-        position: relative;
-        width: 20%;
-    }
+#nav li {    
+    background: #333;
+    background-image: -o-linear-gradient(bottom, #222222 0%, #555555 100%);
+    background-image: -moz-linear-gradient(bottom, #222222 0%, #555555 100%);
+    background-image: -webkit-linear-gradient(bottom, #222222 0%, #555555 100%);
+    background-image: -ms-linear-gradient(bottom, #222222 0%, #555555 100%);    
+    background-image: -webkit-gradient(linear,left bottom,left top,color-stop(0, #222222),color-stop(1, #555555));    
+    background-image: linear-gradient(bottom, #222222 0%, #555555 100%);
+    float: left;
+    position: relative;
+    width: 20%;    
+}
 
-        #nav li:first-child, #nav li:first-child a {
-            -webkit-border-radius: 3px 0 0 3px;
-            -moz-border-radius: 3px 0 0 3px;
-            border-radius: 3px 0 0 3px;
-        }
+#nav li:first-child, #nav li:first-child a { 
+    -webkit-border-radius: 3px 0 0 3px; 
+    -moz-border-radius: 3px 0 0 3px; 
+    border-radius: 3px 0 0 3px; 
+}
+#nav li:last-child, #nav li:last-child a { 
+    -webkit-border-radius: 0 3px 3px 0; 
+    -moz-border-radius: 0 3px 3px 0; 
+    border-radius: 0 3px 3px 0; 
+}
 
-        #nav li:last-child, #nav li:last-child a {
-            -webkit-border-radius: 0 3px 3px 0;
-            -moz-border-radius: 0 3px 3px 0;
-            border-radius: 0 3px 3px 0;
-        }
+#nav a {                
+    border-right: 1px solid #222;
+    border-left: 1px solid #555;
+    color: #ccc;
+    display: block;
+    font-size: 14px;
+    height: 50px;
+    overflow: hidden;
+    text-align: center;
+    text-shadow: 0 -1px 0 #000;    
+    -webkit-box-shadow: inset 0 0 10px transparent;
+    -moz-box-shadow: inset 0 0 10px transparent;
+}
 
-    #nav a {
-        border-right: 1px solid #222;
-        border-left: 1px solid #555;
-        color: #ccc;
-        display: block;
-        font-size: 14px;
-        height: 50px;
-        overflow: hidden;
-        text-align: center;
-        text-shadow: 0 -1px 0 #000;
-        -webkit-box-shadow: inset 0 0 10px transparent;
-        -moz-box-shadow: inset 0 0 10px transparent;
-    }
+#nav a:after {
+    background: rgba(255,255,255,.07);
+    content: "";
+    height: 25px;
+    left: 0;
+    position: absolute;
+    width: 100%;
+}
 
-        #nav a:after {
-            background: rgba(255,255,255,.07);
-            content: "";
-            height: 25px;
-            left: 0;
-            position: absolute;
-            width: 100%;
-        }
+#nav li:hover > a {
+    background: #333;
+    border-left-color: #222;
+    color: #fff;
+    text-shadow: 0 1px 0 #000;
+    -webkit-box-shadow: inset 0 0 10px #111;
+    -moz-box-shadow: inset 0 0 10px #111;
+    box-shadow: inset 0 0 10px #111;
+    text-decoration: none;
+}
+#nav span {
+    position: relative;    
+}
 
-    #nav li:hover > a {
-        background: #333;
-        border-left-color: #222;
-        color: #fff;
-        text-shadow: 0 1px 0 #000;
-        -webkit-box-shadow: inset 0 0 10px #111;
-        -moz-box-shadow: inset 0 0 10px #111;
-        box-shadow: inset 0 0 10px #111;
-        text-decoration-line: none;     /* при наведении не будет подчеткиваться ссылка*/
-    }
+#nav a:active span {
+    color: #ffd;
+    position: relative;
+    top: 1px;
+}
 
-    #nav span {
-        position: relative;
-    }
+#nav li:first-child a {
+    border-left: none;    
+}
 
-    #nav a:active span {
-        color: #ffd;
-        position: relative;
-        top: 1px;
-    }
-
-    #nav li:first-child a {
-        border-left: none;
-    }
-
-    #nav li:last-child a {
-        border-right: none;
-    }
+#nav li:last-child a {
+    border-right: none;    
+}
 
 .dropdown > a span:after {
     border-top: 5px solid transparent;
@@ -195,53 +201,53 @@ a {
     top: 50px;
     visibility: hidden;
     width: 0;
-    -moz-transition: all 300ms ease-out;
-    -webkit-transition: all 300ms ease-out;
-    -ms-transition: all 300ms ease-out;
-    transition: all 300ms ease-out;
+    -moz-transition: all 600ms ease-out;
+    -webkit-transition: all 600ms ease-out; 
+    -ms-transition: all 600ms ease-out; 
+    transition: all 600ms ease-out;
 }
 
 #nav ul li:hover ul {
     opacity: 1;
     visibility: visible;
     width: 100%;
+    text-decoration: none;
 }
 
 #nav ul ul li {
     background: #f3f3f3;
-    float: none;
+    float: none;    
     line-height: 0;
-    width: 100%;
+    width: 100%;            
 }
 
-    #nav ul ul li:nth-child(odd) {
-        background: #eee;
-    }
+#nav ul ul li:nth-child(odd) {
+    background: #eee;    
+}
 
-    #nav ul ul li:first-child, #nav ul ul li:first-child a {
-        -webkit-border-radius: 0;
-        -moz-border-radius: 0;
-        border-radius: 0;
-    }
+#nav ul ul li:first-child, #nav ul ul li:first-child a { 
+    -webkit-border-radius: 0; 
+    -moz-border-radius: 0; 
+    border-radius: 0; 
+}
+#nav ul ul li:last-child, #nav ul ul li:last-child a { 
+    -webkit-border-radius: 0 0 3px 3px; 
+    -moz-border-radius: 0 0 3px 3px; 
+    border-radius: 0 0 3px 3px; 
+}
 
-    #nav ul ul li:last-child, #nav ul ul li:last-child a {
-        -webkit-border-radius: 0 0 3px 3px;
-        -moz-border-radius: 0 0 3px 3px;
-        border-radius: 0 0 3px 3px;
-    }
-
-    #nav ul ul li a {
-        border-right: none;
-        border-left: none;
-        border-top: 1px solid #fff;
-        color: #555;
-        font-size: 12px;
-        height: 36px;
-        line-height: 36px;
-        padding: 0 0 0 15px;
-        text-align: left;
-        text-shadow: 0 -1px 0 #eee;
-    }
+#nav ul ul li a {
+    border-right: none;
+    border-left: none;
+    border-top: 1px solid #fff;
+    color: #555;
+    font-size: 12px;
+    height: 36px;
+    line-height: 36px;
+    padding: 0 0 0 15px;
+    text-align: left;
+    text-shadow: 0 -1px 0 #eee;
+}
 
 #nav ul li ul li a:after {
     background: rgba(0,0,0,.02);
@@ -260,6 +266,8 @@ a {
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
+    text-decoration: none;
+    
 }
 
 #nav ul ul a:active span {
@@ -267,6 +275,7 @@ a {
     position: relative;
     top: 1px;
 }
+
 
 
 /* из dogs/php*/
@@ -321,12 +330,12 @@ a {
     width: 1170px; /*520*/
     height: auto;
     /* background: #E0E0E0;*/
-   /* border: 1px groove #9868CE;*/
+    /* border: 1px groove #9868CE;*/
     padding: 3px;
     position: relative;
     text-align: left;
     margin: 0px auto 0px auto;
-  
+
 }
 
 div.title_cont {
@@ -381,20 +390,31 @@ div.title_cont {
     /*text-align: center;  выровнять текст и картинки по горизонтали */
 }
 
-.image_wrap {
+div.image_wrap {
     width: 50%;
-    height: 400px;
-    border: 5px solid #66029A;
+    height: 600px;
+    border: 5px solid #626262;
     border-radius: 10px;
     width: 500px;
-    margin-right: auto; /*рамка в середине*/
-    margin-left: auto; /* отступы по бокам*/
     padding-right: 10px;
     padding-left: 10px;
     padding-top: 20px;
     padding-bottom: 10px;
     text-align: center;
+    position: relative;
+    margin-left: 50%;
 }
+div.image_wrap p{
+    color: white;
+    font-size: 30px;
+    margin: 0;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%)
+}
+
 
 .def_pic {
     display: black;
@@ -439,25 +459,25 @@ div.title_cont {
     outline: none;
 }
 
-    .knopka:not(.active) {
-        box-shadow: inset 0 1px 1px rgba(111, 55, 125, 0.8), inset 0 -1px 0px rgba(63, 59, 113, 0.2), 0 9px 16px 0 rgba(0, 0, 0, 0.3), 0 4px 3px 0 rgba(0, 0, 0, 0.3), 0 0 0 1px #150a1e;
-        background-image: linear-gradient(#3b2751, #271739);
-        text-shadow: 0 0 21px rgba(223, 206, 228, 0.5), 0 -1px 0 #311d47;
-        outline: none;
-    }
+.knopka:not(.active) {
+    box-shadow: inset 0 1px 1px rgba(111, 55, 125, 0.8), inset 0 -1px 0px rgba(63, 59, 113, 0.2), 0 9px 16px 0 rgba(0, 0, 0, 0.3), 0 4px 3px 0 rgba(0, 0, 0, 0.3), 0 0 0 1px #150a1e;
+    background-image: linear-gradient(#3b2751, #271739);
+    text-shadow: 0 0 21px rgba(223, 206, 228, 0.5), 0 -1px 0 #311d47;
+    outline: none;
+}
 
-        .knopka:not(.active):hover,
-        .knopka:not(.active):focus {
-            transition: color 200ms linear, text-shadow 500ms linear;
-            color: #fff;
-            text-shadow: 0 0 21px rgba(223, 206, 228, 0.5), 0 0 10px rgba(223, 206, 228, 0.4), 0 0 2px #2a153c;
-            outline: none;
-        }
+.knopka:not(.active):hover,
+.knopka:not(.active):focus {
+    transition: color 200ms linear, text-shadow 500ms linear;
+    color: #fff;
+    text-shadow: 0 0 21px rgba(223, 206, 228, 0.5), 0 0 10px rgba(223, 206, 228, 0.4), 0 0 2px #2a153c;
+    outline: none;
+}
 
-    .knopka:not(:hover) {
-        transition: 0.6s;
-        outline: none;
-    }
+.knopka:not(:hover) {
+    transition: 0.6s;
+    outline: none;
+}
 
 
 a.buttons {
@@ -473,22 +493,22 @@ a.buttons {
     font: normal 17px arial;
 }
 
-    a.buttons:not(.active) {
-        box-shadow: inset 0 1px 1px rgba(111, 55, 125, 0.8), inset 0 -1px 0px rgba(63, 59, 113, 0.2), 0 9px 16px 0 rgba(0, 0, 0, 0.3), 0 4px 3px 0 rgba(0, 0, 0, 0.3), 0 0 0 1px #150a1e;
-        background-image: linear-gradient(#3b2751, #271739);
-        text-shadow: 0 0 21px rgba(223, 206, 228, 0.5), 0 -1px 0 #311d47;
-    }
+a.buttons:not(.active) {
+    box-shadow: inset 0 1px 1px rgba(111, 55, 125, 0.8), inset 0 -1px 0px rgba(63, 59, 113, 0.2), 0 9px 16px 0 rgba(0, 0, 0, 0.3), 0 4px 3px 0 rgba(0, 0, 0, 0.3), 0 0 0 1px #150a1e;
+    background-image: linear-gradient(#3b2751, #271739);
+    text-shadow: 0 0 21px rgba(223, 206, 228, 0.5), 0 -1px 0 #311d47;
+}
 
-        a.buttons:not(.active):hover,
-        a.buttons:not(.active):focus {
-            transition: color 200ms linear, text-shadow 500ms linear;
-            color: #fff;
-            text-shadow: 0 0 21px rgba(223, 206, 228, 0.5), 0 0 10px rgba(223, 206, 228, 0.4), 0 0 2px #2a153c;
-        }
+a.buttons:not(.active):hover,
+a.buttons:not(.active):focus {
+    transition: color 200ms linear, text-shadow 500ms linear;
+    color: #fff;
+    text-shadow: 0 0 21px rgba(223, 206, 228, 0.5), 0 0 10px rgba(223, 206, 228, 0.4), 0 0 2px #2a153c;
+}
 
-    a.buttons:not(:hover) {
-        transition: 0.6s;
-    }
+a.buttons:not(:hover) {
+    transition: 0.6s;
+}
 
 
 /****************************Внешний вид меню****************/
@@ -506,11 +526,11 @@ a.buttons {
     border-bottom: 1px solid #666; /*каждая кнопка в серой рамке*/
     transition: 0.5s all; /*плавность*/
 }
-    /*что будет при наведении*/
-    .menu a:hover {
-        background: #666; /*цвет серый*/
-        padding: 10px 0 10px 20px; /*пункты будут плавать / сдвигается текст вправо*/
-    }
+/*что будет при наведении*/
+.menu a:hover {
+    background: #666; /*цвет серый*/
+    padding: 10px 0 10px 20px; /*пункты будут плавать / сдвигается текст вправо*/
+}
 /*для всех тегов Ли первый ребенок(Пункт 1)*/
 .menu li:first-child a {
     border-radius: 3px 3px 0 0;
@@ -662,29 +682,29 @@ a.buttons {
     box-shadow: inset 0 -1px 1px rgba(255,255,255,0.3);
 }
 
-    .meter > span {
-        display: block;
-        height: 100%;
-        -webkit-border-top-right-radius: 8px;
-        -webkit-border-bottom-right-radius: 8px;
-        -moz-border-radius-topright: 8px;
-        -moz-border-radius-bottomright: 8px;
-        border-top-right-radius: 8px;
-        border-bottom-right-radius: 8px;
-        -webkit-border-top-left-radius: 20px;
-        -webkit-border-bottom-left-radius: 20px;
-        -moz-border-radius-topleft: 20px;
-        -moz-border-radius-bottomleft: 20px;
-        border-top-left-radius: 20px;
-        border-bottom-left-radius: 20px;
-        background-color: rgb(165,117,181);
-        background-image: -webkit-gradient( linear, left bottom, left top, color-stop(0, rgb(165,117,181)), color-stop(1, rgb(165,117,181)) );
-        background-image: -moz-linear-gradient( center bottom, rgb(43,194,83) 37%, rgb(84,240,84) 69% );
-        -webkit-box-shadow: inset 0 2px 9px rgba(255,255,255,0.3), inset 0 -2px 6px rgba(0,0,0,0.4);
-        -moz-box-shadow: inset 0 2px 9px rgba(255,255,255,0.3), inset 0 -2px 6px rgba(0,0,0,0.4);
-        position: relative;
-        overflow: hidden;
-    }
+.meter > span {
+    display: block;
+    height: 100%;
+    -webkit-border-top-right-radius: 8px;
+    -webkit-border-bottom-right-radius: 8px;
+    -moz-border-radius-topright: 8px;
+    -moz-border-radius-bottomright: 8px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    -webkit-border-top-left-radius: 20px;
+    -webkit-border-bottom-left-radius: 20px;
+    -moz-border-radius-topleft: 20px;
+    -moz-border-radius-bottomleft: 20px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    background-color: rgb(165,117,181);
+    background-image: -webkit-gradient( linear, left bottom, left top, color-stop(0, rgb(165,117,181)), color-stop(1, rgb(165,117,181)) );
+    background-image: -moz-linear-gradient( center bottom, rgb(43,194,83) 37%, rgb(84,240,84) 69% );
+    -webkit-box-shadow: inset 0 2px 9px rgba(255,255,255,0.3), inset 0 -2px 6px rgba(0,0,0,0.4);
+    -moz-box-shadow: inset 0 2px 9px rgba(255,255,255,0.3), inset 0 -2px 6px rgba(0,0,0,0.4);
+    position: relative;
+    overflow: hidden;
+}
 
 Другие цвета
 /*****Давайте очень просто поменяем цвет. Просто добавьте класс с именем «orange» или «red» к оболочке div/****’а и цвет будет изменен.****/
@@ -725,34 +745,34 @@ a.buttons {
 
 }
 
-    .btn-link2,
-    .btn-link2:active,
-    .btn-link2[disabled],
-    fieldset[disabled] .btn-link2 {
-        background-color: transparent;
-        -webkit-box-shadow: none;
-        box-shadow: none;
-        transition: 0.6s;
-    }
+.btn-link2,
+.btn-link2:active,
+.btn-link2[disabled],
+fieldset[disabled] .btn-link2 {
+    background-color: transparent;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    transition: 0.6s;
+}
 
-        .btn-link2,
-        .btn-link2:hover,
-        .btn-link2:focus,
-        .btn-link2:active {
-            border-color: transparent;
-        }
+.btn-link2,
+.btn-link2:hover,
+.btn-link2:focus,
+.btn-link2:active {
+    border-color: transparent;
+}
 
-            .btn-link2:hover,
-            .btn-link2:focus {
-                color: black;
-                text-decoration: none;
-                background-color: floralwhite;
-            }
+.btn-link2:hover,
+.btn-link2:focus {
+    color: black;
+    text-decoration: none;
+    background-color: floralwhite;
+}
 
-            .btn-link2[disabled]:hover,
-            fieldset[disabled] .btn-link2:hover,
-            .btn-link2[disabled]:focus,
-            fieldset[disabled] .btn-link2:focus {
-                color: #999999;
-                text-decoration: none;
-            }
+.btn-link2[disabled]:hover,
+fieldset[disabled] .btn-link2:hover,
+.btn-link2[disabled]:focus,
+fieldset[disabled] .btn-link2:focus {
+    color: #999999;
+    text-decoration: none;
+}
