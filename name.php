@@ -27,7 +27,7 @@ require "/libs/up.php";
 
 
 ?>
-
+<div class="content">
 
 <!-- ******************** вывод питомника / имя собаки и картинка пола   выводит число счастья *****************-->    
   <div style="height: 80px; width: 1170px;"> 
@@ -38,7 +38,7 @@ require "/libs/up.php";
    </div>
           
 <!-- ******************** вывод доп меню собаки  заводчик / хозяин  *****************-->  
-    <div style="height: 110px; width: 1165px; background-color: #D0D0D0;"> 
+    <div style="height: 110px; width: 1165px;"> 
           <ul style="width: 45%; float: left;">
             <li>Заводчик: <?php echo $GLOBALS['Data_dog']['breeder'];?></li>
             <li>Хозяин: <?php echo $GLOBALS['Data_dog']['owner'];?></li>
@@ -49,7 +49,7 @@ require "/libs/up.php";
           </ul>
         
 <!-- ******************** вывод доп меню собаки  вид \\ Дата рождения \\ окрас    *****************-->       
-        <ul style="width: 40%; float: right;">
+        <ul style="width: 30%; float: right;">
           <li>тип:  <?php echo  print_hr($id);?></li>
           <li>возраст:  <?php echo print_age($id);?></li>
           <li>Щенков: <?php echo $GLOBALS['Data_dog']['puppy'];?></li>
@@ -61,7 +61,7 @@ require "/libs/up.php";
  <!-- ******************** вывод картинки собаки по id  *****************-->
 
 <form method="POST">
-<table width="1165" cellpadding="3" cellspacing="0" bgcolor="#D0D0D0">
+<table width="1000" cellpadding="3" cellspacing="0">
    <colgroup width="390">
      <tr>
       <td><input style="float: left;  margin-left: 30px;" id="button" name="food" type="submit" value="есть" class = "knopka">
@@ -104,7 +104,7 @@ require "/libs/up.php";
     <details>
       <summary>Генетический код 
           <?php //print_all_d($id);  
-            detalis_green($id);
+           // detalis_green($id);
           ?>
           </summary>
     </details>
@@ -137,7 +137,7 @@ if(!isset($id_m)): ?>
               <details>
                     <summary>Генетический код
                     <?php echo "<br>" . bdika_url($id_m) . "<br>"; detalis($id_m);?>
-                        </summary> 
+                    </summary> 
               </details>
 
 
@@ -148,7 +148,7 @@ if(!isset($id_m)): ?>
            
        </details>
  <?php endif;    ?>
-     </div class="content_mum">
+    </div> <!--class="content_mum"-->
 <?php if(!isset($id_d)): ?>
 <!-- правая колонка папы-->  
     <div style="float: right; width: 48%;">
@@ -179,22 +179,22 @@ if(!isset($id_m)): ?>
 
                   
         </details>
-    
     </div>
+    
     </p>
-    </main>
-
+   
 <?php endif;
 
-?></div>
-    <!-- --------------------------------------  class="right_sidebar"  ----------------------------- -->   
+?>
+  
+</div>    
+<!-- --------------------------------------  class="right_sidebar"  ----------------------------- -->   
 
 <div class="right_sidebar" >
         <!-- ******************** кнопка вязка справа  *****************--> 
 
    <form method="POST">
-      
-      
+           
       <a class="buttons" <?php echo '<a href="/family_tree.php?id=' . $id . '">'?>Родословная</a>
       <a class="buttons" <?php echo '<a href="/kennel.php">'?>в питомник</a>
       <p>
@@ -223,4 +223,4 @@ if(!isset($id_m)): ?>
 
 </div class="right_sidebar" >
 
-     
+

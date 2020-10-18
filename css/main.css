@@ -331,10 +331,10 @@ div{
 }
 
 .content {
-    width: 1170px; /*520*/
+    width: 1065px; /*520*/
     height: auto;
-    /* background: #E0E0E0;*/
-    /* border: 1px groove #9868CE;*/
+   /* background: #E0E0E0;*/
+    border: 1px groove #9868CE;
     padding: 3px;
     position: relative;
     text-align: left;
@@ -362,12 +362,15 @@ div.title_cont {
 }
 
 .right_sidebar {
-    width: 200px;
+    width: 230px;
     height: 800px;
-    float: left;
+    float: right;
     /*background: #DBA0F0;*/
     padding: 3px;
     border: 1px groove #9868CE;
+    position: relative;
+    margin-right: 100px;
+  
 }
 
 .footer {

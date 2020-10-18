@@ -12,4 +12,4 @@ error_reporting(E_ALL);
 
 require "/html/header.html";
 //require "/html/aside.html";
-?><div class="content">
+?>

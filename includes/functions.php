@@ -216,12 +216,12 @@ function maleFemale($id,$param_sex){
     $pup=ret_cell('puppy', $id,'animals');
     $age= print_age($id);
     $age_norma=ret_cell('age_id',$id,'animals');
+    $name=ret_Cell('name', $id, 'animals');
     if(($param_sex==$sex) && ('0'== $sex) && (13<$age_norma)){  //и старше 6 месяцев
-        echo '<br><hr>';
+        //echo '<br><hr>';
         //echo '<br> пол:'. $sex . '<hr>';
-        $name=ret_Cell('name', $id, 'animals');
-        
-        ?><a href="/name.php?id=<?php echo $id;?>"><img src="<?php echo bdika_url($id);?>" width="100px"> </a> <?php
+        //$name=ret_Cell('name', $id, 'animals');
+        ?><td><a href="/name.php?id=<?php echo $id;?>"><img src="<?php echo bdika_url($id);?>" width="100px"> </a> <?php
         // echo '<a href="/name.php?id=' . $id . '">';
         // print_partner($id);
 ?><div><?php
@@ -233,15 +233,18 @@ function maleFemale($id,$param_sex){
                 
     }
     if(($param_sex==$sex) && ('1'== $sex) && (13<$age_norma)){
-        echo '<br><hr>';
-        $name=ret_Cell('name', $id, 'animals');
+        //echo '<br><hr>';
+       ?><td><a href="/name.php?id=<?php echo $id;?>"><img src="<?php echo bdika_url($id);?>" width="100px"> </a> <?php
         
-        echo '<a href="/name.php?id=' . $id . '">';
-         print_partner($id);
-         echo '</a>';
+        // $name=ret_Cell('name', $id, 'animals');
+        //echo '<a href="/name.php?id=' . $id . '">';
+         //print_partner($id);
+         //echo '</a>';
+       ?><div><?php
          echo '<br>имя: ' . $name;
          echo '<br> возраст ' . $age;
          echo '<a href="/lit&pup.php?id=' . $id . '">' . "<br> вязки/дети: ". $lit .'/'. $pup . '</a>'; 
+         ?></div><?php   
     }
        
 }
@@ -266,12 +269,14 @@ function ret_dog_by_sex($owner,$param_sex){
 <?php     foreach($data as $item) {
          $count='0'; // считает количество столбиков не больше 4
          foreach ($item as $id => $value) {
-             If('5'!=$count){ //если еще не 4 столбика, вписываем  
+             If('4'!=$count){ //если еще не 4 столбика, вписываем  
  ?>
-          <td> <!-- строка таблицы --> 
+           <!-- <td> строка таблицы --> 
  <?php             
                  maleFemale($id,$param_sex);
                  $count=$count+1;
+                 var_dump($count);
+                 
              }
              else{
                  ?></td></tr><?php

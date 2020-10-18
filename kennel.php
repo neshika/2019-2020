@@ -5,6 +5,7 @@ require "/html/nav.html";
 require "/html/aside.html";
 */
 require "/libs/up.php";
+
 $owner=ret_owner(); //сохраняем название владельца в переменную из куки
 /*Получаем запросом  навание питомника, при условии что владелец идентифицируется по куку Сессии*/
         $kennel = R::getCell('SELECT kennel FROM users WHERE login = :owner',
@@ -13,6 +14,7 @@ $owner=ret_owner(); //сохраняем название владельца в 
          $count = R::count( 'animals', 'owner = :owner && status = 1',
         [':owner' => $owner]);
         $coins = print_money($owner);?>
+<div class="content">
 <p class="kennel"><br>Питомник: <?php echo $kennel;?> // Владелец: <?php echo $owner;?> // Количество собак: <?php echo $count;?><br><img src = "/pici/coins_mini.png"> <?php echo  $coins;
          $vip=Rand(1,5);
          // if('1'==$vip){
@@ -98,11 +100,10 @@ if( isset($_POST['female']) ){
                           
               
 }
-           if( isset($_POST['male']) ){
-              ?><p class="left"><img src = "/pic/male.png" alt = "мальчики" width="10%"></p><?php
-              ret_dog_by_sex($owner,1);
-              
-          }
+if( isset($_POST['male']) ){
+        ?><p class="left"><img src = "/pic/male.png" alt = "мальчики" width="10%"></p>
+        <?php ret_dog_by_sex($owner,1);
+}
        
 
 /******************************* Если нажата кнопка щенки выводим на экран всех щенков, пренадлежащих владельцу*/
