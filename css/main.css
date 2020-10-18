@@ -27,6 +27,7 @@ html, body {
     font-family: Montserrat, Georgia, Helvetica, sans-serif;
     margin: 0;
     padding: 0;
+    
 }
 
 #container {
@@ -69,6 +70,10 @@ a {
     -webkit-transition: all 300ms ease-out; 
     -ms-transition: all 300ms ease-out; 
     transition: all 300ms ease-out;
+}
+div.content {
+    color: #000;
+    background: #9868CE;
 }
 
 a:hover {

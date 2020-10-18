@@ -11,5 +11,6 @@ ini_set('display_errors',1);
 error_reporting(E_ALL);
 
 require "/html/header.html";
+
 //require "/html/aside.html";
 ?>

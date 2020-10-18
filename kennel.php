@@ -51,11 +51,12 @@ if( isset($_POST['all_dogs']) ){
     foreach($array as $item) {
         $count=0; // считает количество столбиков не больше 4
         foreach ($item as $key => $value) {
+            //echo '<br>' . $count;
 /*сохранение данных о голости собаки + вязки/щенки*/
             $lit= ret_Cell('litter', $key,'animals');
             $pup=ret_cell('puppy', $key,'animals');
             $pol= ret_sex($key);
-            $count=$count+1;
+            
                 if(0==$pol){
                     $sex='сука';
                 }
@@ -65,7 +66,7 @@ if( isset($_POST['all_dogs']) ){
             $GLOBALS['Data_dog']=data_animals($key);    //сохраняем данные по собаке
                
 /*выводим на экран имя собаки как ссылку*/
-            If('5'!=$count){ //если еще не 4 столбика, вписываем
+            If('4'>$count){ //если еще не 4 столбика, вписываем
             ?>
             <td> <!-- строка таблицы --> 
                 <a href="/name.php?id=<?php echo $key;?>"><img src="<?php echo bdika_url($key);?>" width="35%"> </a>                  
@@ -73,13 +74,25 @@ if( isset($_POST['all_dogs']) ){
                             echo '<br>имя: ' . $value;
                             echo '<br> пол : ' . $sex . '<br>';
                             echo bdika_estrus($key);
-                            echo '<a href="/lit&pup.php?id=' . $key . '">' . "<br> вязки/дети: ". $lit .'/'. $pup;?>
+                            echo '<a href="/lit&pup.php?id=' . $key . '">' . "<br> вязки/дети: ". $lit .'/'. $pup;
+                            $count=$count+1;
+                            ?>
                </div>                           
                                
             
   <?php     }else{ //если закончилась стрка перехрдить на следующую
-                ?></td></tr><?php
-                 $count=0;   
+                ?></td></tr><td> <!-- строка таблицы -->
+  
+                <a href="/name.php?id=<?php echo $key;?>"><img src="<?php echo bdika_url($key);?>" width="35%"> </a>                  
+               <div><?php   //  вывод на экран количество вязок и щенков
+                            echo '<br>имя: ' . $value;
+                            echo '<br> пол : ' . $sex . '<br>';
+                            echo bdika_estrus($key);
+                            echo '<a href="/lit&pup.php?id=' . $key . '">' . "<br> вязки/дети: ". $lit .'/'. $pup;?>
+               </div>                       
+                <?php
+                 $count=1;   
+                //}
             }
                             
              }    //foreach ($item as $key => $value) {
@@ -124,7 +137,7 @@ if( isset($_POST['puppy']) ){
 /*сохранение данных о голости собаки + вязки/щенки*/
                     $GLOBALS['Data_dog']=data_animals($key);    //сохраняем данные по собаке
                       if(13>=$GLOBALS['Data_dog']['age_id']){ //возраст <6 месяцев
-                      If('5'!=$count){ //если еще не 4 столбика, вписываем
+                      If('4'>$count){ //если еще не 4 столбика, вписываем
                           
                       ?>
                 <td> <!-- строка таблицы --> 
@@ -138,7 +151,7 @@ if( isset($_POST['puppy']) ){
                     </div><?php
                  }else{ //если закончилась стрка перехрдить на следующую
                 ?></td></tr><?php
-                 $count=0;   
+                 $count=1;   
             }
                     }   //foreach ($item as $key => $value)  
                         
