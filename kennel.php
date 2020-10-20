@@ -122,7 +122,7 @@ function all_dogs($owner,$char){
                 <?php
 /*выводим имена кобелей как ссылки на страничку собаки*/
                     echo '<a href="/name.php?id=' . $key . '">';?>
-                    <img src="<?php echo bdika_url($key);?>" width="10%"></a> 
+                    <img src="<?php echo bdika_url($key);?>" width="50%"></a> 
                     <div>
                     <?php echo '<br>имя: ' . $value;
                     echo '<br>возраст: ' . print_age($key);?>
@@ -175,7 +175,7 @@ function all_dogs($owner,$char){
                                 }
                              else{
                                  ?></td></tr><?php
-                                 $countf=1;
+                                 $countf=0;
                                 echo '<br>мы в else';
                                 ?><td><a href="/name.php?id=<?php echo $id;?>"><img src="<?php echo bdika_url($id);?>" width="100px"> </a> <?php
                                   ?><div><?php
