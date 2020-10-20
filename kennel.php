@@ -33,12 +33,9 @@ $owner=ret_owner(); //сохраняем название владельца в 
 </form>
 </p>
 <?php
-/************************* Ели нажата кнопка ВСЕ СОБАКИ выводим на экран всех собак, пренадлежащих владельцу*/
-if( isset($_POST['money']) ){
-       put_money($owner,50000);
-      //echo print_money($owner);
-}
-if( isset($_POST['all_dogs']) ){
+function all_dogs($owner,$char){
+    if('all_dogs'==$char){
+        
         $array[] = R::getAssoc('SELECT id,name FROM animals WHERE owner = :owner && status = 1' ,
         [':owner' => $owner]);
 /*картинка суки/кобели*/              
@@ -99,29 +96,10 @@ if( isset($_POST['all_dogs']) ){
             echo "<br/>";
             }   // foreach($array as $item)
              
-          }   //if( isset($_POST['all_dogs']))
-
-          ?>
-        </tr></table>
-        
-
-<?php
-/****************************** Если нажата кнопка СУКИ выводим на экран всех собак, пренадлежащих владельцу*/
-if( isset($_POST['female']) ){
-            ?><p class="left"><img src = "/pic/female.png" alt = "девочки" width="10%"></p>
-             <?php ret_dog_by_sex($owner,0);
-                          
-              
-}
-if( isset($_POST['male']) ){
-        ?><p class="left"><img src = "/pic/male.png" alt = "мальчики" width="10%"></p>
-        <?php ret_dog_by_sex($owner,1);
-}
-       
-
-/******************************* Если нажата кнопка щенки выводим на экран всех щенков, пренадлежащих владельцу*/
-if( isset($_POST['puppy']) ){
-    $array[] = R::getAssoc('SELECT id,name FROM animals WHERE owner = :owner && status = 1' ,
+    }
+    
+    if('puppy'==$char){
+        $array[] = R::getAssoc('SELECT id,name FROM animals WHERE owner = :owner && status = 1' ,
               [':owner' => $owner]);
     ?><img src = "/pic/Puppy_mini.png" alt = "щенки"> 
     <table class="table">
@@ -159,4 +137,141 @@ if( isset($_POST['puppy']) ){
                   
             }   //foreach($array as $item)
             
+    }
+    
+    
+    if('female'==$char){
+         $data[] =  ret_dogs_by_owner($owner);
+         $countf=0;?>
+        
+         <table class="table">
+        <tr>
+          
+        <?php foreach($data as $item) {
+                     //$countf='0'; // считает количество столбиков не больше 4
+        
+                    foreach ($item as $id => $value) {
+                        $countf='0'; // считает количество столбиков не больше 4
+                     //echo 'foreach($data as $item)' . $countm;
+            
+            ?> <!-- <td> строка таблицы --> 
+ <?php                  $sex= ret_sex($id);
+                        $lit= ret_Cell('litter', $id,'animals');
+                        $pup=ret_cell('puppy', $id,'animals');
+                        $age= print_age($id);
+                        $age_norma=ret_cell('age_id',$id,'animals');
+                        $name=ret_Cell('name', $id, 'animals');
+                        if(('0'== $sex) && (13<$age_norma)){  //и старше 6 месяцев
+                           If('4'>$countf){ //если еще не 4 столбика, вписываем 
+                                 ?><td><a href="/name.php?id=<?php echo $id;?>"><img src="<?php echo bdika_url($id);?>" width="100px"> </a> <?php
+                                  ?><div><?php
+                                   echo '<br>имя: ' . $name;
+                                    echo '<br> возраст ' . $age . '<br>';
+                                    echo bdika_estrus($id);
+                                    echo '<a href="/lit&pup.php?id=' . $id . '">' . "<br> вязки/дети: ". $lit .'/'. $pup . '</a>'; 
+                                    ?></div><?php                
+                                    $countf=$countf+1;
+                                    var_dump($countf);
+                                }
+                             else{
+                                 ?></td></tr><?php
+                                 $countf=1;
+                                echo '<br>мы в else';
+                                ?><td><a href="/name.php?id=<?php echo $id;?>"><img src="<?php echo bdika_url($id);?>" width="100px"> </a> <?php
+                                  ?><div><?php
+                                   echo '<br>имя: ' . $name;
+                                    echo '<br> возраст ' . $age . '<br>';
+                                    //  echo bdika_estrus($id);
+                                    echo '<a href="/lit&pup.php?id=' . $id . '">' . "<br> вязки/дети: ". $lit .'/'. $pup . '</a>'; 
+                                    ?></div><?php                
+                                    $countf=$countf+1;
+                                    //var_dump($countf);
+                             }// If('4'>$countf){ //если еще не 4 столбика, вписываем 
+                    }//elseif(('0'== $sex) && (13<$age_norma)){  //и старше 6 месяцев   
+             } //foreach ($item as $id => $value) 
+        }//foreach($data as $item)
+    } //if female
+    if('male'==$char){
+         $data[] =  ret_dogs_by_owner($owner);
+         //$countm=0;?>
+        
+         <table class="table">
+        <tr>
+          
+        <?php foreach($data as $item) {
+                     $countm='0'; // считает количество столбиков не больше 4
+                     //echo 'foreach($data as $item)' . $countm;
+        
+                    foreach ($item as $id => $value) {
+                        
+            ?> <!-- <td> строка таблицы --> 
+ <?php                  $sex= ret_sex($id);
+                        $lit= ret_Cell('litter', $id,'animals');
+                        $pup=ret_cell('puppy', $id,'animals');
+                        $age= print_age($id);
+                        $age_norma=ret_cell('age_id',$id,'animals');
+                        $name=ret_Cell('name', $id, 'animals');
+                        if(('1'== $sex) && (13<$age_norma)){  //и старше 6 месяцев
+                             If('4'>$countm){ //если еще не 4 столбика, вписываем 
+                                 ?><td><a href="/name.php?id=<?php echo $id;?>"><img src="<?php echo bdika_url($id);?>" width="100px"> </a> <?php
+                                  ?><div><?php
+                                   echo '<br>имя: ' . $name;
+                                    echo '<br> возраст ' . $age . '<br>';
+                                    //  echo bdika_estrus($id);
+                                    echo '<a href="/lit&pup.php?id=' . $id . '">' . "<br> вязки/дети: ". $lit .'/'. $pup . '</a>'; 
+                                    ?></div><?php                
+                                    $countm=$countm+1;
+                                    var_dump($countm);
+                                }
+                             else{
+                                 ?></td></tr><?php
+                                 $countm=1;
+                                echo '<br>мы в else';
+                                ?><td><a href="/name.php?id=<?php echo $id;?>"><img src="<?php echo bdika_url($id);?>" width="100px"> </a> <?php
+                                  ?><div><?php
+                                   echo '<br>имя: ' . $name;
+                                    echo '<br> возраст ' . $age . '<br>';
+                                    //  echo bdika_estrus($id);
+                                    echo '<a href="/lit&pup.php?id=' . $id . '">' . "<br> вязки/дети: ". $lit .'/'. $pup . '</a>'; 
+                                    ?></div><?php                
+                                    $countm=$countm+1;
+                                    //var_dump($countm);
+                             }// If('4'>$countf){ //если еще не 4 столбика, вписываем 
+                    }//elseif(('1'== $sex) && (13<$age_norma)){  //и старше 6 месяцев
+                  
+             } //foreach ($item as $id => $value) 
+        }//foreach($data as $item)
+    }
+}
+/************************* Ели нажата кнопка ВСЕ СОБАКИ выводим на экран всех собак, пренадлежащих владельцу*/
+if( isset($_POST['money']) ){
+       put_money($owner,50000);
+      //echo print_money($owner);
+}
+if( isset($_POST['all_dogs']) ){
+    all_dogs($owner,'all_dogs');
+          }   //if( isset($_POST['all_dogs']))
+
+          ?>
+        </tr></table>
+        
+
+<?php
+/****************************** Если нажата кнопка СУКИ выводим на экран всех собак, пренадлежащих владельцу*/
+if( isset($_POST['female']) ){
+            ?><p class="left"><img src = "/pic/female.png" alt = "девочки" width="10%"></p>
+            
+             <?php  all_dogs($owner, 'female'); //ret_dog_by_sex($owner,0);
+                          
+              
+}
+if( isset($_POST['male']) ){
+        ?><p class="left"><img src = "/pic/male.png" alt = "мальчики" width="10%"></p>
+        <?php    all_dogs($owner, 'male'); //ret_dog_by_sex($owner,1);
+}
+       
+
+/******************************* Если нажата кнопка щенки выводим на экран всех щенков, пренадлежащих владельцу*/
+if( isset($_POST['puppy']) ){
+    all_dogs($owner, 'puppy');
          }   //if( isset($_POST['puppy']) )
