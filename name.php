@@ -155,64 +155,50 @@ if(!isset($id_m)): ?>
 <!-- имя мамы--> 
         <details>
             <summary><?php $id_m=$family_data['mum'];
-                    $mum_name=take_data_from($id_m, 'animals');
-                    echo $mum_name['name'];?>
-            </summary> 
+            
+            if ('0'==$id_m):
+                echo 'нет данных о предках'; ?>            
+            <?php else:
+                 $mum_name=take_data_from($id_m, 'animals');
+                 echo $mum_name['name'];?>
+            </summary>
 <!-- картинка мамы--> 
-            <?php 
-                  
-                  if ('0'!==$id_m){
-                       
-                      echo '<a href="/name.php?id=' . $id_m . '">';
-                       dog_pic($id_m); ?></a>
-                       
-
-<!-- ******************** вывод Генетического кода собаки  скрытый текст*****************--> 
+            <?php echo '<a href="/name.php?id=' . $id_m . '">';
+                  dog_pic($id_m); ?></a>
+ <!-- ******************** вывод Генетического кода собаки  скрытый текст*****************--> 
               <details>
                     <summary>Генетический код</summary> 
-                    <?php echo "<br>" . bdika_url($id_m) . "<br>"; detalis($id_m);?>
-                    
+            <?php echo "<br>" . bdika_url($id_m) . "<br>"; detalis($id_m); 
+            endif;?>
               </details>
-
-
-              <?php
-                  }else
-                    echo 'нет данных о предках'; ?>
-        
-           
+              
        </details>
- <?php endif;    ?>
-    </div> <!--class="content_mum"-->
-<?php if(!isset($id_d)): ?>
+     </div> <!--class="content_mum"-->
+ <?php endif;    
+if(!isset($id_d)): ?>
 <!-- правая колонка папы-->  
     <div style="float: right; width: 48%;">
 <!-- имя папы-->  
       <details>
             <summary><?php $id_d=$family_data['dad'];
-                    $dad_name=take_data_from($id_d, 'animals');
-                    echo $dad_name['name'];?>
-            </summary> 
-<!-- картинка папы-->  
-              <?php 
-                   $id_d=$family_data['dad'];
-                    if ('0'!==$id_d){
-                       echo '<a href="/name.php?id=' . $id_d . '">';
-                       dog_pic($id_d); ?></a>
-
-<!-- ******************** вывод Генетического кода собаки  скрытый текст*****************--> 
-            <details>
-                  <summary>Генетический код </summary> 
-                  <?php echo "<br>" . bdika_url($id_d) . "<br>"; detalis($id_d);?>
-                     
-            </details>
-
-
-                      <?php }else
-                      echo 'нет данных о предках'; ?>
-
-
-                  
-        </details>
+            
+            if ('0'==$id_d):
+                echo 'нет данных о предках'; ?>            
+            <?php else:
+                 $dad_name=take_data_from($id_d, 'animals');
+                 echo $dad_name['name'];?>
+            </summary>
+<!-- картинка папы--> 
+            <?php echo '<a href="/name.php?id=' . $id_d . '">';
+                  dog_pic($id_d); ?></a>
+ <!-- ******************** вывод Генетического кода собаки  скрытый текст*****************--> 
+              <details>
+                    <summary>Генетический код</summary> 
+            <?php echo "<br>" . bdika_url($id_d) . "<br>"; detalis($id_d); 
+            endif;?>
+              </details>
+              
+       </details>
     </div>
     
     </p>
