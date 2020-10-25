@@ -4,7 +4,7 @@ require $_SERVER['DOCUMENT_ROOT']."/libs/up.php";
       $GLOBALS['Data_dog']=data_animals($id);
       $owner=ret_owner();
       $family_data= ret_Row($GLOBALS['Data_dog']['family_id'],'family');
-    
+          
         
 /*<h1 style="font-size: 120%; font-family: Verdana, Arial, Helvetica, sans-serif; 
   color: #336">Заголовок</h1>*/
@@ -61,6 +61,7 @@ require $_SERVER['DOCUMENT_ROOT']."/libs/up.php";
   </form>
 
 </div> <!--class="right_sidebar"-->
+
 <div class="content">
 <!-- ******************** вывод питомника / имя собаки и картинка пола   выводит число счастья *****************-->    
   <div style="height: 80px; width: 1170px;"> 
@@ -134,13 +135,13 @@ require $_SERVER['DOCUMENT_ROOT']."/libs/up.php";
 <!-- ******************** вывод Генетического кода собаки  скрытый текст*****************--> 
 <!-- ******************** вывод статы собаки  *****************--> 
 
-    <details>
-      <summary>Генетический код 
-          <?php //print_all_d($id);  
-           // detalis_green($id);
+<details>
+  <summary>Генетический код</summary>
+            <?php //print_all_d($id);  
+            detalis_green($id);
           ?>
-          </summary>
-    </details>
+ </details>
+
 <!-- ******************** вывод родителей *****************--> 
 <p align="center">Родители:<br>
     
@@ -168,9 +169,9 @@ if(!isset($id_m)): ?>
 
 <!-- ******************** вывод Генетического кода собаки  скрытый текст*****************--> 
               <details>
-                    <summary>Генетический код
+                    <summary>Генетический код</summary> 
                     <?php echo "<br>" . bdika_url($id_m) . "<br>"; detalis($id_m);?>
-                    </summary> 
+                    
               </details>
 
 
@@ -200,9 +201,9 @@ if(!isset($id_m)): ?>
 
 <!-- ******************** вывод Генетического кода собаки  скрытый текст*****************--> 
             <details>
-                  <summary>Генетический код
+                  <summary>Генетический код </summary> 
                   <?php echo "<br>" . bdika_url($id_d) . "<br>"; detalis($id_d);?>
-                      </summary> 
+                     
             </details>
 
 
