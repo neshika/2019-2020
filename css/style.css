@@ -334,6 +334,7 @@ a.buttons:not(:hover) {
 .dog{
    position:relative;
     height:5px;
+    color: #FFF;
   
 }
 
@@ -342,7 +343,7 @@ a.buttons:not(:hover) {
     float:left;
     width:99%;
     height:200px;
-    background: #D0D0D0 ;
+    /*background: #D0D0D0 ;*/
 }
 .dad_mum{
   position:relative;

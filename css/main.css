@@ -318,19 +318,20 @@ div{
 }
 
 .content {
-    width: 1024px; /*520*/
+    width: 1500px; /*520*/
     height: auto;
    /* background: #E0E0E0;*/
-    border: 1px groove #9868CE;
+   /* border: 1px groove #9868CE;*/
     padding: 3px;
    /* position: relative;*/
     text-align: left;
-    margin: 0px 35% 0px auto;
+    margin: 0px auto 0px auto;
 
 }
 p.kennel{
     text-align: center;
-    
+    background: none;
+   
 }
 
 div.title_cont {
@@ -585,14 +586,15 @@ a.buttons:not(:hover) {
 .dog {
     position: relative;
     height: 5px;
+    margin: 0px auto 0 auto;
 }
 
-#mydog {
+.mydog {
     text-align: center;
     float: left;
     width: 99%;
     height: 200px;
-    background: #D0D0D0;
+    /*background: #D0D0D0;*/
 }
 
 .dad_mum {
@@ -605,7 +607,7 @@ a.buttons:not(:hover) {
     float: left;
     width: 49%;
     height: 200px;
-    background: #D0D0D0;
+   /* background: #D0D0D0;*/
 }
 
 #mum {
@@ -613,7 +615,7 @@ a.buttons:not(:hover) {
     float: left;
     width: 49%;
     height: 200px;
-    background: #D0D0D0;
+   /* background: #D0D0D0;*/
 }
 
 .GG_dad_mum {
@@ -626,7 +628,7 @@ a.buttons:not(:hover) {
     float: left;
     width: 24%;
     height: 200px;
-    background: #D0D0D0;
+   /* background: #D0D0D0;*/
 }
 
 #two {
@@ -634,7 +636,7 @@ a.buttons:not(:hover) {
     float: left;
     width: 24%;
     height: 200px;
-    background: #D0D0D0;
+    /*background: #D0D0D0;*/
 }
 
 #three {
@@ -642,7 +644,7 @@ a.buttons:not(:hover) {
     float: left;
     width: 24%;
     height: 200px;
-    background: #D0D0D0;
+    /*background: #D0D0D0;*/
 }
 
 #four {
@@ -650,7 +652,7 @@ a.buttons:not(:hover) {
     float: left;
     width: 24%;
     height: 200px;
-    background-color: #D0D0D0;
+   /* background-color: #D0D0D0;*/
 }
 
 #left_breed {
@@ -801,3 +803,91 @@ fieldset[disabled] .btn-link2:focus {
 }
 
 
+/*************************************данные lit&pup.php***********************/
+.dog{
+   position:relative;
+    height:5px;
+    color: #FFF;
+ 
+}
+
+#mydog{
+  text-align: center;
+    float:left;
+    width:99%;
+    height:200px;
+    /*background: #D0D0D0 ;*/
+}
+.dad_mum{
+  position:relative;
+  height:200px;
+}
+#dad{
+  text-align: center;
+float:left;
+width:49%;
+height:200px;
+/*background:#D0D0D0 ;*/
+}
+
+#mum{
+  text-align: center;
+float:left;
+width:49%;
+height:200px;
+/*background:#D0D0D0 ;*/
+}
+.GG_dad_mum{
+  position:relative;
+  height:200px;
+}
+#one{
+  text-align: center;
+float:left;
+width:24%;
+height:200px;
+/*background:#D0D0D0 ;*/
+}
+
+#two{
+  text-align: center;
+float:left;
+width:24%;
+height:200px;
+/*background:#D0D0D0 ;*/
+}
+
+#three{
+  text-align: center;
+float:left;
+width:24%;
+height:200px;
+/*background:#D0D0D0 ;*/
+}
+
+#four{
+text-align: center;
+float:left;
+width:24%;
+height:200px;
+/*background-color: #D0D0D0;*/
+}
+
+#left_breed{
+  position:absolute;
+left:0;
+width:500px;
+}
+
+#right_breed{
+  position:absolute;
+left:500px;
+width:200px;
+}
+#all_breed{
+  width:1200px;
+  position:relative;
+  background: white;
+  
+
+} 
