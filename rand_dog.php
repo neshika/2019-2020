@@ -26,7 +26,7 @@ require "includes/functions.php";
 
       $all= "<br>".$Hr."<br>".$W."<br>".$F."<br>".$B."<br>".$T."<br>".$M;
     //echo $all;
-      $_SESSION['url1']=$url=bdika_color ($Hr,$W,$F,$B,$T,$M);
+      $_SESSION['url']=$url=bdika_color ($Hr,$W,$F,$B,$T,$M);
      ?>
     <img src = "<?php echo $url; ?>">
 </div>

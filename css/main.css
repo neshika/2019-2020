@@ -73,7 +73,7 @@ a {
 }
 div.content {
     color: #F2F2F2;
-    //background: #fff;
+    /*background: #fff;*/
 }
 
 a:hover {
@@ -81,15 +81,6 @@ a:hover {
 }
 div{
     color: silver;
-}
-.content{
-    width: 1170px;  /*520*/
-    height: auto;
-   /* background: #E0E0E0;*/
-   /* border: 1px groove #9868CE;*/
-    padding: 10px;
-    /*margin-left: 50px;*/
-
 }
 /*============================*/
 /* Main Navigation
@@ -326,24 +317,15 @@ div{
     border: 1px groove #9868CE;
 }
 
-.left_sidebar {
-    width: 200px;
-    height: auto;
-    float: left;
-    background: #FAFABF;
-    padding: 3px;
-    border: 1px groove #9868CE;
-}
-
 .content {
-    width: 1065px; /*520*/
+    width: 1024px; /*520*/
     height: auto;
    /* background: #E0E0E0;*/
     border: 1px groove #9868CE;
     padding: 3px;
-    position: relative;
+   /* position: relative;*/
     text-align: left;
-    margin: 0px auto 0px auto;
+    margin: 0px 35% 0px auto;
 
 }
 p.kennel{
@@ -367,14 +349,14 @@ div.title_cont {
 }
 
 .right_sidebar {
-    width: 230px;
+    width: 200px;
     height: 800px;
     float: right;
     /*background: #DBA0F0;*/
     padding: 3px;
     border: 1px groove #9868CE;
-    position: relative;
-    margin-right: 100px;
+   /* position: absolute;*/
+    margin-right: 20%;
   
 }
 

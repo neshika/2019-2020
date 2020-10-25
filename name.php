@@ -27,8 +27,41 @@ require $_SERVER['DOCUMENT_ROOT']."/libs/up.php";
 
 
 ?>
-<div class="content">
 
+
+    <div class="right_sidebar" >
+        <!-- ******************** кнопка вязка справа  *****************--> 
+
+   <form method="POST">
+           
+      <a class="buttons" <?php echo '<a href="/family_tree.php?id=' . $id . '">'?>Родословная</a>
+      <a class="buttons" <?php echo '<a href="/kennel.php">'?>в питомник</a>
+      <p>
+    <p><strong>Сменить имя:</strong></p>
+    <input type="text" name="name1">
+    <input id="button" name="newName" type="submit" value="Новое имя" class = "knopka">
+
+                           
+    </form>
+    <form method="POST" action = "/office.php">
+      <div align="right"><input id="button" name="shelter" type="submit" value="отдать в приют" class = "knopka"></div>
+      <?php $_SESSION['Dog'] = $id; ?>
+  </form>
+  <form method="POST">
+      <div align="right"><input id="button" name="add_age" type="submit" value="растим" class = "knopka"></div>
+      <?php $_SESSION['Dog'] = $id; ?>
+  </form>
+  <form method="POST" action = "/matting.php">
+      <?php If (1==bdika_age_for_breeding($GLOBALS['Data_dog'])):?>
+      <?php echo bdika_for_breed($id);?>
+      <div align="right"> <input id="button" name="knopka" type="submit" value="Вязка" class = "knopka" >
+      </div>
+      <?php $_SESSION['Dog'] = $id;Endif;?>
+      
+  </form>
+
+</div> <!--class="right_sidebar"-->
+<div class="content">
 <!-- ******************** вывод питомника / имя собаки и картинка пола   выводит число счастья *****************-->    
   <div style="height: 80px; width: 1170px;"> 
       <h3 align="center"><?php echo $GLOBALS['Data_dog']['name'];
@@ -186,41 +219,12 @@ if(!isset($id_m)): ?>
 <?php endif;
 
 ?>
+    
   
-</div>    
+</div>    <!-- class content -->
 <!-- --------------------------------------  class="right_sidebar"  ----------------------------- -->   
 
-<div class="right_sidebar" >
-        <!-- ******************** кнопка вязка справа  *****************--> 
 
-   <form method="POST">
-           
-      <a class="buttons" <?php echo '<a href="/family_tree.php?id=' . $id . '">'?>Родословная</a>
-      <a class="buttons" <?php echo '<a href="/kennel.php">'?>в питомник</a>
-      <p>
-    <p><strong>Сменить имя:</strong></p>
-    <input type="text" name="name1">
-    <input id="button" name="newName" type="submit" value="Новое имя" class = "knopka">
-
-                           
-    </form>
-    <form method="POST" action = "/office.php">
-      <div align="right"><input id="button" name="shelter" type="submit" value="отдать в приют" class = "knopka"></div>
-      <?php $_SESSION['Dog'] = $id; ?>
-  </form>
-  <form method="POST">
-      <div align="right"><input id="button" name="add_age" type="submit" value="растим" class = "knopka"></div>
-      <?php $_SESSION['Dog'] = $id; ?>
-  </form>
-  <form method="POST" action = "/matting.php">
-      <?php If (1==bdika_age_for_breeding($GLOBALS['Data_dog'])):?>
-      <?php echo bdika_for_breed($id);?>
-      <div align="right"> <input id="button" name="knopka" type="submit" value="Вязка" class = "knopka" >
-      </div>
-      <?php $_SESSION['Dog'] = $id;Endif;?>
-      
-  </form>
-
-</div class="right_sidebar" >
+</div> <!-- class wrapper ->
 
 

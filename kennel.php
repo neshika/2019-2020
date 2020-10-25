@@ -119,7 +119,7 @@ function all_dogs($owner,$char){
                 <?php
 /*выводим имена кобелей как ссылки на страничку собаки*/
                     echo '<a href="/name.php?id=' . $key . '">';?>
-                    <img src="<?php echo bdika_url($key);?>" width="50%"></a> 
+                    <img src="<?php echo bdika_url($key);?>" width="25%"></a> 
                     <div>
                     <?php echo '<br>имя: ' . $value;
                     echo '<br>возраст: ' . print_age($key);?>
@@ -168,12 +168,12 @@ function all_dogs($owner,$char){
                                     echo '<a href="/lit&pup.php?id=' . $id . '">' . "<br> вязки/дети: ". $lit .'/'. $pup . '</a>'; 
                                     ?></div><?php                
                                     $countf=$countf+1;
-                                    var_dump($countf);
+                                   // var_dump($countf);
                                 }
                              else{
                                  ?></td></tr><?php
                                  $countf=0;
-                                echo '<br>мы в else';
+                              //  echo '<br>мы в else';
                                 ?><td><a href="/name.php?id=<?php echo $id;?>"><img src="<?php echo bdika_url($id);?>" width="100px"> </a> <?php
                                   ?><div><?php
                                    echo '<br>имя: ' . $name;
@@ -218,12 +218,12 @@ function all_dogs($owner,$char){
                                     echo '<a href="/lit&pup.php?id=' . $id . '">' . "<br> вязки/дети: ". $lit .'/'. $pup . '</a>'; 
                                     ?></div><?php                
                                     $countm=$countm+1;
-                                    var_dump($countm);
+                                   // var_dump($countm);
                                 }
                              else{
                                  ?></td></tr><?php
                                  $countm=1;
-                                echo '<br>мы в else';
+                                //echo '<br>мы в else';
                                 ?><td><a href="/name.php?id=<?php echo $id;?>"><img src="<?php echo bdika_url($id);?>" width="100px"> </a> <?php
                                   ?><div><?php
                                    echo '<br>имя: ' . $name;
