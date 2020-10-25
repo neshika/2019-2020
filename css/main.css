@@ -72,8 +72,8 @@ a {
     transition: all 300ms ease-out;
 }
 div.content {
-    color: #000;
-    background: #9868CE;
+    color: #F2F2F2;
+    //background: #fff;
 }
 
 a:hover {

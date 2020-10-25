@@ -1,10 +1,7 @@
 <?php
 //подключение файлов
-/*require "/html/header.html";
-require "/html/nav.html";
-require "/html/aside.html";
-*/
-require "/libs/up.php";
+require_once(__DIR__ . '/libs/up.php');
+
 
 $owner=ret_owner(); //сохраняем название владельца в переменную из куки
 /*Получаем запросом  навание питомника, при условии что владелец идентифицируется по куку Сессии*/

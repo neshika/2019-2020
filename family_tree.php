@@ -1,5 +1,6 @@
 <?php
-require "/libs/up.php";
+//require "/libs/up.php";
+require $_SERVER['DOCUMENT_ROOT']."/libs/up.php";
       $id = $_GET['id']; 
       $data_dog=ret_Row($id, 'animals');
       $f_data= ret_f_data_by_dog($id);

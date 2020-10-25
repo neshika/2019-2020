@@ -1,7 +1,7 @@
 <?php
 require "db.php";
 		//подключение файлов
-		require "/html/header.html";
+		require_once(__DIR__ . '/html/header.html');
 		
 ?><div class="content">
 <?php

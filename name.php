@@ -1,5 +1,5 @@
 <?php
-require "/libs/up.php";
+require $_SERVER['DOCUMENT_ROOT']."/libs/up.php";
      $id = $_GET['id'];
       $GLOBALS['Data_dog']=data_animals($id);
       $owner=ret_owner();
