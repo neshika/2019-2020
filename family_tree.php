@@ -4,7 +4,7 @@ require $_SERVER['DOCUMENT_ROOT']."/libs/up.php";
       $id = $_GET['id']; 
       $data_dog=ret_Row($id, 'animals');
       $f_data= ret_f_data_by_dog($id);
-      
+    
 function retu_dad($f_data){
          $dad=ret_Cell('name', $f_data['dad'], 'animals');
       if($dad){

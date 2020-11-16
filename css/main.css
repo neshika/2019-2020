@@ -652,7 +652,7 @@ a.buttons:not(:hover) {
     float: left;
     width: 24%;
     height: 200px;
-   /* background-color: #D0D0D0;*/
+    background-color: #D0D0D0;
 }
 
 #left_breed {

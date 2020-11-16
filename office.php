@@ -12,7 +12,7 @@ require "db.php";
 		echo 'Добро пожаловать, ' . $GLOBALS['name']=$_SESSION['logged_user']->login . ' .';
 				//date('d.m.Y', time() - 86400);
 		echo ' Сегодня: ' . date('d.m.Y');
-
+                
 		$id=get_id($_SESSION['logged_user']->login);
 		$l_time= ret_Cell('l_time', $id,'users');
 				$now=date('d.m.Y');  //03.08.2017
@@ -30,6 +30,7 @@ require "db.php";
 				
 
 				?><h3><li>Последние новости</li></h3>
+                                <a href="rand_dog.php" color="yellow">рандомная собака</a>
 <?php 
 					if (isset($_POST['comment'])) { //если в форме NewDog включена кнопка отправки имени собаки
 						//echo 'Поле было заполнено';
