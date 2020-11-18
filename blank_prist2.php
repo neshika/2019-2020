@@ -13,68 +13,14 @@ require "includes/functions.php";
     <button type="submit" class="knopka" name="singup">Войти</button>
     </form>
 
-<?php
+<img src="<?php echo do_url($_SESSION['url'])?>"><br>
+<img src="<?php echo do_url($_SESSION['url2'])?>"><br>
 
-
-echo '<br>';
-    echo $_SESSION['hr1'];
-    echo '<br>';
-    echo $_SESSION['ww1'];
-    echo '<br>';
-    echo $_SESSION['ff1'];
-    echo '<br>';
-    echo $_SESSION['bb1'];
-    echo '<br>';
-  
-    echo $_SESSION['tt1'];
-    echo '<br>';
-    echo $_SESSION['mm1'];
-    echo '<br>';
-
-     
-     echo $_SESSION['url1'];
-     echo '<br>';
-
-
-     echo $_SESSION['sex']=$sex=f_bdika_sex();  //дает рандомный пол
-     
-     ?>
-    <img src = "<?php echo $_SESSION['url1']; ?>">
-  
-<?php
-  echo '<hr>';
-  echo '<br>';
-    echo $_SESSION['hr2'];
-    echo '<br>';
-    echo $_SESSION['ww2'];
-    echo '<br>';
-    echo $_SESSION['ff2'];
-    echo '<br>';
-    echo $_SESSION['bb2'];
-    echo '<br>';
-  
-    echo $_SESSION['tt2'];
-    echo '<br>';
-    echo $_SESSION['mm2'];
-    echo '<br>';
-
-     
-     echo $_SESSION['url2'];
-     echo '<br>';
-
-  ('кобель' == $sex ? $sex2='сука' : $sex2='кобель');
- $_SESSION['$sex2']=$sex2;
-  echo $_SESSION['$sex2'];
-      
-
-
-    ?>
-<img src = "<?php echo $_SESSION['url2']; ?>">
  
 <?php
 
 $data = $_POST;
-//debug($_POST);
+debug($data);
 
 if (isset ($data['do_sighup'])){  //если кнопка нажата
   //регистрируем
@@ -114,12 +60,9 @@ if (isset ($data['do_sighup'])){  //если кнопка нажата
     $user->email = $data ['email'];
     $user->kennel = $data ['kennel'];
     $user->f_time = date('d.m.Y');
-   
-
-
     $user->password = password_hash($data ['password'], PASSWORD_DEFAULT); //зашифровываем пароль
     R::store ($user);
-    
+   
         echo "<br>создаем питомник";         
         $ken = R::dispense('kennels');
         $ken->name_k = $data ['kennel'];
@@ -127,44 +70,66 @@ if (isset ($data['do_sighup'])){  //если кнопка нажата
         $ken->date = date('d.m.Y');
         $ken->email = $data ['email'];
         $ken->dogs = '2';
-          
-         R::store ($ken);
-
-
-          echo "<br>создаем собак";
-
-         $name='Без имени';
-         $race='КХС';
-          $mydate=date('d.m.Y');
-          $owner=$data['login'];
-          $kennel=$data['kennel'];
-          
-          $url1_id=ret_id_from_url($_SESSION['url1']);
-          $url2_id=ret_id_from_url($_SESSION['url2']);
-          $id1=insert_2_new_dogs($name,$sex,$race,$owner,$kennel,$mydate,$url1_id);
-          $id2=insert_2_new_dogs($name,$sex2,$race,$data['login'],$data['kennel'],$mydate,$url2_id);
-    
-       $aa1=f_rand_col('AA','Aa','aa');
-       $aa2=f_rand_col('AA','Aa','aa');
-
-
+        R::store ($ken);
        
-        echo "<br>вносим генетический код";
-        insert_new_dna($id1,$url1_id,$_SESSION['hr1'],$_SESSION['ww1'], $_SESSION['ff1'],$_SESSION['bb1'],$_SESSION['mm1'],$_SESSION['tt1'],$aa1);
-        insert_new_dna($id2,$url2_id,$_SESSION['hr2'],$_SESSION['ww2'], $_SESSION['ff2'],$_SESSION['bb2'],$_SESSION['mm2'],$_SESSION['tt2'],$aa2);
-
-        echo "<br>вносим новые статы";
-        $speed_new=find_where('stats',1,'speed');
-        $agility_new=find_where('stats',1,'agility');
-        $teach_new=find_where('stats',1,'teach');
-        $jump_new=find_where('stats',1,'jump');
-        $scent_new=find_where('stats',1,'scent');
-        $find_new=find_where('stats',1,'find');
-        $total_new=find_where('stats',1,'total');
-        $mutation=find_where('stats',1,'mutation');
-        insert_new_stats($id1,$speed_new,$agility_new,$teach_new, $jump_new,$scent_new,$find_new,$total_new,$mutation);
-        insert_new_stats($id2,$speed_new,$agility_new,$teach_new, $jump_new,$scent_new,$find_new,$total_new,$mutation);
-
+        echo "<br>вносим генетический код"; //randodna
+        
+//создаем первую собаку        
+ $arr [] = ret_Row(1, 'randodna');            
+//debug($arr);
+$dog = R::dispense('randodna');
+$dog->hr = $arr[0]['hr'];
+$dog->ww = $arr[0]['ww'];
+$dog->ff = $arr[0]['ff'];
+$dog->bb = $arr[0]['bb'];
+$dog->tt = $arr[0]['tt'];
+$dog->mm = $arr[0]['mm'];
+$dog->sex = $arr[0]['sex'];
+$dog->lucky = $arr[0]['lucky'];
+$dog->spd = $arr[0]['spd'];
+$dog->agl = $arr[0]['agl'];
+$dog->tch = $arr[0]['tch'];
+$dog->jmp = $arr[0]['jmp'];
+$dog->nuh = $arr[0]['nuh'];
+$dog->fnd = $arr[0]['fnd'];
+$dog->mut = $arr[0]['mut'];
+$dog->dna = $arr[0]['dna'];
+$dog->about = $arr[0]['about'];
+ echo R::store($dog);
+ 
+ //создаем вторую собаку
+$arr2 [] = ret_Row(2, 'randodna');            
+//debug($arr);
+$dog2 = R::dispense('randodna');
+$dog2->hr = $arr2[0]['hr'];
+$dog2->ww = $arr2[0]['ww'];
+$dog2->ff = $arr2[0]['ff'];
+$dog2->bb = $arr2[0]['bb'];
+$dog2->tt = $arr2[0]['tt'];
+$dog2->mm = $arr2[0]['mm'];
+$dog2->sex = $arr2[0]['sex'];
+$dog2->lucky = $arr2[0]['lucky'];
+$dog2->spd = $arr2[0]['spd'];
+$dog2->agl = $arr2[0]['agl'];
+$dog2->tch = $arr2[0]['tch'];
+$dog2->jmp = $arr2[0]['jmp'];
+$dog2->nuh = $arr2[0]['nuh'];
+$dog2->fnd = $arr2[0]['fnd'];
+$dog2->mut = $arr2[0]['mut'];
+$dog2->dna = $arr2[0]['dna'];
+$dog2->about = $arr2[0]['about'];
+echo R::store($dog2);
+     echo "<br>создаем собак:";
+     
+     $dogs = R::dispense('animals');
+     $dogs->name='Без имени';
+     $dogs->race='КХС';
+     $dogs->origin='1';
+     $dogs->breeder='не известен';
+     $dogs->owner=$data ['login'];
+     $dogs->kennel=$data ['kennel'];
+     echo R::store($dogs);
+       
 
     echo '<div style="color:green;">Добро пожаловать, все успешно!</div>';  
     $_SESSION['logged_user']->login=$data['login'];

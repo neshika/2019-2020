@@ -1,8 +1,5 @@
 <?php
-
-// login.php
 require "db.php";
-
 $data = $_POST;
 
 if( isset($data['do_login']) ){
@@ -28,7 +25,7 @@ if( isset($data['do_login']) ){
 						exit;
 					}
 			//Для пользователя переход в офис учетки
-				header ('Location:/office.php');
+                                       header ('Location:/office.php');
 				exit;
 
 		}else{
@@ -48,9 +45,5 @@ if( isset($data['do_login']) ){
 	}
 
 }
-//$file='D:/OSFull/OpenServer/domains/dog.ru/html/login.html';
-//вызываем шапку и форму для заполнения данных  для того, чтобы залогиниться.
-//include_once '/html/login.html';
-//include_once($file);
-//require_once(__DIR__."/html/login.html");
+
 require_once(__DIR__ . '/html/login.html');

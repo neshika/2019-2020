@@ -52,7 +52,7 @@ function rand_dog1($id){
     $dog->fnd = $fnd;
     $dog->mut = $mut;
     $dog->dna = $dna;
-    $dog->about = 'shop';
+    $dog->about = 'start';
 
     // Сохраняем объект
     R::store($dog);
