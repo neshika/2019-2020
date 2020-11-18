@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.5.2
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Июн 04 2020 г., 14:05
--- Версия сервера: 5.5.53
--- Версия PHP: 5.5.38
+-- Время создания: Ноя 19 2020 г., 00:25
+-- Версия сервера: 5.5.62
+-- Версия PHP: 7.1.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -17,25 +18,8 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- База данных: `My_bd`
+-- База данных: `my_bd`
 --
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `1`
---
-
-CREATE TABLE `1` (
-  `id` int(11) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Дамп данных таблицы `1`
---
-
-INSERT INTO `1` (`id`) VALUES
-(1);
 
 -- --------------------------------------------------------
 
@@ -167,7 +151,7 @@ CREATE TABLE `animals` (
 --
 
 INSERT INTO `animals` (`id`, `name`, `race`, `origin`, `breeder`, `owner`, `kennel`, `estrus`, `reg_id`, `age_id`, `dna_id`, `family_id`, `mark_id`, `weight`, `height`, `vitality`, `hp`, `joy`, `birth`, `now`, `status`, `puppy`, `litter`, `url`, `url_puppy`) VALUES
-(1, 'Шоко', 'Китайская хохлатая собака', 0, 'nesh', 'nesh', 'Чарующий соблазн', 14, 0, 14, 11, 1, 2, 3830, 25, 100, 1, 4, '15.09.2017', 1380, 1, 2, 2, 'pici/TT/hr1w0f0b0t1m0_01.png', 'pici/puppy/hr1b0_02.png'),
+(1, 'первая Шоко', 'Китайская хохлатая собака', 0, 'nesh', 'nesh', 'Чарующий соблазн', 14, 0, 14, 11, 1, 2, 3830, 25, 100, 1, 4, '15.09.2017', 1380, 1, 2, 2, 'pici/TT/hr1w0f0b0t1m0_01.png', 'pici/puppy/hr1b0_02.png'),
 (2, 'Маленькая', 'Китайская хохлатая собака', 1, 'nesh', 'nesh', 'Чарующий соблазн', 15, 0, 15, 12, 2, 2, 3973, 26, -2, 90, 100, '17.09.2017', 0, 1, 3, 3, 'pici/hr1w0f1b0t0m0_04.png', 'pici/puppy/hr1f1_01.png'),
 (3, '3шоколадкин', 'Китайская хохлатая собака', 0, 'nesh', 'nesh', 'Чарующий соблазн', 0, 0, 16, 13, 3, 2, 4547, 30, 100, 100, 100, '17.09.2017', 0, 1, 1, 1, 'pici/hr1w0f0b0t0m0_05.png', 'pici/puppy/hr1b0_01.png'),
 (4, '4 кобель', 'Китайская хохлатая собака', 1, 'nesh', 'nesh', 'Чарующий соблазн', 0, 1, 1, 14, 4, 0, 4547, 30, 100, 100, 100, '17.09.2017', 0, 1, 0, 0, 'pici/hrhr/hr0w0f0b0t0m0_01.png', 'pici/puppy/hr0b0_01.png'),
@@ -175,7 +159,11 @@ INSERT INTO `animals` (`id`, `name`, `race`, `origin`, `breeder`, `owner`, `kenn
 (6, 'шестой пух', 'Китайская хохлатая собака', 1, 'nesh', 'nesh', 'Чарующий соблазн', 0, 2, 17, 16, 6, 2, 0, 0, 100, 100, 100, '10.01.2018', 0, 1, 2, 2, 'pici/hrhr/hr0w0f0b0t0m0_01.png', 'pici/puppy/hr0b0_01.png'),
 (7, 'Семь', 'Китайская хохлатая собака', 1, 'nesh', 'nesh', 'Чарующий соблазн', 0, 3, 1, 17, 7, 0, 0, 0, 100, 100, 100, '10.01.2018', 0, 1, 0, 0, 'pici/hr1w0f0b0t0m0_05.png', 'pici/puppy/hr1b0_01.png'),
 (8, 'Зяма', 'Китайская хохлатая собака', 1, 'nesh', 'nesh', 'Чарующий соблазн', 0, 4, 14, 18, 9, 0, 0, 0, 100, 100, 100, '22.11.2018', 0, 1, 0, 0, 'pici/hrhr/hr0w0f0b0t0m0_01.png', 'pici/puppy/hr0b0_03.png'),
-(9, 'Новый Мальчик', 'Китайская хохлатая собака', 1, 'nesh', 'nesh', 'Чарующий соблазн', 0, 0, 18, 19, 10, 2, 0, 0, 100, 100, 100, '28.01.2019', 0, 1, 0, 0, 'pici/hr1w0f1b0t0m0_04.png', 'pici/puppy/hr1f1_03.png');
+(9, 'Новый Мальчик', 'Китайская хохлатая собака', 1, 'nesh', 'nesh', 'Чарующий соблазн', 0, 0, 18, 19, 10, 2, 0, 0, 100, 100, 100, '28.01.2019', 0, 1, 0, 0, 'pici/hr1w0f1b0t0m0_04.png', 'pici/puppy/hr1f1_03.png'),
+(10, 'Десятый мальчик', 'Китайская хохлатая собака', 1, 'nesh', 'nesh', 'Чарующий соблазн', 0, 3, 1, 20, 7, 0, 0, 0, 100, 100, 100, '10.01.2019', 0, 1, 0, 0, 'pici/hr1w1f1b0t0m0_01.png', 'pici/puppy/hr1b0_02.png'),
+(11, '11 девочка (21)', 'Китайская хохлатая собака', 1, 'nesh', 'nesh', 'Чарующий соблазн', 15, 0, 15, 21, 1, 1, 3973, 26, 100, 90, 100, '17.09.2020', 0, 1, 3, 3, 'pici/hr1w0f1b0t0m0_01.png', 'pici/puppy/hr1f1_03.png'),
+(12, 'Без имени', 'КХС', 1, 'не известен', 'Заводчик', 'Пушистики', 0, 0, 1, 0, 0, 0, 0, 0, 100, 100, 100, '00.00.0000', 0, 1, 0, 0, '', ''),
+(13, 'Без имени', 'КХС', 1, 'не известен', 'Черныши', 'Черныши - Блек Джек', 0, 0, 1, 0, 0, 0, 0, 0, 100, 100, 100, '00.00.0000', 0, 1, 0, 0, '', '');
 
 -- --------------------------------------------------------
 
@@ -339,7 +327,10 @@ CREATE TABLE `kennels` (
 
 INSERT INTO `kennels` (`id`, `name_k`, `owner_k`, `date`, `dogs`, `l_litter`, `email`) VALUES
 (29, 'Чарующий соблазн', 'nesh', '02.09.2017', 2, 'E', 'stepanova@mail.ru'),
-(30, 'Тестики', 'test', '03.09.2017', 2, 'A', 'test@test');
+(30, 'Тестики', 'test', '03.09.2017', 2, 'A', 'test@test'),
+(31, 'НовыйПитомник', 'новый заводчик', '18.11.2020', 2, '', 'test@test2.ru'),
+(32, 'Пушистики', 'Заводчик', '19.11.2020', 2, '', 'test1@test.ru'),
+(33, 'Черныши - Блек Джек', 'Черныши', '19.11.2020', 2, '', 'black@jack.ru');
 
 -- --------------------------------------------------------
 
@@ -486,8 +477,8 @@ CREATE TABLE `randodna` (
 --
 
 INSERT INTO `randodna` (`id`, `hr`, `ww`, `ff`, `bb`, `tt`, `mm`, `sex`, `lucky`, `spd`, `agl`, `tch`, `jmp`, `nuh`, `fnd`, `mut`, `dna`, `about`) VALUES
-(1, 'hrhr', 'Ww', 'Ff', 'Bb', 'tt', 'Mm', '1', 13, 11, 10, 11, 9, 10, 10, 17, 'hr0w1f0b1t0m0', 'shop'),
-(2, '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 0, '', ''),
+(1, 'hrhr', 'Ww', 'ff', 'bb', 'tt', 'Mm', '0', 69, 10, 11, 9, 9, 10, 11, 86, 'hr0w1f0b0t0m1', 'start'),
+(2, 'Hrhr', 'ww', 'Ff', 'bb', 'Tt', 'mm', '1', 97, 9, 11, 11, 10, 11, 11, 63, 'hr1w0f1b0t1m0', 'start'),
 (3, '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 0, '', ''),
 (4, '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 0, '', ''),
 (5, '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 0, '', ''),
@@ -504,7 +495,19 @@ INSERT INTO `randodna` (`id`, `hr`, `ww`, `ff`, `bb`, `tt`, `mm`, `sex`, `lucky`
 (16, 'hrhr', 'ww', 'ff', 'bb', 'tt', 'mm', '1', 27, 10.55, 10.05, 11.05, 10.05, 10.55, 9.55, 0, 'hr0w0f0b0t0m0', 'owner'),
 (17, 'Hrhr', 'ww', 'ff', 'bb', 'tt', 'mm', '1', 13, 10.87, 10.62, 11.12, 9.61, 10.37, 9.36, 1, 'hr1w0f0b0t0m0', 'owner'),
 (18, 'hrhr', 'ww', 'ff', 'bb', 'Tt', 'mm', '1', 74, 10.25, 10, 10, 9.5, 9.75, 10.25, 0, 'hr0w0f0b0t1m0', 'owner'),
-(19, 'Hrhr', 'ww', 'Ff', 'bb', 'tt', 'mm', '1', 97, 10.42, 9.92, 10.91, 9.92, 9.92, 8.93, 1, 'hr1w0f1b0t0m0', 'owner');
+(19, 'Hrhr', 'ww', 'Ff', 'bb', 'tt', 'mm', '1', 97, 10.42, 9.92, 10.91, 9.92, 9.92, 8.93, 1, 'hr1w0f1b0t0m0', 'owner'),
+(20, 'Hrhr', 'Ww', 'Ff', 'bb', 'tt', 'mm', '1', 97, 10.42, 12, 10.91, 9.92, 9.92, 8.93, 1, 'hr1w1f1b0t0m0', 'owner'),
+(21, 'hrhr', 'ww', 'ff', 'bb', 'Tt', 'mm', '0', 74, 10.25, 10, 10, 9.5, 12, 12, 0, 'hr0w0f0b0t1m0', 'owner'),
+(22, 'Hrhr', 'ww', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 0, '', ''),
+(23, 'hrhr', 'ww', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 0, '', ''),
+(24, '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 0, '', ''),
+(25, 'Hrhr', 'ww', 'ff', 'Bb', 'Tt', 'mm', '0', 39, 11, 10, 11, 9, 9, 10, 86, 'hr1w0f0b1t1m0', 'start'),
+(26, 'hrhr', 'ww', 'ff', 'bb', 'tt', 'Mm', '1', 71, 9, 9, 10, 10, 11, 11, 100, 'hr0w0f0b0t0m1', 'start'),
+(27, 'hrhr', 'Ww', 'ff', 'Bb', 'tt', 'Mm', '0', 90, 10, 9, 9, 10, 11, 9, 21, 'hr0w1f0b1t0m1', 'start'),
+(28, 'Hrhr', 'ww', 'Ff', 'Bb', 'tt', 'mm', '0', 71, 11, 11, 10, 11, 10, 10, 63, 'hr1w0f1b1t0m0', 'start'),
+(29, 'Hrhr', 'ww', 'Ff', 'Bb', 'tt', 'mm', '0', 71, 11, 11, 10, 11, 10, 10, 63, 'hr1w0f1b1t0m0', 'start'),
+(30, 'hrhr', 'Ww', 'ff', 'bb', 'tt', 'Mm', '0', 69, 10, 11, 9, 9, 10, 11, 86, 'hr0w1f0b0t0m1', 'start'),
+(31, 'Hrhr', 'ww', 'Ff', 'bb', 'Tt', 'mm', '1', 97, 9, 11, 11, 10, 11, 11, 63, 'hr1w0f1b0t1m0', 'start');
 
 -- --------------------------------------------------------
 
@@ -562,18 +565,15 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `login`, `email`, `password`, `kennel`, `f_time`, `l_time`, `online`, `sign`, `visits`) VALUES
-(1, 'nesh', 'stepanova@mail.ru', '$2y$10$pinvDspcODn0zxHMfyEUoufayxxNfwrQoqHGX2.Ky1I.fB7FnDan.', 'Чарующий соблазн', '03.09.2017', '29.05.2020', 1, 0, 158),
-(2, 'test', 'test@test', '$2y$10$Vy0Am7CkZj5SYrzoNR26W.XsiO21HWtuQezqns20CfpcqAqdlm7D.', 'Тестики', '04.09.2017', '10.09.2017', 0, 0, 4);
+(1, 'nesh', 'stepanova@mail.ru', '$2y$10$pinvDspcODn0zxHMfyEUoufayxxNfwrQoqHGX2.Ky1I.fB7FnDan.', 'Чарующий соблазн', '03.09.2017', '18.11.2020', 0, 0, 165),
+(2, 'test', 'test@test', '$2y$10$Vy0Am7CkZj5SYrzoNR26W.XsiO21HWtuQezqns20CfpcqAqdlm7D.', 'Тестики', '04.09.2017', '10.09.2017', 0, 0, 4),
+(3, 'новый заводчик', 'test@test2.ru', '$2y$10$eOSfjXze0C3M1FJgNsR3F.A2gohq8kG/avSzH4VEt1.U9q09wUGu2', 'НовыйПитомник', '18.11.2020', '00.00.0000', 0, 0, 0),
+(4, 'Заводчик', 'test1@test.ru', '$2y$10$zuX4xhfkul.jRoVidHypQuTrikFSAxlg//OKhSnr2bP06lBt9r92e', 'Пушистики', '19.11.2020', '00.00.0000', 0, 0, 0),
+(5, 'Черныши', 'black@jack.ru', '$2y$10$MY4yAyenbgoJXUSvdGmzZO7oxBpL3x14wL3XhfzTaLcTg0a8nYTkW', 'Черныши - Блек Джек', '19.11.2020', '19.11.2020', 0, 0, 1);
 
 --
 -- Индексы сохранённых таблиц
 --
-
---
--- Индексы таблицы `1`
---
-ALTER TABLE `1`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Индексы таблицы `ages`
@@ -664,70 +664,78 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT для таблицы `1`
---
-ALTER TABLE `1`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
---
 -- AUTO_INCREMENT для таблицы `ages`
 --
 ALTER TABLE `ages`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
+
 --
 -- AUTO_INCREMENT для таблицы `animals`
 --
 ALTER TABLE `animals`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
 --
 -- AUTO_INCREMENT для таблицы `dna_agt`
 --
 ALTER TABLE `dna_agt`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'индекс', AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT для таблицы `family`
 --
 ALTER TABLE `family`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
 --
 -- AUTO_INCREMENT для таблицы `items`
 --
 ALTER TABLE `items`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
 --
 -- AUTO_INCREMENT для таблицы `kennels`
 --
 ALTER TABLE `kennels`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+
 --
 -- AUTO_INCREMENT для таблицы `litters`
 --
 ALTER TABLE `litters`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT для таблицы `marks`
 --
 ALTER TABLE `marks`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
 --
 -- AUTO_INCREMENT для таблицы `owner_items`
 --
 ALTER TABLE `owner_items`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT для таблицы `randodna`
 --
 ALTER TABLE `randodna`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+
 --
 -- AUTO_INCREMENT для таблицы `registry`
 --
 ALTER TABLE `registry`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
 --
 -- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
