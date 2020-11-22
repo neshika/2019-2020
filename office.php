@@ -70,7 +70,7 @@ if( isset($_POST['shelter']) ){
     echo 'Cобака отдана в приют!';
     //echo '<br>Вы не смогли ее содержать!';
     $id = $_SESSION['Dog'];
-    pic_link($id, 50);
+    dog_pic_size($id, 50);
     
     $ret_dna= ret_dna($id);
     // Загружаем объект с ID = собаки, который взяли из animals
@@ -83,11 +83,11 @@ if( isset($_POST['shelter']) ){
     //высчитываем стоимость в зависимости от параметров
     $price=pricing($id);
  //**************************  уменьшаем стоимость на 50 % ***************** //
-  $price=$price/2;
+  $price=$price/10;
   put_money($_SESSION['logged_user']->login,$price);
   echo 'Выручка составила: ' . $price;
   $dogshelter = R::load('animals', $id);
-  $dogshelter->owner='selter';
+  $dogshelter->owner='shelter';
   R::store($dogshelter);
   
 

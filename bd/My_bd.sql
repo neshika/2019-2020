@@ -191,10 +191,10 @@ INSERT INTO `characteristics` (`id`, `dog_id`, `charact_ru`, `charact_en`) VALUE
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `dna_agt`
+-- Структура таблицы `dnaagt`
 --
 
-CREATE TABLE `dna_agt` (
+CREATE TABLE `dnaagt` (
   `id` int(11) NOT NULL COMMENT 'индекс',
   `a` varchar(4) NOT NULL COMMENT 'Локус А',
   `b` varchar(4) NOT NULL COMMENT 'Локус B',
@@ -207,10 +207,10 @@ CREATE TABLE `dna_agt` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Дамп данных таблицы `dna_agt`
+-- Дамп данных таблицы `dnaagt`
 --
 
-INSERT INTO `dna_agt` (`id`, `a`, `b`, `c`, `d`, `p`, `m`, `t`, `sex`) VALUES
+INSERT INTO `dnaagt` (`id`, `a`, `b`, `c`, `d`, `p`, `m`, `t`, `sex`) VALUES
 (1, 'Aa', 'bb', 'CC', 'dd', 'pp', 'mm', 'tt', '0'),
 (2, 'aa', 'Bb', 'CC', 'dd', 'Pp', 'mm', 'tt', '1');
 
@@ -591,9 +591,9 @@ ALTER TABLE `animals`
   ADD KEY `owner` (`owner`);
 
 --
--- Индексы таблицы `dna_agt`
+-- Индексы таблицы `dnaagt`
 --
-ALTER TABLE `dna_agt`
+ALTER TABLE `dnaagt`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -676,9 +676,9 @@ ALTER TABLE `animals`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
--- AUTO_INCREMENT для таблицы `dna_agt`
+-- AUTO_INCREMENT для таблицы `dnaagt`
 --
-ALTER TABLE `dna_agt`
+ALTER TABLE `dnaagt`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'индекс', AUTO_INCREMENT=3;
 
 --

@@ -558,10 +558,10 @@ function bdika_color($col_m,$col_d){
 
 
 
-//функция выводит данные из таблицы DNA_AGT
+//функция выводит данные из таблицы dnaagt
 function print_al(){
 
-	 $array = R::getAll( 'SELECT * FROM dna_agt' );
+	 $array = R::getAll( 'SELECT * FROM dnaagt' );
        foreach($array as $item) {
               foreach ($item as $key => $value) {
                  echo " | " . "$value";
@@ -582,15 +582,15 @@ if ( isset($_POST['buy']) ){
     $m_mum= f_rand_col('mm', 'mm', 'mm');
     $t_mum='tt';
     $sex='0';
-    R::exec( 'UPDATE dna_agt SET id=:dog_id WHERE id = :id ', array(':dog_id'=> $dog_id, ':id' => $id));
-    R::exec( 'UPDATE dna_agt SET a=:speed WHERE id = :id ', array(':speed'=> $a_mum, ':id' => $id));
-    R::exec( 'UPDATE dna_agt SET b=:agility WHERE id = :id ', array(':agility'=> $b_mum, ':id' => $id));
-    R::exec( 'UPDATE dna_agt SET c=:teach WHERE id = :id ', array(':teach'=> $c_mum, ':id' => $id));
-    R::exec( 'UPDATE dna_agt SET d=:jump WHERE id = :id ', array(':jump'=> $d_mum, ':id' => $id));
-    R::exec( 'UPDATE dna_agt SET p=:scent WHERE id = :id ', array(':scent'=> $p_mum, ':id' => $id));
-    R::exec( 'UPDATE dna_agt SET m=:find WHERE id = :id ', array(':find'=> $m_mum, ':id' => $id));
-    R::exec( 'UPDATE dna_agt SET t=:total WHERE id = :id ', array(':total'=> $t_mum, ':id' => $id));
-    R::exec( 'UPDATE dna_agt SET sex=:total WHERE id = :id ', array(':total'=> $sex, ':id' => $id));
+    R::exec( 'UPDATE dnaagt SET id=:dog_id WHERE id = :id ', array(':dog_id'=> $dog_id, ':id' => $id));
+    R::exec( 'UPDATE dnaagt SET a=:speed WHERE id = :id ', array(':speed'=> $a_mum, ':id' => $id));
+    R::exec( 'UPDATE dnaagt SET b=:agility WHERE id = :id ', array(':agility'=> $b_mum, ':id' => $id));
+    R::exec( 'UPDATE dnaagt SET c=:teach WHERE id = :id ', array(':teach'=> $c_mum, ':id' => $id));
+    R::exec( 'UPDATE dnaagt SET d=:jump WHERE id = :id ', array(':jump'=> $d_mum, ':id' => $id));
+    R::exec( 'UPDATE dnaagt SET p=:scent WHERE id = :id ', array(':scent'=> $p_mum, ':id' => $id));
+    R::exec( 'UPDATE dnaagt SET m=:find WHERE id = :id ', array(':find'=> $m_mum, ':id' => $id));
+    R::exec( 'UPDATE dnaagt SET t=:total WHERE id = :id ', array(':total'=> $t_mum, ':id' => $id));
+    R::exec( 'UPDATE dnaagt SET sex=:total WHERE id = :id ', array(':total'=> $sex, ':id' => $id));
 
 
     //данные папы:
@@ -604,15 +604,15 @@ if ( isset($_POST['buy']) ){
     $m_dad= f_rand_col('mm', 'mm', 'mm');
     $t_dad='tt';
     $sex2='1';
-    R::exec( 'UPDATE dna_agt SET id=:dog_id WHERE id = :id ', array(':dog_id'=> $dog_id2, ':id' => $id2));
-    R::exec( 'UPDATE dna_agt SET a=:speed WHERE id = :id ', array(':speed'=> $a_dad, ':id' => $id2));
-    R::exec( 'UPDATE dna_agt SET b=:agility WHERE id = :id ', array(':agility'=> $b_dad, ':id' => $id2));
-    R::exec( 'UPDATE dna_agt SET c=:teach WHERE id = :id ', array(':teach'=> $c_dad, ':id' => $id2));
-    R::exec( 'UPDATE dna_agt SET d=:jump WHERE id = :id ', array(':jump'=> $d_dad, ':id' => $id2));
-    R::exec( 'UPDATE dna_agt SET p=:scent WHERE id = :id ', array(':scent'=> $p_dad, ':id' => $id2));
-    R::exec( 'UPDATE dna_agt SET m=:find WHERE id = :id ', array(':find'=> $m_dad, ':id' => $id2));
-    R::exec( 'UPDATE dna_agt SET t=:total WHERE id = :id ', array(':total'=> $t_dad, ':id' => $id2));
-    R::exec( 'UPDATE dna_agt SET sex=:total WHERE id = :id ', array(':total'=> $sex2, ':id' => $id2));
+    R::exec( 'UPDATE dnaagt SET id=:dog_id WHERE id = :id ', array(':dog_id'=> $dog_id2, ':id' => $id2));
+    R::exec( 'UPDATE dnaagt SET a=:speed WHERE id = :id ', array(':speed'=> $a_dad, ':id' => $id2));
+    R::exec( 'UPDATE dnaagt SET b=:agility WHERE id = :id ', array(':agility'=> $b_dad, ':id' => $id2));
+    R::exec( 'UPDATE dnaagt SET c=:teach WHERE id = :id ', array(':teach'=> $c_dad, ':id' => $id2));
+    R::exec( 'UPDATE dnaagt SET d=:jump WHERE id = :id ', array(':jump'=> $d_dad, ':id' => $id2));
+    R::exec( 'UPDATE dnaagt SET p=:scent WHERE id = :id ', array(':scent'=> $p_dad, ':id' => $id2));
+    R::exec( 'UPDATE dnaagt SET m=:find WHERE id = :id ', array(':find'=> $m_dad, ':id' => $id2));
+    R::exec( 'UPDATE dnaagt SET t=:total WHERE id = :id ', array(':total'=> $t_dad, ':id' => $id2));
+    R::exec( 'UPDATE dnaagt SET sex=:total WHERE id = :id ', array(':total'=> $sex2, ':id' => $id2));
 
 
 }
@@ -669,12 +669,12 @@ if ( isset($_POST['buy']) ){
  <input type="submit" class="knopka2" value="Обновить" onClick="window.location.reload( true );">
  <button type="submit" class="knopka2" name="buy">Обновить родителей</button>
 </form>
-<div>ТЕСТИМ выводим базу данных: DNA_AGT <br><br><?php print_al()?></div>
+<div>ТЕСТИМ выводим базу данных: dnaagt <br><br><?php print_al()?></div>
 <table><tr><td>
        <table class="table1" cellpadding="2">2
         <tr><td valign="top" height="300" width="300">фото папы:<br>
             <?php $id2='2';
-                $tabl='dna_agt';
+                $tabl='dnaagt';
                 $array2=take_data_from($id2, $tabl);
                 $put= 'pici/agt/' . bdika_col_dog($array2['a'][0],$array2['b'][0],$array2['c'][0],$array2['d'][0],$array2['p'][0],$array2['m'][0]). '.png';
                 ?><img src="<?php echo $put;?>">
@@ -695,7 +695,7 @@ if ( isset($_POST['buy']) ){
       <table class="table1" cellpadding="2">1 
          <tr><td valign="top" height="300" width="300">фото мамы: <br>
             <?php $id='1';
-                $tabl='dna_agt';
+                $tabl='dnaagt';
                 $array=take_data_from($id, $tabl);
                 $put2= 'pici/agt/' . bdika_col_dog($array['a'][0],$array['b'][0],$array['c'][0],$array['d'][0],$array['p'][0],$array['m'][0]). '.png';
                 ?><img src="<?php echo $put2;?>">
