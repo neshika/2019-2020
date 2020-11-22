@@ -9,6 +9,5 @@ require_once(__DIR__ . '/libs/up.php');
               dog_pic_size($key, 100); echo 'бывший заводчик: ' . $value;
               detalis($key);
         }    
-        echo "<br>";
-            
+                 
  
