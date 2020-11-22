@@ -1,6 +1,17 @@
 <?php
 require $_SERVER['DOCUMENT_ROOT']."/libs/up.php";
-     $id = $_GET['id'];
+//debug ($GLOBALS);
+
+/***** при внесении имени обновляется страница и пропадает GET****/
+   if(!isset($_GET['id'])){
+     $id = $_SESSION['Dog'];
+    }
+    else{
+        $id = $_GET['id'];
+    }
+/************ конец проверки GET **************/
+    
+    
       $GLOBALS['Data_dog']=data_animals($id);
       $owner=ret_owner();
       $family_data= ret_Row($GLOBALS['Data_dog']['family_id'],'family');
@@ -11,6 +22,8 @@ require $_SERVER['DOCUMENT_ROOT']."/libs/up.php";
   if ( isset($_POST['newName']) ){ 
     if("" != $_POST['name1']){
        insert_data('animals',$id,'name',$_POST['name1']);
+       $GLOBALS['Data_dog']['name']=$_POST['name1'];
+       
     }
     else {  // всплывающее окно, если имя не ввели
       ?> <script>alert ("ВВедите имя!");</script>   
@@ -32,16 +45,18 @@ require $_SERVER['DOCUMENT_ROOT']."/libs/up.php";
     <div class="right_sidebar" >
         <!-- ******************** кнопка вязка справа  *****************--> 
 
-   <form method="POST">
-           
+        
+    <form method="POST">      
       <a class="buttons" <?php echo '<a href="/family_tree.php?id=' . $id . '">'?>Родословная</a>
       <a class="buttons" <?php echo '<a href="/kennel.php">'?>в питомник</a>
-      <p>
+      
+   </form>
+    <form action="/name.php" method="POST">          
+   
     <p><strong>Сменить имя:</strong></p>
     <input type="text" name="name1">
     <input id="button" name="newName" type="submit" value="Новое имя" class = "knopka">
-
-                           
+                          
     </form>
     <form method="POST" action = "/office.php">
       <div align="right"><input id="button" name="shelter" type="submit" value="отдать в приют" class = "knopka"></div>
