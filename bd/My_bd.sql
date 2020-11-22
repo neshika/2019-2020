@@ -406,10 +406,10 @@ INSERT INTO `marks` (`id`, `mark`, `namerus`) VALUES
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `owner_items`
+-- Структура таблицы `owneritems`
 --
 
-CREATE TABLE `owner_items` (
+CREATE TABLE `owneritems` (
   `id` int(11) NOT NULL,
   `owner_id` int(11) DEFAULT NULL,
   `item_id` int(11) DEFAULT NULL,
@@ -417,10 +417,10 @@ CREATE TABLE `owner_items` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
--- Дамп данных таблицы `owner_items`
+-- Дамп данных таблицы `owneritems`
 --
 
-INSERT INTO `owner_items` (`id`, `owner_id`, `item_id`, `count`) VALUES
+INSERT INTO `owneritems` (`id`, `owner_id`, `item_id`, `count`) VALUES
 (1, 1, 1, 1320000);
 
 -- --------------------------------------------------------
@@ -627,9 +627,9 @@ ALTER TABLE `marks`
   ADD PRIMARY KEY (`id`);
 
 --
--- Индексы таблицы `owner_items`
+-- Индексы таблицы `owneritems`
 --
-ALTER TABLE `owner_items`
+ALTER TABLE `owneritems`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -712,9 +712,9 @@ ALTER TABLE `marks`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT для таблицы `owner_items`
+-- AUTO_INCREMENT для таблицы `owneritems`
 --
-ALTER TABLE `owner_items`
+ALTER TABLE `owneritems`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --

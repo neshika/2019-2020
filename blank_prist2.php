@@ -66,7 +66,7 @@ if (isset ($data['do_sighup'])){  //если кнопка нажата
     $user->f_time = date('d.m.Y');
     $user->l_time = date('d.m.Y');
     $user->password = password_hash($data ['password'], PASSWORD_DEFAULT); //зашифровываем пароль
-    R::store ($user);
+    $owner_id = R::store ($user);
    
         echo "<br>создаем питомник";         
         $ken = R::dispense('kennels');
@@ -195,9 +195,20 @@ echo "<br>создаем предков собаки №2:";
      insert_url_puppy($id_new_dog2);
      
      
-     echo "<br>Создана 1 собака" . $id_new_dog2;
+     echo "<br>Создана 2 собака" . $id_new_dog2;
       
-
+     echo 'создаю счет в банке';
+     $cost = R::dispense('owneritem');
+     $cost->owner_id=$owner_id;
+     $cost->item_id=1;
+     $cost->count=0;
+     R::store($cost);
+     
+     
+     
+     
+     
+     
     echo '<div style="color:green;">Добро пожаловать, все успешно!</div>';  
     $_SESSION['logged_user']->login=$data['login'];
    

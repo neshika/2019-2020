@@ -587,114 +587,48 @@ function f_tree($id){
 
 /*****************цена подсчета собаки*****************************/
 
-function pricing($sex, $dog_id){  //пол собаки и ее id  / возвращает сумму в цифрах
+function pricing($id){  //ее id  / возвращает сумму в цифрах
 
-//echo '<br>' . $dog_id;
-//echo '<br>' . $sex;
-$cost=0;
+$dna_id=ret_dna($id);
+$arr = R::getRow( 'SELECT * FROM randodna WHERE id = :dna_id',
+       [':dna_id' => $dna_id]);
+//debug($arr);
 
-$array[]=R::getRow( 'SELECT * FROM dna WHERE dog_id = :dog_id',
-       [':dog_id' => $dog_id]);
-//debug($array);
-
-  if('кобель'==$sex){
-    //echo '<br>male';
-    foreach($array as $item) {
-          foreach ($item as $id => $value) {  //id индекс, value - значение 
-
-        //  если индекс равен наименованию, напечатать его значение
-             if('hr'==$id){    //hrhr-пух  Hrhr-голая
-              //echo '<br>1' . $value;
-                  if('Hrhr'==$value){
-                    //echo ' Голый^ ';
-                    $cost=35000;
-                    foreach ($item as $id => $value) {  //id индекс, value - значение 
-
-                            if('bb'==$id){  //если шоколадный голый
-                              
-                                if('bb'==$value){
-                                    $cost=55000;
-                                }
-                            }
-                    }
-
-                   
-                  }
-                   if('hrhr'==$value){
-                    //echo ' Пуховый^ ';
-                    $cost=10000;
-                    foreach ($item as $id => $value) {  //id индекс, value - значение 
-
-                            if('bb'==$id){
-                                if('bb'==$value){ //если шоколадный пух
-                                    $cost=35000;
-                                }
-                            }
-                    }
-                  }
-
-            } //if('hr'==$id)
-           
-      } //foreach ($item as $id => $value)
+if(1==$arr['sex']){
+   // echo "кобель";
+    if('Hrhr'==$arr['hr']){
+        $cost=35000;
+        if('bb'==$arr['bb']){
+        $cost=$cost+20000;
+        }
+    }
     
-
-    }  //foreach($array as $item)
-  } //if('кобель'==$sex)
-
-
-
-
-  if('сука'==$sex){
-    //echo '<br>famale';
-        foreach($array as $item) {
-          foreach ($item as $id => $value) {  //id индекс, value - значение 
-
-        //  если индекс равен наименованию, напечатать его значение
-             if('hr'==$id){    //hrhr-пух  Hrhr-голая
-              //echo '<br>2' . $value;
-                  if('Hrhr'==$value){
-                   // echo ' Голый^ ';
-                    $cost=45000;
-                    foreach ($item as $id => $value) {  //id индекс, value - значение 
-
-                            if('bb'==$id){  //если шоколадный голый
-                              
-                                if('bb'==$value){
-                                    $cost=75000;
-                                }
-                            }
-                    }
-
-                   
-                  }
-                   if('hrhr'==$value){
-                    //echo ' Пуховый^ ';
-                    $cost=25000;
-                    foreach ($item as $id => $value) {  //id индекс, value - значение 
-
-                            if('bb'==$id){
-                                if('bb'==$value){ //если шоколадный пух
-                                    $cost=40000;
-                                }
-                            }
-                    }
-                  }
-
-            } //if('hr'==$id)
-           
-      } //foreach ($item as $id => $value)
+    if('hrhr'==$arr['hr']){
+        $cost=10000;
+        if('bb'==$arr['bb']){
+        $cost=$cost+25000;
+        }
+    }
+   
+}
+if(0==$arr['sex']){
+    //echo "сука";
+    if('Hrhr'==$arr['hr']){ //голая
+        $cost=45000;
+        if('bb'==$arr['bb']){ //голая шоко
+        $cost=$cost+30000;
+        }
+    }
     
-
-    }  //foreach($array as $item)
-} //if('сука'==$sex)   
-       
-$mult=find_where('stats',$dog_id,'total');
-echo $mult;
-$mult=$mult*$GLOBALS['buy_stats'];
-
-$cost=$cost+$mult;
-
-return $cost;      
+    if('hrhr'==$arr['hr']){ //пуховая
+        $cost=25000;
+        if('bb'==$arr['bb']){ //пуховая шоко
+        $cost=$cost+15000;
+        }
+    }
+   
+}
+ return $cost;  
 
 }
 
@@ -717,8 +651,6 @@ function bdika_balance($owner,$price){  //проверяет хватает ли
 }
 
 
-
-
 /***************получает сумму денег по имени владельца************/
 function print_money($login){
    $id=get_id($login);
@@ -733,7 +665,7 @@ function put_money($owner,$price){
   $coins = get_count('1', $id);
   $coins = $coins + $price;
 
- R::exec( 'UPDATE owner_items SET count= :coins WHERE owner_id = :id AND item_id = :item', array(':coins' => $coins,':item'=> '1', ':id' => $id));
+ R::exec( 'UPDATE owneritems SET count= :coins WHERE owner_id = :id AND item_id = :item', array(':coins' => $coins,':item'=> '1', ':id' => $id));
    
 
 }
@@ -754,7 +686,7 @@ function buying($owner,$price){
    
 //echo '<br>$money ' . $money;
   //echo number_format ($money , $decimals = 0,$dec_point = "." , $thousands_sep = " " ); // формат 10 000 ;
- R::exec( 'UPDATE owner_items SET count= :coins WHERE owner_id = :id AND item_id = :item', array(':coins' => $money,':item'=> '1', ':id' => $id));
+ R::exec( 'UPDATE owneritems SET count= :coins WHERE owner_id = :id AND item_id = :item', array(':coins' => $money,':item'=> '1', ':id' => $id));
 
 
 
@@ -769,7 +701,7 @@ function get_where($tabl, $param, $owner){
  /*Функция возвращает количество итемов у нанного владельца*/
 function get_count($item, $owner_id){
 
-    $string=R::getcol('SELECT count FROM owner_items WHERE owner_id =:id and item_id=:item', array(':id'=> $owner_id, ':item' => $item));
+    $string=R::getcol('SELECT count FROM owneritems WHERE owner_id =:id and item_id=:item', array(':id'=> $owner_id, ':item' => $item));
     //var_dump($string);
     if (empty($string)){
       $string[0]='0';

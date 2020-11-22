@@ -1,8 +1,8 @@
 
 <?php
 //подключение файлов
-require_once(__DIR__ . '/libs/up.php');
-//require $_SERVER['DOCUMENT_ROOT']."/db.php";
+//require_once(__DIR__ . '/libs/up.php');
+require $_SERVER['DOCUMENT_ROOT']."/db.php";
 //require $_SERVER['DOCUMENT_ROOT']."/includes/functions.php";
 //require $_SERVER['DOCUMENT_ROOT'].'/html/header.html';
 //ini_set('display_errors',1);
@@ -28,6 +28,10 @@ function print_by_id ($tabl,$id){
    
 }
 //print_by_id ('users', 2);
+
+
+
+
 
 /*
 

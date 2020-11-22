@@ -51,10 +51,8 @@ if (isset($_POST['comment'])) { //если в форме NewDog включена
 
 echo "<h3><li>Важные события: </li></h3>";   
 
-
+/*Проверяем, есть ли в питомнике собаки без Имени и даем ссылку на страницу*/
 $name = 'Без имени';
-$owner = 'Дима';
-
 $array = R::getAssoc('SELECT id FROM animals WHERE owner = :owner && name = :name' ,
         [':owner' => $owner, ':name' => $name]);
 If(!empty($array)){
@@ -67,29 +65,31 @@ If(!empty($array)){
 
 
 
-
-
 				
 if( isset($_POST['shelter']) ){ 
-    echo 'Cобака продана!';
-?><img src="<?php echo from_id_to_url($_SESSION['Dog']);?>" width="5%"><?php
-    //echo $_SESSION['Dog'];
-   // echo $_SESSION['logged_user']->login;
-   // echo $id;
-  //******************************вносит в базу владелец становиться - SHELTER********************//
-   insert_data('animals',$_SESSION['Dog'],'owner','shelter');
-
-   //******************************получает пол собаки по id********************//
-    $sex=find_where('animals',$id,'sex');
-
-    //**********************  высчитываем стоимость в зависимости от параметров**************** //
- $price=pricing($sex, $_SESSION['Dog']);
+    echo 'Cобака отдана в приют!';
+    //echo '<br>Вы не смогли ее содержать!';
+    $id = $_SESSION['Dog'];
+    pic_link($id, 50);
+    
+    $ret_dna= ret_dna($id);
+    // Загружаем объект с ID = собаки, который взяли из animals
+        $dog = R::load('randodna', $ret_dna);
+    // Обращаемся к свойству объекта и назначаем ему новое значение
+    $dog->about = 'shelter';
+    // Сохраняем объект
+     R::store($dog);
+     
+    //высчитываем стоимость в зависимости от параметров
+    $price=pricing($id);
  //**************************  уменьшаем стоимость на 50 % ***************** //
-
- $price=$price/2;
+  $price=$price/2;
   put_money($_SESSION['logged_user']->login,$price);
-
-  echo '<br>Выручка составила: ' . $price;
+  echo 'Выручка составила: ' . $price;
+  $dogshelter = R::load('animals', $id);
+  $dogshelter->owner='selter';
+  R::store($dogshelter);
+  
 
 }
 
