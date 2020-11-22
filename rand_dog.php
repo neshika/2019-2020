@@ -117,7 +117,7 @@ function rand_dog1($id){
 <form action="blank_prist.php" method="POST">
 <button type="submit" class="knopka" name="rand">отлично</button>
 </form>
-<form action="office.php" method="POST">
+<form action="index.php" method="POST">
 <button type="submit" class="knopka" name="back">назад</button>
 </form>
 </body>
