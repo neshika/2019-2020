@@ -1,6 +1,7 @@
 <?php
 //подключение библиотеки redBeanphp
 require $_SERVER['DOCUMENT_ROOT']."/db.php";
+//require $_SERVER['DOCUMENT_ROOT']."/includes/functions.php";
 
 //подключение файла с функциями
 require $_SERVER['DOCUMENT_ROOT']."/includes/functions.php";

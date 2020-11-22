@@ -2,7 +2,6 @@
 //подключение файлов
 require_once(__DIR__ . '/libs/up.php');
 
-
 $owner=ret_owner(); //сохраняем название владельца в переменную из куки
 /*Получаем запросом  навание питомника, при условии что владелец идентифицируется по куку Сессии*/
         $kennel = R::getCell('SELECT kennel FROM users WHERE login = :owner',

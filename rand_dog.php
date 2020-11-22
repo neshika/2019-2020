@@ -60,6 +60,8 @@ function rand_dog1($id){
     return $dna;
     
 }
+
+ 
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -88,8 +90,10 @@ function rand_dog1($id){
     //echo $all;
      // $_SESSION['url']=$url=bdika_color ($Hr,$W,$F,$B,$T,$M);
       $_SESSION['url']=$url=rand_dog1('1');
-      ?><br> <img src="<?php echo do_url($url)?>">
-      
+      $_SESSION['url_pici']=do_url($url);
+      ?>
+  <br> <img src="<?php echo $_SESSION['url_pici']?>">
+ 
 </div>
 <div style="background: blue; text-align: center; height: 570px; width: 350px; float: right; margin-right: 180px; ">
     <h2> самец: </h2>
@@ -108,8 +112,8 @@ function rand_dog1($id){
     //echo $all;
      // $_SESSION['url2']=$url=bdika_color ($Hr,$W,$F,$B,$T,$M);
        $_SESSION['url2']=$url2=rand_dog1('2');
-      ?><br> <img src="<?php echo do_url($url2)?>">
-
+       $_SESSION['url2_pici']=do_url($url2);
+      ?><br> <img src="<?php echo $_SESSION['url2_pici']?>">
 </div>
 <form action="rand_dog.php" method="POST">
 <button type="submit" class="knopka" name="rand">еще варианты</button>

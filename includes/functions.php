@@ -14,7 +14,7 @@ $GLOBALS['timer']=1440;
 
 function globals(){
    echo '<br> Глобальные переменные:';
-    $array=$GLOBALS;
+    $array[]=$GLOBALS;
     foreach ($array as $key => $value) {
          echo '<br>[' . $key . '] ' . $value;
     }    
@@ -1063,17 +1063,9 @@ Function insert_url($id,$url){
 function insert_url_puppy($dog_id){
    // $data_dog=take_data_from($dog_id, 'dna');
    $dna_id = ret_dna($dog_id);
-    $data_dog=take_data_from($dna_id, 'randodna');
-       $num=Rand(1,3);  //количество варианций окраса собаки
-
-     // echo "<br>hr: " . $data_dog['hr'];
-   // echo "<br>ww: " . $data_dog['ww'];
-    // echo "<br>bb: " . $data_dog['bb'];
-    //echo "<br>ff: " . $data_dog['ff'];
-   // echo "<br>tt: " . $data_dog['tt'];
-   // echo "<br>mm: " . $data_dog['mm'];
-
-        if('hrhr'==$data_dog['hr']){   //если пух
+   $data_dog = take_data_from($dna_id, 'randodna');
+   $num = Rand(1,3);  //количество варианций окраса собаки
+       if('hrhr'==$data_dog['hr']){   //если пух
           if('ww'==$data_dog['ww']){   //если не белый
                 if( 'ff'==$data_dog['ff'] ){ //если не рыжий
                     if('bb'==$data_dog['bb'])  //если шоко

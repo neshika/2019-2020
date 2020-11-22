@@ -13,12 +13,16 @@ require "includes/functions.php";
     <button type="submit" class="knopka" name="singup">Войти</button>
     </form>
 
-<img src="<?php echo do_url($_SESSION['url'])?>"><br>
-<img src="<?php echo do_url($_SESSION['url2'])?>"><br>
-
  
 <?php
+echo $_SESSION['url'];
+?><br> <img src="<?php echo $_SESSION['url_pici']?>">
+<?php
 
+echo "<br>" . $_SESSION['url2'];
+?><br> <img src="<?php echo $_SESSION['url2_pici']?>">
+<?php
+        
 $data = $_POST;
 debug($data);
 
@@ -60,6 +64,7 @@ if (isset ($data['do_sighup'])){  //если кнопка нажата
     $user->email = $data ['email'];
     $user->kennel = $data ['kennel'];
     $user->f_time = date('d.m.Y');
+    $user->l_time = date('d.m.Y');
     $user->password = password_hash($data ['password'], PASSWORD_DEFAULT); //зашифровываем пароль
     R::store ($user);
    
@@ -95,7 +100,7 @@ $dog->fnd = $arr[0]['fnd'];
 $dog->mut = $arr[0]['mut'];
 $dog->dna = $arr[0]['dna'];
 $dog->about = $arr[0]['about'];
- echo R::store($dog);
+ echo $dna_id_dog1 = R::store($dog);
  
  //создаем вторую собаку
 $arr2 [] = ret_Row(2, 'randodna');            
@@ -118,24 +123,85 @@ $dog2->fnd = $arr2[0]['fnd'];
 $dog2->mut = $arr2[0]['mut'];
 $dog2->dna = $arr2[0]['dna'];
 $dog2->about = $arr2[0]['about'];
-echo R::store($dog2);
-     echo "<br>создаем собак:";
-     
-     $dogs = R::dispense('animals');
+echo $dna_id_dog2 = R::store($dog2);
+
+
+echo "<br>создаем предков собаки №1:";
+    
+    $dog = R::dispense('family');
+        foreach ($dog as $key) {
+            if($key!='id'){
+                $dog->$key=0;  //вносим всех предков по нулям
+            }
+        }      
+    echo $family_id = R::store($dog);  
+
+echo "<br>создаем предков собаки №2:";
+    
+    $dog22 = R::dispense('family');
+        foreach ($dog22 as $key) {
+            if($key!='id'){
+                $dog22->$key=0;  //вносим всех предков по нулям
+            }
+        }      
+    echo $family_id2 = R::store($dog22);  
+    
+    echo "<br>создаем собак:";
+    //расчет формулы воззаста в зависимости от даты создания
+    $age=10;
+    $date = new DateTime();
+    $date->modify('-3 month');
+    $date->format('d.m.Y');
+    //конец расчета
+    
+    
+    
+    $dogs = R::dispense('animals');
      $dogs->name='Без имени';
      $dogs->race='КХС';
      $dogs->origin='1';
-     $dogs->breeder='не известен';
+     $dogs->breeder='Бесты-первый лучший';
      $dogs->owner=$data ['login'];
      $dogs->kennel=$data ['kennel'];
-     echo R::store($dogs);
-       
+     $dogs->age_id=$age;
+     $dogs->dna_id=$dna_id_dog1;
+     $dogs->family_id=$family_id;
+     $dogs->mark_id=1; //отлично оценка
+     $dogs->birth=$date->format('d.m.Y');
+     $id_new_dog1 = R::store($dogs);
+     /*вносим в табл URL*/
+    
+     insert_url( $id_new_dog1,$_SESSION['url_pici']);
+     insert_url_puppy($id_new_dog1);
+     
+     echo "<br>Создана 1 собака" . $id_new_dog1;
+
+     $dog2 = R::dispense('animals');
+     $dog2->name='Без имени';
+     $dog2->race='КХС';
+     $dogs->origin='1';
+     $dog2->breeder='Бесты-первый лучший';
+     $dog2->owner=$data ['login'];
+     $dog2->kennel=$data ['kennel'];
+     $dog2->age_id=$age;
+     $dog2->dna_id=$dna_id_dog2;
+     $dog2->family_id=$family_id2;
+     $dog2->mark_id=1; //отлично оценка
+     $dog2->birth=$date->format('d.m.Y');
+     $id_new_dog2 = R::store($dog2);
+     
+     
+     insert_url( $id_new_dog2, $_SESSION['url2_pici']);
+     insert_url_puppy($id_new_dog2);
+     
+     
+     echo "<br>Создана 1 собака" . $id_new_dog2;
+      
 
     echo '<div style="color:green;">Добро пожаловать, все успешно!</div>';  
     $_SESSION['logged_user']->login=$data['login'];
    
-  
- 
+
 
   } else{
                          
@@ -144,5 +210,18 @@ echo R::store($dog2);
                
   }
 }
+
+if ( isset($_POST['newName1']) ){ 
+    if("" != $_POST['name1']){
+       insert_data('animals',$id,'name',$_POST['name1']);
+    }
+ 
+}
+  if ( isset($_POST['newName2']) ){ 
+    if("" != $_POST['name2']){
+       insert_data('animals',$id,'name',$_POST['name2']);
+    }
+}
+  
 
 
