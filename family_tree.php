@@ -6,98 +6,38 @@ require $_SERVER['DOCUMENT_ROOT']."/libs/up.php";
       $f_data= ret_f_data_by_dog($id);
  ?>
 <style>
-    #demoObjectdad {
--webkit-box-shadow: 5px 5px 5px 0px #000000, inset 4px 4px 15px 0px #000000, inset 5px 5px 15px -2px rgba(255,184,230,0), 5px 5px 15px -2px rgba(255,184,230,0); 
-box-shadow: 5px 5px 5px 0px #000000, inset 4px 4px 15px 0px #000000, inset 5px 5px 15px -2px rgba(255,184,230,0), 5px 5px 15px -2px rgba(255,184,230,0);
-background: #050E77;
-height: 150px;
-width: 150px;
-margin: 0 auto 0 auto;
-padding-left: 5%;
-padding-top: 1%;
-}
-#demoObjectmum {
--webkit-box-shadow: 5px 5px 5px 0px #000000, inset 4px 4px 15px 0px #000000, inset 5px 5px 15px -2px rgba(255,184,230,0), 5px 5px 15px -2px rgba(255,184,230,0); 
-box-shadow: 5px 5px 5px 0px #000000, inset 4px 4px 15px 0px #000000, inset 5px 5px 15px -2px rgba(255,184,230,0), 5px 5px 15px -2px rgba(255,184,230,0);
-background: #771275;
-height: 150px;
-width: 150px;
-margin: 0 auto 0 auto;
-padding-left: 5%;
-padding-top: 1%;
-}
-body#tinymce {
-background: #2B2A29
-}
+ /* Shadow box для дедушек бабушек и родителей*/
+ #borderdog{
+     border: 5px outset #D0D0D0;
+     height: 175px;
+     width: 175px;
+     margin: 0 auto 0 auto;
+     padding-left: 3%;
+     padding-top: 1%;
+ }
+ #bordermum{
+     border: 5px outset #771275;
+     height: 150px;
+     width: 150px;
+     margin: 0 auto 0 auto;
+     padding-left: 1%;
+     padding-top: 2%;
+ }
+ #borderdad{
+     border: 5px outset #1B105B;
+     height: 150px;
+     width: 150px;
+     margin: 0 auto 0 auto;
+     padding-left: 1%;
+     padding-top: 2%;
+ }
+ 
+ 
+
 </style>
 <?PHP
-     
     
-function retu_dad($f_data){
-         $dad=ret_Cell('name', $f_data['dad'], 'animals');
-      if($dad){
-            ?><img src="<?php echo ret_Cell('url', $f_data['dad'], 'animals');?>" width="10%"><?php
-          
-          return $dad;
-      }
-      else{
-          return 'данные отсутствуют';
-      }
-}
-     
-
-function retu_mam($f_data){
-         $mum=ret_Cell('name', $f_data['mum'], 'animals');
-      if($mum){
-          ?><img src="<?php echo ret_Cell('url', $f_data['mum'], 'animals');?>" width="10%"><?php
-          return $mum;
-      }
-      else{
-          return 'данные отсутствуют';
-      }
-}
-
-function retu_g1dad($f_data){
-         $g1dad=ret_Cell('name', $f_data['g1dad'], 'animals');
-      if($g1dad){
-          ?><img src="<?php echo ret_Cell('url', $f_data['g1dad'], 'animals');?>" width="25%"><?php
-          return $g1dad;
-      }
-      else{
-          return 'данные отсутствуют';
-      }
-}
-function retu_g1mum($f_data){
-         $g1mum=ret_Cell('name', $f_data['g1mum'], 'animals');
-      if($g1mum){
-          ?><img src="<?php echo ret_Cell('url', $f_data['g1mum'], 'animals');?>" width="25%"><?php
-          return $g1mum;
-      }
-      else{
-          return 'данные отсутствуют';
-      }
-}
-function retu_g0dad($f_data){
-         $g0dad=ret_Cell('name', $f_data['g0dad'], 'animals');
-      if($g0dad){
-          ?><img src="<?php echo ret_Cell('url', $f_data['g0dad'], 'animals');?>" width="25%"><?php
-          return $g0dad;
-      }
-      else{
-          return 'данные отсутствуют';
-      }
-}
-function retu_g0mum($f_data){
-         $g0mum=ret_Cell('name', $f_data['g0mum'], 'animals');
-      if($g0mum){
-          ?><img src="<?php echo ret_Cell('url', $f_data['g0mum'], 'animals');?>" width="25%"><?php
-          return $g0mum;
-      }
-      else{
-          return 'данные отсутствуют';
-      }
-}
-
+ 
 function ret_f_data($f_data){
     if(0!=$f_data){
         ?><a href="/name.php?id=<?php echo $f_data?>"><img src="<?php echo bdika_url($f_data);?>"width="60%"></a><?php
@@ -105,38 +45,33 @@ function ret_f_data($f_data){
     else{
         echo 'данные отсутствуют';
     }
-    
 }
-    
-     
+
 ?>
-
-
 <div class="content">
-    <form method="POST">
-        <!--<a class="buttons" <?php //echo '<a href="/name.php?id=' . $id . '">'?>назад</a>-->
-    </form>
-     <?php echo "<br>Питомник: " . '"' . $data_dog['kennel'] . '"';
-        echo "<br>Заводчик: " . $data_dog['breeder'] . " Владелец: " . $data_dog['owner'];
-        /*печать данных*/
-    echo '<br>Вязок: ' .  $data_dog['litter'] . ' щенков: ' .  $data_dog['puppy'];?>
-            
-<table class="iksweb">
-	<tbody>
-		<tr>
-                    <td colspan="4"><div class="mydog"><?php echo  $data_dog['name']; pic_link($id, 150);?> </div></td>
-		</tr>
-		<tr>
-			<td colspan="2">Отец:<div id="demoObjectdad"><?php echo ret_Cell('name', $f_data['dad'], 'animals'); ret_f_data($f_data['dad']);?></td>
-			<td colspan="2">Мать:<div id="demoObjectmum"><?php echo ret_Cell('name', $f_data['mum'], 'animals'); ret_f_data($f_data['mum']);?></td>
-		</tr>
-		<tr>
-			<td>Дедушка по линии отца:<div id="demoObjectdad"><?php echo ret_Cell('name', $f_data['g1dad'], 'animals'); ret_f_data($f_data['g1dad']);?></td></td>
-			<td>Бабушка по линии отца:<div id="demoObjectmum"><?php echo ret_Cell('name', $f_data['g1mum'], 'animals'); ret_f_data($f_data['g1mum']);?></td></td>
-			<td>Дедушка по линии матери:<div id="demoObjectdad"><?php echo ret_Cell('name', $f_data['g0dad'], 'animals'); ret_f_data($f_data['g0dad']);?></td></td>
-			<td>Бабушка по линии матери:<div id="demoObjectmum"><?php echo ret_Cell('name', $f_data['g0mum'], 'animals'); ret_f_data($f_data['g0mum']);?></td></td>
-		</tr>
-	</tbody>
+ <table class="iksweb">
+    <caption class="text_effect"><?php echo $data_dog['name'] . $data_dog['kennel'];?></caption>
+    <tbody>
+        <tr>
+            <td colspan="4"><div id="borderdog"><?php pic_link($id, 150);?> </div></td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align: center">Отец:<div id="borderdad">
+                <?php echo "<br>" . ret_Cell('name', $f_data['dad'], 'animals') . ret_f_data($f_data['dad']);?></td>
+            <td colspan="2" style="text-align: center">Мать:<div id="bordermum">
+                <?php echo "<br>" . ret_Cell('name', $f_data['mum'], 'animals') . ret_f_data($f_data['mum']);?></td>
+        </tr>
+        <tr>
+            <td style="text-align: center">Дедушка по линии отца:<div id="borderdad">
+                <?php echo "<br>" . ret_Cell('name', $f_data['g1dad'], 'animals') . ret_f_data($f_data['g1dad']);?></td></td>
+            <td style="text-align: center">Бабушка по линии отца:<div id="bordermum">
+                <?php echo "<br>" . ret_Cell('name', $f_data['g1mum'], 'animals') . ret_f_data($f_data['g1mum']);?></td></td>
+            <td style="text-align: center">Дедушка по линии матери:<div id="borderdad">
+                 <?php echo "<br>" . ret_Cell('name', $f_data['g0dad'], 'animals') . ret_f_data($f_data['g0dad']);?></td></td>
+            <td style="text-align: center">Бабушка по линии матери:<div id="bordermum">
+                <?php echo "<br>" . ret_Cell('name', $f_data['g0mum'], 'animals') . ret_f_data($f_data['g0mum']);?></td></td>
+        </tr>
+    </tbody>
 </table>
- </div>
+</div>
 
