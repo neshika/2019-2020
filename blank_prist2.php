@@ -76,6 +76,13 @@ if (isset ($data['do_sighup'])){  //если кнопка нажата
         $ken->email = $data ['email'];
         $ken->dogs = '2';
         R::store ($ken);
+        echo "<br>открываем счет в банке";
+        $items = R::dispense('owneritems');
+        $items->owner_id=$owner_id;
+        $items->item_id=1;
+        $items->count=0;
+        R::store ($items);
+        
        
         echo "<br>вносим генетический код"; //randodna
         
