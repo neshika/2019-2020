@@ -3,8 +3,27 @@
 require_once(__DIR__ . '/libs/up.php');
 //require_once(__DIR__ . '/includes/functions.php');
    $owner=ret_owner();
-   debug($_POST);
+  // debug($_POST);
+   $_SESSION['id_dna']=3;
+   $_SESSION['id_dna2']=4;
+   $_SESSION['id_dna3']=5;
    
+    rand_dog1($_SESSION['id_dna']);
+    rand_dog1($_SESSION['id_dna2']);
+   rand_dog1($_SESSION['id_dna3']);
+ ?>  
+<div class="content">
+ <form method="POST" action="buy.php">
+    <h3 align="center">сумма в вашем кошельке: <?php print_item($owner,1); //  рисует деньги?></h3>
+    <form method="POST" action="buy.php">
+                    <button type="submit" class="knopka" name="money">кредит 50 000</button>
+                </form>    
+                <!--<form onsubmit="document.getElementById('money').disabled = true"><input id="submitButton" type="submit"/></form>-->
+    </form>
+</form>      
+ <?php   
+(isset($_POST['buy']) ? vip_buy() : No()); //если кнопку купить нажали делаем функцию vip_buy иначе делаем  функцию NO
+
  if(isset($_POST['money'])){
        echo 'мы в функции';
         put_money($owner, '50000');
@@ -19,7 +38,7 @@ require_once(__DIR__ . '/libs/up.php');
    }   
 
 function No(){
-    echo 'нет собак в продаже!';
+    echo '<div class="content"><h1>нет собак в продаже!</h1></div>';
     ?><a class="buttons" href="/kennel.php" >в питомник</a><?php
     exit;
 }
@@ -50,7 +69,7 @@ function rand_dog1($id){
       $fnd= rand(9,11);
       $mut= rand(1,100);
       $pol=Rand(0,1);
-  /* echo '<br>DNA^ ' . $dna;
+ /* echo '<br>DNA^ ' . $dna;
    echo '<br>удача ' . $lucky;
    echo '<br>скорость ' . $spd;
    echo ' <br>уворот ' . $agl;
@@ -140,41 +159,41 @@ else{
 	return '<img src = "/pic/male_mini.png">';
     }
 }
+
 function vip_buy(){
-    $id_dna=3;
-    rand_dog1($id_dna);
-    printUrlFromDna($id_dna,50);
-    ///////////// рисует пол собаки
-    echo print_sex_pic($id_dna);   
-     //////////////////// проверка цены ........
-     echo dogPrice($id_dna);
-}        
-?>
-<form method="POST" action="/buy.php">
+?>         
     <table border="1" cellpadding="25" text-align="center">
-    <caption><h1>Aктуальные предложения на сегодня</h1></caption>
-     <tr>
-         <h3 align="center">сумма в вашем кошельке: <?php print_item($owner,1); //  рисует деньги?></h3>
-                <form method="POST" action="buy.php">
-                    <button type="submit" class="knopka" name="money">кредит 50 000</button>
-                </form>    
-                <form onsubmit="document.getElementById('money').disabled = true">
-                    <input id="submitButton" type="submit"/>
-                </form>
-        <td>
- <?php 
- 
-  (isset($_POST['buy']) ? vip_buy() : No()); //если кнопку купить нажали делаем функцию vip_buy иначе делаем  функцию NO
-?>
-
+        <caption><h1>Aктуальные предложения на сегодня</h1><br></caption>
+    <td>
+    <?php 
+   printUrlFromDna($_SESSION['id_dna'],50);
+    ///////////// рисует пол собаки
+    echo print_sex_pic($_SESSION['id_dna']);   
+     //////////////////// проверка цены ........
+     echo dogPrice($_SESSION['id_dna']);    
+  
+    ?><button type="submit" class="knopka" name="buy" >Купить</button></td>
+           
         </td>
-        <td> Вторая ячейка<button type="submit" class="knopka" name="buy2" >Купить</button></td>
-        <td>Третья ячейка<button type="submit" class="knopka" name="money" >Купить</button></td>
-        <td>Четвертая ячейка<button type="submit" class="knopka" name="money" >Купить</button></td>
-
-        
+        <td>  <?php 
+            printUrlFromDna($_SESSION['id_dna2'],50);
+            ///////////// рисует пол собаки
+            echo print_sex_pic($_SESSION['id_dna2']);   
+            //////////////////// проверка цены ........
+            echo dogPrice($_SESSION['id_dna2']);   
+            ?> <button type="submit" class="knopka" name="buy2" >Купить</button></td>
+        <td>  <?php 
+            printUrlFromDna($_SESSION['id_dna3'],50);
+            ///////////// рисует пол собаки
+            echo print_sex_pic($_SESSION['id_dna3']);   
+            //////////////////// проверка цены ........
+            echo dogPrice($_SESSION['id_dna3']);   
+            ?> <button type="submit" class="knopka" name="buy3" >Купить</button></td>
       </tr>
+     
 
     </table>
 </form>
+<?php
+}  //end of function vip_buy(){
 

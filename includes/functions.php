@@ -822,7 +822,8 @@ function pic_link($id,$size){
 }
 /*функция печатает собаку из ее URL рандомно, можно указать размер картинки в %. из RANDODNA*/
 function printUrlFromDna($id_dna,$size){
-    $urlFromDna = do_url(do_dna($id_dna));
+    $dna= ret_Cell('dna', $id_dna,'randodna');
+    $urlFromDna = do_url($dna);
     ?>
     <img src = "<?php echo $urlFromDna;?>" width="<?php echo $size?>%"> 
     <?php
@@ -909,6 +910,8 @@ function f_bdika_sex(){
 	return $sex;
 
 }
+//создает  DNA из полей ww hrhr bb cc получается hr0w0f1b0t0m1
+
 function do_dna($id){
 
  //$data_dna=R::getRow( 'SELECT * FROM dna WHERE dog_id = :id',
