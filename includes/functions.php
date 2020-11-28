@@ -146,6 +146,9 @@ function print_mark($id){
 function rand_sex(){
     return Rand(0,1);
 }
+function insert_sex($id,$sex){
+      insert_data('randodna',$id, 'sex', $sex);
+}
 
 /* функция возвращает пол собаки по ее id*/
 function ret_sex($id){
@@ -811,10 +814,18 @@ function dog_pic_mesh(){
 function dog_pic_size($id,$size){
     ?><img src="<?php echo bdika_url($id);?>" height="<?php echo $size?>"><?php
 }
+/*функция печатает собаку как ссылку, можно указать размер картинки в пикселях. проверяет щенок или нет(печатает из ANIMALS)*/
 function pic_link($id,$size){
     ?><a href="/name.php?id=<?php echo $id?>">
         <img src="<?php echo bdika_url($id);?>" title="<?php echo ret_Cell('name', $id, 'animals')?> " width="<?php echo $size?>">
             </a><?php
+}
+/*функция печатает собаку из ее URL рандомно, можно указать размер картинки в %. из RANDODNA*/
+function printUrlFromDna($id_dna,$size){
+    $urlFromDna = do_url(do_dna($id_dna));
+    ?>
+    <img src = "<?php echo $urlFromDna;?>" width="<?php echo $size?>%"> 
+    <?php
 }
 
 /*Функция пишет тип собаки по русски в зависимоти от Генетического типа*/
@@ -855,8 +866,7 @@ function print_stats_d($id){
 
 /*Функция возвращает название картинки в зависимости от пола собаки по ее ID*/
 function ret_pic_sex($id){
-    
-        
+     
     $sex=ret_sex($id);
 	if(0==$sex){
 		return '<img src = "/pic/female_mini.png">';

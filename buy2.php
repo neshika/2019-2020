@@ -5,7 +5,7 @@
 ?>
 
 <?php
-
+  
 if(!isset($_POST['buy']) ){        //если кнопка не нажата
 
        $_SESSION['hr']=$Hr=f_rand_col('HrHr','Hrhr','hrhr');

@@ -1,162 +1,174 @@
 <?php
 
-       require "/libs/up.php";
+require_once(__DIR__ . '/libs/up.php');
+//require_once(__DIR__ . '/includes/functions.php');
    $owner=ret_owner();
-        //$test1=0;
-        //$test2=0;
-        //$test3=0;
-        //$test4=0;
+   debug($_POST);
+   
+ if(isset($_POST['money'])){
+       echo 'мы в функции';
+        put_money($owner, '50000');
+      unset($_POST['money']);
+       echo '<br>принтуем';
+      //  var_dump((unset)$_POST);
+        debug($_POST);
+       // header("Location: ".$_SERVER["REQUEST_URI"]."");
+        //header("Refresh:2;url={$_SERVER['REQUEST_URI']}");
+       //echo ' <script type="text/javascript"> location.reload(); </script>';
+        echo 'конец функции';
+   }   
+
 function No(){
     echo 'нет собак в продаже!';
     ?><a class="buttons" href="/kennel.php" >в питомник</a><?php
     exit;
 }
-
-function vip_buy(){
-   $_SESSION['sex']=f_bdika_sex();
-   $_SESSION['spd']=Rand(9,11);
-   $_SESSION['agl']=Rand(9,11);
-  $_SESSION['tch']=Rand(9,11);
-  $_SESSION['jmp']=Rand(9,11);
-  $_SESSION['nuh']=Rand(9,11);
-  $_SESSION['fnd']=Rand(9,11);
-  $_SESSION['ttl']=($_SESSION['spd']+$_SESSION['agl']+$_SESSION['tch']+$_SESSION['jmp']+$_SESSION['nuh']+$_SESSION['fnd']);
-  $_SESSION['ttl']=number_format ($_SESSION['ttl'] , $decimals = 1 ,$dec_point = "." , $thousands_sep = " " );
-
-     $dna = rand_dog();
-     $_SESSION['url']=do_url($dna);
-     $_SESSION['url_rev'] = strrev($_SESSION['url']);
-     $_SESSION['url_rev'] = str_split($_SESSION['url_rev']);
-     //debug($url_rev);
-     $_SESSION['bb']=$_SESSION['url_rev'][11];
-     $_SESSION['hr']=$_SESSION['url_rev'][17];
-
-    //echo '<br>b= ' . $_SESSION['bb'] . 'hr ' . $_SESSION['hr'];
+/*****************  НОВАЯ СОБАКА   ******************/
+//возвращает hr0w1f0b1t1m0
+function rand_dog1($id){
+  $data_dna['hr']=f_rand_col('HrHr','Hrhr','hrhr');
+  $data_dna['ww']=f_rand_col('WW','Ww','ww');
+  $data_dna['ff']=f_rand_col('FF','Ff','ff');
+  $data_dna['bb']=f_rand_col('BB','Bb','bb');
+  $data_dna['tt']=f_rand_col('TT','Tt','tt');
+  $data_dna['mm']=f_rand_col('MM','Mm','mm');
+ 
+   ('Hrhr'==$data_dna['hr'] ? $Hr='hr1' : $Hr='hr0');   //hr1 Hrhr - голая  // hr0 - hrhr  - пух
+    ('ww'==$data_dna['ww'] ? $W='w0' : $W='w1');
+    ('ff'==$data_dna['ff'] ? $F='f0' : $F='f1');
+    ('bb'==$data_dna['bb'] ? $B='b0' : $B='b1');
+    ('tt'==$data_dna['tt'] ? $T='t0' : $T='t1');
+    ('mm'==$data_dna['mm'] ? $M='m0' : $M='m1');
+    
+      $dna=$Hr . $W . $F . $B . $T . $M;  
+      $lucky= rand(1,100);
+      $spd= rand(9,11);
+      $agl= rand(9,11);
+      $tch= rand(9,11);
+      $jmp= rand(9,11);
+      $nuh= rand(9,11);
+      $fnd= rand(9,11);
+      $mut= rand(1,100);
+      $pol=Rand(0,1);
+  /* echo '<br>DNA^ ' . $dna;
+   echo '<br>удача ' . $lucky;
+   echo '<br>скорость ' . $spd;
+   echo ' <br>уворот ' . $agl;
+   echo ' <br>обучение ' . $tch;
+   echo ' <br>прыжки ' . $jmp;
+   echo ' <br>нюх ' . $nuh;
+   echo ' <br>поиск ' . $fnd;
+   echo ' <br>мутации ' . $mut;
+   echo 'pol: ' . $pol;*/
+   
        
-       if('сука'==$_SESSION['sex'])
-          $_SESSION['pic_sex']='<img src = "/pic/female_mini.png">';
-      else
-          $_SESSION['pic_sex']='<img src = "/pic/male_mini.png">';
+    //$id = 3;
+    // Загружаем объект с ID = 1
+    $dog = R::load('randodna', $id);
+    // Обращаемся к свойству объекта и назначаем ему новое значение
+    $dog->hr = $data_dna['hr'];
+    $dog->ww = $data_dna['ww'];
+    $dog->ff = $data_dna['ff'];
+    $dog->bb = $data_dna['bb'];
+    $dog->tt = $data_dna['tt'];
+    $dog->mm = $data_dna['mm'];
+    $dog->lucky = $lucky;
+    $dog->spd = $spd;
+    $dog->agl = $agl;
+    $dog->tch = $tch;
+    $dog->jmp = $jmp;
+    $dog->nuh = $nuh;
+    $dog->fnd = $fnd;
+    $dog->mut = $mut;
+    $dog->dna = $dna;
+    $dog->about='shop';
+    $dog->sex = $pol;
 
+    // Сохраняем объект
+    R::store($dog);
+  
+    return $dna;
+    
+}
+function dogPrice($id_dna){
+       $arr = R::getRow( 'SELECT * FROM randodna WHERE id = :dna_id',
+               [':dna_id' => $id_dna]);
+        //debug($arr);
 
-        //////////////////// проверка цены ........
-    $_SESSION['cost']=0;
-        if('сука'==$_SESSION['sex']){
-          if(1==$_SESSION['hr']){ //голая
-              if(0==$_SESSION['bb'])//шоко
-                $_SESSION['cost']=75000;
-              else
-                $_SESSION['cost']=45000;
-          }
-          if(0==$_SESSION['hr']){ //пух
-            if(0==$_SESSION['bb'])//шоко
-                $_SESSION['cost']=40000;
-              else
-                $_SESSION['cost']=25000;
-          }
+        if(1==$arr['sex']){
+           // echo "кобель";
+            if('Hrhr'==$arr['hr']){
+                $cost=35000;
+                if('bb'==$arr['bb']){
+                $cost=$cost+20000;
+                }
+            }
+
+            if('hrhr'==$arr['hr']){
+                $cost=10000;
+                if('bb'==$arr['bb']){
+                $cost=$cost+25000;
+                }
+            }
 
         }
-        if('кобель'==$_SESSION['sex']){
-          if(1==$_SESSION['hr']){ //голый
-              if(0==$_SESSION['bb'])//шоко
-                $_SESSION['cost']=55000;
-              else
-                $_SESSION['cost']=35000;
-          }
-          if(0==$_SESSION['hr']){ //пух
-            if(0==$_SESSION['bb'])//шоко
-                $_SESSION['cost']=35000;
-              else
-                $_SESSION['cost']=10000;
-          }
+        if(0==$arr['sex']){
+            //echo "сука";
+            if('Hrhr'==$arr['hr']){ //голая
+                $cost=45000;
+                if('bb'==$arr['bb']){ //голая шоко
+                $cost=$cost+30000;
+                }
+            }
+
+            if('hrhr'==$arr['hr']){ //пуховая
+                $cost=25000;
+                if('bb'==$arr['bb']){ //пуховая шоко
+                $cost=$cost+15000;
+                }
+            }
+
         }
+         return $cost;  
+}
+function print_sex_pic($id_dna){
+    $sex=ret_Cell('sex',$id_dna,'randodna');
+    if(0==$sex){
+	return '<img src = "/pic/female_mini.png">';
+    }
+else{
+	return '<img src = "/pic/male_mini.png">';
+    }
+}
+function vip_buy(){
+    $id_dna=3;
+    rand_dog1($id_dna);
+    printUrlFromDna($id_dna,50);
+    ///////////// рисует пол собаки
+    echo print_sex_pic($id_dna);   
+     //////////////////// проверка цены ........
+     echo dogPrice($id_dna);
 }        
 ?>
-
 <form method="POST" action="/buy.php">
-    <table border="1" cellpadding="60" text-align="center">
+    <table border="1" cellpadding="25" text-align="center">
     <caption><h1>Aктуальные предложения на сегодня</h1></caption>
-         
-      <tr>
-        
-
-                <h3 align="center">сумма в вашем кошельке: <?php print_item($owner,1); //  рисует деньги?></h3>
-                  <td>
-                    <?php if ( !isset($_POST['buy']) ){ //усли не нажали кнопку купить
-                           //vip_buy(); //запускаем фукцию
-                        No();
-                           
-                          
-                       
-                      
-                    ?>Первая ячейка VIP<?php echo $_SESSION['pic_sex'];?>
-                      <img align="center" src = "<?php echo $_SESSION['url'];?>" width="75%">
-               
-                
-
-                            ?><button type="submit" class="knopka" name="buy">Купить</button>
-                            <?php echo $test1=0;?>
-
-                              
-                       
-
-          <h3><img src = "<?php echo ret_item('1');?>"> 
-          <?php echo $_SESSION['cost'];?></h3>
-
-
-            <table width="100" cellpadding="2" cellspacing="0" border="1" >
-                <colgroup width="10" span="9"  width="10">
-                  
-               <tr> 
-                     <td>пол</td><td><?php echo $_SESSION['sex']; ?></td>
-              </tr>
-              <tr> 
-                     <td>Скорость</td><td><?php echo $_SESSION['spd']; ?></td>
-              </tr>
-              <tr> 
-                     <td>Уворот</td><td><?php echo $_SESSION['agl']; ?></td>
-              </tr>
-              <tr> 
-                     <td>Обучение</td><td><?php echo $_SESSION['tch']; ?></td>
-              </tr>
-              <tr> 
-                     <td>Прыжки</td><td><?php echo $_SESSION['jmp']; ?></td>
-              </tr>
-              <tr> 
-                     <td>Обоняние</td><td><?php echo $_SESSION['nuh']; ?></td>
-              </tr>
-              <tr> 
-                     <td>Поиск</td><td><?php echo $_SESSION['fnd']; ?></td>
-              </tr>
-              <tr> 
-                     <td>Итого</td><td><?php echo $_SESSION['ttl']; ?></td>
-              </tr>
-              </colgroup>
-        </table>
-
-        <?php } //end if
-                else{
-                      
-                      ?><button type="submit" class="knopka" name="buyoff">продана</button><?php 
-                      echo $test1=1;
-                    }
-          
-          ?>
-
+     <tr>
+         <h3 align="center">сумма в вашем кошельке: <?php print_item($owner,1); //  рисует деньги?></h3>
+                <form method="POST" action="buy.php">
+                    <button type="submit" class="knopka" name="money">кредит 50 000</button>
+                </form>    
+                <form onsubmit="document.getElementById('money').disabled = true">
+                    <input id="submitButton" type="submit"/>
+                </form>
+        <td>
+ <?php 
+ 
+  (isset($_POST['buy']) ? vip_buy() : No()); //если кнопку купить нажали делаем функцию vip_buy иначе делаем  функцию NO
+?>
 
         </td>
-        <td><?php if ( !isset($_POST['buy2']) ){ //усли не нажали кнопку купить?>
-                          Вторая ячейка<button type="submit" class="knopka" name="buy2" >Купить</button>
-                  <?php echo $test2=0;
-                }
-                  else{
-                      echo $test2=1;
-                      ?><button type="submit" class="knopka" name="buyoff">продана</button><?php 
-                    }
-          
-          ?>
-
-        </td>
+        <td> Вторая ячейка<button type="submit" class="knopka" name="buy2" >Купить</button></td>
         <td>Третья ячейка<button type="submit" class="knopka" name="money" >Купить</button></td>
         <td>Четвертая ячейка<button type="submit" class="knopka" name="money" >Купить</button></td>
 

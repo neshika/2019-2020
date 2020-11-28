@@ -66,10 +66,10 @@ require $_SERVER['DOCUMENT_ROOT']."/libs/up.php";
       <div align="right"><input id="button" name="add_age" type="submit" value="растим" class = "knopka"></div>
       <?php $_SESSION['Dog'] = $id; ?>
   </form>
-  <form method="POST" action = "/matting.php">
+  <form method="POST" action = "////matting.php">
       <?php If (1==bdika_age_for_breeding($GLOBALS['Data_dog'])):?>
       <?php echo bdika_for_breed($id);?>
-      <div align="right"> <input id="button" name="knopka" type="submit" value="Вязка" class = "knopka" >
+      <div align="right"> <input id="button" name="knopka" type="submit" value="не работает" class = "knopka" >
       </div>
       <?php $_SESSION['Dog'] = $id;Endif;?>
       

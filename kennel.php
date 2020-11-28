@@ -10,7 +10,8 @@ $owner=ret_owner(); //сохраняем название владельца в 
          $count = R::count( 'animals', 'owner = :owner && status = 1',
         [':owner' => $owner]);
         $coins = print_money($owner);
-        $char='all_dogs';?>
+        $char='all_dogs';
+        ?>
 <div class="content">
 <p class="kennel"><br>Питомник: <?php echo $kennel;?> // Владелец: <?php echo $owner;?> // Количество собак: <?php echo $count;?><br><img src = "/pici/coins_mini.png"> <?php echo  $coins;
        
@@ -83,6 +84,9 @@ $owner=ret_owner(); //сохраняем название владельца в 
             echo "<br/>";
             }   // foreach($array as $item)
              
+    }
+    if (isset ($_POST['money'])){
+        put_money($owner, 50000);
     }
     
     

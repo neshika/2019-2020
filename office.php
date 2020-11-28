@@ -63,9 +63,6 @@ If(!empty($array)){
 }
 
 
-
-
-				
 if( isset($_POST['shelter']) ){ 
     echo 'Cобака отдана в приют!';
     //echo '<br>Вы не смогли ее содержать!';
@@ -89,9 +86,13 @@ if( isset($_POST['shelter']) ){
   $dogshelter = R::load('animals', $id);
   $dogshelter->owner='shelter';
   R::store($dogshelter);
-  
-
 }
+
+echo "<h3><li>Только сегодня акция: </li></h3>";   
+?>
+                    <form action="buy.php" method="POST">
+                        <button type="submit" class="knopka" name="buy">Купить собаку</button>
+                    </form>
 
                      
                      
