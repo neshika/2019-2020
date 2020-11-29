@@ -12,8 +12,17 @@ require_once(__DIR__ . '/libs/up.php');
     rand_dog1($_SESSION['id_dna2']);
    rand_dog1($_SESSION['id_dna3']);
  ?>  
+<style>
+   #dogs {
+        -webkit-box-shadow: 5px 5px 5px 0px #000000, inset 4px 4px 15px 0px #000000, 22px 9px 13px -5px rgba(0,0,0,0.35); 
+        box-shadow: 5px 5px 5px 0px #000000, inset 4px 4px 15px 0px #000000, 22px 9px 13px -5px rgba(0,0,0,0.35);
+        margin: 0 auto 0 auto;
+        padding: 10px;
+        border: 10px;
+}
+</style>
 <div class="content">
- <form method="POST" action="buy.php">
+    <form method="POST" action="buy.php">
     <h3 align="center">сумма в вашем кошельке: <?php print_item($owner,1); //  рисует деньги?></h3>
     <form method="POST" action="buy.php">
                     <button type="submit" class="knopka" name="money">кредит 50 000</button>
@@ -162,9 +171,9 @@ else{
 
 function vip_buy(){
 ?>         
-    <table border="1" cellpadding="25" text-align="center">
+    <table border="0" cellpadding="25" text-align="center">
         <caption><h1>Aктуальные предложения на сегодня</h1><br></caption>
-    <td>
+    <td><div id="dogs">
     <?php 
    printUrlFromDna($_SESSION['id_dna'],50);
     ///////////// рисует пол собаки
@@ -172,23 +181,23 @@ function vip_buy(){
      //////////////////// проверка цены ........
      echo dogPrice($_SESSION['id_dna']);    
   
-    ?><button type="submit" class="knopka" name="buy" >Купить</button></td>
+     ?><button type="submit" class="knopka" name="buy" >Купить</button></div></td>
            
         </td>
-        <td>  <?php 
+        <td><div id="dogs">  <?php 
             printUrlFromDna($_SESSION['id_dna2'],50);
             ///////////// рисует пол собаки
             echo print_sex_pic($_SESSION['id_dna2']);   
             //////////////////// проверка цены ........
             echo dogPrice($_SESSION['id_dna2']);   
-            ?> <button type="submit" class="knopka" name="buy2" >Купить</button></td>
-        <td>  <?php 
+            ?> <button type="submit" class="knopka" name="buy2" >Купить</button></div></td>
+        <td><div id="dogs">  <?php 
             printUrlFromDna($_SESSION['id_dna3'],50);
             ///////////// рисует пол собаки
             echo print_sex_pic($_SESSION['id_dna3']);   
             //////////////////// проверка цены ........
             echo dogPrice($_SESSION['id_dna3']);   
-            ?> <button type="submit" class="knopka" name="buy3" >Купить</button></td>
+            ?> <button type="submit" class="knopka" name="buy3" >Купить</button></div></td>
       </tr>
      
 
