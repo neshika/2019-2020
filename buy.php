@@ -3,7 +3,7 @@
 require_once(__DIR__ . '/libs/up.php');
 //require_once(__DIR__ . '/includes/functions.php');
    $owner=ret_owner();
-  // debug($_POST);
+  debug($_POST);
    $_SESSION['id_dna']=3;
    $_SESSION['id_dna2']=4;
    $_SESSION['id_dna3']=5;
@@ -24,12 +24,12 @@ require_once(__DIR__ . '/libs/up.php');
 <div class="content">
     <form method="POST" action="buy.php">
     <h3 align="center">сумма в вашем кошельке: <?php print_item($owner,1); //  рисует деньги?></h3>
-    <form method="POST" action="buy.php">
+            <form method="POST" action="buy.php">
                     <button type="submit" class="knopka" name="money">кредит 50 000</button>
-                </form>    
+            </form>    
                 <!--<form onsubmit="document.getElementById('money').disabled = true"><input id="submitButton" type="submit"/></form>-->
     </form>
-</form>      
+  
  <?php   
 (isset($_POST['buy']) ? vip_buy() : No()); //если кнопку купить нажали делаем функцию vip_buy иначе делаем  функцию NO
 
@@ -44,12 +44,13 @@ require_once(__DIR__ . '/libs/up.php');
         //header("Refresh:2;url={$_SERVER['REQUEST_URI']}");
        //echo ' <script type="text/javascript"> location.reload(); </script>';
         echo 'конец функции';
-   }   
+   }  
+  
 
 function No(){
-    echo '<div class="content"><h1>нет собак в продаже!</h1></div>';
-    ?><a class="buttons" href="/kennel.php" >в питомник</a><?php
-    exit;
+    //echo '<div class="content"><h1>нет собак в продаже!</h1></div>';
+    //?><a class="buttons" href="/kennel.php" >в питомник</a><?php
+   // exit;
 }
 /*****************  НОВАЯ СОБАКА   ******************/
 //возвращает hr0w1f0b1t1m0
@@ -171,28 +172,32 @@ else{
 
 function vip_buy(){
 ?>         
+     <form method="POST" action="buydog.php">
     <table border="0" cellpadding="25" text-align="center">
         <caption><h1>Aктуальные предложения на сегодня</h1><br></caption>
     <td><div id="dogs">
     <?php 
-   printUrlFromDna($_SESSION['id_dna'],50);
+    $_SESSION['ulrdog1']=UrlFromDna($_SESSION['id_dna'],50);
+   printUrlFromDna($_SESSION['ulrdog1']);
     ///////////// рисует пол собаки
     echo print_sex_pic($_SESSION['id_dna']);   
      //////////////////// проверка цены ........
      echo dogPrice($_SESSION['id_dna']);    
   
-     ?><button type="submit" class="knopka" name="buy" >Купить</button></div></td>
+     ?><button type="submit" class="knopka" name="buy1" >Купить</button></div></td>
            
         </td>
         <td><div id="dogs">  <?php 
-            printUrlFromDna($_SESSION['id_dna2'],50);
+            $_SESSION['ulrdog2']=UrlFromDna($_SESSION['id_dna2'],50);
+            printUrlFromDna($_SESSION['ulrdog2']);
             ///////////// рисует пол собаки
             echo print_sex_pic($_SESSION['id_dna2']);   
             //////////////////// проверка цены ........
             echo dogPrice($_SESSION['id_dna2']);   
             ?> <button type="submit" class="knopka" name="buy2" >Купить</button></div></td>
         <td><div id="dogs">  <?php 
-            printUrlFromDna($_SESSION['id_dna3'],50);
+           $_SESSION['ulrdog3']=UrlFromDna($_SESSION['id_dna3'],50);
+            printUrlFromDna($_SESSION['ulrdog3']);
             ///////////// рисует пол собаки
             echo print_sex_pic($_SESSION['id_dna3']);   
             //////////////////// проверка цены ........
@@ -206,3 +211,5 @@ function vip_buy(){
 <?php
 }  //end of function vip_buy(){
 
+
+    

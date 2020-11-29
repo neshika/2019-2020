@@ -820,14 +820,21 @@ function pic_link($id,$size){
         <img src="<?php echo bdika_url($id);?>" title="<?php echo ret_Cell('name', $id, 'animals')?> " width="<?php echo $size?>">
             </a><?php
 }
-/*функция печатает собаку из ее URL рандомно, можно указать размер картинки в %. из RANDODNA*/
-function printUrlFromDna($id_dna,$size){
+
+
+/*функция берет дааные из таблицы рандодна и возвращает URL который создала*/
+function UrlFromDna($id_dna,$size){
     $dna= ret_Cell('dna', $id_dna,'randodna');
     $urlFromDna = do_url($dna);
+    return $urlFromDna;
+}
+/*функция печатает собаку из ее URL рандомно, можно указать размер картинки в %. из RANDODNA*/
+function printUrlFromDna($urlFromDna){
     ?>
     <img src = "<?php echo $urlFromDna;?>" width="<?php echo $size?>%"> 
     <?php
 }
+
 
 /*Функция пишет тип собаки по русски в зависимоти от Генетического типа*/
 function print_hr($id){
