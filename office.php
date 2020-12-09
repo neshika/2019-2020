@@ -6,6 +6,7 @@ require "db.php";
 ?><div class="content">
 <?php
 require "includes/functions.php";
+
 echo 'Добро пожаловать, ' . $GLOBALS['name']=$_SESSION['logged_user']->login . ' .';
 echo ' Сегодня: ' . date('d.m.Y');
 $id=get_id($_SESSION['logged_user']->login);
@@ -14,6 +15,26 @@ $l_time= ret_Cell('l_time', $id,'users');
 $f_time= ret_Cell('f_time', $id,'users');
 $now=date('d.m.Y');  //03.08.2017
 $visits= ret_Cell('visits',$id,'users');
+
+// функция пересчитывает количество собак и списываем в kennel
+function count_dogs($owner){
+    $books = R::getAll('SELECT `id` FROM `animals` WHERE `owner` = ?', [$owner]);
+    $cont = count($books);
+    
+    //возвращаем строку питомника
+    $id_ken = R::getCell('SELECT `id` FROM `kennels` WHERE `owner_k` = ? LIMIT 1', [$owner]);
+    
+    //вносим обновленные данные в таблицу
+   $book = R::load('kennels', $id_ken);
+    $book->dogs = $cont;
+    R::store($book);
+  
+   /*foreach ($books as $book){
+        echo '<br>'.$book['id'];
+    }*/
+ //debug($books);
+}
+
 if($now!=$l_time){
 // echo 'разые';
     $visits=$visits+1;
@@ -21,6 +42,7 @@ if($now!=$l_time){
     insert_data('users',$id,'l_time',$now);
 }
 echo '<br> количество посещений: ' . $visits;
+count_dogs($owner);
 
 
 echo "<h3><li>Последние новости</li></h3>";
