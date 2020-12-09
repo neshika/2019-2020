@@ -4,58 +4,6 @@ require_once(__DIR__ . '/libs/up.php');
 //require_once(__DIR__ . '/includes/functions.php');
    $owner=ret_owner();
   debug($_POST);
-  
-function dogPrice($id_dna){
-       $arr = R::getRow( 'SELECT * FROM randodna WHERE id = :dna_id',
-               [':dna_id' => $id_dna]);
-        //debug($arr);
-
-        if(1==$arr['sex']){
-           // echo "кобель";
-            if('Hrhr'==$arr['hr']){
-                $cost=35000;
-                if('bb'==$arr['bb']){
-                $cost=$cost+20000;
-                }
-            }
-
-            if('hrhr'==$arr['hr']){
-                $cost=10000;
-                if('bb'==$arr['bb']){
-                $cost=$cost+25000;
-                }
-            }
-
-        }
-        if(0==$arr['sex']){
-            //echo "сука";
-            if('Hrhr'==$arr['hr']){ //голая
-                $cost=45000;
-                if('bb'==$arr['bb']){ //голая шоко
-                $cost=$cost+30000;
-                }
-            }
-
-            if('hrhr'==$arr['hr']){ //пуховая
-                $cost=25000;
-                if('bb'==$arr['bb']){ //пуховая шоко
-                $cost=$cost+15000;
-                }
-            }
-
-        }
-         return $cost;  
-}
-function print_sex_pic($id_dna){
-    $sex=ret_Cell('sex',$id_dna,'randodna');
-    if(0==$sex){
-	return '<img src = "/pic/female_mini.png">';
-    }
-else{
-	return '<img src = "/pic/male_mini.png">';
-    }
-}
-
 ?>
   <style>
    #dogs {
@@ -75,11 +23,11 @@ else{
 <?php if (isset($_POST['buy1'])){
     echo 'нажали 1 buy';
      
-   printUrlFromDna($_SESSION['ulrdog1']);
+    printUrlFromDna($_SESSION['ulrdog1']);
     ///////////// рисует пол собаки
-    echo print_sex_pic($_SESSION['id_dna']);   
+    echo $_SESSION['dog1_sex'];   
      //////////////////// проверка цены ........
-     echo dogPrice($_SESSION['id_dna']);    
+     echo $_SESSION['dog1_price'];    
      
 
 }
@@ -87,17 +35,17 @@ elseif (isset($_POST['buy2'])){
     echo 'нажали 2 buy';
     printUrlFromDna($_SESSION['ulrdog2']);
     ///////////// рисует пол собаки
-    echo print_sex_pic($_SESSION['id_dna2']);   
+    echo $_SESSION['dog2_sex'];     
      //////////////////// проверка цены ........
-     echo dogPrice($_SESSION['id_dna2']);    
+     echo $_SESSION['dog2_price'];  
 
 }elseif (isset($_POST['buy3'])){
     echo 'нажали 3 buy';
      printUrlFromDna($_SESSION['ulrdog3']);
     ///////////// рисует пол собаки
-    echo print_sex_pic($_SESSION['id_dna3']);   
+    echo $_SESSION['dog3_sex'];     
      //////////////////// проверка цены ........
-     echo dogPrice($_SESSION['id_dna3']);    
+     echo $_SESSION['dog3_price'];  
 }else
 {
     echo 'не нажали';

@@ -180,9 +180,9 @@ function vip_buy(){
     $_SESSION['ulrdog1']=UrlFromDna($_SESSION['id_dna'],50);
    printUrlFromDna($_SESSION['ulrdog1']);
     ///////////// рисует пол собаки
-    echo print_sex_pic($_SESSION['id_dna']);   
+    echo $_SESSION['dog1_sex'] = print_sex_pic($_SESSION['id_dna']);   
      //////////////////// проверка цены ........
-     echo dogPrice($_SESSION['id_dna']);    
+    echo $_SESSION['dog1_price'] = dogPrice($_SESSION['id_dna']);    
   
      ?><button type="submit" class="knopka" name="buy1" >Купить</button></div></td>
            
@@ -191,17 +191,17 @@ function vip_buy(){
             $_SESSION['ulrdog2']=UrlFromDna($_SESSION['id_dna2'],50);
             printUrlFromDna($_SESSION['ulrdog2']);
             ///////////// рисует пол собаки
-            echo print_sex_pic($_SESSION['id_dna2']);   
+            echo $_SESSION['dog2_sex'] = print_sex_pic($_SESSION['id_dna2']);   
             //////////////////// проверка цены ........
-            echo dogPrice($_SESSION['id_dna2']);   
+            echo $_SESSION['dog2_price'] = dogPrice($_SESSION['id_dna2']);   
             ?> <button type="submit" class="knopka" name="buy2" >Купить</button></div></td>
         <td><div id="dogs">  <?php 
            $_SESSION['ulrdog3']=UrlFromDna($_SESSION['id_dna3'],50);
             printUrlFromDna($_SESSION['ulrdog3']);
             ///////////// рисует пол собаки
-            echo print_sex_pic($_SESSION['id_dna3']);   
+            echo $_SESSION['dog3_sex'] =  print_sex_pic($_SESSION['id_dna3']);   
             //////////////////// проверка цены ........
-            echo dogPrice($_SESSION['id_dna3']);   
+            echo $_SESSION['dog3_price'] = dogPrice($_SESSION['id_dna3']);   
             ?> <button type="submit" class="knopka" name="buy3" >Купить</button></div></td>
       </tr>
      
