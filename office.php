@@ -6,6 +6,7 @@ require "db.php";
 ?><div class="content">
 <?php
 require "includes/functions.php";
+require "includes/func.php";
 
 echo 'Добро пожаловать, ' . $GLOBALS['name']=$_SESSION['logged_user']->login . ' .';
 echo ' Сегодня: ' . date('d.m.Y');
@@ -72,7 +73,11 @@ if (isset($_POST['comment'])) { //если в форме NewDog включена
 } //isset($_POST['comment'])
 
 echo "<h3><li>Важные события: </li></h3>";   
-
+    $obj = new PrintDog;
+    $obj->print_lit_pup('1');
+    debug($obj->print_lit_pup('1'));
+   
+    
 /*Проверяем, есть ли в питомнике собаки без Имени и даем ссылку на страницу*/
 $name = 'Без имени';
 $array = R::getAssoc('SELECT id FROM animals WHERE owner = :owner && name = :name' ,
