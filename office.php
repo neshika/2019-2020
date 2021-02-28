@@ -8,7 +8,11 @@ require "db.php";
 require "includes/functions.php";
 require "includes/func.php";
 
-echo 'Добро пожаловать, ' . $GLOBALS['name']=$_SESSION['logged_user']->login . ' .';
+?><hr><a href="http://dog.ru/test2.php">тестим тут</a><hr> <?php
+
+
+
+echo 'Добро пожаловать, ' . $GLOBALS['name']=$_SESSION['logged_user']->login . ' .<br>';
 echo '<br>Сегодня: ' . date('d.m.Y');
 
 $dog = new Dog;
@@ -16,7 +20,7 @@ $user = new Users;
 $tabl = new Tabl;
 
 $now=date('d.m.Y');  //03.08.2017
-$owner = $user->retOwner($GLOBALS['name']=$_SESSION['logged_user']->login);
+$owner = $user->retOwner();
 $dog->count_dogs($owner); // считает количество собак у владельца
 
 if($now!=$user->retLTime($owner)){

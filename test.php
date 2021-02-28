@@ -2,11 +2,7 @@
 <?php
 require "db.php";
         //подключение файлов
-        
-        require "/html/header.html";
-        require "/html/nav.html";
-        require "/html/aside.html";
-        require "includes/functions.php"; 
+require_once(__DIR__ . '/libs/up.php');
         
 ?>
     

@@ -213,7 +213,7 @@ class Users{
    static $owner;
    
    //возвращает имя заводчика, который зологинен
-   public function retOwner($owner){
+   public function retOwner(){
 	return $_SESSION['logged_user']->login;
    }
    
