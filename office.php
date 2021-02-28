@@ -9,42 +9,24 @@ require "includes/functions.php";
 require "includes/func.php";
 
 echo 'Добро пожаловать, ' . $GLOBALS['name']=$_SESSION['logged_user']->login . ' .';
-echo ' Сегодня: ' . date('d.m.Y');
-$id=get_id($_SESSION['logged_user']->login);
-$owner= ret_owner();
-$l_time= ret_Cell('l_time', $id,'users');
-$f_time= ret_Cell('f_time', $id,'users');
+echo '<br>Сегодня: ' . date('d.m.Y');
+
+$dog = new Dog;
+$user = new Users;
+$tabl = new Tabl;
+
 $now=date('d.m.Y');  //03.08.2017
-$visits= ret_Cell('visits',$id,'users');
+$owner = $user->retOwner($GLOBALS['name']=$_SESSION['logged_user']->login);
+$dog->count_dogs($owner); // считает количество собак у владельца
 
-// функция пересчитывает количество собак и списываем в kennel
-function count_dogs($owner){
-    $books = R::getAll('SELECT `id` FROM `animals` WHERE `owner` = ?', [$owner]);
-    $cont = count($books);
-    
-    //возвращаем строку питомника
-    $id_ken = R::getCell('SELECT `id` FROM `kennels` WHERE `owner_k` = ? LIMIT 1', [$owner]);
-    
-    //вносим обновленные данные в таблицу
-   $book = R::load('kennels', $id_ken);
-    $book->dogs = $cont;
-    R::store($book);
-  
-   /*foreach ($books as $book){
-        echo '<br>'.$book['id'];
-    }*/
- //debug($books);
-}
-
-if($now!=$l_time){
-// echo 'разые';
-    $visits=$visits+1;
-    insert_data('users',$id,'visits',$visits);
-    insert_data('users',$id,'l_time',$now);
-}
-echo '<br> количество посещений: ' . $visits;
-count_dogs($owner);
-
+if($now!=$user->retLTime($owner)){
+//echo '<br> разые';
+    $visits = $user->retVisits($owner);
+    $visits+=1;
+    $tabl->insert_data('users',$user->retId($owner),'visits',$visits);
+    $tabl->insert_data('users',$user->retId($owner),'l_time',$now);
+}    
+echo '<br> количество посещений: ' . $user->retVisits($owner);
 
 echo "<h3><li>Последние новости</li></h3>";
 
@@ -73,22 +55,20 @@ if (isset($_POST['comment'])) { //если в форме NewDog включена
 } //isset($_POST['comment'])
 
 echo "<h3><li>Важные события: </li></h3>";   
-    $obj = new PrintDog;
-    $obj->print_lit_pup('1');
-    debug($obj->print_lit_pup('1'));
    
-    
 /*Проверяем, есть ли в питомнике собаки без Имени и даем ссылку на страницу*/
 $name = 'Без имени';
 $array = R::getAssoc('SELECT id FROM animals WHERE owner = :owner && name = :name' ,
         [':owner' => $owner, ':name' => $name]);
+$obj = new PrintDog; //создаем объект класса распечатки собаки
+
 If(!empty($array)){
     echo "Нужно дать имена малышам на их страничке:";
     foreach ($array as $key => $value) {
-        pic_link($key, 55);
+        //pic_link($key, 55);
+       $obj->pic_link($key, 55);
     }
 }
-
 
 if( isset($_POST['shelter']) ){ 
     echo 'Cобака отдана в приют!';

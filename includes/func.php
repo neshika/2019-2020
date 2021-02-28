@@ -258,6 +258,7 @@ Class Dna{
 Class Dog{
     static $id;
     static $dog_arr;
+    static $owner;
     
     //Возвращает все id собак по владельцу
     public function allDog($owner){
@@ -336,5 +337,18 @@ Class Dog{
     }
     public function retUrlPuppy($id){
         return R::getCell('SELECT url_puppy FROM animals WHERE id = ? LIMIT 1', [$id]);
+    }   
+
+    public function count_dogs($owner){ // функция пересчитывает количество собак и списываем в kennel
+        $books = R::getAll('SELECT `id` FROM `animals` WHERE `owner` = ?', [$owner]);
+        $cont = count($books);
+
+        //возвращаем строку питомника
+        $id_ken = R::getCell('SELECT `id` FROM `kennels` WHERE `owner_k` = ? LIMIT 1', [$owner]);
+
+        //вносим обновленные данные в таблицу
+       $book = R::load('kennels', $id_ken);
+        $book->dogs = $cont;
+        R::store($book);
     }
 }
