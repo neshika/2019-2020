@@ -56,6 +56,8 @@ Class GreateNewDog{
     
     public function insertDogAnimals($owner,$dna_id,$urldog){
     $kennel=R::getCell('SELECT `name_k` FROM `kennels` WHERE `owner_k` = ? LIMIT 1', [$owner]);
+    
+    $date=date('d.m.Y');
     $dogs = R::dispense('animals');
      $dogs->name='Без имени';
      $dogs->race='КХС';
@@ -63,18 +65,18 @@ Class GreateNewDog{
      $dogs->breeder='Бесты-первый лучший';
      $dogs->owner=$owner;
      $dogs->kennel=$kennel;
-     $dogs->age_id=10;
+     $dogs->age_id=13;
      $dogs->dna_id=$dna_id;
      $dogs->family_id=0;
      $dogs->mark_id=1; //отлично оценка
-     $dogs->birth=$date->format('d.m.Y');
+     $dogs->birth=$date;
      
      /*сохраняем id новой собаки*/
      $id_new_dog1 = R::store($dogs);
      
      /*вносим в табл URL*/
      insert_url( $id_new_dog1,$urldog);
-     insert_url_puppy($id_new_dog1);
+    // insert_url_puppy($id_new_dog1);
     
      return $id_new_dog1;
  
@@ -113,8 +115,9 @@ if (isset($_POST['buy1'])){
     $stat1->printStats(3);
     
     $newDog1 = new GreateNewDog;
-    echo $newDNA1 = $newDog1->updateDNA(3);
-    
+   echo $newDNA1 = $newDog1->updateDNA(3);
+   echo $id_dog = $newDog1->insertDogAnimals($owner, $newDNA1, $obj1->doUrl(3));
+   $newDog1->insertDogFamilyTree($id_dog);
 }
 elseif (isset($_POST['buy2'])){
     //echo 'нажали 2 buy';

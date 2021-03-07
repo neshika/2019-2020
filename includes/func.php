@@ -360,7 +360,10 @@ Class Dog{
         //вносим обновленные данные в таблицу
        $book = R::load('kennels', $id_ken);
         $book->dogs = $cont;
+        
         R::store($book);
+        return $cont;
+        
     }
 }
 ///////////////***** рандомная собака  ************////////////

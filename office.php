@@ -31,6 +31,7 @@ if($now!=$user->retLTime($owner)){
     $tabl->insert_data('users',$user->retId($owner),'l_time',$now);
 }    
 echo '<br> количество посещений: ' . $user->retVisits($owner);
+echo '<br> сколько собак? - ' . $dog->count_dogs($owner); // считает количество собак у владельца
 
 echo "<h3><li>Последние новости</li></h3>";
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Ноя 29 2020 г., 22:46
+-- Время создания: Мар 07 2021 г., 23:42
 -- Версия сервера: 5.5.62
 -- Версия PHP: 7.1.33
 
@@ -166,12 +166,30 @@ INSERT INTO `animals` (`id`, `name`, `race`, `origin`, `breeder`, `owner`, `kenn
 (13, 'Без имени', 'КХС', 1, 'не известен', 'Черныши', 'Черныши - Блек Джек', 0, 0, 1, 0, 0, 0, 0, 0, 100, 100, 100, '00.00.0000', 0, 1, 0, 0, '', ''),
 (14, 'Без имени', 'КХС', 1, 'Бесты-первый лучший', 'кто-то', 'Голубые бантики', 0, 0, 10, 32, 14, 1, 0, 0, 100, 100, 100, '22.08.2020', 0, 1, 0, 0, '', ''),
 (15, 'Без имени', 'КХС', 0, 'Бесты-первый лучший', 'кто-то', 'Голубые бантики', 0, 0, 10, 33, 14, 1, 0, 0, 100, 100, 100, '22.08.2020', 0, 1, 0, 0, '', ''),
-(16, 'Без имени', 'КХС', 1, 'Бесты-первый лучший', 'Елена', 'Лучики', 15, 0, 13, 34, 15, 1, 0, 0, 100, 100, 100, '22.08.2020', 0, 1, 0, 0, 'pici/hrhr/pici/hrhr/0r0w0f0b1t0m0_02.png_03.png', 'pici/puppy/hr0b1_03.png'),
-(17, 'Без имени', 'КХС', 0, 'Бесты-первый лучший', 'Елена', 'Лучики', 0, 0, 10, 35, 15, 1, 0, 0, 100, 100, 100, '22.08.2020', 0, 1, 0, 0, 'pici/hrhr/pici/hrhr/0r0w0f1b0t0m0_03.png_03.png', 'pici/puppy/hr0f1_01.png'),
+(16, 'Черная вдова', 'КХС', 1, 'Бесты-первый лучший', 'Елена', 'Лучики', 15, 0, 14, 34, 15, 1, 0, 0, 100, 100, 100, '22.08.2020', 0, 1, 0, 0, 'pici/hrhr/hr0w0f0b1t0m0_02.png', 'pici/puppy/hr0b1_03.png'),
+(17, 'Рыжий бес', 'КХС', 0, 'Бесты-первый лучший', 'Елена', 'Лучики', 0, 0, 10, 35, 15, 1, 0, 0, 100, 100, 100, '22.08.2020', 0, 1, 0, 0, 'pici/hrhr/hr0w0f1b1t0m0_03.png', 'pici/puppy/hr0f1_01.png'),
 (18, 'Без имени', 'КХС', 1, 'Бесты-первый лучший', 'Ольга Тимофеева', 'Звездочки', 6, 0, 10, 36, 16, 1, 0, 0, 100, 100, 100, '22.08.2020', 0, 1, 0, 0, 'pici/TT/hr1w0f0b0t1m0_04.png', 'pici/puppy/hr1w1_02.png'),
 (19, 'Без имени', 'КХС', 0, 'Бесты-первый лучший', 'Ольга Тимофеева', 'Звездочки', 0, 0, 14, 37, 17, 1, 0, 0, 100, 100, 100, '22.08.2020', 0, 1, 0, 0, 'pici/MM/hr1w0f0b0t0m1_03.png', 'pici/puppy/hr1b0_01.png'),
 (20, 'Рыжа', 'КХС', 1, 'Бесты-первый лучший', 'Дима', 'Чашка', 12, 0, 10, 38, 18, 1, 0, 0, 100, 100, 100, '22.08.2020', 0, 1, 0, 0, 'pici/hrhr/hr0w0f1b0t0m1_02.png', 'pici/puppy/hr0f1_02.png'),
 (21, 'Белый кролик', 'КХС', 0, 'Бесты-первый лучший', 'shelter', 'Чашка', 0, 0, 13, 39, 19, 1, 0, 0, 100, 100, 100, '22.08.2020', 0, 1, 0, 0, 'pici/hrhr/hr0w1f0b0t0m0_01.png', 'pici/puppy/hr0w1_01.png');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `book`
+--
+
+CREATE TABLE `book` (
+  `id` int(11) UNSIGNED NOT NULL,
+  `dogs` int(11) UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Дамп данных таблицы `book`
+--
+
+INSERT INTO `book` (`id`, `dogs`) VALUES
+(1, 10);
 
 -- --------------------------------------------------------
 
@@ -344,15 +362,15 @@ CREATE TABLE `kennels` (
 
 INSERT INTO `kennels` (`id`, `name_k`, `owner_k`, `date`, `dogs`, `l_litter`, `email`) VALUES
 (1, 'Бесты-первый лучший', 'Бесты-первый лучший', '01.01.2001', 2000, '', NULL),
-(29, 'Чарующий соблазн', 'nesh', '02.09.2017', 2, 'E', 'stepanova@mail.ru'),
+(29, 'Чарующий соблазн', 'nesh', '02.09.2017', 10, 'E', 'stepanova@mail.ru'),
 (30, 'Тестики', 'test', '03.09.2017', 2, 'A', 'test@test'),
 (31, 'НовыйПитомник', 'новый заводчик', '18.11.2020', 2, '', 'test@test2.ru'),
-(32, 'Пушистики', 'Заводчик', '19.11.2020', 2, '', 'test1@test.ru'),
+(32, 'Пушистики', 'Заводчик', '19.11.2020', 1, '', 'test1@test.ru'),
 (33, 'Черныши - Блек Джек', 'Черныши', '19.11.2020', 2, '', 'black@jack.ru'),
 (34, 'Голубые бантики', 'кто-то', '22.11.2020', 2, '', 'blue@gfh.tu'),
 (35, 'Лучики', 'Елена', '22.11.2020', 2, '', 'Lena43@gmail.com'),
 (36, 'Звездочки', 'Ольга Тимофеева', '22.11.2020', 2, '', 'o.timka@yandex.ru'),
-(37, 'Чашка', 'Дима', '22.11.2020', 2, '', 'da/steapnoav@gdjn.com');
+(37, 'Чашка', 'Дима', '22.11.2020', 1, '', 'da/steapnoav@gdjn.com');
 
 -- --------------------------------------------------------
 
@@ -501,11 +519,11 @@ CREATE TABLE `randodna` (
 --
 
 INSERT INTO `randodna` (`id`, `hr`, `ww`, `ff`, `bb`, `tt`, `mm`, `sex`, `lucky`, `spd`, `agl`, `tch`, `jmp`, `nuh`, `fnd`, `mut`, `dna`, `about`) VALUES
-(1, 'hrhr', 'ww', 'ff', 'bb', 'Tt', 'mm', '0', 89, 9, 9, 11, 11, 9, 10, 39, 'hr0w0f0b0t1m0', 'start'),
-(2, 'Hrhr', 'ww', 'Ff', 'bb', 'Tt', 'mm', '1', 68, 10, 10, 10, 10, 10, 11, 85, 'hr1w0f1b0t1m0', 'start'),
-(3, 'hrhr', 'Ww', 'ff', 'bb', 'tt', 'mm', '1', 49, 10, 9, 11, 11, 9, 11, 57, 'hr0w1f0b0t0m0', 'shop'),
-(4, 'hrhr', 'ww', 'ff', 'bb', 'tt', 'Mm', '1', 57, 9, 11, 10, 9, 11, 10, 9, 'hr0w0f0b0t0m1', 'shop'),
-(5, 'hrhr', 'ww', 'ff', 'bb', 'tt', 'mm', '1', 63, 11, 9, 9, 9, 11, 10, 8, 'hr0w0f0b0t0m0', 'shop'),
+(1, 'Hrhr', 'Ww', 'ff', 'bb', 'Tt', 'Mm', '0', 91, 11, 10, 11, 9, 9, 11, 45, 'hr1w1f0b0t1m1', 'start'),
+(2, 'hrhr', 'ww', 'ff', 'bb', 'tt', 'mm', '1', 59, 11, 9, 10, 10, 10, 11, 14, 'hr0w0f0b0t0m0', 'start'),
+(3, 'hrhr', 'ww', 'ff', 'Bb', 'Tt', 'mm', '1', 12, 10, 9, 9, 9, 11, 11, 77, 'hr1w0f1b1t1m1', 'shop'),
+(4, 'Hrhr', 'ww', 'ff', 'bb', 'tt', 'mm', '0', 59, 11, 10, 9, 9, 11, 10, 35, 'hr0w0f1b0t0m1', 'shop'),
+(5, 'hrhr', 'ww', 'Ff', 'bb', 'Tt', 'mm', '0', 75, 9, 9, 9, 11, 11, 10, 96, 'hr0w0f0b0t1m0', 'shop'),
 (6, 'hrhr', 'Ww', 'ff', 'bb', 'tt', 'mm', '0', 43, 10, 11, 10, 9, 11, 10, 47, 'hr0w1f0b0t0m0', 'shop'),
 (7, '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 0, '', ''),
 (8, '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 0, '', ''),
@@ -542,7 +560,8 @@ INSERT INTO `randodna` (`id`, `hr`, `ww`, `ff`, `bb`, `tt`, `mm`, `sex`, `lucky`
 (39, 'hrhr', 'Ww', 'ff', 'bb', 'tt', 'Mm', '1', 98, 11, 10, 11, 10, 9, 10, 95, 'hr0w1f0b0t0m1', 'shelter'),
 (40, 'Hrhr', 'ww', 'ff', 'bb', 'tt', 'mm', '0', 21, 11, 11, 10, 10, 9, 10, 4, 'hr1w0f0b0t0m0', 'shop'),
 (41, 'hrhr', 'Ww', 'ff', 'bb', 'Tt', 'mm', '1', 75, 10, 9, 10, 11, 11, 9, 74, 'hr0w1f0b0t1m0', 'shop'),
-(42, 'Hrhr', 'Ww', 'ff', 'bb', 'tt', 'Mm', '1', 82, 11, 11, 11, 9, 10, 10, 10, 'hr1w1f0b0t0m1', 'shop');
+(42, 'Hrhr', 'Ww', 'ff', 'bb', 'tt', 'Mm', '1', 82, 11, 11, 11, 9, 10, 10, 10, 'hr1w1f0b0t0m1', 'shop'),
+(43, '', '', '', '', '', '', '1', 40, 11, 11, 9, 9, 11, 11, 49, 'hr0w1f1b0t1m0', 'shop');
 
 -- --------------------------------------------------------
 
@@ -625,15 +644,15 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `login`, `email`, `password`, `kennel`, `f_time`, `l_time`, `online`, `sign`, `visits`) VALUES
-(1, 'nesh', 'stepanova@mail.ru', '$2y$10$pinvDspcODn0zxHMfyEUoufayxxNfwrQoqHGX2.Ky1I.fB7FnDan.', 'Чарующий соблазн', '03.09.2017', '27.11.2020', 0, 0, 173),
+(1, 'nesh', 'stepanova@mail.ru', '$2y$10$pinvDspcODn0zxHMfyEUoufayxxNfwrQoqHGX2.Ky1I.fB7FnDan.', 'Чарующий соблазн', '03.09.2017', '07.03.2021', 1, 0, 175),
 (2, 'test', 'test@test', '$2y$10$Vy0Am7CkZj5SYrzoNR26W.XsiO21HWtuQezqns20CfpcqAqdlm7D.', 'Тестики', '04.09.2017', '10.09.2017', 0, 0, 4),
 (3, 'новый заводчик', 'test@test2.ru', '$2y$10$eOSfjXze0C3M1FJgNsR3F.A2gohq8kG/avSzH4VEt1.U9q09wUGu2', 'НовыйПитомник', '18.11.2020', '00.00.0000', 0, 0, 0),
-(4, 'Заводчик', 'test1@test.ru', '$2y$10$zuX4xhfkul.jRoVidHypQuTrikFSAxlg//OKhSnr2bP06lBt9r92e', 'Пушистики', '19.11.2020', '29.11.2020', 1, 0, 13),
+(4, 'Заводчик', 'test1@test.ru', '$2y$10$zuX4xhfkul.jRoVidHypQuTrikFSAxlg//OKhSnr2bP06lBt9r92e', 'Пушистики', '19.11.2020', '07.03.2021', 0, 0, 23),
 (5, 'Черныши', 'black@jack.ru', '$2y$10$MY4yAyenbgoJXUSvdGmzZO7oxBpL3x14wL3XhfzTaLcTg0a8nYTkW', 'Черныши - Блек Джек', '19.11.2020', '22.11.2020', 0, 0, 2),
 (6, 'кто-то', 'blue@gfh.tu', '$2y$10$sc7PykhD0GsdjaYMx1ChbuqGqa71RmvLEbsO2S.Sb4kr74UZYu16a', 'Голубые бантики', '22.11.2020', '00.00.0000', 0, 0, 0),
-(7, 'Елена', 'Lena43@gmail.com', '$2y$10$SUk/YNyPE9uAdhxr1S8XzON6gtrz6f/eVGJGcOdqzMDVzTex1ztVe', 'Лучики', '22.11.2020', '22.11.2020', 0, 0, 0),
+(7, 'Елена', 'Lena43@gmail.com', '$2y$10$SUk/YNyPE9uAdhxr1S8XzON6gtrz6f/eVGJGcOdqzMDVzTex1ztVe', 'Лучики', '22.11.2020', '07.03.2021', 0, 0, 5),
 (8, 'Ольга Тимофеева', 'o.timka@yandex.ru', '$2y$10$3B6nNiMKg51z1dZqjyoLse0r038gfWxXNmspF.4e83I1Ln6hq2s7C', 'Звездочки', '22.11.2020', '22.11.2020', 0, 0, 0),
-(9, 'Дима', 'da/steapnoav@gdjn.com', '$2y$10$nL3ezyaVKiO43e5LG09XV.Zka3pXAYwYi8mly.lvJ36NA2iIdTpw6', 'Чашка', '22.11.2020', '22.11.2020', 0, 0, 3);
+(9, 'Дима', 'da/steapnoav@gdjn.com', '$2y$10$nL3ezyaVKiO43e5LG09XV.Zka3pXAYwYi8mly.lvJ36NA2iIdTpw6', 'Чашка', '22.11.2020', '08.01.2021', 0, 0, 7);
 
 --
 -- Индексы сохранённых таблиц
@@ -653,6 +672,12 @@ ALTER TABLE `animals`
   ADD KEY `race` (`race`),
   ADD KEY `breeder` (`breeder`),
   ADD KEY `owner` (`owner`);
+
+--
+-- Индексы таблицы `book`
+--
+ALTER TABLE `book`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Индексы таблицы `dnaagt`
@@ -746,6 +771,12 @@ ALTER TABLE `animals`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
+-- AUTO_INCREMENT для таблицы `book`
+--
+ALTER TABLE `book`
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT для таблицы `dnaagt`
 --
 ALTER TABLE `dnaagt`
@@ -791,7 +822,7 @@ ALTER TABLE `owneritems`
 -- AUTO_INCREMENT для таблицы `randodna`
 --
 ALTER TABLE `randodna`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT для таблицы `registry`
