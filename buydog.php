@@ -2,8 +2,6 @@
 require_once(__DIR__ . '/libs/up.php');
 require_once(__DIR__ . '/includes/func.php');
   $owner=ret_owner();
- 
- 
 ?>
   <style>
    #dogs {
@@ -25,21 +23,38 @@ require_once(__DIR__ . '/includes/func.php');
  * @return 0 вносит данные в две таблицы
  * @todo проверитm работу
  */
-function insertDogFamilyTree($id){
-    $dog22 = R::dispense('family');
-        foreach ($dog22 as $key) {
-            if($key!='id'){
-                $dog22->$key=0;  //вносим всех предков по нулям
-            }
-        }      
-    $family_id2 = R::store($dog22);  
+Class GreateNewDog{
+    public function updateDNA($id) {
+      $post = R :: getRow('SELECT * FROM `randodna` WHERE `id` = ? LIMIT 1', [$id]);
+       // debug($post);
+        //for each customer post create a new bean as a row/record          
+            $bean = R::dispense('randodna');
+             //assign column values 
+             $bean->sex = $post['sex'];
+             $bean->lucky = $post['lucky'];
+             $bean->dna = $post['dna'];
+             $bean->about = 'owner';
+             $bean->spd = $post['spd'];
+             $bean->agl = $post['agl'];
+             $bean->tch = $post['tch'];
+             $bean->jmp = $post['jmp'];
+             $bean->nuh = $post['nuh'];
+             $bean->fnd = $post['fnd'];
+             $bean->mut = $post['mut'];
+             //push row to array
+            debug($bean);
+       //store the whole array of beans at once               
+        return R::store($bean);
+    }
+    public function updateShopOwner($id){
+        $dog = R::load('randodna', $id);
+        // Обращаемся к свойству объекта и назначаем ему новое значение
+        $dog->about = 'owner';
+        // Сохраняем объект
+        R::store($dog);
+    }
     
-    /* созраняем данные о семье в таблице animals*/
-    $book = R::load('animals', $id);
-    $book->family_id = $family_id2;
-    R::store($book);
- }
-function insertDogAnimals($owner,$dna_id,$ulrdog){
+    public function insertDogAnimals($owner,$dna_id,$urldog){
     $kennel=R::getCell('SELECT `name_k` FROM `kennels` WHERE `owner_k` = ? LIMIT 1', [$owner]);
     $dogs = R::dispense('animals');
      $dogs->name='Без имени';
@@ -58,31 +73,47 @@ function insertDogAnimals($owner,$dna_id,$ulrdog){
      $id_new_dog1 = R::store($dogs);
      
      /*вносим в табл URL*/
-     insert_url( $id_new_dog1,$ulrdog);
+     insert_url( $id_new_dog1,$urldog);
      insert_url_puppy($id_new_dog1);
     
      return $id_new_dog1;
  
-}
-
-function updateShopOwner($id){
-    $book = R::load('randodna', $id);
-    // Обращаемся к свойству объекта и назначаем ему новое значение
-    $book->about = 'owner';
-    // Сохраняем объект
+    }
+    public function insertDogFamilyTree($id){
+    $dog22 = R::dispense('family');
+        foreach ($dog22 as $key) {
+            if($key!='id'){
+                $dog22->$key=0;  //вносим всех предков по нулям
+            }
+        }      
+    $family_id2 = R::store($dog22);  
+    
+    /* созраняем данные о семье в таблице animals*/
+    $book = R::load('animals', $id);
+    $book->family_id = $family_id2;
     R::store($book);
-}
+ }
+        
+    
+} //end class GreateNewDog
+
+
+
+
 if (isset($_POST['buy1'])){
    // echo 'нажали 1 buy <br>';
     $obj1 = new RandDog;
     
     $obj1->dogPic($obj1->doUrl(3));
-  //  echo $obj1->retDna(3) . '<br>'; 
+    echo $obj1->retDna(3) . '<br>'; 
     echo $obj1->picSex(3);  //рисует пол собаки
     echo $obj1->dogPrice(3); // проверка цены ........
     
     $stat1 = new Dna;
     $stat1->printStats(3);
+    
+    $newDog1 = new GreateNewDog;
+    echo $newDNA1 = $newDog1->updateDNA(3);
     
 }
 elseif (isset($_POST['buy2'])){
@@ -96,6 +127,9 @@ elseif (isset($_POST['buy2'])){
     $stat2 = new Dna;
     $stat2->printStats(4);
     
+    $newDog2 = new GreateNewDog;
+    echo $newDNA2 = $newDog2->updateDNA(4);
+    
 
 }elseif (isset($_POST['buy3'])){
    // echo 'нажали 3 buy';
@@ -107,6 +141,9 @@ elseif (isset($_POST['buy2'])){
     
     $stat3 = new Dna;
     $stat3->printStats(5);
+    
+    $newDog3 = new GreateNewDog;
+    echo $newDNA3 = $newDog1->updateDNA(5);
 }else
 {
     echo 'не нажали';
