@@ -107,7 +107,7 @@ Class RandDog{
        R::store($dog);
        $this->dogPic($this->doUrl($dog->dna));
     }
-    public function retSex($id) {
+    public function picSex($id) {
         $sex = R::getCell('SELECT sex FROM randodna WHERE id = ? LIMIT 1', [$id]);
       
         if(0==$sex){
@@ -117,48 +117,60 @@ Class RandDog{
 	return '<img src = "/pic/male_mini.png">';
         }
     }
- function dogPrice($id){
+    public function dogPrice($id){
       $sex = R::getCell('SELECT sex FROM randodna WHERE id = ? LIMIT 1', [$id]);
-      
+      $dna = R::getCell('SELECT dna FROM randodna WHERE id = ? LIMIT 1', [$id]);
 
-        if(1==$arr['sex']){
-           // echo "кобель";
-            if('Hrhr'==$arr['hr']){
+        if(1 == $sex) //кобель
+        { 
+            echo 'кобель/';
+            if(1 == $dna[2]){ //голая
                 $cost=35000;
-                if('bb'==$arr['bb']){
-                $cost=$cost+20000;
+                echo 'голый/';
+                if(0 == $dna[8]){ //шоко
+                    echo 'шоко.';    
+                    $cost=$cost+20000;
                 }
             }
 
-            if('hrhr'==$arr['hr']){
+            if(0 == $dna[2]){ //пух
+                echo 'пух/';
                 $cost=10000;
-                if('bb'==$arr['bb']){
-                $cost=$cost+25000;
+                if(0 == $dna[8]){ //шоко
+                    echo 'шоко.';    
+                    $cost=$cost+25000;
                 }
             }
 
         }
-        if(0==$arr['sex']){
-            //echo "сука";
-            if('Hrhr'==$arr['hr']){ //голая
+        if(0 == $sex){ //cука
+            echo 'сука/';
+           if(1 == $dna[2]){//голая
+               echo 'голая/';
                 $cost=45000;
-                if('bb'==$arr['bb']){ //голая шоко
-                $cost=$cost+30000;
+                 if(0 == $dna[8]){ //шоко
+                    echo 'шоко.';    
+                   $cost=$cost+30000;
                 }
             }
 
-            if('hrhr'==$arr['hr']){ //пуховая
+            if(0 == $dna[2]){ //пух
+                echo 'пуховая/';
                 $cost=25000;
-                if('bb'==$arr['bb']){ //пуховая шоко
-                $cost=$cost+15000;
+                 if(0 == $dna[8]){ //шоко
+                    echo 'шоко.';    
+                   $cost=$cost+15000;
                 }
             }
 
         }
          return $cost;  
-}
+    }
+    public function retDna($id) {
+        return R::getCell('SELECT dna FROM randodna WHERE id = ? LIMIT 1', [$id]);
+    }
    
-}//class NewDog
+}// end class NewDog
 
 /* начало */ 
 echo "<br>";
@@ -183,36 +195,31 @@ echo "<br>";
     <table border="0" cellpadding="25" text-align="center">
         <caption><h1>Aктуальные предложения на сегодня</h1><br></caption>
     <td><div id="dogs">
-    <?php 
-    $obj3 = new RandDog;
-    $obj3->insertData(3);
-    ///////////// рисует пол собаки
-   echo $obj3->retSex(3);  
-     //////////////////// проверка цены ........
-   // echo $_SESSION['dog1_price'] = dogPrice($_SESSION['id_dna']);    
-  
-     ?><button type="submit" class="knopka" name="buy1" >Купить</button></div></td>
-           
-        </td>
-        <td><div id="dogs">  <?php 
-            $obj4 = new RandDog;
-            $obj4->insertData(4);
-            ///////////// рисует пол собаки
-            echo $obj4->retSex(4);
-          //  echo $_SESSION['dog2_sex'] = print_sex_pic($_SESSION['id_dna2']);   
-            //////////////////// проверка цены ........
-          //  echo $_SESSION['dog2_price'] = dogPrice($_SESSION['id_dna2']);   
+        <?php 
+        $obj3 = new RandDog;
+        $obj3->insertData(3);
+        echo $obj3->retDna(3) . '<br>'; 
+        echo $obj3->picSex(3);  //рисует пол собаки
+        echo $obj3->dogPrice(3); // проверка цены ........
+               
+        ?><button type="submit" class="knopka" name="buy1" >Купить</button></div></td>
+    </td>
+    <td><div id="dogs">  <?php 
+        $obj4 = new RandDog;
+        $obj4->insertData(4);
+        echo $obj4->retDna(4) . '<br>'; 
+        echo $obj4->picSex(4);  //рисует пол собаки
+        echo $obj4->dogPrice(4); // проверка цены ........   
             ?> <button type="submit" class="knopka" name="buy2" >Купить</button></div></td>
-        <td><div id="dogs">  <?php 
-           $obj5 = new RandDog;
-            $obj5->insertData(5);
-            ///////////// рисует пол собаки
-            echo $obj5->retSex(5);
-          //  echo $_SESSION['dog3_sex'] =  print_sex_pic($_SESSION['id_dna3']);   
-            //////////////////// проверка цены ........
-           // echo $_SESSION['dog3_price'] = dogPrice($_SESSION['id_dna3']);   
-            ?> <button type="submit" class="knopka" name="buy3" >Купить</button></div></td>
-      </tr>
+    <td><div id="dogs">  <?php 
+        $obj5 = new RandDog;
+        $obj5->insertData(5);
+        echo $obj5->retDna(5) . '<br>'; 
+        echo $obj5->picSex(5);  //рисует пол собаки
+        echo $obj5->dogPrice(5); // проверка цены ........
+        ?> <button type="submit" class="knopka" name="buy3" >Купить</button></div>
+    </td>
+    
      
 
     </table>
