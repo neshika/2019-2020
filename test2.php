@@ -111,10 +111,10 @@ Class RandDog{
         $sex = R::getCell('SELECT sex FROM randodna WHERE id = ? LIMIT 1', [$id]);
       
         if(0==$sex){
-	return '<img src = "/pic/female_mini.png">';
+            return '<img src = "/pic/female_mini.png">';
         }
         else{
-	return '<img src = "/pic/male_mini.png">';
+            return '<img src = "/pic/male_mini.png">';
         }
     }
     public function dogPrice($id){
@@ -193,7 +193,7 @@ echo "<br>";
 </style>
  <form method="POST" action="buydog.php">
     <table border="0" cellpadding="25" text-align="center">
-        <caption><h1>Aктуальные предложения на сегодня</h1><br></caption>
+        <caption><h1>Aктуальные предложения на сегодня:</h1><br></caption>
     <td><div id="dogs">
         <?php 
         $obj3 = new RandDog;
@@ -218,9 +218,5 @@ echo "<br>";
         echo $obj5->picSex(5);  //рисует пол собаки
         echo $obj5->dogPrice(5); // проверка цены ........
         ?> <button type="submit" class="knopka" name="buy3" >Купить</button></div>
-    </td>
-    
-     
-
-    </table>
+ </table>
 </form>

@@ -252,6 +252,17 @@ class Users{
 Class Dna{
     static $id;
     
+    public function printStats($id){
+        $data_dna = take_data_from($id,'randodna');
+        echo '<br>Скорость ' . $data_dna['spd'];
+        echo '<br>Уворот ' . $data_dna['agl'];
+        echo '<br>Обучение ' . $data_dna['tch'];
+        echo '<br>Прыжки ' . $data_dna['jmp'];
+        echo '<br>Обоняние ' . $data_dna['nuh'];
+        echo '<br>Поиск ' . $data_dna['fnd'];
+      
+    }
+    
 }
 
 /************************ Работа с ANIMALS ***************/
@@ -352,3 +363,173 @@ Class Dog{
         R::store($book);
     }
 }
+///////////////***** рандомная собака  ************////////////
+Class RandDog{
+       
+    public function startDna($dna='hr0w0f0b0t0m0'){
+        for($i=1;$i<=strlen($dna);$i++){
+
+                if(!($i%2)){  //ечли четные равны 0 (!1)
+                    $dna[$i]=Rand(0,1);
+                }
+            }
+           // echo $dna;
+            return $dna;
+
+        }
+
+    public function doUrl($id){
+        $data_dna = R::getCell('SELECT dna FROM randodna WHERE id = ? LIMIT 1', [$id]);
+        $num=$id;  //количество вариаций окраса собаки
+        if(1 == $data_dna[2]){  //если собака голая
+            if(1==$data_dna[10] && 1==$data_dna[12]){ //если и крап и пятна
+              $data_dna[4]=0; //ww=0    собака не модет быть белой
+              $data_dna[6]=0; //ff=0    собака не модет быть рыжей
+             $url="pici/TM/" . $data_dna . '_0' . $num . '.png';
+            }
+            else if(1==$data_dna[12]){  //если крап
+             $data_dna[4]=0; //ww=0    собака не модет быть белой
+              $url="pici/MM/" . $data_dna . '_0' . $num . '.png';
+            }
+            else if(1==$data_dna[10]){  //если пятна
+              $data_dna[4]=0; //ww=0    собака не модет быть белой
+              $data_dna[6]=0; //ff=0    собака не модет быть рыжей
+              $url="pici/TT/" . $data_dna . '_0' . $num . '.png';
+            }
+            else{   //если чистая собака
+                $url="pici/" . $data_dna . '_0' . $num . '.png';
+            }
+          }
+          if(0 == $data_dna[2]){  //если собака пуховая
+              $data_dna[10]=0; //tt=0    собака нет крапа
+              $num2=$id;  //количество варианций окраса собаки
+              if(1==$data_dna[4]){   //если собака бела пух, то нет пятен и крапа    
+                 $data_dna[6]=0; //ff=0    собака не модет быть рыжей
+                 $data_dna[12]=0; //mm=0    собака нет пятен
+                  $url="pici/hrhr/" . $data_dna . '_0' . $num2 . '.png';
+              }
+              else if(1==$data_dna[6]){   //если соабка рыжая
+                  $data_dna[4]=0;   //всегда не белая
+                  $data_dna[8]=0;   //всегда шоко
+                  $url="pici/hrhr/" . $data_dna . '_0' . $num2 . '.png';
+              }   
+              else{ $url="pici/hrhr/" . $data_dna . '_0' . $num2 . '.png';}
+          }
+
+
+        echo "<br> $url";  
+        return $url;  //получаем $URL
+    }
+    public function dogPic($url){
+        //$url=bdika_url($id);
+        ?><img src="<?php echo $url;?>"><?php
+    }
+    public function randSex(){
+        return Rand(0,1);
+    }
+    public function stats(){
+        $arr = [
+          "lucky" => Rand(1,100),
+          "spd" => rand(9,11),
+          "agl" => rand(9,11),
+          "tch" => rand(9,11),
+          "jmp" => rand(9,11),
+          "nuh" => rand(9,11),
+          "fnd" => rand(9,11),
+          "mut" => rand(1,100)
+          ];
+        
+        return $arr;
+    }     
+    
+    public function insertData($id){
+        //$id = 3;
+        // Загружаем объект с ID = 3
+        $dog = R::load('randodna', $id);
+        // Обращаемся к свойству объекта и назначаем ему новое значение
+        
+        $new = $this->stats();
+       // debug($new);
+        
+        $dog->lucky = $new['lucky'];
+        $dog->spd = $new['spd'];
+        $dog->agl = $new['agl'];
+        $dog->tch = $new['tch'];
+        $dog->jmp = $new['jmp'];
+        $dog->nuh = $new['nuh'];
+        $dog->fnd = $new['fnd'];
+        $dog->mut = $new['mut'];
+        $dog->dna = $this->startDna();
+        $dog->about='shop';
+        $dog->sex = Rand(0,1);
+
+        // Сохраняем объект
+       R::store($dog);
+       
+       $this->dogPic($this->doUrl($id));
+    }
+    public function picSex($id) {
+        $sex = R::getCell('SELECT sex FROM randodna WHERE id = ? LIMIT 1', [$id]);
+      
+        if(0==$sex){
+            return '<img src = "/pic/female_mini.png">';
+        }
+        else{
+            return '<img src = "/pic/male_mini.png">';
+        }
+    }
+    public function dogPrice($id){
+      $sex = R::getCell('SELECT sex FROM randodna WHERE id = ? LIMIT 1', [$id]);
+      $dna = R::getCell('SELECT dna FROM randodna WHERE id = ? LIMIT 1', [$id]);
+
+        if(1 == $sex) //кобель
+        { 
+           // echo 'кобель/';
+            if(1 == $dna[2]){ //голая
+                $cost=35000;
+               // echo 'голый/';
+                if(0 == $dna[8]){ //шоко
+                 //   echo 'шоко.';    
+                    $cost=$cost+20000;
+                }
+            }
+
+            if(0 == $dna[2]){ //пух
+              //  echo 'пух/';
+                $cost=10000;
+                if(0 == $dna[8]){ //шоко
+                   // echo 'шоко.';    
+                    $cost=$cost+25000;
+                }
+            }
+
+        }
+        if(0 == $sex){ //cука
+           // echo 'сука/';
+           if(1 == $dna[2]){//голая
+            //   echo 'голая/';
+                $cost=45000;
+                 if(0 == $dna[8]){ //шоко
+                 //   echo 'шоко.';    
+                   $cost=$cost+30000;
+                }
+            }
+
+            if(0 == $dna[2]){ //пух
+              //  echo 'пуховая/';
+                $cost=25000;
+                 if(0 == $dna[8]){ //шоко
+                //    echo 'шоко.';    
+                   $cost=$cost+15000;
+                }
+            }
+
+        }
+         return $cost;  
+    }
+    public function retDna($id) {
+        return R::getCell('SELECT dna FROM randodna WHERE id = ? LIMIT 1', [$id]);
+    }
+   
+}// end class NewDog
+

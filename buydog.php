@@ -1,9 +1,9 @@
 <?php
-
 require_once(__DIR__ . '/libs/up.php');
-//require_once(__DIR__ . '/includes/functions.php');
-   $owner=ret_owner();
-  debug($_POST);
+require_once(__DIR__ . '/includes/func.php');
+  $owner=ret_owner();
+ 
+ 
 ?>
   <style>
    #dogs {
@@ -12,14 +12,13 @@ require_once(__DIR__ . '/libs/up.php');
         margin: 0 auto 0 auto;
         padding: 10px;
         border: 10px;
-        width: 300px;
-        height: 300px;
+        width: 400px;
+        height: auto;
 }
 </style>
 <p class="content">
 <a class="buttons" href="/office.php" >в офис</a>
 <div id="dogs">
-
 <?php 
 /**
  * @param id собаки из animals
@@ -74,34 +73,44 @@ function updateShopOwner($id){
     R::store($book);
 }
 if (isset($_POST['buy1'])){
-    echo 'нажали 1 buy';
-     
-    printUrlFromDna($_SESSION['ulrdog1']);
-    ///////////// рисует пол собаки
-    echo $_SESSION['dog1_sex'];   
-     //////////////////// проверка цены ........
-     echo $_SESSION['dog1_price'];    
-     
-
+   // echo 'нажали 1 buy <br>';
+    $obj1 = new RandDog;
+    
+    $obj1->dogPic($obj1->doUrl(3));
+  //  echo $obj1->retDna(3) . '<br>'; 
+    echo $obj1->picSex(3);  //рисует пол собаки
+    echo $obj1->dogPrice(3); // проверка цены ........
+    
+    $stat1 = new Dna;
+    $stat1->printStats(3);
+    
 }
 elseif (isset($_POST['buy2'])){
-    echo 'нажали 2 buy';
-    printUrlFromDna($_SESSION['ulrdog2']);
-    ///////////// рисует пол собаки
-    echo $_SESSION['dog2_sex'];     
-     //////////////////// проверка цены ........
-     echo $_SESSION['dog2_price'];  
+    //echo 'нажали 2 buy';
+    $obj2 = new RandDog;
+    $obj2->dogPic($obj2->doUrl(4));
+    echo $obj2->retDna(4) . '<br>'; 
+    echo $obj2->picSex(4);  //рисует пол собаки
+    echo $obj2->dogPrice(4); // проверка цены ........
+    
+    $stat2 = new Dna;
+    $stat2->printStats(4);
+    
 
 }elseif (isset($_POST['buy3'])){
-    echo 'нажали 3 buy';
-     printUrlFromDna($_SESSION['ulrdog3']);
-    ///////////// рисует пол собаки
-    echo $_SESSION['dog3_sex'];     
-     //////////////////// проверка цены ........
-     echo $_SESSION['dog3_price'];  
+   // echo 'нажали 3 buy';
+    $obj3 = new RandDog;
+    $obj3->dogPic($obj3->doUrl(5));
+    echo $obj3->retDna(5) . '<br>'; 
+    echo $obj3->picSex(5);  //рисует пол собаки
+    echo $obj3->dogPrice(5); // проверка цены ........
+    
+    $stat3 = new Dna;
+    $stat3->printStats(5);
 }else
 {
     echo 'не нажали';
 } 
-?>        
-</p>    
+?>     
+
+</p>  
