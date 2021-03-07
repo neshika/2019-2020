@@ -1,104 +1,187 @@
 <?php
-
+//подключение файлов
 require_once(__DIR__ . '/libs/up.php');
-//require_once(__DIR__ . '/includes/functions.php');
-Class Buy {
+ini_set('display_errors',1);
+error_reporting(E_ALL);
+echo "Создаем рандомную собаку по-другому: <br>";
+
+Class RandDog{
        
-   //возвращает имя заводчика, который зологинен
-   public function retOwner(){
-	return $_SESSION['logged_user']->login;
-   }
-   /*****************  НОВАЯ СОБАКА   ******************/
-//возвращает hr0w1f0b1t1m0
-    public function rand_dog($id){
-      $data_dna['hr']=f_rand_col('HrHr','Hrhr','hrhr');
-      $data_dna['ww']=f_rand_col('WW','Ww','ww');
-      $data_dna['ff']=f_rand_col('FF','Ff','ff');
-      $data_dna['bb']=f_rand_col('BB','Bb','bb');
-      $data_dna['tt']=f_rand_col('TT','Tt','tt');
-      $data_dna['mm']=f_rand_col('MM','Mm','mm');
+    public function startDna($dna='hr0w0f0b0t0m0'){
+        for($i=1;$i<=strlen($dna);$i++){
 
-       ('Hrhr'==$data_dna['hr'] ? $Hr='hr1' : $Hr='hr0');   //hr1 Hrhr - голая  // hr0 - hrhr  - пух
-        ('ww'==$data_dna['ww'] ? $W='w0' : $W='w1');
-        ('ff'==$data_dna['ff'] ? $F='f0' : $F='f1');
-        ('bb'==$data_dna['bb'] ? $B='b0' : $B='b1');
-        ('tt'==$data_dna['tt'] ? $T='t0' : $T='t1');
-        ('mm'==$data_dna['mm'] ? $M='m0' : $M='m1');
+                if(!($i%2)){  //ечли четные равны 0 (!1)
+                    $dna[$i]=Rand(0,1);
+                }
+            }
+           // echo $dna;
+            return $dna;
 
-          $dna=$Hr . $W . $F . $B . $T . $M;  
-          $lucky= rand(1,100);
-          $spd= rand(9,11);
-          $agl= rand(9,11);
-          $tch= rand(9,11);
-          $jmp= rand(9,11);
-          $nuh= rand(9,11);
-          $fnd= rand(9,11);
-          $mut= rand(1,100);
-          $pol=Rand(0,1);
-     /* echo '<br>DNA^ ' . $dna;
-       echo '<br>удача ' . $lucky;
-       echo '<br>скорость ' . $spd;
-       echo ' <br>уворот ' . $agl;
-       echo ' <br>обучение ' . $tch;
-       echo ' <br>прыжки ' . $jmp;
-       echo ' <br>нюх ' . $nuh;
-       echo ' <br>поиск ' . $fnd;
-       echo ' <br>мутации ' . $mut;
-       echo 'pol: ' . $pol;*/
+        }
+
+    public function doUrl($data_dna){
+        $num=Rand(1,5);  //количество варианций окраса собаки
+        if(1 == $data_dna[2]){  //если собака голая
+            if(1==$data_dna[10] && 1==$data_dna[12]){ //если и крап и пятна
+              $data_dna[4]=0; //ww=0    собака не модет быть белой
+              $data_dna[6]=0; //ff=0    собака не модет быть рыжей
+             $url="pici/TM/" . $data_dna . '_0' . $num . '.png';
+            }
+            else if(1==$data_dna[12]){  //если крап
+             $data_dna[4]=0; //ww=0    собака не модет быть белой
+              $url="pici/MM/" . $data_dna . '_0' . $num . '.png';
+            }
+            else if(1==$data_dna[10]){  //если пятна
+              $data_dna[4]=0; //ww=0    собака не модет быть белой
+              $data_dna[6]=0; //ff=0    собака не модет быть рыжей
+              $url="pici/TT/" . $data_dna . '_0' . $num . '.png';
+            }
+            else{   //если чистая собака
+                $url="pici/" . $data_dna . '_0' . $num . '.png';
+            }
+          }
+          if(0 == $data_dna[2]){  //если собака пуховая
+              $data_dna[10]=0; //tt=0    собака нет крапа
+              $num2=Rand(1,3);  //количество варианций окраса собаки
+              if(1==$data_dna[4]){   //если собака бела пух, то нет пятен и крапа    
+                 $data_dna[6]=0; //ff=0    собака не модет быть рыжей
+                 $data_dna[12]=0; //mm=0    собака нет пятен
+                  $url="pici/hrhr/" . $data_dna . '_0' . $num2 . '.png';
+              }
+              else if(1==$data_dna[6]){   //если соабка рыжая
+                  $data_dna[4]=0;   //всегда не белая
+                  $data_dna[8]=0;   //всегда шоко
+                  $url="pici/hrhr/" . $data_dna . '_0' . $num2 . '.png';
+              }   
+              else{ $url="pici/hrhr/" . $data_dna . '_0' . $num2 . '.png';}
+          }
 
 
+        //echo "<br> $url";  
+        return $url;  //получаем $URL
+    }
+    public function dogPic($url){
+        //$url=bdika_url($id);
+        ?><img src="<?php echo $url;?>"><?php
+    }
+    public function randSex(){
+        return Rand(0,1);
+    }
+    public function stats(){
+        $arr = [
+          "lucky" => Rand(1,100),
+          "spd" => rand(9,11),
+          "agl" => rand(9,11),
+          "tch" => rand(9,11),
+          "jmp" => rand(9,11),
+          "nuh" => rand(9,11),
+          "fnd" => rand(9,11),
+          "mut" => rand(1,100)
+          ];
+        
+        return $arr;
+    }     
+    
+    public function insertData($id){
         //$id = 3;
-        // Загружаем объект с ID = 1
+        // Загружаем объект с ID = 3
         $dog = R::load('randodna', $id);
         // Обращаемся к свойству объекта и назначаем ему новое значение
-        $dog->hr = $data_dna['hr'];
-        $dog->ww = $data_dna['ww'];
-        $dog->ff = $data_dna['ff'];
-        $dog->bb = $data_dna['bb'];
-        $dog->tt = $data_dna['tt'];
-        $dog->mm = $data_dna['mm'];
-        $dog->lucky = $lucky;
-        $dog->spd = $spd;
-        $dog->agl = $agl;
-        $dog->tch = $tch;
-        $dog->jmp = $jmp;
-        $dog->nuh = $nuh;
-        $dog->fnd = $fnd;
-        $dog->mut = $mut;
-        $dog->dna = $dna;
+        
+        $new = $this->stats();
+       // debug($new);
+        
+        $dog->lucky = $new['lucky'];
+        $dog->spd = $new['spd'];
+        $dog->agl = $new['agl'];
+        $dog->tch = $new['tch'];
+        $dog->jmp = $new['jmp'];
+        $dog->nuh = $new['nuh'];
+        $dog->fnd = $new['fnd'];
+        $dog->mut = $new['mut'];
+        $dog->dna = $this->startDna();
         $dog->about='shop';
-        $dog->sex = $pol;
+        $dog->sex = Rand(0,1);
 
         // Сохраняем объект
-        R::store($dog);
-
-        return $dna;
-
+       R::store($dog);
+       $this->dogPic($this->doUrl($dog->dna));
     }
-}
+    public function picSex($id) {
+        $sex = R::getCell('SELECT sex FROM randodna WHERE id = ? LIMIT 1', [$id]);
+      
+        if(0==$sex){
+            return '<img src = "/pic/female_mini.png">';
+        }
+        else{
+            return '<img src = "/pic/male_mini.png">';
+        }
+    }
+    public function dogPrice($id){
+      $sex = R::getCell('SELECT sex FROM randodna WHERE id = ? LIMIT 1', [$id]);
+      $dna = R::getCell('SELECT dna FROM randodna WHERE id = ? LIMIT 1', [$id]);
 
-/* начало */
+        if(1 == $sex) //кобель
+        { 
+           // echo 'кобель/';
+            if(1 == $dna[2]){ //голая
+                $cost=35000;
+               // echo 'голый/';
+                if(0 == $dna[8]){ //шоко
+                 //   echo 'шоко.';    
+                    $cost=$cost+20000;
+                }
+            }
 
-$buy3 = new Buy;
-$buy4 = new Buy;
-$buy5 = new Buy;
-$owner = $buy3->retOwner(); 
+            if(0 == $dna[2]){ //пух
+              //  echo 'пух/';
+                $cost=10000;
+                if(0 == $dna[8]){ //шоко
+                   // echo 'шоко.';    
+                    $cost=$cost+25000;
+                }
+            }
 
-debug($_POST);
+        }
+        if(0 == $sex){ //cука
+           // echo 'сука/';
+           if(1 == $dna[2]){//голая
+            //   echo 'голая/';
+                $cost=45000;
+                 if(0 == $dna[8]){ //шоко
+                 //   echo 'шоко.';    
+                   $cost=$cost+30000;
+                }
+            }
 
-//   $_SESSION['id_dna']=3;
-//   $_SESSION['id_dna2']=4;
-//   $_SESSION['id_dna3']=5;
-//   
-//    rand_dog1($_SESSION['id_dna']);
-//    rand_dog1($_SESSION['id_dna2']);
-//   rand_dog1($_SESSION['id_dna3']);
+            if(0 == $dna[2]){ //пух
+              //  echo 'пуховая/';
+                $cost=25000;
+                 if(0 == $dna[8]){ //шоко
+                //    echo 'шоко.';    
+                   $cost=$cost+15000;
+                }
+            }
 
-$buy3->rand_dog(3);
-$buy4->rand_dog(4);
-$buy5->rand_dog(5);
+        }
+         return $cost;  
+    }
+    public function retDna($id) {
+        return R::getCell('SELECT dna FROM randodna WHERE id = ? LIMIT 1', [$id]);
+    }
+   
+}// end class NewDog
 
- ?>  
+/* начало */ 
+echo "<br>";
+//$new = $obj->stats();
+//debug($new);
+
+
+
+
+
+?>
 <style>
    #dogs {
         -webkit-box-shadow: 5px 5px 5px 0px #000000, inset 4px 4px 15px 0px #000000, 22px 9px 13px -5px rgba(0,0,0,0.35); 
@@ -108,129 +191,35 @@ $buy5->rand_dog(5);
         border: 10px;
 }
 </style>
-<div class="content">
-    <form method="POST" action="buy.php">
-    <h3 align="center">сумма в вашем кошельке: <?php print_item($owner,1); //  рисует деньги?></h3>
-            <form method="POST" action="buy.php">
-                    <button type="submit" class="knopka" name="money">кредит 50 000</button>
-            </form>    
-                <!--<form onsubmit="document.getElementById('money').disabled = true"><input id="submitButton" type="submit"/></form>-->
-    </form>
-  
- <?php   
-(isset($_POST['buy']) ? vip_buy() : No()); //если кнопку купить нажали делаем функцию vip_buy иначе делаем  функцию NO
-
- if(isset($_POST['money'])){
-       echo 'мы в функции';
-        put_money($owner, '50000');
-      unset($_POST['money']);
-       echo '<br>принтуем';
-      //  var_dump((unset)$_POST);
-        debug($_POST);
-       // header("Location: ".$_SERVER["REQUEST_URI"]."");
-        //header("Refresh:2;url={$_SERVER['REQUEST_URI']}");
-       //echo ' <script type="text/javascript"> location.reload(); </script>';
-        echo 'конец функции';
-   }  
-  
-
-function No(){
-    //echo '<div class="content"><h1>нет собак в продаже!</h1></div>';
-    //?><a class="buttons" href="/kennel.php" >в питомник</a><?php
-   // exit;
-}
-
-function dogPrice($id_dna){
-       $arr = R::getRow( 'SELECT * FROM randodna WHERE id = :dna_id',
-               [':dna_id' => $id_dna]);
-        //debug($arr);
-
-        if(1==$arr['sex']){
-           // echo "кобель";
-            if('Hrhr'==$arr['hr']){
-                $cost=35000;
-                if('bb'==$arr['bb']){
-                $cost=$cost+20000;
-                }
-            }
-
-            if('hrhr'==$arr['hr']){
-                $cost=10000;
-                if('bb'==$arr['bb']){
-                $cost=$cost+25000;
-                }
-            }
-
-        }
-        if(0==$arr['sex']){
-            //echo "сука";
-            if('Hrhr'==$arr['hr']){ //голая
-                $cost=45000;
-                if('bb'==$arr['bb']){ //голая шоко
-                $cost=$cost+30000;
-                }
-            }
-
-            if('hrhr'==$arr['hr']){ //пуховая
-                $cost=25000;
-                if('bb'==$arr['bb']){ //пуховая шоко
-                $cost=$cost+15000;
-                }
-            }
-
-        }
-         return $cost;  
-}
-function print_sex_pic($id_dna){
-    $sex=ret_Cell('sex',$id_dna,'randodna');
-    if(0==$sex){
-	return '<img src = "/pic/female_mini.png">';
-    }
-else{
-	return '<img src = "/pic/male_mini.png">';
-    }
-}
-
-function vip_buy(){
-?>         
-     <form method="POST" action="buydog.php">
+ <form method="POST" action="buydog.php">
     <table border="0" cellpadding="25" text-align="center">
-        <caption><h1>Aктуальные предложения на сегодня</h1><br></caption>
+        <caption><h1>Aктуальные предложения на сегодня:</h1><br></caption>
     <td><div id="dogs">
-    <?php 
-    $_SESSION['ulrdog1']=UrlFromDna($_SESSION['id_dna'],50);
-   printUrlFromDna($_SESSION['ulrdog1']);
-    ///////////// рисует пол собаки
-    echo $_SESSION['dog1_sex'] = print_sex_pic($_SESSION['id_dna']);   
-     //////////////////// проверка цены ........
-    echo $_SESSION['dog1_price'] = dogPrice($_SESSION['id_dna']);    
-  
-     ?><button type="submit" class="knopka" name="buy1" >Купить</button></div></td>
-           
-        </td>
-        <td><div id="dogs">  <?php 
-            $_SESSION['ulrdog2']=UrlFromDna($_SESSION['id_dna2'],50);
-            printUrlFromDna($_SESSION['ulrdog2']);
-            ///////////// рисует пол собаки
-            echo $_SESSION['dog2_sex'] = print_sex_pic($_SESSION['id_dna2']);   
-            //////////////////// проверка цены ........
-            echo $_SESSION['dog2_price'] = dogPrice($_SESSION['id_dna2']);   
+        <?php 
+        $obj3 = new RandDog;
+        $obj3->insertData(3);
+       // echo $obj3->retDna(3) . '<br>'; 
+        echo $obj3->picSex(3);  //рисует пол собаки
+        echo $obj3->dogPrice(3); // проверка цены ........
+               
+        ?><button type="submit" class="knopka" name="buy1" >Купить</button></div></td>
+    </td>
+    <td><div id="dogs">  <?php 
+        $obj4 = new RandDog;
+        $obj4->insertData(4);
+     //   echo $obj4->retDna(4) . '<br>'; 
+        echo $obj4->picSex(4);  //рисует пол собаки
+        echo $obj4->dogPrice(4); // проверка цены ........   
             ?> <button type="submit" class="knopka" name="buy2" >Купить</button></div></td>
-        <td><div id="dogs">  <?php 
-           $_SESSION['ulrdog3']=UrlFromDna($_SESSION['id_dna3'],50);
-            printUrlFromDna($_SESSION['ulrdog3']);
-            ///////////// рисует пол собаки
-            echo $_SESSION['dog3_sex'] =  print_sex_pic($_SESSION['id_dna3']);   
-            //////////////////// проверка цены ........
-            echo $_SESSION['dog3_price'] = dogPrice($_SESSION['id_dna3']);   
-            ?> <button type="submit" class="knopka" name="buy3" >Купить</button></div></td>
-      </tr>
-     
-
-    </table>
+    <td><div id="dogs">  <?php 
+        $obj5 = new RandDog;
+        $obj5->insertData(5);
+     //   echo $obj5->retDna(5) . '<br>'; 
+        echo $obj5->picSex(5);  //рисует пол собаки
+        echo $obj5->dogPrice(5); // проверка цены ........
+        ?> <button type="submit" class="knopka" name="buy3" >Купить</button></div>
+ </table>
 </form>
-<?php
-}  //end of function vip_buy(){
 
 
     
