@@ -24,6 +24,12 @@ require_once(__DIR__ . '/includes/func.php');
  * @todo проверитm работу
  */
 Class GreateNewDog{
+    
+   public function retDna($id) {
+        return R::getCell('SELECT dna FROM randodna WHERE id = ? LIMIT 1', [$id]);
+    } 
+   
+
     public function updateDNA($id) {
       $post = R :: getRow('SELECT * FROM `randodna` WHERE `id` = ? LIMIT 1', [$id]);
        // debug($post);
@@ -41,20 +47,13 @@ Class GreateNewDog{
              $bean->nuh = $post['nuh'];
              $bean->fnd = $post['fnd'];
              $bean->mut = $post['mut'];
-             //push row to array
-            debug($bean);
+             $bean->url = $post['url'];
+             $bean->url_puppy = $post['url_puppy'];
+            
        //store the whole array of beans at once               
         return R::store($bean);
     }
-    public function updateShopOwner($id){
-        $dog = R::load('randodna', $id);
-        // Обращаемся к свойству объекта и назначаем ему новое значение
-        $dog->about = 'owner';
-        // Сохраняем объект
-        R::store($dog);
-    }
-    
-    public function insertDogAnimals($owner,$dna_id,$urldog){
+   public function insertDogAnimals($owner,$dna_id,$urldog){
     $kennel=R::getCell('SELECT `name_k` FROM `kennels` WHERE `owner_k` = ? LIMIT 1', [$owner]);
     
     $date=date('d.m.Y');
@@ -74,11 +73,7 @@ Class GreateNewDog{
      /*сохраняем id новой собаки*/
      $id_new_dog1 = R::store($dogs);
      
-     /*вносим в табл URL*/
-     insert_url( $id_new_dog1,$urldog);
-    // insert_url_puppy($id_new_dog1);
-    
-     return $id_new_dog1;
+    return $id_new_dog1;
  
     }
     public function insertDogFamilyTree($id){
@@ -103,26 +98,27 @@ Class GreateNewDog{
 
 
 if (isset($_POST['buy1'])){
-   // echo 'нажали 1 buy <br>';
+   echo 'нажали 1 buy <br>';
     $obj1 = new RandDog;
-    
-    $obj1->dogPic($obj1->doUrl(3));
-    echo $obj1->retDna(3) . '<br>'; 
+    $obj1->dogPic($obj1->retUrl(3)); //рисует собаку
+    $obj1->dogPic($obj1->retUrlPuppy(3)); //рисует собаку_щенка
+    echo $obj1->retDna(3) . '<br>';  //пишет ГК
     echo $obj1->picSex(3);  //рисует пол собаки
     echo $obj1->dogPrice(3); // проверка цены ........
     
     $stat1 = new Dna;
-    $stat1->printStats(3);
+    $stat1->printStats(3); //выводит статы
     
+    /* создаем собаку Animals */
     $newDog1 = new GreateNewDog;
-   echo $newDNA1 = $newDog1->updateDNA(3);
-   echo $id_dog = $newDog1->insertDogAnimals($owner, $newDNA1, $obj1->doUrl(3));
-   $newDog1->insertDogFamilyTree($id_dog);
+   echo '<br> $newDNA1' . $newDNA1 = $newDog1->updateDNA(3);  //копируем из dna 3 в новую
+   echo '<br> $id_dog1' .$id_dog1 = $newDog1->insertDogAnimals($owner, $newDNA1, $url1); //вносим данные в animals
+   echo '<br> $newDog1->insertDogFamilyTree($id_dog1) ' .$newDog1->insertDogFamilyTree($id_dog1); //вносим данные в familytree
 }
 elseif (isset($_POST['buy2'])){
-    //echo 'нажали 2 buy';
+    echo 'нажали 2 buy';
     $obj2 = new RandDog;
-    $obj2->dogPic($obj2->doUrl(4));
+    $url2 = $obj2->dogPic($obj2->doUrl(4));
     echo $obj2->retDna(4) . '<br>'; 
     echo $obj2->picSex(4);  //рисует пол собаки
     echo $obj2->dogPrice(4); // проверка цены ........
@@ -131,13 +127,15 @@ elseif (isset($_POST['buy2'])){
     $stat2->printStats(4);
     
     $newDog2 = new GreateNewDog;
-    echo $newDNA2 = $newDog2->updateDNA(4);
+     echo '<br>' . $newDNA2 = $newDog2->updateDNA(4);
+   echo '<br>' .$id_dog2 = $newDog2->insertDogAnimals($owner, $newDNA2, $url2);
+   echo '<br>' .$newDog2->insertDogFamilyTree($id_dog2);
     
 
 }elseif (isset($_POST['buy3'])){
-   // echo 'нажали 3 buy';
+   echo 'нажали 3 buy';
     $obj3 = new RandDog;
-    $obj3->dogPic($obj3->doUrl(5));
+    $url3 = $obj3->dogPic($obj3->doUrl(5));
     echo $obj3->retDna(5) . '<br>'; 
     echo $obj3->picSex(5);  //рисует пол собаки
     echo $obj3->dogPrice(5); // проверка цены ........
@@ -146,7 +144,9 @@ elseif (isset($_POST['buy2'])){
     $stat3->printStats(5);
     
     $newDog3 = new GreateNewDog;
-    echo $newDNA3 = $newDog1->updateDNA(5);
+     echo '<br>' . $newDNA3 = $newDog3->updateDNA(5);
+   echo '<br>' . $id_dog3 = $newDog3->insertDogAnimals($owner, $newDNA3, $url3);
+   echo '<br>' .$newDog3->insertDogFamilyTree($id_dog3);
 }else
 {
     echo 'не нажали';
