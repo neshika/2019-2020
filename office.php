@@ -18,20 +18,22 @@ echo '<br>Сегодня: ' . date('d.m.Y');
 $dog = new Dog;
 $user = new Users;
 $tabl = new Tabl;
+$ken = new Kennels;
 
 $now=date('d.m.Y');  //03.08.2017
 $owner = $user->retOwner();
-$dog->count_dogs($owner); // считает количество собак у владельца
+$dog->countDogs($owner); // считает количество собак у владельца
+
 
 if($now!=$user->retLTime($owner)){
 //echo '<br> разые';
     $visits = $user->retVisits($owner);
     $visits+=1;
-    $tabl->insert_data('users',$user->retId($owner),'visits',$visits);
-    $tabl->insert_data('users',$user->retId($owner),'l_time',$now);
+    $tabl->UptadeData('users',$user->retId($owner),'visits',$visits);
+    $tabl->UptadeData('users',$user->retId($owner),'l_time',$now);
 }    
 echo '<br> количество посещений: ' . $user->retVisits($owner);
-echo '<br> сколько собак? - ' . $dog->count_dogs($owner); // считает количество собак у владельца
+echo '<br> сколько собак? - ' . $ken->retCountDog($owner); // считает количество собак у владельца
 
 echo "<h3><li>Последние новости</li></h3>";
 
