@@ -1,222 +1,5 @@
 <?php
  /*                                *************************    РАСПЕЧАТКА Собаки на экране КАРТИНКА  */
-Class RandDog{
-    public function insertData($id){
-        
-        $dna='hr0w0f0b0t0m0';
-        for($i=1;$i<=strlen($dna);$i++){
-
-                if(!($i%2)){  //еcли четные равны 0 (!1)
-                    $dna[$i]=Rand(0,1);
-                }
-        }       
-        //$id = 3;
-        // Загружаем объект с ID = 3
-       // echo '<br>insertData';
-        $dog = R::load('randodna', $id);
-        // Обращаемся к свойству объекта и назначаем ему новое значение
-        
-        $new = $this->stats();
-       // debug($new);
-        
-        $dog->lucky = $new['lucky'];
-        $dog->spd = $new['spd'];
-        $dog->agl = $new['agl'];
-        $dog->tch = $new['tch'];
-        $dog->jmp = $new['jmp'];
-        $dog->nuh = $new['nuh'];
-        $dog->fnd = $new['fnd'];
-        $dog->mut = $new['mut'];
-        //$dog->dna = $this->startDna();
-        $dog->dna = $dna;
-        $dog->about='shop';
-        $dog->sex = Rand(0,1);
-
-        // Сохраняем объект
-       R::store($dog);
-       
-       //создаем картинки собак
-      
-       $dog->url = $this->doUrl($id);
-       $dog->url_puppy = $this->DoUrlPuppy($id);
-       
-       return R::store($dog);
-    }
-
-    public function doUrl($id){
-       // echo '<br>DoUrl';
-        $data_dna = R::getCell('SELECT dna FROM randodna WHERE id = ? LIMIT 1', [$id]);
-        $num=$id;  //количество вариаций окраса собаки
-        
-        if(1 == $data_dna[2]){  //если собака голая
-            if(1==$data_dna[10] && 1==$data_dna[12]){ //если и крап и пятна
-              $data_dna[4]=0; //ww=0    собака не модет быть белой
-              $data_dna[6]=0; //ff=0    собака не модет быть рыжей
-             $url="pici/TM/" . $data_dna . '_0' . $num . '.png';
-            }
-            else if(1==$data_dna[12]){  //если крап
-             $data_dna[4]=0; //ww=0    собака не модет быть белой
-              $url="pici/MM/" . $data_dna . '_0' . $num . '.png';
-            }
-            else if(1==$data_dna[10]){  //если пятна
-              $data_dna[4]=0; //ww=0    собака не модет быть белой
-              $data_dna[6]=0; //ff=0    собака не модет быть рыжей
-              $url="pici/TT/" . $data_dna . '_0' . $num . '.png';
-            }
-            else{   //если чистая собака
-                $url="pici/" . $data_dna . '_0' . $num . '.png';
-            }
-          }
-          if(0 == $data_dna[2]){  //если собака пуховая
-              $data_dna[10]=0; //tt=0    собака нет крапа
-              $num2=$id;  //количество варианций окраса собаки
-              if(1==$data_dna[4]){   //если собака бела пух, то нет пятен и крапа    
-                 $data_dna[6]=0; //ff=0    собака не модет быть рыжей
-                 $data_dna[12]=0; //mm=0    собака нет пятен
-                  $url="pici/hrhr/" . $data_dna . '_0' . $num2 . '.png';
-              }
-              else if(1==$data_dna[6]){   //если соабка рыжая
-                  $data_dna[4]=0;   //всегда не белая
-                  $data_dna[8]=0;   //всегда шоко
-                  $url="pici/hrhr/" . $data_dna . '_0' . $num2 . '.png';
-              }   
-              else{ $url="pici/hrhr/" . $data_dna . '_0' . $num2 . '.png';}
-          }
-
-
-       // echo "<br> $url";  
-        return $url;  //получаем $URL
-    }
-    public function dogPic($url){
-       ?><img src="<?php echo $url;?>"><?php
-    }
-    public function randSex(){
-        return Rand(0,1);
-    }
-    public function stats(){
-        $arr = [
-          "lucky" => Rand(1,100),
-          "spd" => rand(9,11),
-          "agl" => rand(9,11),
-          "tch" => rand(9,11),
-          "jmp" => rand(9,11),
-          "nuh" => rand(9,11),
-          "fnd" => rand(9,11),
-          "mut" => rand(1,100)
-          ];
-        
-        return $arr;
-    }     
-    
-    
-    public function picSex($id) {
-        $sex = R::getCell('SELECT sex FROM randodna WHERE id = ? LIMIT 1', [$id]);
-      
-        if(0==$sex){
-            return '<img src = "/pic/female_mini.png">';
-        }
-        else{
-            return '<img src = "/pic/male_mini.png">';
-        }
-    }
-    public function DoUrlPuppy($dna_id){
-        echo '<br>' . $dna  = R::getCell('SELECT dna FROM randodna WHERE id = ? LIMIT 1', [$dna_id]);
-       
-        $num = Rand(1,3);  //количество варианций окраса собаки
-        
-        if(0 == $dna['2']){   //если пух
-               if(0 == $dna['4']){   //если не белый 
-                     if(0 == $dna['6']){ //если не рыжий
-                         if(0 == $dna['8'])  //если шоко
-                           $url_dna='hr0b0';
-                         if(1 == $dna['8'])  //еcли черный
-                           $url_dna='hr0b1';
-                     }
-                     if(1 == $dna['6']) //если рыжий
-                       $url_dna='hr0f1';
-               }      
-               else    //если белый
-               $url_dna='hr0w1';
-             }
-             if(1 == $dna['2']){    //если голый
-                if(0 == $dna['4'] && 0 == $dna['10']){   //если не белый и нет крапа TT
-                     if(0 == $dna['6']){ //если не рыжий
-                         if(0 == $dna['8'])  //если шоко
-                           $url_dna='hr1b0';
-                         if(1 == $dna['8'])  //ечли черный
-                           $url_dna='hr1b1';
-                     }
-                     if(1 == $dna['6']) //если рыжий
-                         $url_dna='hr1f1';
-                 }
-               else    //если белый
-               $url_dna='hr1w1';
-             }
-
-           return $url = "pici/puppy/" . $url_dna . '_0' . $num . '.png';
-       
-    }
-    public function dogPrice($id){
-      $sex = R::getCell('SELECT sex FROM randodna WHERE id = ? LIMIT 1', [$id]);
-      $dna = R::getCell('SELECT dna FROM randodna WHERE id = ? LIMIT 1', [$id]);
-
-        if(1 == $sex) //кобель
-        { 
-           // echo 'кобель/';
-            if(1 == $dna[2]){ //голая
-                $cost=35000;
-               // echo 'голый/';
-                if(0 == $dna[8]){ //шоко
-                 //   echo 'шоко.';    
-                    $cost=$cost+20000;
-                }
-            }
-
-            if(0 == $dna[2]){ //пух
-              //  echo 'пух/';
-                $cost=10000;
-                if(0 == $dna[8]){ //шоко
-                   // echo 'шоко.';    
-                    $cost=$cost+25000;
-                }
-            }
-
-        }
-        if(0 == $sex){ //cука
-           // echo 'сука/';
-           if(1 == $dna[2]){//голая
-            //   echo 'голая/';
-                $cost=45000;
-                 if(0 == $dna[8]){ //шоко
-                 //   echo 'шоко.';    
-                   $cost=$cost+30000;
-                }
-            }
-
-            if(0 == $dna[2]){ //пух
-              //  echo 'пуховая/';
-                $cost=25000;
-                 if(0 == $dna[8]){ //шоко
-                //    echo 'шоко.';    
-                   $cost=$cost+15000;
-                }
-            }
-
-        }
-         return $cost;  
-    }
-    public function retDna($id) {
-        return R::getCell('SELECT dna FROM randodna WHERE id = ? LIMIT 1', [$id]);
-    }
-    public function retUrl($id) {
-        return R::getCell('SELECT url FROM randodna WHERE id = ? LIMIT 1', [$id]);
-    }
-    public function retUrlPuppy($id) {
-        return R::getCell('SELECT url_puppy FROM randodna WHERE id = ? LIMIT 1', [$id]);
-    }
-   
-}// end class NewDog
-
 class PrintDog extends Dog{
     private $array = [];
     
@@ -375,37 +158,23 @@ function ret_str_contact($partner,$dog){
 /***************** работа с таблицами ****************************/
 class Tabl{
     /*Функция вносит изменения имени собаки по ее Id*/
-function insert_data($tabl,$id,$cell,$value){  //$tabl - название таблицы \\ $id-ай ди выбранного\\ $cell-названия столба\\ $value- значение
+function UptadeData($tabl,$id,$cell,$value){  //$tabl - название таблицы \\ $id-ай ди выбранного\\ $cell-названия столба\\ $value- значение
      R::exec( 'UPDATE ' .  $tabl . ' SET ' . $cell . '=:aa WHERE id = :id ', [
             ':aa'=> $value,
             ':id' => $id]);
     
 }
-/*Функция достает даннные собаки по ее Id из нужно таблицы*/
-function take_data_from($id,$tabl){   //$id - индекс ; $tabl - таблица с данными
-    
-    $sql = 'SELECT * FROM ' . $tabl. ' WHERE id=' . $id; 
-    return R::getRow($sql);
-      
-}
 
-/*Функция достает даннные из заданного поля($cell) по ее Id из таблицы animals*/
-function ret_id_by_cell($id, $cell){
-    $sql = 'SELECT ' . $cell . ' FROM animals WHERE id=' . $id; 
+
+/*Функция достает даннные из заданного поля($cell) по ее Id из таблицы $tabl*/
+function retCellById($id, $cell,$tabl){
+    $sql = 'SELECT ' . $cell . ' FROM ' . $tabl . 'WHERE id=' . $id; 
     return R::getCell($sql);
 }
 
 
-
-/*Функция создает строку запроса и возвращает ее как тескт*/
-function get_sql($id,$tabl){
-    $sql = 'SELECT * FROM ' . $tabl . ' WHERE id=' . $id; 
-    return $sql;
-}
-
-
 /*Функция возвращает данные по параметру $cell из таблицы $tabl по индексу $id*/
-function ret_Cell($bdika,$id,$tabl){
+function retCell($bdika,$id,$tabl){
     //if('animals'==$tabl){
     $array = R::getAssoc(get_sql($id,$tabl));
         foreach($array as $item) {
@@ -418,9 +187,9 @@ function ret_Cell($bdika,$id,$tabl){
 }
 
 /*Функция возвращает данные из таблицы $tabl по индексу $id*/
-function ret_Row($id,$tabl){
+function retRow($id,$tabl){
     
-    return R::getRow(get_sql($id,$tabl));
+    return R::getRow(get_sql($id,$tabl));   //$id - индекс ; $tabl - таблица с данными
     
 }
 
@@ -468,17 +237,6 @@ class Users{
 /************************ Работа с таблицей RANDODNA ***************/
 Class Dna{
     static $id;
-    
-    public function printStats($id){
-        $data_dna = take_data_from($id,'randodna');
-        echo '<br>Скорость ' . $data_dna['spd'];
-        echo '<br>Уворот ' . $data_dna['agl'];
-        echo '<br>Обучение ' . $data_dna['tch'];
-        echo '<br>Прыжки ' . $data_dna['jmp'];
-        echo '<br>Обоняние ' . $data_dna['nuh'];
-        echo '<br>Поиск ' . $data_dna['fnd'];
-      
-    }
     
 }
 
@@ -577,12 +335,6 @@ Class Dog{
         //вносим обновленные данные в таблицу
        $book = R::load('kennels', $id_ken);
         $book->dogs = $cont;
-        
         R::store($book);
-        return $cont;
-        
     }
 }
-///////////////***** рандомная собака  ************////////////
-
-
