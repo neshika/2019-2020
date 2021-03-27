@@ -42,8 +42,8 @@ Class RandDog{
        
        //создаем картинки собак
       
-       $dog->url = $this->doUrl($id);
-       $dog->url_puppy = $this->DoUrlPuppy($id);
+       $dog->url = $this->doUrl($dna);
+       $dog->url_puppy = $this->DoUrlPuppy($dog->url);
        
        return R::store($dog);
     }

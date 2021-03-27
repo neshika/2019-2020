@@ -5,7 +5,6 @@ require_once(__DIR__ . '/includes/func.php');
 
 ini_set('display_errors',1);
 error_reporting(E_ALL);
-echo "Создаем рандомную собаку по-другому: <br>";
 ?>
 <style>
    #dogs {
@@ -16,7 +15,7 @@ echo "Создаем рандомную собаку по-другому: <br>";
         border: 10px;
 }
 </style>
- <form method="POST" action="buydog.php">
+<form method="POST" action="buydog.php">
     <table border="0" cellpadding="25" text-align="center">
         <caption><h1>Aктуальные предложения на сегодня:</h1><br></caption>
     <td><div id="dogs">
@@ -24,14 +23,42 @@ echo "Создаем рандомную собаку по-другому: <br>";
        $obj3 = new RandDog;
        $obj3->InsertData(3);
        $url=$obj3->retUrl(3); //рисуте URL
-       echo ' Url ' . $url;
+       //echo ' Url ' . $url;
        $obj3->dogPic($url);
        $url_pup=$obj3->retUrlPuppy(3);
-       echo " url_pup " . $url_pup;
+      // echo " url_pup " . $url_pup;
        echo '<br>' . $obj3->dogPic($url_pup);
        echo $obj3->picSex(3);  //рисует пол собаки
        echo $obj3->dogPrice(3); // проверка цены ........
         ?><button type="submit" class="knopka" name="buy1" >Купить</button></div></td>
+    </td>
+     <td><div id="dogs">
+        <?php 
+       $obj4 = new RandDog;
+       $obj4->InsertData(4);
+       $url4=$obj4->retUrl(4); //рисуте URL
+       //echo ' Url ' . $url;
+       $obj4->dogPic($url4);
+       $url_pup4=$obj4->retUrlPuppy(4);
+      // echo " url_pup " . $url_pup;
+       echo '<br>' . $obj4->dogPic($url_pup4);
+       echo $obj4->picSex(4);  //рисует пол собаки
+       echo $obj4->dogPrice(4); // проверка цены ........
+        ?><button type="submit" class="knopka" name="buy2" >Купить</button></div></td>
+    </td>
+    <td><div id="dogs">
+        <?php 
+       $obj5 = new RandDog;
+       $obj5->InsertData(5);
+       $url5=$obj5->retUrl(5); //рисуте URL
+       //echo ' Url ' . $url;
+       $obj5->dogPic($url5);
+       $url_pup5=$obj5->retUrlPuppy(5);
+      // echo " url_pup " . $url_pup;
+       echo '<br>' . $obj5->dogPic($url_pup5);
+       echo $obj5->picSex(5);  //рисует пол собаки
+       echo $obj5->dogPrice(5); // проверка цены ........
+        ?><button type="submit" class="knopka" name="buy3" >Купить</button></div></td>
     </td>
    
  </table>
