@@ -73,7 +73,7 @@ If(!empty($array)){
     echo "Нужно дать имена малышам на их страничке:";
     foreach ($array as $key => $value) {
         //pic_link($key, 55);
-       $obj->pic_link($key, 55);
+       $obj->picLink($key, 55);
     }
 }
 

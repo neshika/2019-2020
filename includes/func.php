@@ -64,6 +64,21 @@ class PrintDog extends Dog{
     public function picCoins() {
         return ' <img src = "/pici/coins_mini.png">';
     }
+    /*функция печатает собаку как ссылку, можно указать размер картинки в пикселях. проверяет щенок или нет(печатает из ANIMALS)*/
+    function picLink($id,$size){
+         $dna_id=$this->retDnaId($id);
+         $url=$this->retCell('url', $dna_id, 'randodna');
+             
+        ?><a href="/name.php?id=<?php echo $id?>">
+            <img src="<?php echo $url;?>" width="<?php echo $size?>">
+                </a>
+         <?php 
+    
+    }
+    /* функция печатает собаку по ее URL */
+    public function dogPic($url){
+       ?><img src="<?php echo $url;?>"><?php
+    }
  
 
 }
@@ -163,7 +178,7 @@ Class Dna{
 }
 
 /************************ Работа с ANIMALS ***************/
-Class Dog{
+Class Dog extends Tabl{
     static $id;
     static $dog_arr;
     static $owner;
@@ -240,12 +255,7 @@ Class Dog{
     public function retLitter($id){
         return R::getCell('SELECT litter FROM animals WHERE id = ? LIMIT 1', [$id]);
     }
-    public function retUrl($id){
-        return R::getCell('SELECT url FROM animals WHERE id = ? LIMIT 1', [$id]);
-    }
-    public function retUrlPuppy($id){
-        return R::getCell('SELECT url_puppy FROM animals WHERE id = ? LIMIT 1', [$id]);
-    }   
+   
 
     public function countDogs($owner){ // функция пересчитывает количество собак и списываем в kennel
         $books = R::getAll('SELECT `id` FROM `animals` WHERE `owner` = ?', [$owner]);
