@@ -29,7 +29,7 @@ error_reporting(E_ALL);
       // echo " url_pup " . $url_pup;
        echo '<br>' . $obj3->dogPic($url_pup);
        echo $obj3->picSex(3);  //рисует пол собаки
-       echo $obj3->dogPrice(3); // проверка цены ........
+       echo '  ' . $obj3->dogPrice(3); // проверка цены ........
         ?><button type="submit" class="knopka" name="buy1" >Купить</button></div></td>
     </td>
      <td><div id="dogs">
@@ -43,7 +43,7 @@ error_reporting(E_ALL);
       // echo " url_pup " . $url_pup;
        echo '<br>' . $obj4->dogPic($url_pup4);
        echo $obj4->picSex(4);  //рисует пол собаки
-       echo $obj4->dogPrice(4); // проверка цены ........
+       echo '  ' . $obj4->dogPrice(4); // проверка цены ........
         ?><button type="submit" class="knopka" name="buy2" >Купить</button></div></td>
     </td>
     <td><div id="dogs">
@@ -57,7 +57,7 @@ error_reporting(E_ALL);
       // echo " url_pup " . $url_pup;
        echo '<br>' . $obj5->dogPic($url_pup5);
        echo $obj5->picSex(5);  //рисует пол собаки
-       echo $obj5->dogPrice(5); // проверка цены ........
+       echo '  ' . $obj5->dogPrice(5); // проверка цены ........
         ?><button type="submit" class="knopka" name="buy3" >Купить</button></div></td>
     </td>
    

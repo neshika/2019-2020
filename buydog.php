@@ -53,7 +53,7 @@ Class GreateNewDog{
        //store the whole array of beans at once               
         return R::store($bean);
     }
-   public function insertDogAnimals($owner,$dna_id,$urldog){
+   public function insertDogAnimals($owner,$dna_id){
     $kennel=R::getCell('SELECT `name_k` FROM `kennels` WHERE `owner_k` = ? LIMIT 1', [$owner]);
     
     $date=date('d.m.Y');
@@ -100,19 +100,19 @@ Class GreateNewDog{
 if (isset($_POST['buy1'])){
    echo 'нажали 1 buy <br>';
     $obj1 = new RandDog;
+    echo $obj1->picSex(3); //рисует пол собаки
     $obj1->dogPic($obj1->retUrl(3)); //рисует собаку
-    $obj1->dogPic($obj1->retUrlPuppy(3)); //рисует собаку_щенка
+    //$obj1->dogPic($obj1->retUrlPuppy(3)); //рисует собаку_щенка
     echo $obj1->retDna(3) . '<br>';  //пишет ГК
-    echo $obj1->picSex(3);  //рисует пол собаки
-    echo $obj1->dogPrice(3); // проверка цены ........
-    
-    $stat1 = new Dna;
-    $stat1->printStats(3); //выводит статы
-    
+    echo $obj1->picCoins();
+    echo $obj1->dogPrice(3); // проверка цены ........      
+    $stat1 = new PrintDog();
+    $stat1->printStats(3);
+       
     /* создаем собаку Animals */
-    $newDog1 = new GreateNewDog;
+   $newDog1 = new GreateNewDog;
    echo '<br> $newDNA1' . $newDNA1 = $newDog1->updateDNA(3);  //копируем из dna 3 в новую
-   echo '<br> $id_dog1' .$id_dog1 = $newDog1->insertDogAnimals($owner, $newDNA1, $url1); //вносим данные в animals
+   echo '<br> $id_dog1' .$id_dog1 = $newDog1->insertDogAnimals($owner, $newDNA1); //вносим данные в animals
    echo '<br> $newDog1->insertDogFamilyTree($id_dog1) ' .$newDog1->insertDogFamilyTree($id_dog1); //вносим данные в familytree
 }
 elseif (isset($_POST['buy2'])){
@@ -121,8 +121,13 @@ elseif (isset($_POST['buy2'])){
     $url2 = $obj2->dogPic($obj2->doUrl(4));
     echo $obj2->retDna(4) . '<br>'; 
     echo $obj2->picSex(4);  //рисует пол собаки
-    echo $obj2->dogPrice(4); // проверка цены ........
+    ?>
+    <table class="table">
+        <td>цена</td>
+        <td><?php echo $obj2->dogPrice(4); // проверка цены ........?></td>
+    </table>    
     
+    <?php
     $stat2 = new Dna;
     $stat2->printStats(4);
     
