@@ -22,38 +22,18 @@ echo "Создаем рандомную собаку по-другому: <br>";
     <td><div id="dogs">
         <?php 
        $obj3 = new RandDog;
-       $obj3->insertData(3);
-              
-       $obj3->dogPic($obj3->retUrl(3));
-        echo ' ' . $obj3->retUrl(3); //рисуте URL
-       echo '<br>' . $obj3->dogPic($obj3->retUrlPuppy(3));
-       echo $obj3->retUrlPuppy(3);
-        echo $obj3->picSex(3);  //рисует пол собаки
+       $obj3->InsertData(3);
+       $url=$obj3->retUrl(3); //рисуте URL
+       echo ' Url ' . $url;
+       $obj3->dogPic($url);
+       $url_pup=$obj3->retUrlPuppy(3);
+       echo " url_pup " . $url_pup;
+       echo '<br>' . $obj3->dogPic($url_pup);
+       echo $obj3->picSex(3);  //рисует пол собаки
        echo $obj3->dogPrice(3); // проверка цены ........
         ?><button type="submit" class="knopka" name="buy1" >Купить</button></div></td>
     </td>
-    <td><div id="dogs">  <?php 
-     $obj4 = new RandDog;
-       $obj3->insertData(4);
-              
-       $obj4->dogPic($obj4->retUrl(4));
-        echo ' ' . $obj4->retUrl(4); //рисуте URL
-       echo '<br>' . $obj4->dogPic($obj4->retUrlPuppy(4));
-       echo $obj4->retUrlPuppy(4);
-        echo $obj4->picSex(4);  //рисует пол собаки
-       echo $obj4->dogPrice(4); // проверка цены ........
-            ?> <button type="submit" class="knopka" name="buy2" >Купить</button></div></td>
-    <td><div id="dogs">  <?php 
-       $obj5 = new RandDog;
-       $obj5->insertData(5);
-              
-       $obj5->dogPic($obj5->retUrl(5));
-        echo ' ' . $obj5->retUrl(5); //рисуте URL
-       echo '<br>' . $obj5->dogPic($obj5->retUrlPuppy(5));
-       echo $obj5->retUrlPuppy(5);
-        echo $obj5->picSex(5);  //рисует пол собаки
-       echo $obj5->dogPrice(5); // проверка цены ........
-        ?> <button type="submit" class="knopka" name="buy3" >Купить</button></div>
+   
  </table>
 </form>
 

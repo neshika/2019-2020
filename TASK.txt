@@ -6,6 +6,9 @@
 
 134. test2 функция Buy создаем тестопую форму в ООП
 отработка кнопки buy
+136. Доделана функция randDna()
+137. переделана ф.doUrl($data_dna) //получаем данные DNA hr0w0f0b0t0m0
+138. public function DoUrlPuppy($url)  //получаем данные из url
 
 
 

@@ -8,12 +8,12 @@ require "db.php";
 require "includes/functions.php";
 require "includes/func.php";
 
-?><hr><a href="http://dog.ru/test2.php">тестим тут</a><hr> <?php
+?><hr><a href="http://dog.ru/test.php">тестим тут</a><hr> <?php
 
 
 
 echo 'Добро пожаловать, ' . $GLOBALS['name']=$_SESSION['logged_user']->login . ' .<br>';
-echo '<br>Сегодня: ' . date('d.m.Y');
+echo '<br>сегодня: ' . date('d.m.Y');
 
 $dog = new Dog;
 $user = new Users;
@@ -29,11 +29,11 @@ if($now!=$user->retLTime($owner)){
 //echo '<br> разые';
     $visits = $user->retVisits($owner);
     $visits+=1;
-    $tabl->UptadeData('users',$user->retId($owner),'visits',$visits);
-    $tabl->UptadeData('users',$user->retId($owner),'l_time',$now);
+    $tabl->UpdateData('users',$user->retId($owner),'visits',$visits);
+    $tabl->UpdateData('users',$user->retId($owner),'l_time',$now);
 }    
 echo '<br> количество посещений: ' . $user->retVisits($owner);
-echo '<br> сколько собак? - ' . $ken->retCountDog($owner); // считает количество собак у владельца
+echo '<br> собак в питомнике: ' . $ken->retCountDog($owner); // считает количество собак у владельца
 
 echo "<h3><li>Последние новости</li></h3>";
 
