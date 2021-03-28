@@ -20,7 +20,78 @@
 }
 </style>
 <?php
+  /*                                *************************   СОЗДАНИЕ НОВОЙ СОБАКИ */
+Class GreateNewDog{
+    
+   public function retDna($id) {
+        return R::getCell('SELECT dna FROM randodna WHERE id = ? LIMIT 1', [$id]);
+    } 
+   
 
+    public function updateDNA($id) {
+      $post = R :: getRow('SELECT * FROM `randodna` WHERE `id` = ? LIMIT 1', [$id]);
+       // debug($post);
+        //for each customer post create a new bean as a row/record          
+            $bean = R::dispense('randodna');
+             //assign column values 
+             $bean->sex = $post['sex'];
+             $bean->lucky = $post['lucky'];
+             $bean->dna = $post['dna'];
+             $bean->about = 'owner';
+             $bean->spd = $post['spd'];
+             $bean->agl = $post['agl'];
+             $bean->tch = $post['tch'];
+             $bean->jmp = $post['jmp'];
+             $bean->nuh = $post['nuh'];
+             $bean->fnd = $post['fnd'];
+             $bean->mut = $post['mut'];
+             $bean->url = $post['url'];
+             $bean->url_puppy = $post['url_puppy'];
+            
+       //store the whole array of beans at once               
+        return R::store($bean);
+    }
+   public function insertDogAnimals($owner,$dna_id){
+    $kennel=R::getCell('SELECT `name_k` FROM `kennels` WHERE `owner_k` = ? LIMIT 1', [$owner]);
+    
+    $date=date('d.m.Y');
+    $dogs = R::dispense('animals');
+     $dogs->name='Без имени';
+     $dogs->race='КХС';
+     $dogs->origin='1';
+     $dogs->breeder='Бесты-первый лучший';
+     $dogs->owner=$owner;
+     $dogs->kennel=$kennel;
+     $dogs->age_id=13;
+     $dogs->dna_id=$dna_id;
+     $dogs->family_id=0;
+     $dogs->mark_id=1; //отлично оценка
+     $dogs->birth=$date;
+     
+     /*сохраняем id новой собаки*/
+     $id_new_dog1 = R::store($dogs);
+     
+    return $id_new_dog1;
+ 
+    }
+    public function insertDogFamilyTree($id){
+    $dog22 = R::dispense('family');
+        foreach ($dog22 as $key) {
+            if($key!='id'){
+                $dog22->$key=0;  //вносим всех предков по нулям
+            }
+        }      
+    $family_id2 = R::store($dog22);  
+    
+    /* созраняем данные о семье в таблице animals*/
+    $book = R::load('animals', $id);
+    $book->family_id = $family_id2;
+    return R::store($book);
+    
+ }
+        
+    
+} //end class GreateNewDog
  /*                                *************************    РАСПЕЧАТКА Собаки на экране КАРТИНКА  */
 class PrintDog extends Dog{
     function printStats($id){
