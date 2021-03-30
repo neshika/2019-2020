@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Мар 07 2021 г., 23:42
+-- Время создания: Мар 28 2021 г., 10:00
 -- Версия сервера: 5.5.62
 -- Версия PHP: 7.1.33
 
@@ -171,7 +171,11 @@ INSERT INTO `animals` (`id`, `name`, `race`, `origin`, `breeder`, `owner`, `kenn
 (18, 'Без имени', 'КХС', 1, 'Бесты-первый лучший', 'Ольга Тимофеева', 'Звездочки', 6, 0, 10, 36, 16, 1, 0, 0, 100, 100, 100, '22.08.2020', 0, 1, 0, 0, 'pici/TT/hr1w0f0b0t1m0_04.png', 'pici/puppy/hr1w1_02.png'),
 (19, 'Без имени', 'КХС', 0, 'Бесты-первый лучший', 'Ольга Тимофеева', 'Звездочки', 0, 0, 14, 37, 17, 1, 0, 0, 100, 100, 100, '22.08.2020', 0, 1, 0, 0, 'pici/MM/hr1w0f0b0t0m1_03.png', 'pici/puppy/hr1b0_01.png'),
 (20, 'Рыжа', 'КХС', 1, 'Бесты-первый лучший', 'Дима', 'Чашка', 12, 0, 10, 38, 18, 1, 0, 0, 100, 100, 100, '22.08.2020', 0, 1, 0, 0, 'pici/hrhr/hr0w0f1b0t0m1_02.png', 'pici/puppy/hr0f1_02.png'),
-(21, 'Белый кролик', 'КХС', 0, 'Бесты-первый лучший', 'shelter', 'Чашка', 0, 0, 13, 39, 19, 1, 0, 0, 100, 100, 100, '22.08.2020', 0, 1, 0, 0, 'pici/hrhr/hr0w1f0b0t0m0_01.png', 'pici/puppy/hr0w1_01.png');
+(21, 'Белый кролик', 'КХС', 0, 'Бесты-первый лучший', 'shelter', 'Чашка', 0, 0, 13, 39, 19, 1, 0, 0, 100, 100, 100, '22.08.2020', 0, 1, 0, 0, 'pici/hrhr/hr0w1f0b0t0m0_01.png', 'pici/puppy/hr0w1_01.png'),
+(22, 'Без имени', 'КХС', 1, 'Бесты-первый лучший', 'Заводчик', 'Пушистики', 15, 0, 13, 44, 20, 1, 0, 0, 100, 100, 100, '27.03.2021', 0, 1, 0, 0, '', ''),
+(23, 'Без имени', 'КХС', 1, 'Бесты-первый лучший', 'Заводчик', 'Пушистики', 0, 0, 13, 45, 21, 1, 0, 0, 100, 100, 100, '28.03.2021', 0, 1, 0, 0, '', ''),
+(24, 'Без имени', 'КХС', 1, 'Бесты-первый лучший', 'Заводчик', 'Пушистики', 0, 0, 13, 46, 22, 1, 0, 0, 100, 100, 100, '28.03.2021', 0, 1, 0, 0, '', ''),
+(25, 'Без имени', 'КХС', 1, 'Бесты-первый лучший', 'Заводчик', 'Пушистики', 0, 0, 13, 47, 23, 1, 0, 0, 100, 100, 100, '28.03.2021', 0, 1, 0, 0, '', '');
 
 -- --------------------------------------------------------
 
@@ -286,7 +290,11 @@ INSERT INTO `family` (`id`, `mum`, `dad`, `g1dad`, `g1mum`, `g0dad`, `g0mum`, `g
 (16, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 (17, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 (18, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(19, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+(19, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(21, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(22, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(23, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -330,15 +338,15 @@ CREATE TABLE `items` (
 --
 
 INSERT INTO `items` (`id`, `name`, `icons`) VALUES
-(1, 'coins', '/pic/coins_mini.png'),
-(2, 'logo', '/Pic/logo_mini.png'),
-(3, 'food', '/Pic/food_mini.png'),
-(4, 'water', '/Pic/water.png'),
-(5, 'badd', '/Pic/badd_mini.png\r\n'),
-(6, 'comp', '/Pic/comp.png'),
-(7, 'walk', '/Pic/walk.png'),
-(8, 'zzz', '/Pic/zzz.png'),
-(9, 'up', '/Pic/up.png');
+(1, 'coins', '/pici/coins_mini.png'),
+(2, 'logo', '/Pici/logo_mini.png'),
+(3, 'food', '/Pici/food_mini.png'),
+(4, 'water', '/Pici/water.png'),
+(5, 'badd', '/Pici/badd_mini.png\r\n'),
+(6, 'comp', '/Pici/comp.png'),
+(7, 'walk', '/Pici/walk.png'),
+(8, 'zzz', '/Pici/zzz.png'),
+(9, 'up', '/Pici/up.png');
 
 -- --------------------------------------------------------
 
@@ -365,7 +373,7 @@ INSERT INTO `kennels` (`id`, `name_k`, `owner_k`, `date`, `dogs`, `l_litter`, `e
 (29, 'Чарующий соблазн', 'nesh', '02.09.2017', 10, 'E', 'stepanova@mail.ru'),
 (30, 'Тестики', 'test', '03.09.2017', 2, 'A', 'test@test'),
 (31, 'НовыйПитомник', 'новый заводчик', '18.11.2020', 2, '', 'test@test2.ru'),
-(32, 'Пушистики', 'Заводчик', '19.11.2020', 1, '', 'test1@test.ru'),
+(32, 'Пушистики', 'Заводчик', '19.11.2020', 5, '', 'test1@test.ru'),
 (33, 'Черныши - Блек Джек', 'Черныши', '19.11.2020', 2, '', 'black@jack.ru'),
 (34, 'Голубые бантики', 'кто-то', '22.11.2020', 2, '', 'blue@gfh.tu'),
 (35, 'Лучики', 'Елена', '22.11.2020', 2, '', 'Lena43@gmail.com'),
@@ -511,57 +519,63 @@ CREATE TABLE `randodna` (
   `fnd` float NOT NULL COMMENT 'поиск',
   `mut` int(11) NOT NULL COMMENT 'мутации',
   `dna` varchar(255) NOT NULL COMMENT 'генетический код',
-  `about` varchar(100) NOT NULL
+  `about` varchar(100) NOT NULL,
+  `url` varchar(255) NOT NULL COMMENT 'ссылка не собаку',
+  `url_puppy` varchar(255) NOT NULL COMMENT 'ссылка на щенка'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `randodna`
 --
 
-INSERT INTO `randodna` (`id`, `hr`, `ww`, `ff`, `bb`, `tt`, `mm`, `sex`, `lucky`, `spd`, `agl`, `tch`, `jmp`, `nuh`, `fnd`, `mut`, `dna`, `about`) VALUES
-(1, 'Hrhr', 'Ww', 'ff', 'bb', 'Tt', 'Mm', '0', 91, 11, 10, 11, 9, 9, 11, 45, 'hr1w1f0b0t1m1', 'start'),
-(2, 'hrhr', 'ww', 'ff', 'bb', 'tt', 'mm', '1', 59, 11, 9, 10, 10, 10, 11, 14, 'hr0w0f0b0t0m0', 'start'),
-(3, 'hrhr', 'ww', 'ff', 'Bb', 'Tt', 'mm', '1', 12, 10, 9, 9, 9, 11, 11, 77, 'hr1w0f1b1t1m1', 'shop'),
-(4, 'Hrhr', 'ww', 'ff', 'bb', 'tt', 'mm', '0', 59, 11, 10, 9, 9, 11, 10, 35, 'hr0w0f1b0t0m1', 'shop'),
-(5, 'hrhr', 'ww', 'Ff', 'bb', 'Tt', 'mm', '0', 75, 9, 9, 9, 11, 11, 10, 96, 'hr0w0f0b0t1m0', 'shop'),
-(6, 'hrhr', 'Ww', 'ff', 'bb', 'tt', 'mm', '0', 43, 10, 11, 10, 9, 11, 10, 47, 'hr0w1f0b0t0m0', 'shop'),
-(7, '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 0, '', ''),
-(8, '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 0, '', ''),
-(9, '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 0, '', ''),
-(10, '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 0, '', ''),
-(11, 'Hrhr', 'ww', 'ff', 'bb', 'Tt', 'mm', '0', 12, 10, 10, 9, 9, 9, 11, 0, 'hr1w0f0b0t1m0', 'owner'),
-(12, 'Hrhr', 'ww', 'Ff', 'bb', 'tt', 'mm', '0', 13, 11, 11, 11, 9, 9, 8, 0, 'hr1w0f1b0t0m0', 'owner'),
-(13, 'Hrhr', 'ww', 'ff', 'bb', 'tt', 'mm', '1', 15, 11, 11, 11, 11, 11, 9, 0, 'hr1w0f0b0t0m0', 'owner'),
-(14, 'hrhr', 'ww', 'ff', 'bb', 'tt', 'mm', '1', 12, 11.6, 11.6, 11.6, 9.05, 10.6, 9.05, 1, 'hr0w0f0b0t0m0', 'owner'),
-(15, 'Hrhr', 'ww', 'ff', 'bb', 'tt', 'mm', '1', 75, 10, 9, 11, 11, 11, 10, 0, 'hr1w0f0b0t0m0', 'owner'),
-(16, 'hrhr', 'ww', 'ff', 'bb', 'tt', 'mm', '1', 27, 10.55, 10.05, 11.05, 10.05, 10.55, 9.55, 0, 'hr0w0f0b0t0m0', 'shelter'),
-(17, 'Hrhr', 'ww', 'ff', 'bb', 'tt', 'mm', '1', 13, 10.87, 10.62, 11.12, 9.61, 10.37, 9.36, 1, 'hr1w0f0b0t0m0', 'owner'),
-(18, 'hrhr', 'ww', 'ff', 'bb', 'Tt', 'mm', '1', 74, 10.25, 10, 10, 9.5, 9.75, 10.25, 0, 'hr0w0f0b0t1m0', 'owner'),
-(19, 'Hrhr', 'ww', 'Ff', 'bb', 'tt', 'mm', '1', 97, 10.42, 9.92, 10.91, 9.92, 9.92, 8.93, 1, 'hr1w0f1b0t0m0', 'owner'),
-(20, 'Hrhr', 'Ww', 'Ff', 'bb', 'tt', 'mm', '1', 97, 10.42, 12, 10.91, 9.92, 9.92, 8.93, 1, 'hr1w1f1b0t0m0', 'owner'),
-(21, 'hrhr', 'ww', 'ff', 'bb', 'Tt', 'mm', '0', 74, 10.25, 10, 10, 9.5, 12, 12, 0, 'hr0w0f0b0t1m0', 'owner'),
-(22, 'Hrhr', 'ww', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 0, '', ''),
-(23, 'hrhr', 'ww', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 0, '', ''),
-(24, '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 0, '', ''),
-(25, 'Hrhr', 'ww', 'ff', 'Bb', 'Tt', 'mm', '0', 39, 11, 10, 11, 9, 9, 10, 86, 'hr1w0f0b1t1m0', 'start'),
-(26, 'hrhr', 'ww', 'ff', 'bb', 'tt', 'Mm', '1', 71, 9, 9, 10, 10, 11, 11, 100, 'hr0w0f0b0t0m1', 'start'),
-(27, 'hrhr', 'Ww', 'ff', 'Bb', 'tt', 'Mm', '0', 90, 10, 9, 9, 10, 11, 9, 21, 'hr0w1f0b1t0m1', 'start'),
-(28, 'Hrhr', 'ww', 'Ff', 'Bb', 'tt', 'mm', '0', 71, 11, 11, 10, 11, 10, 10, 63, 'hr1w0f1b1t0m0', 'start'),
-(29, 'Hrhr', 'ww', 'Ff', 'Bb', 'tt', 'mm', '0', 71, 11, 11, 10, 11, 10, 10, 63, 'hr1w0f1b1t0m0', 'start'),
-(30, 'hrhr', 'Ww', 'ff', 'bb', 'tt', 'Mm', '0', 69, 10, 11, 9, 9, 10, 11, 86, 'hr0w1f0b0t0m1', 'start'),
-(31, 'Hrhr', 'ww', 'Ff', 'bb', 'Tt', 'mm', '1', 97, 9, 11, 11, 10, 11, 11, 63, 'hr1w0f1b0t1m0', 'start'),
-(32, 'Hrhr', 'ww', 'ff', 'bb', 'tt', 'Mm', '0', 77, 9, 10, 9, 9, 9, 11, 22, 'hr1w0f0b0t0m1', 'start'),
-(33, 'hrhr', 'ww', 'ff', 'bb', 'Tt', 'Mm', '1', 94, 10, 11, 11, 9, 10, 11, 40, 'hr0w0f0b0t1m1', 'start'),
-(34, 'hrhr', 'ww', 'ff', 'Bb', 'tt', 'mm', '0', 2, 9, 10, 9, 11, 11, 9, 33, 'hr0w0f0b1t0m0', 'start'),
-(35, 'hrhr', 'ww', 'Ff', 'Bb', 'tt', 'mm', '1', 46, 9, 11, 9, 11, 11, 9, 60, 'hr0w0f1b1t0m0', 'start'),
-(36, 'Hrhr', 'Ww', 'ff', 'bb', 'Tt', 'mm', '0', 92, 10, 9, 11, 10, 9, 10, 28, 'hr1w1f0b0t1m0', 'start'),
-(37, 'Hrhr', 'ww', 'ff', 'bb', 'tt', 'Mm', '1', 49, 10, 10, 10, 11, 11, 9, 45, 'hr1w0f0b0t0m1', 'start'),
-(38, 'hrhr', 'ww', 'Ff', 'bb', 'Tt', 'Mm', '0', 48, 10, 9, 10, 11, 10, 9, 98, 'hr0w0f1b0t1m1', 'start'),
-(39, 'hrhr', 'Ww', 'ff', 'bb', 'tt', 'Mm', '1', 98, 11, 10, 11, 10, 9, 10, 95, 'hr0w1f0b0t0m1', 'shelter'),
-(40, 'Hrhr', 'ww', 'ff', 'bb', 'tt', 'mm', '0', 21, 11, 11, 10, 10, 9, 10, 4, 'hr1w0f0b0t0m0', 'shop'),
-(41, 'hrhr', 'Ww', 'ff', 'bb', 'Tt', 'mm', '1', 75, 10, 9, 10, 11, 11, 9, 74, 'hr0w1f0b0t1m0', 'shop'),
-(42, 'Hrhr', 'Ww', 'ff', 'bb', 'tt', 'Mm', '1', 82, 11, 11, 11, 9, 10, 10, 10, 'hr1w1f0b0t0m1', 'shop'),
-(43, '', '', '', '', '', '', '1', 40, 11, 11, 9, 9, 11, 11, 49, 'hr0w1f1b0t1m0', 'shop');
+INSERT INTO `randodna` (`id`, `hr`, `ww`, `ff`, `bb`, `tt`, `mm`, `sex`, `lucky`, `spd`, `agl`, `tch`, `jmp`, `nuh`, `fnd`, `mut`, `dna`, `about`, `url`, `url_puppy`) VALUES
+(1, 'hrhr', 'ww', 'ff', 'Bb', 'tt', 'Mm', '0', 33, 9, 11, 9, 9, 10, 9, 1, 'hr0w0f0b1t0m1', 'start', '', ''),
+(2, 'hrhr', 'ww', 'ff', 'bb', 'Tt', 'Mm', '1', 98, 10, 11, 11, 10, 10, 11, 8, 'hr0w0f0b0t1m1', 'start', '', ''),
+(3, 'hrhr', 'ww', 'ff', 'Bb', 'Tt', 'mm', '1', 59, 9, 10, 9, 11, 9, 9, 63, 'hr1w0f1b0t1m1', 'shop', 'pici/TM/hr1w0f0b0t1m1_02.png', 'pici/puppy/hr1w1_03.png'),
+(4, 'Hrhr', 'ww', 'ff', 'bb', 'tt', 'mm', '1', 9, 11, 10, 9, 11, 11, 9, 96, 'hr0w1f1b0t0m1', 'shop', 'pici/hrhr/hr0w1f0b0t0m0_05.png', 'pici/puppy/hr0w1_03.png'),
+(5, 'hrhr', 'ww', 'Ff', 'bb', 'Tt', 'mm', '1', 64, 11, 11, 11, 11, 10, 11, 81, 'hr0w0f1b1t0m1', 'shop', 'pici/hrhr/hr0w0f1b0t0m1_04.png', 'pici/puppy/hr0f1_01.png'),
+(6, 'hrhr', 'Ww', 'ff', 'bb', 'tt', 'mm', '0', 43, 10, 11, 10, 9, 11, 10, 47, 'hr0w1f0b0t0m0', 'shop', '', ''),
+(7, '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 0, '', '', '', ''),
+(8, '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 0, '', '', '', ''),
+(9, '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 0, '', '', '', ''),
+(10, '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 0, '', '', '', ''),
+(11, 'Hrhr', 'ww', 'ff', 'bb', 'Tt', 'mm', '0', 12, 10, 10, 9, 9, 9, 11, 0, 'hr1w1f0b0t1m0', 'owner', 'pici/TT/hr1w0f0b0t1m0_01.png', 'pici/puppy/hr1b0_02.png'),
+(12, 'Hrhr', 'ww', 'Ff', 'bb', 'tt', 'mm', '0', 13, 11, 11, 11, 9, 9, 8, 0, 'hr1w0f1b0t0m0', 'owner', 'pici/hr1w0f1b0t0m0_04.png', 'pici/puppy/hr1f1_01.png'),
+(13, 'Hrhr', 'ww', 'ff', 'bb', 'tt', 'mm', '1', 15, 11, 11, 11, 11, 11, 9, 0, 'hr1w0f0b0t0m0', 'owner', 'pici/hr1w0f0b0t0m0_05.png', 'pici/puppy/hr1b0_01.png'),
+(14, 'hrhr', 'ww', 'ff', 'bb', 'tt', 'mm', '1', 12, 11.6, 11.6, 11.6, 9.05, 10.6, 9.05, 1, 'hr0w0f0b0t0m0', 'owner', 'pici/hrhr/hr0w0f0b0t0m0_01.png', 'pici/puppy/hr0b0_01.png'),
+(15, 'Hrhr', 'ww', 'ff', 'bb', 'tt', 'mm', '1', 75, 10, 9, 11, 11, 11, 10, 0, 'hr1w0f0b0t0m0', 'owner', 'pici/hr1w0f0b0t0m0_03.png', 'pici/puppy/hr1b0_02.png'),
+(16, 'hrhr', 'ww', 'ff', 'bb', 'tt', 'mm', '1', 27, 10.55, 10.05, 11.05, 10.05, 10.55, 9.55, 0, 'hr0w0f0b0t0m0', 'shelter', 'pici/hrhr/hr0w0f0b0t0m0_01.png', 'pici/puppy/hr0b0_01.png'),
+(17, 'Hrhr', 'ww', 'ff', 'bb', 'tt', 'mm', '1', 13, 10.87, 10.62, 11.12, 9.61, 10.37, 9.36, 1, 'hr1w0f0b0t0m0', 'owner', 'pici/hr1w0f0b0t0m0_05.png', 'pici/puppy/hr1b0_01.png'),
+(18, 'hrhr', 'ww', 'ff', 'bb', 'Tt', 'mm', '1', 74, 10.25, 10, 10, 9.5, 9.75, 10.25, 0, 'hr0w0f0b0t1m0', 'owner', 'pici/hrhr/hr0w0f0b0t0m0_01.png', 'pici/puppy/hr0b0_03.png'),
+(19, 'Hrhr', 'ww', 'Ff', 'bb', 'tt', 'mm', '1', 97, 10.42, 9.92, 10.91, 9.92, 9.92, 8.93, 1, 'hr1w0f1b0t0m0', 'owner', 'pici/hr1w0f1b0t0m0_04.png', 'pici/puppy/hr1f1_03.png'),
+(20, 'Hrhr', 'Ww', 'Ff', 'bb', 'tt', 'mm', '1', 97, 10.42, 12, 10.91, 9.92, 9.92, 8.93, 1, 'hr1w1f1b0t0m0', 'owner', 'pici/hr1w1f1b0t0m0_01.png', 'pici/puppy/hr1b0_02.png'),
+(21, 'hrhr', 'ww', 'ff', 'bb', 'Tt', 'mm', '0', 74, 10.25, 10, 10, 9.5, 12, 12, 0, 'hr0w0f0b0t1m0', 'owner', 'pici/hr1w0f1b0t0m0_01.png', 'pici/puppy/hr1f1_03.png'),
+(22, 'Hrhr', 'ww', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 0, '', '', '', ''),
+(23, 'hrhr', 'ww', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 0, '', '', '', ''),
+(24, '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 0, '', '', '', ''),
+(25, 'Hrhr', 'ww', 'ff', 'Bb', 'Tt', 'mm', '0', 39, 11, 10, 11, 9, 9, 10, 86, 'hr1w0f0b1t1m0', 'start', '', ''),
+(26, 'hrhr', 'ww', 'ff', 'bb', 'tt', 'Mm', '1', 71, 9, 9, 10, 10, 11, 11, 100, 'hr0w0f0b0t0m1', 'start', '', ''),
+(27, 'hrhr', 'Ww', 'ff', 'Bb', 'tt', 'Mm', '0', 90, 10, 9, 9, 10, 11, 9, 21, 'hr0w1f0b1t0m1', 'start', 'pici/hrhr/hr0w1f0b1t0m0_02.png', 'pici/puppy/hr0w1_01.png'),
+(28, 'Hrhr', 'ww', 'Ff', 'Bb', 'tt', 'mm', '0', 71, 11, 11, 10, 11, 10, 10, 63, 'hr1w0f1b1t0m0', 'start', '', ''),
+(29, 'Hrhr', 'ww', 'Ff', 'Bb', 'tt', 'mm', '0', 71, 11, 11, 10, 11, 10, 10, 63, 'hr1w0f1b1t0m0', 'start', '', ''),
+(30, 'hrhr', 'Ww', 'ff', 'bb', 'tt', 'Mm', '0', 69, 10, 11, 9, 9, 10, 11, 86, 'hr0w1f0b0t0m1', 'start', '', ''),
+(31, 'Hrhr', 'ww', 'Ff', 'bb', 'Tt', 'mm', '1', 97, 9, 11, 11, 10, 11, 11, 63, 'hr1w0f1b0t1m0', 'start', '', ''),
+(32, 'Hrhr', 'ww', 'ff', 'bb', 'tt', 'Mm', '0', 77, 9, 10, 9, 9, 9, 11, 22, 'hr1w0f0b0t0m1', 'start', '', ''),
+(33, 'hrhr', 'ww', 'ff', 'bb', 'Tt', 'Mm', '1', 94, 10, 11, 11, 9, 10, 11, 40, 'hr0w0f0b0t1m1', 'start', '', ''),
+(34, 'hrhr', 'ww', 'ff', 'Bb', 'tt', 'mm', '0', 2, 9, 10, 9, 11, 11, 9, 33, 'hr0w0f0b1t0m0', 'start', 'pici/hrhr/hr0w0f0b1t0m0_02.png', 'pici/puppy/hr0b1_03.png'),
+(35, 'hrhr', 'ww', 'Ff', 'Bb', 'tt', 'mm', '1', 46, 9, 11, 9, 11, 11, 9, 60, 'hr0w0f1b1t0m0', 'start', 'pici/hrhr/hr0w0f1b1t0m0_03.png', 'pici/puppy/hr0f1_01.png'),
+(36, 'Hrhr', 'Ww', 'ff', 'bb', 'Tt', 'mm', '0', 92, 10, 9, 11, 10, 9, 10, 28, 'hr1w1f0b0t1m0', 'start', 'pici/TT/hr1w0f0b0t1m0_04.png', 'pici/puppy/hr1w1_02.png'),
+(37, 'Hrhr', 'ww', 'ff', 'bb', 'tt', 'Mm', '1', 49, 10, 10, 10, 11, 11, 9, 45, 'hr1w0f0b0t0m1', 'start', 'pici/MM/hr1w0f0b0t0m1_03.png', 'pici/puppy/hr1b0_01.png'),
+(38, 'hrhr', 'ww', 'Ff', 'bb', 'Tt', 'Mm', '0', 48, 10, 9, 10, 11, 10, 9, 98, 'hr0w0f1b0t1m1', 'start', 'pici/hrhr/hr0w0f1b0t0m1_02.png', 'pici/puppy/hr0f1_02.png'),
+(39, 'hrhr', 'Ww', 'ff', 'bb', 'tt', 'Mm', '1', 98, 11, 10, 11, 10, 9, 10, 95, 'hr0w1f0b0t0m1', 'shelter', 'pici/hrhr/hr0w1f0b0t0m0_01.png', 'pici/puppy/hr0w1_01.png'),
+(40, 'Hrhr', 'ww', 'ff', 'bb', 'tt', 'mm', '0', 21, 11, 11, 10, 10, 9, 10, 4, 'hr1w0f0b0t0m0', 'shop', '', ''),
+(41, 'hrhr', 'Ww', 'ff', 'bb', 'Tt', 'mm', '1', 75, 10, 9, 10, 11, 11, 9, 74, 'hr0w1f0b0t1m0', 'shop', '', ''),
+(42, 'Hrhr', 'Ww', 'ff', 'bb', 'tt', 'Mm', '1', 82, 11, 11, 11, 9, 10, 10, 10, 'hr1w1f0b0t0m1', 'shop', '', ''),
+(43, '', '', '', '', '', '', '1', 40, 11, 11, 9, 9, 11, 11, 49, 'hr0w1f1b0t1m0', 'shop', '', ''),
+(44, '', '', '', '', '', '', '0', 12, 10, 10, 10, 9, 11, 10, 10, 'hr1w1f0b0t0m0', 'owner', 'pici/hr1w1f0b0t0m0_03.png', 'pici/puppy/hr1w1_04.png'),
+(45, '', '', '', '', '', '', '1', 70, 11, 10, 9, 10, 9, 10, 69, 'hr0w0f1b1t0m0', 'owner', 'pici/hrhr/hr0w0f1b0t0m0_05.png', 'pici/puppy/hr0f1_03.png'),
+(46, '', '', '', '', '', '', '1', 37, 11, 11, 9, 11, 10, 9, 32, 'hr0w0f0b0t1m1', 'owner', 'pici/hrhr/hr0w0f0b0t0m1_04.png', 'pici/puppy/hr0b0_01.png'),
+(47, '', '', '', '', '', '', '1', 59, 9, 10, 9, 11, 9, 9, 63, 'hr1w0f1b0t1m1', 'owner', 'pici/TM/hr1w0f0b0t1m1_02.png', 'pici/puppy/hr1w1_03.png');
 
 -- --------------------------------------------------------
 
@@ -644,10 +658,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `login`, `email`, `password`, `kennel`, `f_time`, `l_time`, `online`, `sign`, `visits`) VALUES
-(1, 'nesh', 'stepanova@mail.ru', '$2y$10$pinvDspcODn0zxHMfyEUoufayxxNfwrQoqHGX2.Ky1I.fB7FnDan.', 'Чарующий соблазн', '03.09.2017', '07.03.2021', 1, 0, 175),
+(1, 'nesh', 'stepanova@mail.ru', '$2y$10$pinvDspcODn0zxHMfyEUoufayxxNfwrQoqHGX2.Ky1I.fB7FnDan.', 'Чарующий соблазн', '03.09.2017', '28.03.2021', 0, 0, 177),
 (2, 'test', 'test@test', '$2y$10$Vy0Am7CkZj5SYrzoNR26W.XsiO21HWtuQezqns20CfpcqAqdlm7D.', 'Тестики', '04.09.2017', '10.09.2017', 0, 0, 4),
 (3, 'новый заводчик', 'test@test2.ru', '$2y$10$eOSfjXze0C3M1FJgNsR3F.A2gohq8kG/avSzH4VEt1.U9q09wUGu2', 'НовыйПитомник', '18.11.2020', '00.00.0000', 0, 0, 0),
-(4, 'Заводчик', 'test1@test.ru', '$2y$10$zuX4xhfkul.jRoVidHypQuTrikFSAxlg//OKhSnr2bP06lBt9r92e', 'Пушистики', '19.11.2020', '07.03.2021', 0, 0, 23),
+(4, 'Заводчик', 'test1@test.ru', '$2y$10$zuX4xhfkul.jRoVidHypQuTrikFSAxlg//OKhSnr2bP06lBt9r92e', 'Пушистики', '19.11.2020', '28.03.2021', 1, 0, 35),
 (5, 'Черныши', 'black@jack.ru', '$2y$10$MY4yAyenbgoJXUSvdGmzZO7oxBpL3x14wL3XhfzTaLcTg0a8nYTkW', 'Черныши - Блек Джек', '19.11.2020', '22.11.2020', 0, 0, 2),
 (6, 'кто-то', 'blue@gfh.tu', '$2y$10$sc7PykhD0GsdjaYMx1ChbuqGqa71RmvLEbsO2S.Sb4kr74UZYu16a', 'Голубые бантики', '22.11.2020', '00.00.0000', 0, 0, 0),
 (7, 'Елена', 'Lena43@gmail.com', '$2y$10$SUk/YNyPE9uAdhxr1S8XzON6gtrz6f/eVGJGcOdqzMDVzTex1ztVe', 'Лучики', '22.11.2020', '07.03.2021', 0, 0, 5),
@@ -768,7 +782,7 @@ ALTER TABLE `ages`
 -- AUTO_INCREMENT для таблицы `animals`
 --
 ALTER TABLE `animals`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT для таблицы `book`
@@ -786,7 +800,7 @@ ALTER TABLE `dnaagt`
 -- AUTO_INCREMENT для таблицы `family`
 --
 ALTER TABLE `family`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT для таблицы `items`
@@ -822,7 +836,7 @@ ALTER TABLE `owneritems`
 -- AUTO_INCREMENT для таблицы `randodna`
 --
 ALTER TABLE `randodna`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT для таблицы `registry`

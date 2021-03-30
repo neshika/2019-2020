@@ -15,7 +15,7 @@ require $_SERVER['DOCUMENT_ROOT']."/libs/up.php";
       $GLOBALS['Data_dog']=data_animals($id);
       $owner=ret_owner();
       $family_data= ret_Row($GLOBALS['Data_dog']['family_id'],'family');
-          
+      echo '<a href="/test.php?id=' . $id . '&owner=' . $owner . '">тестим тут</a>';
         
 /*<h1 style="font-size: 120%; font-family: Verdana, Arial, Helvetica, sans-serif; 
   color: #336">Заголовок</h1>*/

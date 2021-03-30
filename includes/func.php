@@ -1,3 +1,5 @@
+ <link rel="stylesheet" type="text/css" href="css/main.css" />
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
 <style>
 .table {
 	width: 100%;
@@ -245,7 +247,27 @@ class Users{
 
 /************************ Работа с таблицей RANDODNA ***************/
 Class Dna{
+    public function retDna($id) {
+        return R::getCell('SELECT dna FROM randodna WHERE id = ? LIMIT 1', [$id]);
+    }
+    public function retUrl($id) {
+        return R::getCell('SELECT url FROM randodna WHERE id = ? LIMIT 1', [$id]);
+    }
+    public function retUrlPuppy($id) {
+        return R::getCell('SELECT url_puppy FROM randodna WHERE id = ? LIMIT 1', [$id]);
+    }
+    public function retSex($id) {
+        return R::getCell('SELECT sex FROM randodna WHERE id = ? LIMIT 1', [$id]);
+    }
+    public function retSexText($id) {
+        if($this->retSex($id)){
+            return 'кобель';
+        }
+        else {
+            return 'сука';
+        }
         
+    }
 }
 
 /************************ Работа с ANIMALS ***************/
@@ -339,6 +361,55 @@ Class Dog extends Tabl{
        $book = R::load('kennels', $id_ken);
         $book->dogs = $cont;
         R::store($book);
+    }
+    public function retAgeText($id){
+        $age_id = $this->retAgeId($id);
+     //находим аналог(2 месяца) этой цыфры в таблице ages и выводим текст возраста
+        return R::getcell('SELECT age FROM ages WHERE id =:id', array(':id'=> $age_id));
+             
+    }
+    public function retMarkText($id){
+        $mark_id =  R::getCell('SELECT mark_id FROM animals WHERE id = ? LIMIT 1', [$id]);
+        return R::getcell('SELECT namerus FROM marks WHERE id =:id', array(':id'=> $mark_id));
+        
+    }
+     public function retOrignText($id){
+         if(R::getCell('SELECT orign FROM animals WHERE id = ? LIMIT 1', [$id])){
+             return 'РКФ';
+         }
+        else {
+            return 'не известно';
+        }
+    }
+    public function retEstrusText($id){
+      // сделать функцию
+//        function bdika_estrus($id){
+//    $est=ret_Cell('estrus', $id, 'animals');
+//    $array='';
+//  // echo 'в: ' . ret_age($id) . 'т: ' .$est . '<br>';
+//    if( '0' == ret_sex($id)){   //если собака сука
+//        ;
+//        if(ret_age($id) == $est){
+//           
+//            $array = 'у суки течка';
+//        }
+//        if(ret_age($id) < $est){
+//                     
+//          $age=ret_Cell('estrus', $id, 'animals');
+//          $age2=ret_Cell('age', $age, 'ages');
+//          $array = 'течка будет в: ' . $age2;
+//        }
+//        if (ret_age($id) > $est) {
+//            $est=$est+3;
+//            insert_data('animals',$id, 'estrus', $est);
+//             $age=ret_Cell('estrus', $id, 'animals');
+//          $age2=ret_Cell('age', $age, 'ages');
+//          $array= 'течка будет в: ' . $age2;
+//        
+//        }
+//         return $array;       
+//    }
+      
     }
 }
  /*                                *************************    РАСПЕЧАТКА Собаки на экране КАРТИНКА  */
