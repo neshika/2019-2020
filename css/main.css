@@ -29,6 +29,9 @@ html, body {
     padding: 0;
     
 }
+hr{
+    color: #D0D0D0;
+}
 
 #container {
     margin: 10px auto;
@@ -940,5 +943,30 @@ padding-top: 2%;
 }
 body#tinymce {
 background: #2B2A29
+}
+
+.myButton {
+	box-shadow:inset 0px 1px 2px 0px #cbc6cc;
+	background:linear-gradient(to bottom, #959096 5%, #0f0d0f 100%);
+	background-color:#959096;
+	border-radius:10px;
+	border:1px solid #878787;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Georgia;
+	font-size:17px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #9b999c;
+}
+.myButton:hover {
+	background:linear-gradient(to bottom, #0f0d0f 5%, #959096 100%);
+	background-color:#0f0d0f;
+}
+.myButton:active {
+	position:relative;
+	top:1px;
 }
 

@@ -17,6 +17,8 @@ function globals(){
          echo '<br>[' . $key . '] ' . $value;
     }    
 }
+
+
 function test(){
 	echo 'подключен файл functions.php';
 }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Мар 28 2021 г., 10:00
+-- Время создания: Апр 04 2021 г., 10:37
 -- Версия сервера: 5.5.62
 -- Версия PHP: 7.1.33
 
@@ -658,10 +658,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `login`, `email`, `password`, `kennel`, `f_time`, `l_time`, `online`, `sign`, `visits`) VALUES
-(1, 'nesh', 'stepanova@mail.ru', '$2y$10$pinvDspcODn0zxHMfyEUoufayxxNfwrQoqHGX2.Ky1I.fB7FnDan.', 'Чарующий соблазн', '03.09.2017', '28.03.2021', 0, 0, 177),
+(1, 'nesh', 'stepanova@mail.ru', '$2y$10$pinvDspcODn0zxHMfyEUoufayxxNfwrQoqHGX2.Ky1I.fB7FnDan.', 'Чарующий соблазн', '03.09.2017', '04.04.2021', 1, 0, 183),
 (2, 'test', 'test@test', '$2y$10$Vy0Am7CkZj5SYrzoNR26W.XsiO21HWtuQezqns20CfpcqAqdlm7D.', 'Тестики', '04.09.2017', '10.09.2017', 0, 0, 4),
 (3, 'новый заводчик', 'test@test2.ru', '$2y$10$eOSfjXze0C3M1FJgNsR3F.A2gohq8kG/avSzH4VEt1.U9q09wUGu2', 'НовыйПитомник', '18.11.2020', '00.00.0000', 0, 0, 0),
-(4, 'Заводчик', 'test1@test.ru', '$2y$10$zuX4xhfkul.jRoVidHypQuTrikFSAxlg//OKhSnr2bP06lBt9r92e', 'Пушистики', '19.11.2020', '28.03.2021', 1, 0, 35),
+(4, 'Заводчик', 'test1@test.ru', '$2y$10$zuX4xhfkul.jRoVidHypQuTrikFSAxlg//OKhSnr2bP06lBt9r92e', 'Пушистики', '19.11.2020', '03.04.2021', 1, 0, 39),
 (5, 'Черныши', 'black@jack.ru', '$2y$10$MY4yAyenbgoJXUSvdGmzZO7oxBpL3x14wL3XhfzTaLcTg0a8nYTkW', 'Черныши - Блек Джек', '19.11.2020', '22.11.2020', 0, 0, 2),
 (6, 'кто-то', 'blue@gfh.tu', '$2y$10$sc7PykhD0GsdjaYMx1ChbuqGqa71RmvLEbsO2S.Sb4kr74UZYu16a', 'Голубые бантики', '22.11.2020', '00.00.0000', 0, 0, 0),
 (7, 'Елена', 'Lena43@gmail.com', '$2y$10$SUk/YNyPE9uAdhxr1S8XzON6gtrz6f/eVGJGcOdqzMDVzTex1ztVe', 'Лучики', '22.11.2020', '07.03.2021', 0, 0, 5),

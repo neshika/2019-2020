@@ -137,11 +137,25 @@ class PrintDog extends Dog{
     public function picCoins() {
         return ' <img src = "/pici/coins_mini.png">';
     }
+    /* функция проверяет и возвращает ссылку на собаку в зависимости от возраста*/ 
+     public function bdikaUrl($id){
+         //возвращаем age_id из animals
+         $age_id = $this->retAgeId($id);
+         $dna_id = $this->retDnaId($id);
+         
+        if (13<=$age_id){   //age_id = 4 (6 мес)  age_id = 9 (15 мес = 1 год 3 мес)
+            return $this->retCell('url', $dna_id, 'randodna');
+        }
+        else{
+           return $this->retCell('url_puppy', $dna_id, 'randodna');
+        }
+    }
+ 
     /*функция печатает собаку как ссылку, можно указать размер картинки в пикселях. проверяет щенок или нет(печатает из ANIMALS)*/
     function picLink($id,$size){
-         $dna_id=$this->retDnaId($id);
-         $url=$this->retCell('url', $dna_id, 'randodna');
-             
+        // $dna_id=$this->retDnaId($id);
+         //$url=$this->retCell('url', $dna_id, 'randodna');
+         $url = $this->bdikaUrl($id);
         ?><a href="/name.php?id=<?php echo $id?>">
             <img src="<?php echo $url;?>" width="<?php echo $size?>">
                 </a>
@@ -151,6 +165,18 @@ class PrintDog extends Dog{
     /* функция печатает собаку по ее URL */
     public function dogPic($url){
        ?><img src="<?php echo $url;?>"><?php
+    }
+    public function picSex($id_dog) {
+        $dna_id = $this->retDnaId($id_dog);
+        
+        $sex = R::getCell('SELECT sex FROM randodna WHERE id = ? LIMIT 1', [$dna_id]);
+      
+        if(0==$sex){
+            return '<img src = "/pici/female_mini.png">';
+        }
+        else{
+            return '<img src = "/pici/male_mini.png">';
+        }
     }
  
 
@@ -246,7 +272,7 @@ class Users{
 }
 
 /************************ Работа с таблицей RANDODNA ***************/
-Class Dna{
+Class Dna extends Dog{
     public function retDna($id) {
         return R::getCell('SELECT dna FROM randodna WHERE id = ? LIMIT 1', [$id]);
     }
@@ -256,8 +282,8 @@ Class Dna{
     public function retUrlPuppy($id) {
         return R::getCell('SELECT url_puppy FROM randodna WHERE id = ? LIMIT 1', [$id]);
     }
-    public function retSex($id) {
-        return R::getCell('SELECT sex FROM randodna WHERE id = ? LIMIT 1', [$id]);
+    public function retSex($id_dna) {
+        return R::getCell('SELECT sex FROM randodna WHERE id = ? LIMIT 1', [$id_dna]);
     }
     public function retSexText($id) {
         if($this->retSex($id)){
@@ -348,6 +374,10 @@ Class Dog extends Tabl{
     public function retLitter($id){
         return R::getCell('SELECT litter FROM animals WHERE id = ? LIMIT 1', [$id]);
     }
+     public function retSex($id) {
+         $dna_id = $this->retDnaId($id);
+        return R::getCell('SELECT sex FROM randodna WHERE id = ? LIMIT 1', [$dna_id]);
+    }
    
 
     public function countDogs($owner){ // функция пересчитывает количество собак и списываем в kennel
@@ -362,10 +392,10 @@ Class Dog extends Tabl{
         $book->dogs = $cont;
         R::store($book);
     }
-    public function retAgeText($id){
-        $age_id = $this->retAgeId($id);
+    public function retAgeText($id_age){
+       // $age_id = $this->retAgeId($id);
      //находим аналог(2 месяца) этой цыфры в таблице ages и выводим текст возраста
-        return R::getcell('SELECT age FROM ages WHERE id =:id', array(':id'=> $age_id));
+        return R::getcell('SELECT age FROM ages WHERE id =:id', array(':id'=> $id_age));
              
     }
     public function retMarkText($id){
@@ -383,34 +413,34 @@ Class Dog extends Tabl{
     }
     public function retEstrusText($id){
       // сделать функцию
-//        function bdika_estrus($id){
-//    $est=ret_Cell('estrus', $id, 'animals');
-//    $array='';
-//  // echo 'в: ' . ret_age($id) . 'т: ' .$est . '<br>';
-//    if( '0' == ret_sex($id)){   //если собака сука
-//        ;
-//        if(ret_age($id) == $est){
-//           
-//            $array = 'у суки течка';
-//        }
-//        if(ret_age($id) < $est){
-//                     
-//          $age=ret_Cell('estrus', $id, 'animals');
-//          $age2=ret_Cell('age', $age, 'ages');
-//          $array = 'течка будет в: ' . $age2;
-//        }
-//        if (ret_age($id) > $est) {
-//            $est=$est+3;
-//            insert_data('animals',$id, 'estrus', $est);
-//             $age=ret_Cell('estrus', $id, 'animals');
-//          $age2=ret_Cell('age', $age, 'ages');
-//          $array= 'течка будет в: ' . $age2;
-//        
-//        }
-//         return $array;       
-//    }
-      
+        $est = $this->retEstrus($id);
+        $age = $this->retAgeId($id);
+        $sex = $this->retSex($id);
+        $array='';
+            //находим аналог(2 месяца) этой цыфры в таблице ages и выводим текст возраста
+    
+       // echo 'возраст: ' . $age . ' течка: ' .$est . ' пол ' . $sex;
+   if( '0' == $sex){   //если собака сука
+        
+        if($age == $est){
+           
+            $array = 'у суки течка';
+        }
+        elseif($age < $est){
+                     
+          $age_text= $this->retAgeText($est);
+          $array = 'течка будет в: ' . $age_text;
+        }
+        elseif($age > $est){
+            $est=$est+3;
+            $age_text= $this->retAgeText($est);
+            $array = 'течка будет в: ' . $age_text;
+        
+        }
+         return $array;       
     }
+      
+  }
 }
  /*                                *************************    РАСПЕЧАТКА Собаки на экране КАРТИНКА  */
 Class RandDog extends PrintDog{
@@ -525,8 +555,8 @@ Class RandDog extends PrintDog{
     }     
     
     
-    public function picSex($id) {
-        $sex = R::getCell('SELECT sex FROM randodna WHERE id = ? LIMIT 1', [$id]);
+    public function picSex($id_dna) {
+        $sex = R::getCell('SELECT sex FROM randodna WHERE id = ? LIMIT 1', [$id_dna]);
       
         if(0==$sex){
             return '<img src = "/pici/female_mini.png">';
