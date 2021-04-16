@@ -369,9 +369,11 @@ div.title_cont {
 
 .footer {
     clear: both;
-    background: #A9B4FF;
+     background: #2c2c2c;
+      text-align: right;
+   /* background: #A9B4FF; */
     padding: 20px;
-    border: 1px groove #9868CE;
+   /* border: 1px groove #9868CE;*/
 }
 
 @font-face {
