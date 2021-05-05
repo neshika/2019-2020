@@ -2,6 +2,16 @@
 require "db.php";
 $data = $_POST;
 
+if( isset($data['lo_zoher']) ){
+    echo "Введите новый пароль.";
+    $errors = array();
+    if(''==trim($data['login'])){	//TRIM убирает все пробелы Если логин пустой
+	$errors [] = 'поле логина не заполнено';
+    }
+    if(''==($data['password'])){	// Если Пароль пустой   ПАРОЛЬ НЕ ТРИМАЕМ
+	$errors [] = 'поле  password не заполнено';
+    }
+}
 if( isset($data['do_login']) ){
 	$errors= array();
 	$user = R::findOne ('users','login = ?', array($data['login']));
