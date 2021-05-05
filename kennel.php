@@ -27,7 +27,7 @@ $owner=ret_owner(); //сохраняем название владельца в 
         $array[] = R::getAssoc('SELECT id,name FROM animals WHERE owner = :owner && status = 1' ,
         [':owner' => $owner]);
 /*картинка суки/кобели*/              
-?><p class="kennel"><img src = "/pic/male.png" width="3%"><img src = "/pic/female.png" width="3%"></p>
+?><p class="kennel"><img src = "/pici/male.png" width="3%"><img src = "/pici/female.png" width="3%"></p>
 <!-- начало таблицы я указанием собак-->
 <!--<table class="table222 table-bordered222 table-inverse222">-->
 <table class="table">
