@@ -116,8 +116,8 @@ require_once(__DIR__ . '/includes/func.php');
                        <li>Вязок: <?php echo $dog->retLitter($id);?></li>
                        <li>Щенков: <?php echo $dog->retPuppy($id);?></li>
                        <li>Состояние:  <?php echo $dog->retEstrusText($id);?></li>
-                       <li>Голая/пуховая:  </li>
-                       <li>Шокоген:  </li>
+                       <li>Голая/пуховая:  <?php echo $dna->retGolPooh($dna_id)?></li>
+                       <li>Шокоген:  <?php echo $dna->retShocoGen($dna_id)?></li>
                        <a href="#" class="btn btn btn-dark" role="button" aria-pressed="true">Ссылка</a><br>
                       
                      </td>

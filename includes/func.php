@@ -273,27 +273,45 @@ class Users{
 
 /************************ Работа с таблицей RANDODNA ***************/
 Class Dna extends Dog{
-    public function retDna($id) {
-        return R::getCell('SELECT dna FROM randodna WHERE id = ? LIMIT 1', [$id]);
+    public function retDna($dna_id) {
+        return R::getCell('SELECT dna FROM randodna WHERE id = ? LIMIT 1', [$dna_id]);
     }
-    public function retUrl($id) {
-        return R::getCell('SELECT url FROM randodna WHERE id = ? LIMIT 1', [$id]);
+    public function retUrl($dna_id) {
+        return R::getCell('SELECT url FROM randodna WHERE id = ? LIMIT 1', [$dna_id]);
     }
-    public function retUrlPuppy($id) {
-        return R::getCell('SELECT url_puppy FROM randodna WHERE id = ? LIMIT 1', [$id]);
+    public function retUrlPuppy($dna_id) {
+        return R::getCell('SELECT url_puppy FROM randodna WHERE id = ? LIMIT 1', [$dna_id]);
     }
     public function retSex($id_dna) {
         return R::getCell('SELECT sex FROM randodna WHERE id = ? LIMIT 1', [$id_dna]);
     }
-    public function retSexText($id) {
-        if($this->retSex($id)){
+    public function retSexText($dna_id) {
+        if($this->retSex($dna_id)){
             return 'кобель';
         }
         else {
             return 'сука';
         }
-        
     }
+    public function retGolPooh($dna_id) {
+        $string = $this->retDna($dna_id);
+        if(0 == $string[2]){
+           return 'Пуховая (шерстная)';
+        }
+        if(1 == $string[2]){
+            return 'Голая(бесшерстная)';    
+        }
+    }
+    public function retShocoGen($dna_id) {
+        $string = $this->retDna($dna_id);
+        if(0 == $string[8]){
+           return 'Ген шоколадности есть';
+        }
+        if(1 == $string[8]){
+            return 'Нет гена шоколадности';    
+        }
+    }
+    
 }
 
 /************************ Работа с ANIMALS ***************/
