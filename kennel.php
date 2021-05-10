@@ -1,7 +1,9 @@
 <?php
 //подключение файлов
 require_once(__DIR__ . '/libs/up.php');
+require_once(__DIR__ . '/includes/func.php');
 
+$printdog = new PrintDog();
 $owner=ret_owner(); //сохраняем название владельца в переменную из куки
 /*Получаем запросом  навание питомника, при условии что владелец идентифицируется по куку Сессии*/
         $kennel = R::getCell('SELECT kennel FROM users WHERE login = :owner',
@@ -54,7 +56,9 @@ $owner=ret_owner(); //сохраняем название владельца в 
             If('4'>$count){ //если еще не 4 столбика, вписываем
             ?>
             <td> <!-- строка таблицы --> 
-                <a href="/name.php?id=<?php echo $key;?>"><img src="<?php echo bdika_url($key);?>" width="35%"> </a>                  
+                <!-- http://dog.ru/test.php?id=8&owner=nesh -->
+               
+                <?php $printdog->picLink($key, '35%'); ?>
                <div><?php   //  вывод на экран количество вязок и щенков
                             echo '<br>имя: ' . $value;
                             echo '<br> пол : ' . $sex . '<br>';
@@ -67,8 +71,7 @@ $owner=ret_owner(); //сохраняем название владельца в 
             
   <?php     }else{ //если закончилась стрка перехрдить на следующую
                 ?></td></tr><td> <!-- строка таблицы -->
-  
-                <a href="/name.php?id=<?php echo $key;?>"><img src="<?php echo bdika_url($key);?>" width="35%"> </a>                  
+                 <?php $printdog->picLink($key, '35%'); ?>
                <div><?php   //  вывод на экран количество вязок и щенков
                             echo '<br>имя: ' . $value;
                             echo '<br> пол : ' . $sex . '<br>';

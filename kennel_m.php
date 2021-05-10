@@ -1,6 +1,8 @@
 <?php
 //подключение файлов
 require_once(__DIR__ . '/libs/up.php');
+require_once(__DIR__ . '/includes/func.php');
+$printdog = new PrintDog();
 
 $owner=ret_owner(); //сохраняем название владельца в переменную из куки
 /*Получаем запросом  навание питомника, при условии что владелец идентифицируется по куку Сессии*/
@@ -17,7 +19,7 @@ $owner=ret_owner(); //сохраняем название владельца в 
     // <img src = "/pici/coins_mini.png"><?php echo  $coins;
     
 /****************************** Если нажата кнопка СУКИ выводим на экран всех собак, пренадлежащих владельцу*/
-?><p class="left"><img src = "/pic/male.png" alt = "мальчики" width="3%"></p>
+?><p class="left"><img src = "/pici/male.png" alt = "мальчики" width="3%"></p>
 <?php  
 if('male'==$char){
          $data[] =  ret_dogs_by_owner($owner);
@@ -41,8 +43,7 @@ if('male'==$char){
                         $name=ret_Cell('name', $id, 'animals');
                         if(('1'== $sex) && (13<$age_norma)){  //и старше 6 месяцев
                              If('4'>$countm){ //если еще не 4 столбика, вписываем 
-                                 ?><td><a href="/name.php?id=<?php echo $id;?>"><img src="<?php echo bdika_url($id);?>" width="100px"> </a> <?php
-                                  ?><div><?php
+                                 ?><td><?php $printdog->picLink($id, '35%'); ?><div><?php
                                    echo '<br>имя: ' . $name;
                                     echo '<br> возраст ' . $age . '<br>';
                                     //  echo bdika_estrus($id);
@@ -55,8 +56,7 @@ if('male'==$char){
                                  ?></td></tr><?php
                                  $countm=1;
                                 //echo '<br>мы в else';
-                                ?><td><a href="/name.php?id=<?php echo $id;?>"><img src="<?php echo bdika_url($id);?>" width="100px"> </a> <?php
-                                  ?><div><?php
+                                ?><td><?php $printdog->picLink($id, '35%'); ?><div><?php
                                    echo '<br>имя: ' . $name;
                                     echo '<br> возраст ' . $age . '<br>';
                                     //  echo bdika_estrus($id);

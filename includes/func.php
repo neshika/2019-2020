@@ -155,13 +155,15 @@ class PrintDog extends Dog{
     function picLink($id,$size){
         // $dna_id=$this->retDnaId($id);
          //$url=$this->retCell('url', $dna_id, 'randodna');
+        $owner = $this->retOwner($id);
          $url = $this->bdikaUrl($id);
-        ?><a href="/name.php?id=<?php echo $id?>">
+        ?><a href="/name.php?id=<?php echo $id . "&owner=" . $owner; ?>">
             <img src="<?php echo $url;?>" width="<?php echo $size?>">
                 </a>
          <?php 
     
     }
+    
     /* функция печатает собаку по ее URL */
     public function dogPic($url){
        ?><img src="<?php echo $url;?>"><?php

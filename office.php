@@ -14,7 +14,6 @@ require "includes/func.php";
 
 echo 'Добро пожаловать, ' . $GLOBALS['name']=$_SESSION['logged_user']->login . ' .<br>';
 echo '<br>сегодня: ' . date('d.m.Y');
-
 $dog = new Dog;
 $user = new Users;
 $tabl = new Tabl;
