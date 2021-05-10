@@ -26,6 +26,8 @@ require_once(__DIR__ . '/includes/func.php');
         -webkit-box-shadow: 5px 5px 15px 5px #727272; 
         box-shadow: 5px 5px 15px 5px #727272;
         border-radius: 15px;
+        /* background-color: #fff;*/
+        
     .border_text{
         padding: 5px;
         margin: 25px;
@@ -88,7 +90,7 @@ require_once(__DIR__ . '/includes/func.php');
     
 ?>
    
-<div class="table-responsive"><table>
+<div class="table-responsive"><table  border="1">
        <tbody>
 		<tr class="stroka1">
                     <td class="текст"><div class="border_text">
@@ -122,7 +124,7 @@ require_once(__DIR__ . '/includes/func.php');
                       
                      </td>
 			<td class="пусто"></td>
-			<td class="картинка"><div class="border_pic"> <?php $dog->picLink($id, 220);?>
+			<td class="картинка"><div class="border_pic"> <?php $dog->picLink($id, '65%');?>
                             
                             </div><button type="button" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Добавки +Энергия"><i class="fa fa-leaf fa-2x" aria-hidden="true"></i><i class="fa fa-bolt" aria-hidden="true"></i>+</button>
                         <button type="button" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Спа уход +Счастье" ><i class="fa fa-umbrella fa-2x" aria-hidden="true"></i> <i class="fa fa-certificate" aria-hidden="true"></i>+</button>
@@ -136,7 +138,7 @@ require_once(__DIR__ . '/includes/func.php');
 			<td class="статус бары" colspan="2">
                 <li>Генетический код: <?php echo $dna->retDna($dna_id);?></li>
                       
-                             <table width="100%">
+                             <table width="100%" border="1">
                                 <tbody>
                                     <tr>
                                             <td><i class="fa fa-tachometer" aria-hidden="true"></i> Энергия</td>
