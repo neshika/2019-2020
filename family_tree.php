@@ -1,19 +1,23 @@
 <?php
 //require "/libs/up.php";
 require $_SERVER['DOCUMENT_ROOT']."/libs/up.php";
+require_once(__DIR__ . '/includes/func.php');
+
       $id = $_GET['id']; 
-      $data_dog=ret_Row($id, 'animals');
-      $f_data= ret_f_data_by_dog($id);
+      $dog = new Dog();
+      $p_dog = new PrintDog();
+      $family = new Family();
+     
  ?>
 <style>
  /* Shadow box для дедушек бабушек и родителей*/
  #borderdog{
      border: 5px outset #D0D0D0;
-     height: 175px;
-     width: 175px;
+     height:175px;
+     width:175px;
      margin: 0 auto 0 auto;
-     padding-left: 3%;
-     padding-top: 1%;
+    padding-left: 1%;
+    padding-top: 1%;
  }
  #bordermum{
      border: 5px outset #771275;
@@ -31,45 +35,30 @@ require $_SERVER['DOCUMENT_ROOT']."/libs/up.php";
      padding-left: 1%;
      padding-top: 2%;
  }
- 
- 
-
 </style>
-<?PHP
-    
- 
-function ret_f_data($f_data){
-    if(0!=$f_data){
-        ?><a href="/name.php?id=<?php echo $f_data?>"><img src="<?php echo bdika_url($f_data);?>"width="60%"></a><?php
-    }
-    else{
-        echo 'данные отсутствуют';
-    }
-}
-
-?>
 <div class="content">
- <table class="iksweb">
-    <caption class="text_effect"><?php echo $data_dog['name'] . $data_dog['kennel'];?></caption>
+<p class="text_effect"><?php echo $dog->retName($id) . $dog->retKennel($id);?></p>
+ <table class="iksweb" border="1">
+    
     <tbody>
         <tr>
-            <td colspan="4"><div id="borderdog"><?php pic_link($id, 150);?> </div></td>
+            <td colspan="4"><div id="borderdog"><?php $p_dog->picLink($id, 140); ?> </div></td>
         </tr>
         <tr>
-            <td colspan="2" style="text-align: center">Отец:<div id="borderdad">
-                <?php echo "<br>" . ret_Cell('name', $f_data['dad'], 'animals') . ret_f_data($f_data['dad']);?></td>
-            <td colspan="2" style="text-align: center">Мать:<div id="bordermum">
-                <?php echo "<br>" . ret_Cell('name', $f_data['mum'], 'animals') . ret_f_data($f_data['mum']);?></td>
+            <td colspan="2" style="text-align: center">Отец: <?php echo $p_dog->retName($family->retDad($id));?><div id="borderdad">
+                <?php echo $family->retPicMumDad($family->retDad($id));?></td>
+            <td colspan="2" style="text-align: center">Мать: <?php echo $p_dog->retName($family->retMum($id));?><div id="bordermum">
+                <?php echo $family->retPicMumDad($family->retMum($id));?></td>
         </tr>
         <tr>
-            <td style="text-align: center">Дедушка по линии отца:<div id="borderdad">
-                <?php echo "<br>" . ret_Cell('name', $f_data['g1dad'], 'animals') . ret_f_data($f_data['g1dad']);?></td></td>
-            <td style="text-align: center">Бабушка по линии отца:<div id="bordermum">
-                <?php echo "<br>" . ret_Cell('name', $f_data['g1mum'], 'animals') . ret_f_data($f_data['g1mum']);?></td></td>
-            <td style="text-align: center">Дедушка по линии матери:<div id="borderdad">
-                 <?php echo "<br>" . ret_Cell('name', $f_data['g0dad'], 'animals') . ret_f_data($f_data['g0dad']);?></td></td>
-            <td style="text-align: center">Бабушка по линии матери:<div id="bordermum">
-                <?php echo "<br>" . ret_Cell('name', $f_data['g0mum'], 'animals') . ret_f_data($f_data['g0mum']);?></td></td>
+            <td style="text-align: center">Дедушка по линии отца: <?php echo $p_dog->retName($family->retG1Dad($id));?><div id="borderdad">
+                <?php echo $family->retPicMumDad($family->retG1Dad($id));?></td></td>
+            <td style="text-align: center">Бабушка по линии отца: <?php echo $p_dog->retName($family->retG1Mum($id));?><div id="bordermum">
+                <?php echo $family->retPicMumDad($family->retG1Mum($id));?></td></td>
+            <td style="text-align: center">Дедушка по линии матери: <?php echo $p_dog->retName($family->retG0Dad($id));?><div id="borderdad">
+                 <?php echo $family->retPicMumDad($family->retG0Dad($id));?></td></td>
+            <td style="text-align: center">Бабушка по линии матери: <?php echo $p_dog->retName($family->retG0Mum($id));?><div id="bordermum">
+                <?php echo $family->retPicMumDad($family->retG0Mum($id));?></td></td>
         </tr>
     </tbody>
 </table>

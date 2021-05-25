@@ -2,8 +2,7 @@
 //подключение файлов
 require_once(__DIR__ . '/libs/up.php');
 require_once(__DIR__ . '/includes/func.php');
-
-     
+    
 ?>
 <style>
     .border{
@@ -60,8 +59,6 @@ require_once(__DIR__ . '/includes/func.php');
         width: 800px;
     }
 }
-
-
 </style>    
 <?php    
   if(!isset($_GET['id']) || !isset($_GET['owner'])){
@@ -89,7 +86,7 @@ require_once(__DIR__ . '/includes/func.php');
     
     
 ?>
-   
+ <form method="POST">    
 <div class="table-responsive"><table  border="1">
        <tbody>
 		<tr class="stroka1">
@@ -120,21 +117,26 @@ require_once(__DIR__ . '/includes/func.php');
                        <li>Состояние:  <?php echo $dog->retEstrusText($id);?></li>
                        <li>Голая/пуховая:  <?php echo $dna->retGolPooh($dna_id)?></li>
                        <li>Шокоген:  <?php echo $dna->retShocoGen($dna_id)?></li>
-                       <a href="#" class="btn btn btn-dark" role="button" aria-pressed="true">Ссылка</a><br>
+                       <a href="<?php echo '/family_tree.php?id=' . $id;?>" class="btn btn btn-dark" role="button" aria-pressed="true">родословная</a><br>
                       
                      </td>
 			<td class="пусто"></td>
 			<td class="картинка"><div class="border_pic"> <?php $dog->picLink($id, '65%');?>
+                              
                             
-                            </div><button type="button" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Добавки +Энергия"><i class="fa fa-leaf fa-2x" aria-hidden="true"></i><i class="fa fa-bolt" aria-hidden="true"></i>+</button>
-                        <button type="button" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Спа уход +Счастье" ><i class="fa fa-umbrella fa-2x" aria-hidden="true"></i> <i class="fa fa-certificate" aria-hidden="true"></i>+</button>
-                        <button type="button" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Ветеринар +Здоровье"><i class="fa fa-medkit fa-2x" aria-hidden="true"></i> <i class="fa fa-heart" aria-hidden="true"></i>+</button>
-                        <button type="button" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Тренировка -Энергия+Счастье"><i class="fa fa-graduation-cap fa-2x" aria-hidden="true"></i> <i class="fa fa-bolt" aria-hidden="true"></i>-<i class="fa fa-certificate" aria-hidden="true"></i>+</button>
+                            </div><button type="button" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Добавки +Энергия">
+                                <i class="fa fa-leaf fa-2x" aria-hidden="true"></i><i class="fa fa-bolt" aria-hidden="true"></i>+</button>
+                        <button type="button" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Спа уход +Счастье" >
+                            <i class="fa fa-umbrella fa-2x" aria-hidden="true"></i> <i class="fa fa-certificate" aria-hidden="true"></i>+</button>
+                        <button type="button" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Ветеринар +Здоровье">
+                            <i class="fa fa-medkit fa-2x" aria-hidden="true"></i> <i class="fa fa-heart" aria-hidden="true"></i>+</button>
+                        <button type="button" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Тренировка -Энергия+Счастье">
+                            <i class="fa fa-graduation-cap fa-2x" aria-hidden="true"></i> <i class="fa fa-bolt" aria-hidden="true"></i>-<i class="fa fa-certificate" aria-hidden="true"></i>+</button>
                         <br></td>
                              
 		</tr>
 		<tr class="stroka2">
-			<td class="пусто"></td>
+			<td class="пусто"><button type="button" class="btn btn-dark">щенки</button><br> </td>
 			<td class="статус бары" colspan="2">
                 <li>Генетический код: <?php echo $dna->retDna($dna_id);?></li>
                       
@@ -168,7 +170,8 @@ require_once(__DIR__ . '/includes/func.php');
 		</tr>
 	</tbody>
 </table></div>
-</div>    
+</div> 
+</form>
 <?php 
 require_once(__DIR__ . '/html/footer.html');    
  

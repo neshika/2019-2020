@@ -1,4 +1,4 @@
- <link rel="stylesheet" type="text/css" href="css/main.css" />
+<link rel="stylesheet" type="text/css" href="css/main.css" />
 <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
 <style>
 .table {
@@ -102,7 +102,7 @@ class PrintDog extends Dog{
       //debug($str);
       ?>
        <table class="table">
-    <tr>
+    <tr> 
         <td>удача</td>
         <td><?php echo $array['lucky']?></td>
     </tr>
@@ -157,10 +157,11 @@ class PrintDog extends Dog{
          //$url=$this->retCell('url', $dna_id, 'randodna');
         $owner = $this->retOwner($id);
          $url = $this->bdikaUrl($id);
-        ?><a href="/name.php?id=<?php echo $id . "&owner=" . $owner; ?>">
-            <img src="<?php echo $url;?>" width="<?php echo $size?>">
-                </a>
-         <?php 
+         ?><a href="/name.php?id=<?php echo $id . "&owner=" . $owner; ?>">
+                <img src="<?php echo $url;?>" width="<?php echo $size?>">
+                    </a>
+             <?php 
+         
     
     }
     
@@ -191,8 +192,49 @@ class Kennels{
         
     }
 }
-class Family{
+class Family extends PrintDog{
     ///////////////////////  Работа с FAMILY СЕМЬЕЙ ////////////////
+    public function retFamilyId($id) {
+        return R::getcell('SELECT family_id FROM animals WHERE id =:id', array(':id'=> $id));
+    }
+    public function retPicMumDad($id) {
+        if($id!=0)
+            return $this->picLink($id,100);
+        else 
+            return "нет данных";
+    }
+    public function retMum($id) {
+        $f_id=$this->retFamilyId($id);
+        return R::getcell('SELECT mum FROM family WHERE id =:id', array(':id'=> $f_id));
+    }
+    public function retDad($id) {
+        $data_dad=0;
+        $f_id=$this->retFamilyId($id);
+        return R::getcell('SELECT dad FROM family WHERE id =:id', array(':id'=> $f_id));
+        
+    }
+    /*бабушка по линии мамы*/
+    public function retG0Mum($id) {
+        $f_id=$this->retFamilyId($id);
+        return R::getcell('SELECT g0mum FROM family WHERE id =:id', array(':id'=> $f_id));
+    }
+    /*дедушка по линии мамы*/
+    public function retG0Dad($id) {
+        $f_id=$this->retFamilyId($id);
+       return R::getcell('SELECT g0dad FROM family WHERE id =:id', array(':id'=> $f_id));
+        
+    }
+    /*бабушка по линии папы*/
+    public function retG1Mum($id) {
+        $f_id=$this->retFamilyId($id);
+        return R::getcell('SELECT g1mum FROM family WHERE id =:id', array(':id'=> $f_id));
+    }
+    /*дедушка по линии папы*/
+    public function retG1Dad($id) {
+        $f_id=$this->retFamilyId($id);
+       return R::getcell('SELECT g1dad FROM family WHERE id =:id', array(':id'=> $f_id));
+     
+    }
 }
 /***************** работа с таблицами ****************************/
 class Tabl{
