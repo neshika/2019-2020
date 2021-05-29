@@ -30,7 +30,7 @@ html, body {
     
 }
 hr{
-    color: #D0D0D0;
+   color: #D0D0D0;
 }
 
 #container {
@@ -177,7 +177,33 @@ div{
 #nav li:last-child a {
     border-right: none;    
 }
+/*форма для ввода данных "Новое имя"*/
 
+.form-controll {
+  display: block;
+  width: 100%;
+  height: calc(1.5em + 0.75rem + 2px);
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.form-control-small {
+  height: calc(1.5em + 0.5rem);
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  border-radius: 0.2rem;
+}
+/*конец форма для ввода данных "Новое имя"*/
+
+/**/
 .dropdown > a span:after {
     border-top: 5px solid transparent;
     border-bottom: 5px solid transparent;
@@ -973,4 +999,5 @@ background: #2B2A29
 	position:relative;
 	top:1px;
 }
+
 
