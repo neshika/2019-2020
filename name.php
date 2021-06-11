@@ -1,10 +1,9 @@
 <?php
-//подключение файлов
 require_once(__DIR__ . '/libs/up.php');
 require_once(__DIR__ . '/includes/func.php');
-
     
 ?>
+<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 <style>
     .border{
         -webkit-box-shadow: 5px 5px 15px 5px #000000, 5px 5px 15px 5px #000000; 
@@ -68,6 +67,7 @@ require_once(__DIR__ . '/includes/func.php');
      $owner = $dog->retOwner($id);
      
      
+     
       //echo $GLOBALS['Data_dog']['name'];
      
     // $owner = $_SESSION['owner'];
@@ -84,11 +84,20 @@ require_once(__DIR__ . '/includes/func.php');
             $newName->UpdateData('animals', $id, 'name', $_POST['name1']);
         }
         else {  // всплывающее окно, если имя не ввели
-            ?> <script>alert ("Введите имя!");</script><?php
+            ?> <script>alert ("");</script><?php
         }
     }
-  
-    
+    /*Если нажата кнопка "Растить"*/
+   
+    if ( !empty($_POST['add_age']) ){
+        $age = new Dog();
+        $age->addAge($id);
+//        echo '<br>тут текст' . $_POST['add_age'];
+//        unset($_POST['add_age']);
+//        echo '<br>тут нету' . $_POST['add_age'];
+        
+    }
+   
 ?>
 <div class="border2">
 <?php
@@ -98,6 +107,7 @@ require_once(__DIR__ . '/includes/func.php');
     $dna = new Dna();
     $dog = new PrintDog();
     $dna_id=$dog->retDnaId($id);
+
         
 ?>
  <form method="POST">    
@@ -110,9 +120,10 @@ require_once(__DIR__ . '/includes/func.php');
                         <button type="button" class="btn btn-dark">Чесать <i class="fa fa-bath" aria-hidden="true"></i></button>
                         <button type="button" class="btn btn-dark">Гулять <i class="fa fa-umbrella" aria-hidden="true"></i></button>
                         <button type="button" class="btn btn-dark">Спать <i class="fa fa-bed" aria-hidden="true"></i></button>
-                        <button type="button" class="btn btn-dark">Растить <i class="fa fa-line-chart" aria-hidden="true"></i></button><br>
+                        <input type="submit" class="btn btn-dark" name="add_age" value="Растить"><br>
+                       
                         </div>
-                        <br>Кличка <?php echo $dog->picSex($id);?><strong><h1><?php echo $dog->retName($id) . " " . $dog->retKennel($id);?></h1></strong>
+                        <br>Кличка <?php echo $dog->picSex($id);?><strong><h1><?php echo $dog->retName($id) . " " . "\"" . $dog->retKennel($id) . "\"";?></h1></strong>
                         <hr>
                         <li>Заводчик: <?php echo $dog->retBreeder($id);?></li>    
                        <li>Хозяин: <?php echo $owner;?></li>
@@ -125,7 +136,7 @@ require_once(__DIR__ . '/includes/func.php');
                        <li>Возраст: <?php echo $dog->retAgeText($id);?></li>
                        <li>Вязок: <?php echo $dog->retLitter($id);?></li>
                        <li>Щенков: <?php echo $dog->retPuppy($id);?></li>
-                       <li>Состояние:  <?php echo $dog->retEstrusText($id);?></li>
+                       <li>Состояние:  <?php echo $dog->retEstrusStatus($id);?></li>
                        <li>Голая/пуховая:  <?php echo $dna->retGolPooh($dna_id)?></li>
                        <li>Шокоген:  <?php echo $dna->retShocoGen($dna_id)?></li>
                        <a href="<?php echo '/family_tree.php?id=' . $id;?>" class="btn btn btn-dark" role="button" aria-pressed="true">родословная</a><br>
@@ -133,7 +144,7 @@ require_once(__DIR__ . '/includes/func.php');
                       
                      </td>
 			<td class="пусто"></td>
-			<td class="картинка"><div class="border_pic"> <?php $dog->picLink($id, '65%');?>
+			<td class="картинка"><div class="border_pic"> <?php $dog->picLink($id, '50%');?>
                               
                             
                             </div><button type="button" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Добавки +Энергия">
@@ -150,8 +161,10 @@ require_once(__DIR__ . '/includes/func.php');
 		<tr class="stroka2">
                     <td class="НовоеИмя">
                         <input class ="form-controll form-control-small" placeholder="Введите новое имя" type="text" name="name1">
-                        <input class="btn btn-dark" name="newName" type="submit" value="Внести">
-                    </td>
+                        <input class="btn btn-dark" name="newName" type="button" value="Внести">
+                    
+
+          </td>
 		<td class="статус бары" colspan="2">
                 Генетический код: <?php echo $dna->retDna($dna_id);?></li>
                       

@@ -37,12 +37,12 @@ require_once(__DIR__ . '/includes/func.php');
  }
 </style>
 <div class="content">
-<p class="text_effect"><?php echo $dog->retName($id) . $dog->retKennel($id);?></p>
+<p class="text_effect"><?php echo $dog->retName($id) . " " . "\"" . $dog->retKennel($id). "\"";?></p>
  <table class="iksweb" border="1">
     
     <tbody>
         <tr>
-            <td colspan="4"><div id="borderdog"><?php $p_dog->picLink($id, 140); ?> </div></td>
+            <td colspan="4"><div id="borderdog"><?php $p_dog->picLink($id, 140);?></div></td>
         </tr>
         <tr>
             <td colspan="2" style="text-align: center">Отец: <?php echo $p_dog->retName($family->retDad($id));?><div id="borderdad">

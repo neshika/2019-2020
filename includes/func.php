@@ -152,7 +152,7 @@ class PrintDog extends Dog{
     }
  
     /*функция печатает собаку как ссылку, можно указать размер картинки в пикселях. проверяет щенок или нет(печатает из ANIMALS)*/
-    function picLink($id,$size){
+    function picLink($id,$size='100%'){
         // $dna_id=$this->retDnaId($id);
          //$url=$this->retCell('url', $dna_id, 'randodna');
         $owner = $this->retOwner($id);
@@ -377,7 +377,7 @@ Class Dog extends Tabl{
         return R::getCell('SELECT race FROM animals WHERE id = ? LIMIT 1', [$id]);
     }
     public function retOrign($id){
-        return R::getCell('SELECT orign FROM animals WHERE id = ? LIMIT 1', [$id]);
+        return R::getCell('SELECT origin FROM animals WHERE id = ? LIMIT 1', [$id]);
     }
     public function retBreeder($id){
         return R::getCell('SELECT breeder FROM animals WHERE id = ? LIMIT 1', [$id]);
@@ -454,26 +454,32 @@ Class Dog extends Tabl{
         $book->dogs = $cont;
         R::store($book);
     }
-    public function retAgeText($id_age){
-       // $age_id = $this->retAgeId($id);
+    public function retAgeText($id){
+        $age_id = $this->retAgeId($id);
      //находим аналог(2 месяца) этой цыфры в таблице ages и выводим текст возраста
-        return R::getcell('SELECT age FROM ages WHERE id =:id', array(':id'=> $id_age));
+        return R::getcell('SELECT age FROM ages WHERE id =:id', array(':id'=> $age_id));
              
     }
     public function retMarkText($id){
-        $mark_id =  R::getCell('SELECT mark_id FROM animals WHERE id = ? LIMIT 1', [$id]);
+        $mark_id = $this->retMarkId($id);
         return R::getcell('SELECT namerus FROM marks WHERE id =:id', array(':id'=> $mark_id));
         
     }
      public function retOrignText($id){
-         if(R::getCell('SELECT orign FROM animals WHERE id = ? LIMIT 1', [$id])){
+         if($this->retOrign($id)){
+         //if(R::getCell('SELECT orign FROM animals WHERE id = ? LIMIT 1', [$id])){
              return 'РКФ';
          }
         else {
             return 'не известно';
         }
     }
-    public function retEstrusText($id){
+    public function retEstrusText($id) {
+        $est_id= $this->retEstrus($id);
+        return R::getCell('SELECT age FROM ages WHERE id =:id', array(':id'=> $est_id));
+        
+    }
+    public function retEstrusStatus($id){
       // сделать функцию
         $est = $this->retEstrus($id);
         $age = $this->retAgeId($id);
@@ -481,29 +487,40 @@ Class Dog extends Tabl{
         $array='';
             //находим аналог(2 месяца) этой цыфры в таблице ages и выводим текст возраста
     
-       // echo 'возраст: ' . $age . ' течка: ' .$est . ' пол ' . $sex;
-   if( '0' == $sex){   //если собака сука
-        
-        if($age == $est){
-           
-            $array = 'у суки течка';
-        }
-        elseif($age < $est){
-                     
-          $age_text= $this->retAgeText($est);
-          $array = 'течка будет в: ' . $age_text;
-        }
-        elseif($age > $est){
-            $est=$est+3;
-            $age_text= $this->retAgeText($est);
-            $array = 'течка будет в: ' . $age_text;
-        
-        }
-         return $array;       
-    }
+      // echo 'возраст: ' . $age . ' течка: ' .$est . "<br>";
+        if( '0' == $sex){   //если собака сука
+            
+            if($age == $est){
+
+                 $array = 'у суки течка';
+             }
+            elseif($age < $est){
+                                          
+                $array = "течка будет в: " . $this->retEstrusText($id);  
+            }
+            elseif($age > $est){
+                $this->addEstus($id,3);
+                $est_text= $this->retEstrusText($id);
+                $array = 'течка будет в: ' . $est_text;
+
+             }
+               return $array; 
+         }
       
-  }
-}
+    }
+    /*увеличивает возраст на 1 тик*/
+    public function addAge($id){
+        $age_id = $this->retAgeId($id); //получаем цыфру возраста из табл animals
+        $age_id+=1;  //увеличивает на 1 пункт
+
+        $this->UpdateData('animals',$id,'age_id', $age_id); //вставляем новые данные в таблицу по id 
+    }
+     public function addEstus($id,$num){
+        $est_id = $this->retEstrus($id); //получаем цыфру возраста из табл animals
+        $est_id=$est_id+$num;  //увеличивает на 1 пункт
+        $this->UpdateData('animals',$id,'estrus', $est_id); //вставляем новые данные в таблицу по id 
+    }
+}  
  /*                                *************************    РАСПЕЧАТКА Собаки на экране КАРТИНКА  */
 Class RandDog extends PrintDog{
     public function randDna(){

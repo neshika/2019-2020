@@ -43,7 +43,7 @@ $owner=ret_owner(); //сохраняем название владельца в 
                         $name=ret_Cell('name', $id, 'animals');
                         if(('0'== $sex) && (13<$age_norma)){  //и старше 6 месяцев
                            If('4'>$countf){ //если еще не 4 столбика, вписываем 
-                                 ?><td><?php $printdog->picLink($id, '35%'); ?><div><?php
+                                 ?><td><?php $printdog->picLink($id,'10%'); ?><div><?php
                                    echo '<br>имя: ' . $name;
                                     echo '<br> возраст ' . $age . '<br>';
                                     echo bdika_estrus($id);
