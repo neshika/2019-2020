@@ -239,40 +239,40 @@ class Family extends PrintDog{
 /***************** работа с таблицами ****************************/
 class Tabl{
     /*Функция вносит изменения имени собаки по ее Id*/
-function UpdateData($tabl,$id,$cell,$value){  //$tabl - название таблицы \\ $id-ай ди выбранного\\ $cell-названия столба\\ $value- значение
-     R::exec( 'UPDATE ' .  $tabl . ' SET ' . $cell . '=:aa WHERE id = :id ', [
-            ':aa'=> $value,
-            ':id' => $id]);
-    
-}
+    function UpdateData($tabl,$id,$cell,$value){  //$tabl - название таблицы \\ $id-ай ди выбранного\\ $cell-названия столба\\ $value- значение
+         R::exec( 'UPDATE ' .  $tabl . ' SET ' . $cell . '=:aa WHERE id = :id ', [
+                ':aa'=> $value,
+                ':id' => $id]);
+
+    }
 
 
-/*Функция достает даннные из заданного поля($cell) по ее Id из таблицы $tabl*/
-function retCellById($id, $cell,$tabl){
-    $sql = 'SELECT ' . $cell . ' FROM ' . $tabl . 'WHERE id=' . $id; 
-    return R::getCell($sql);
-}
+    /*Функция достает даннные из заданного поля($cell) по ее Id из таблицы $tabl*/
+    function retCellById($id, $cell,$tabl){
+        $sql = 'SELECT ' . $cell . ' FROM ' . $tabl . 'WHERE id=' . $id; 
+        return R::getCell($sql);
+    }
 
 
-/*Функция возвращает данные по параметру $cell из таблицы $tabl по индексу $id*/
-function retCell($bdika,$id,$tabl){
-    //if('animals'==$tabl){
-    $array = R::getAssoc(get_sql($id,$tabl));
-        foreach($array as $item) {
-            foreach ($item as $key => $value) {
-                if($key==$bdika){
-                    return $item[$bdika];
+    /*Функция возвращает данные по параметру $cell из таблицы $tabl по индексу $id*/
+    function retCell($bdika,$id,$tabl){
+        //if('animals'==$tabl){
+        $array = R::getAssoc(get_sql($id,$tabl));
+            foreach($array as $item) {
+                foreach ($item as $key => $value) {
+                    if($key==$bdika){
+                        return $item[$bdika];
+                    }
                 }
             }
-        }
-}
+    }
 
-/*Функция возвращает данные из таблицы $tabl по индексу $id*/
-function retRow($id,$tabl){
-    
-    return R::getRow(get_sql($id,$tabl));   //$id - индекс ; $tabl - таблица с данными
-    
-}
+    /*Функция возвращает данные из таблицы $tabl по индексу $id*/
+    function retRow($id,$tabl){
+
+        return R::getRow(get_sql($id,$tabl));   //$id - индекс ; $tabl - таблица с данными
+
+    }
 
 }
 /************************ Работа с таблицей USERS ***************/
@@ -313,6 +313,10 @@ class Users{
     public function retAll($owner) {
         return R::getRow('SELECT * FROM users WHERE login =:log', array(':log'=> $owner));
     }
+    public function retDogByOwner($owner){
+        return R::getCol ('SELECT id FROM animals WHERE owner =:owner and status=1', array(':owner' => $owner));
+         
+    }
 }
 
 /************************ Работа с таблицей RANDODNA ***************/
@@ -329,6 +333,7 @@ Class Dna extends Dog{
     public function retSex($id_dna) {
         return R::getCell('SELECT sex FROM randodna WHERE id = ? LIMIT 1', [$id_dna]);
     }
+   
     public function retSexText($dna_id) {
         if($this->retSex($dna_id)){
             return 'кобель';
@@ -439,6 +444,11 @@ Class Dog extends Tabl{
      public function retSex($id) {
          $dna_id = $this->retDnaId($id);
         return R::getCell('SELECT sex FROM randodna WHERE id = ? LIMIT 1', [$dna_id]);
+    }
+     public function retSexPartner($id) {
+         
+      return $this->retSex($id) ? '0' : '1';
+           
     }
    
 
@@ -759,4 +769,73 @@ Class RandDog extends PrintDog{
     }
    
 }// end class NewDog
+class Matting extends Dog {
+    
+    public function bdikaSexPartner($str,$sex_partner){
+       // debug($str);  
+        //echo '<br>';
+       for($i=0;$i<count($str);$i++){
+           if($this->retSex($str[$i]) == $sex_partner){
+               $str2[] = $str[$i];
+//               $dog = new PrintDog;
+//               $dog->picLink($str[$i], '30%');
+//               //echo $str[$i];
+           }
+        }
+        return $str2;
+        
+        
+    }
+    function bdikaForBreed($id){
+    // $tabl = new Tabl;  
+     $dog = new Dog;
+     
+    $sex= $this->retSex($id);
+    $mark=$this->retMarkId($id);
+   // echo '<br> собака:' . $id;
+   // echo '<br> пол:' . $sex;
+    //echo '<br> оценка: ' . $mark;
+    $error = false;
+    $errort = '';
+    
+   if( '1' != $dog->retOrign($id) ):
+       $error = true;
+       $errort = 'Не документов РКФ';
+ 
+        elseif( $mark > 2 || 0==$mark): //если  нет "хорошо" или "очень хорошо"
+           $error = true;
+            $errort = 'не получены положительные оценки';
+   
+        elseif( '1' == $sex )://кобель
+   
+            if( $dog->retAgeId($id) < 17 ):
+                    $error = true;
+                    $errort = 'кобель слишком молодой';
+            else:
+                $errort = 'Кобель готов к вязке';    
+            endif;
+        elseif(0 == $sex): //сука
+            if( $dog->retEstrus($id) < 15 ||  $dog->retEstrus($id) !=  $dog->retAgeId($id)):
+                    $error = true;
+                    $errort = 'сука не готова к вязке';
+            elseif( $dog->retAgeId($id) >58):
+            $error = true;
+            $errort = 'возраст суки превышен';
+             elseif( $dog->retLitter($id) > 7):
+            $error = true;
+            $errort = 'количество вязок уже 7';
+            else:
+                 $errort = 'Сука готова к вязке';    
+            endif;
+    else:
+         echo 'Что-то пошло не так! ';
+            
+     endif;
+     
+    // if ($error) {
+       //  echo '<br>' . $errort;
+     //}
+     return $errort;
+}
 
+}

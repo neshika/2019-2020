@@ -999,5 +999,15 @@ background: #2B2A29
 	position:relative;
 	top:1px;
 }
-
+/*///////////////////////// matting.php /////////////*/
+.AlfaDog{
+    width: 500px;
+    height: auto;
+    /*background: #D0D0D0;*/
+        padding-left: 5px;
+        margin-left: 25px;
+        -webkit-box-shadow: 5px 5px 15px 5px #727272; 
+        box-shadow: 5px 5px 15px 5px #727272;
+        /*border-radius: 15px;*/
+}
 

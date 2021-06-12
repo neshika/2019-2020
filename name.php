@@ -84,7 +84,7 @@ require_once(__DIR__ . '/includes/func.php');
             $newName->UpdateData('animals', $id, 'name', $_POST['name1']);
         }
         else {  // всплывающее окно, если имя не ввели
-            ?> <script>alert ("");</script><?php
+            ?> <script>alert ("Введите имя");</script><?php
         }
     }
     /*Если нажата кнопка "Растить"*/
@@ -110,7 +110,7 @@ require_once(__DIR__ . '/includes/func.php');
 
         
 ?>
- <form method="POST">    
+    <form method="POST">    
 <div class="table-responsive"><table  border="1">
        <tbody>
 		<tr class="stroka1">
@@ -158,12 +158,16 @@ require_once(__DIR__ . '/includes/func.php');
                         <br></td>
                              
 		</tr>
-		<tr class="stroka2">
+                <tr class="stroka2">
                     <td class="НовоеИмя">
+                         
                         <input class ="form-controll form-control-small" placeholder="Введите новое имя" type="text" name="name1">
-                        <input class="btn btn-dark" name="newName" type="button" value="Внести">
-                    
-
+                        <input class="btn btn-dark" name="newName" type="submit" value="Внести">
+                        </form>
+                         <form method="POST" action = "/matting.php">
+                             <?php $_SESSION['Dog']=$id;?>
+                              <input class="btn btn-dark" name="matting" type="submit" value="Вязка">
+                         </form>
           </td>
 		<td class="статус бары" colspan="2">
                 Генетический код: <?php echo $dna->retDna($dna_id);?></li>

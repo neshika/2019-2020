@@ -58,7 +58,7 @@ $owner=ret_owner(); //сохраняем название владельца в 
             <td> <!-- строка таблицы --> 
                 <!-- http://dog.ru/test.php?id=8&owner=nesh -->
                
-                <?php $printdog->picLink($key, '35%'); ?>
+                <?php $printdog->picLink($key, '25%'); ?>
                <div><?php   //  вывод на экран количество вязок и щенков
                             echo '<br>имя: ' . $value;
                             echo '<br> пол : ' . $sex . '<br>';
@@ -71,7 +71,7 @@ $owner=ret_owner(); //сохраняем название владельца в 
             
   <?php     }else{ //если закончилась стрка перехрдить на следующую
                 ?></td></tr><td> <!-- строка таблицы -->
-                 <?php $printdog->picLink($key, '35%'); ?>
+                 <?php $printdog->picLink($key, '25%'); ?>
                <div><?php   //  вывод на экран количество вязок и щенков
                             echo '<br>имя: ' . $value;
                             echo '<br> пол : ' . $sex . '<br>';
