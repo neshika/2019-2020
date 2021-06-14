@@ -2,10 +2,12 @@
 require_once(__DIR__ . '/libs/up.php');
 require_once(__DIR__ . '/includes/func.php');
 
-$id_p=(int)$_SESSION['para'];
-$id=(int)$_SESSION['ONONA'];
-var_dump($id);
-var_dump($id_p);
+//debug($_POST);
+
+$id=(int)$_POST['ONONA'];
+$id_p=(int)$_POST['para'];
+//var_dump($id);
+//var_dump($id_p);
 
 $dog = new Dog;
 $print = new PrintDog;
@@ -32,7 +34,7 @@ if ('1' == $dog->retSex($id)){
     height: auto;
     /*background: #D0D0D0;*/
     padding-left: 5px;
-    margin-left: 25px;
+    margin: 0 auto;
     -webkit-box-shadow: 5px 5px 15px 5px #727272; 
     box-shadow: 5px 5px 15px 5px #727272;
         /*border-radius: 15px;*/
@@ -45,7 +47,7 @@ table{
     vertical-align: top; /* Выравнивание по верхнему краю ячейки */
 }
 #col1 {
-width: 350px;
+width: 250px;
  border: 1px solid #D0D0D0; /*серые стрки между таблицей*/
 /*background: #F5F5DC; /* Цвет фона первой колонки */
 }
@@ -54,7 +56,7 @@ width: 350px;
 /*background: #FFEBCD; /* Цвет фона второй колонки */
 }
 #col3 {
- width: 350px;
+ width: 250px;
 /*background: #F5F5DC; /* Цвет фона третьей колонки */
  border: 1px solid #D0D0D0; /*серые стрки между таблицей*/
 }

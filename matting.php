@@ -11,7 +11,7 @@ $mat = new Matting;
 //debug($_SESSION)
 
 ?>
-<link href="css/radio.css" rel="stylesheet" type="text/css"/>
+<!-- <link href="css/radio.css" rel="stylesheet" type="text/css"/>  -->
 <style>
 .AlfaDog{
     width: 500px;
@@ -29,7 +29,7 @@ $mat = new Matting;
 </style>
 <div class="AlfaDog">
    <?php
-    echo $print->picSex($id) . $id;$print->picLink($id, '50%');
+    echo $print->picSex($id) . $id;$print->picLink($id, '25%');
     $sex_partner = $dog->retSexPartner($id);
     $str = $user->retDogByOwner($owner);
    //debug($data);
@@ -40,18 +40,20 @@ $mat = new Matting;
        //echo $id;
        $print->picLink($id_p, '30%');
        //echo $print->retName($id);
-       echo $_SESSION['para'] = $id;
-       echo $_SESSION['ONONA'] = $id_p;
-       ?><form method="post" action="breedding.php">
-            <div style="display:none" class="radio_buttons">
-            <input type="radio" NAME="ONONA" VALUE="<?=$id?>" class="btn btn-dark" checked />
-             <label for="radio4">Вяжем</label>
-            </div> 
-             <input class="btn btn-dark" name="matting" type="submit" value="<?php echo $print->retName($id_p) . $id_p?>">
-            
-        </form><?php
-           debug($_SESSION);
+//       echo $_SESSION['para'] = $id_p;
+//       echo $_SESSION['ONONA'] = $id;
+//       debug($_POST);
+       ?><form method="POST" action="/breedding.php">
+           <input type="hidden" name="para" value="<?php echo $id_p;?>" >
+            <input type="hidden" name="ONONA" value="<?php echo $id;?>">
+            <input type="submit" class = "btn btn-dark" name ="partner" value="<?php echo 'вязка c ' .  $print->retName($id_p);?>" >
+        </form>
+           <?php
+           
+           
     }//endforeach
    
    ?>
 </div>
+
+

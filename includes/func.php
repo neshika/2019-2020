@@ -1,5 +1,6 @@
+<link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+
 <link rel="stylesheet" type="text/css" href="css/main.css" />
-<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
 <style>
 .table {
 	width: 100%;
