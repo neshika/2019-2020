@@ -38,7 +38,10 @@ $mat = new Matting;
     echo '<br>';
    foreach($partners as $id_p) {
        //echo $id;
+       $age = $dog->retAgeId($id_p); //распечатываем только половозрелых самцов и самок старше 14 и меньше
+       If( ((1 == $sex_partner) && ($age < 79) && ($age > 16)) || ( (0 == $sex_partner) && ($age > 16) && ($age < 59)) ){
        $print->picLink($id_p, '30%');
+       echo $print->retAgeText($id_p);
        //echo $print->retName($id);
 //       echo $_SESSION['para'] = $id_p;
 //       echo $_SESSION['ONONA'] = $id;
@@ -49,7 +52,7 @@ $mat = new Matting;
             <input type="submit" class = "btn btn-dark" name ="partner" value="<?php echo 'вязка c ' .  $print->retName($id_p);?>" >
         </form>
            <?php
-           
+       } //end if;    
            
     }//endforeach
    
