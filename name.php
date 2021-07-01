@@ -107,6 +107,7 @@ require_once(__DIR__ . '/includes/func.php');
     $dna = new Dna();
     $dog = new PrintDog();
     $dna_id=$dog->retDnaId($id);
+    $rand_dog = new RandDog;
 
         
 ?>
@@ -129,6 +130,7 @@ require_once(__DIR__ . '/includes/func.php');
                        <li>Хозяин: <?php echo $owner;?></li>
                        <li>Происхождение: <?php echo $dog->retOrignText($id);?></li>
                        <li>Оценка: <?php echo $dog->retMarkText($id) ?></li>
+                       <li>примерная стоимость собаки: <?php echo $rand_dog->dogPrice($id); ?></li>
                         <hr>
                        <li>ID собаки: <?php echo $id;?></li>
 
@@ -168,6 +170,10 @@ require_once(__DIR__ . '/includes/func.php');
                              <?php $_SESSION['Dog']=$id;?>
                               <input class="btn btn-dark" name="matting" type="submit" value="Вязка">
                          </form>
+                         <form method="POST" action = "/office.php">
+                             <input class="btn btn-dark" name="shelter" type="submit" value="в приют">
+                             <?php $_SESSION['Dog'] = $id; ?>
+                        </form>
           </td>
 		<td class="статус бары" colspan="2">
                 Генетический код: <?php echo $dna->retDna($dna_id);?></li>

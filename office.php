@@ -5,19 +5,22 @@ require "db.php";
 		
 ?><div class="content">
 <?php
-require "includes/functions.php";
+//require "includes/functions.php";
 require "includes/func.php";
 
 ?><hr><a href="http://dog.ru/test.php">тестим тут</a><hr> <?php
 
 
-
-echo 'Добро пожаловать, ' . $GLOBALS['name']=$_SESSION['logged_user']->login . ' .<br>';
+$login = $_SESSION['logged_user']->login;
+echo 'Добро пожаловать, ' . $GLOBALS['name']= $login . ' .<br>';
 echo '<br>сегодня: ' . date('d.m.Y');
 $dog = new Dog;
 $user = new Users;
 $tabl = new Tabl;
 $ken = new Kennels;
+$rand_dog = new RandDog;
+
+
 
 $now=date('d.m.Y');  //03.08.2017
 $owner = $user->retOwner();
@@ -40,19 +43,20 @@ if (isset($_POST['comment'])) { //если в форме NewDog включена
     echo '<br> родился малыш: ';
     echo $a = $_POST['comment'];
     // echo $_SESSION['id_new'];
-    insert_data('animals',$_SESSION['id_new'],'name',$_POST['comment']);
+    $tabl->UpdateData('animals',$_SESSION['id_new'],'name',$_POST['comment']);
+   // insert_data('animals',$_SESSION['id_new'],'name',$_POST['comment']);
 //  insert_name($_SESSION['id_new'],$_POST['comment']);
-    if (ret_Cell('l_time', $id, 'users') == $now ) {
+    if ($tabl->retCell('l_time', $id, 'users') == $now ) {
         //echo '<br> Чудо свершилось! рождены: <br>';
         //$count = R::count( 'animals', 'owner = :owner && status = 1',[':owner' => $owner]);
         //$array[] = R::getAssoc('SELECT id FROM animals WHERE owner = :owner && status = 1' ,[':owner' => $owner);
         //debug($array);
          foreach($array as $item) {
             foreach ($item as $key => $value) {
-                if ( ('Без имени'==ret_cell('name', $key,'animals')) || (''==ret_cell('name', $key,'animals')) ){
+                if ( ('Без имени' == $tabl->retCell('name', $key,'animals')) || (''== $tabl->retCell('name', $key,'animals')) ){
                     echo '<br>необходимо дать имя новой собаке: ';
                     echo '<a href="/name.php?id=' . $key . '">';?>
-                    <img src="<?php echo ret_cell('url_puppy',$key,'animals');?>" width="5%" float="left"></a><?php
+                    <img src="<?php echo $tabl->retCell('url_puppy',$key,'animals');?>" width="5%" float="left"></a><?php
                 }
             }
         }
@@ -80,9 +84,10 @@ if( isset($_POST['shelter']) ){
     echo 'Cобака отдана в приют!';
     //echo '<br>Вы не смогли ее содержать!';
     $id = $_SESSION['Dog'];
-    dog_pic_size($id, 50);
+    $obj->picLink($id, 50);
+    //dog_pic_size($id, 50);
     
-    $ret_dna= ret_dna($id);
+    $ret_dna = $dog->retDnaId($id);
     // Загружаем объект с ID = собаки, который взяли из animals
         $dog = R::load('randodna', $ret_dna);
     // Обращаемся к свойству объекта и назначаем ему новое значение
@@ -91,14 +96,16 @@ if( isset($_POST['shelter']) ){
      R::store($dog);
      
     //высчитываем стоимость в зависимости от параметров
-    $price=pricing($id);
+    $price=$rand_dog->dogPrice($id);
  //**************************  уменьшаем стоимость на 50 % ***************** //
-  $price=$price/10;
-  put_money($_SESSION['logged_user']->login,$price);
+  $price=$price/2;
+  $obj->printMoney($login);
+  $obj->putMoney($login,$price);
   echo 'Выручка составила: ' . $price;
   $dogshelter = R::load('animals', $id);
   $dogshelter->owner='shelter';
   R::store($dogshelter);
+  
 }
 
 echo "<h3><li>Только сегодня акция: </li></h3>";   

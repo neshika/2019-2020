@@ -183,7 +183,56 @@ class PrintDog extends Dog{
         }
     }
  
+/**************************** функция печатает на экран статы и ГП*************************/
+function detalis($id){
+    
+    $data_dna= take_data_from(ret_dna($id), 'randodna');
+    
+?>
+    <div align="left">
+      
+        <table width="100" cellpadding="2" cellspacing="0" border="1" >
+              <colgroup width="150">
+                  <colgroup span="9" align="center" width="10">
+                  <col span="5">
+                  <col span="4">
+              </colgroup>
+              <tr border="1"> 
+                     <td>имя</td><td><b><?php echo ret_cell('name',$id,'animals'); ?></b></td>
+                     <td>пол</td><td><b><?php echo w_sex($id);?></b></td>
+              </tr>
+              <tr border="1"> 
+                     <td>Скорость</td><td><?php echo $data_dna['spd']; ?></td>
+                     <td>вид</td><td><?php echo $data_dna['hr']; ?></td>
+              </tr>
+              <tr border="1"> 
+                     <td>Уворот</td><td><?php echo $data_dna['agl']; ?></td>
+                      <td>белый</td><td><?php echo $data_dna['ww']; ?></td>
+              </tr>
+              <tr border="1"> 
+                     <td>Обучение</td><td><?php echo $data_dna['tch']; ?></td>
+                     <td>рыжий</td><td><?php echo $data_dna['ff']; ?></td>
+              </tr>
+              <tr border="1"> 
+                     <td>Прыжки</td><td><?php echo $data_dna['jmp']; ?></td>
+                      <td>черный</td><td><?php echo $data_dna['bb']; ?></td>
+              </tr>
+              <tr border="1"> 
+                     <td>Обоняние</td><td><?php echo $data_dna['nuh']; ?></td>
+                     <td>пятна</td><td><?php echo $data_dna['mm']; ?></td>
+              </tr>
+              <tr border="1"> 
+                     <td>Поиск</td><td><?php echo $data_dna['fnd']; ?></td>
+                     <td>крап</td><td><?php echo $data_dna['tt']; ?></td>
+              </tr>
+              
+              </colgroup>
+        </table>
+      </div>
 
+<?php
+
+}
 }
 class Kennels{
     ///////////////////////  Работа с kennels питомники ////////////////
@@ -240,25 +289,27 @@ class Family extends PrintDog{
 /***************** работа с таблицами ****************************/
 class Tabl{
     /*Функция вносит изменения имени собаки по ее Id*/
-    function UpdateData($tabl,$id,$cell,$value){  //$tabl - название таблицы \\ $id-ай ди выбранного\\ $cell-названия столба\\ $value- значение
+    public function UpdateData($tabl,$id,$cell,$value){  //$tabl - название таблицы \\ $id-ай ди выбранного\\ $cell-названия столба\\ $value- значение
          R::exec( 'UPDATE ' .  $tabl . ' SET ' . $cell . '=:aa WHERE id = :id ', [
                 ':aa'=> $value,
                 ':id' => $id]);
 
     }
-
-
+    
     /*Функция достает даннные из заданного поля($cell) по ее Id из таблицы $tabl*/
-    function retCellById($id, $cell,$tabl){
+    public function retCellById($id, $cell,$tabl){
         $sql = 'SELECT ' . $cell . ' FROM ' . $tabl . 'WHERE id=' . $id; 
         return R::getCell($sql);
     }
 
-
+    public function getSql($id,$tabl){
+    $sql = 'SELECT * FROM ' . $tabl . ' WHERE id=' . $id; 
+    return $sql;
+    }
     /*Функция возвращает данные по параметру $cell из таблицы $tabl по индексу $id*/
-    function retCell($bdika,$id,$tabl){
+    public function retCell($bdika,$id,$tabl){
         //if('animals'==$tabl){
-        $array = R::getAssoc(get_sql($id,$tabl));
+        $array = R::getAssoc($this->getSql($id,$tabl));
             foreach($array as $item) {
                 foreach ($item as $key => $value) {
                     if($key==$bdika){
@@ -269,7 +320,7 @@ class Tabl{
     }
 
     /*Функция возвращает данные из таблицы $tabl по индексу $id*/
-    function retRow($id,$tabl){
+    public function retRow($id,$tabl){
 
         return R::getRow(get_sql($id,$tabl));   //$id - индекс ; $tabl - таблица с данными
 
@@ -531,6 +582,40 @@ Class Dog extends Tabl{
         $est_id=$est_id+$num;  //увеличивает на 1 пункт
         $this->UpdateData('animals',$id,'estrus', $est_id); //вставляем новые данные в таблицу по id 
     }
+    function getId($login){
+
+            $string =R::getCol('SELECT id FROM users WHERE login = :log',
+                [':log' => $login]);
+
+           return $string[0];
+
+    }
+     /*Функция возвращает количество итемов у нанного владельца*/
+    function getCount($item, $owner_id){
+
+        $string=R::getcol('SELECT count FROM owneritems WHERE owner_id =:id and item_id=:item', array(':id'=> $owner_id, ':item' => $item));
+        //var_dump($string);
+        if (empty($string)){
+          $string[0]='0';
+        }
+        return $string[0];
+
+    }
+    /***************получает сумму денег по имени владельца************/
+    public function printMoney($login){
+        $id=$this->getId($login);
+        $coins = $this->getCount('1', $id);
+        $coins=number_format ($coins , $decimals = 0 ,$dec_point = "." , $thousands_sep = " " ); //number_format — Форматирует число с разделением групп
+        return $coins;
+     }
+    /***************увеличивает сумму денег  на сумму  $price************/
+    public function putMoney($owner,$price){
+          $id=$this->getId($owner);
+          $coins = $this->getCount('1', $id);
+          $coins = $coins + $price;
+          R::exec( 'UPDATE owneritems SET count= :coins WHERE owner_id = :id AND item_id = :item', array(':coins' => $coins,':item'=> '1', ':id' => $id));
+        }
+
 }  
  /*                                *************************    РАСПЕЧАТКА Собаки на экране КАРТИНКА  */
 Class RandDog extends PrintDog{
