@@ -19,6 +19,8 @@ $user = new Users;
 $tabl = new Tabl;
 $ken = new Kennels;
 $rand_dog = new RandDog;
+$event = new Office;
+
 
 
 
@@ -64,7 +66,8 @@ if (isset($_POST['comment'])) { //если в форме NewDog включена
     } //find_where('users', $id,'l_time') == $now 
 } //isset($_POST['comment'])
 
-echo "<h3><li>Важные события: </li></h3>";   
+echo "<h3><li>Важные события:</h3>";
+echo $event->randoEvent();
    
 /*Проверяем, есть ли в питомнике собаки без Имени и даем ссылку на страницу*/
 $name = 'Без имени';

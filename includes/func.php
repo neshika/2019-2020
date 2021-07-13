@@ -136,7 +136,7 @@ class PrintDog extends Dog{
     
     }
     public function picCoins() {
-        return ' <img src = "/pici/coins_mini.png">';
+        echo '<img src = "/pici/coins_mini.png"> ';
     }
     /* функция проверяет и возвращает ссылку на собаку в зависимости от возраста*/ 
      public function bdikaUrl($id){
@@ -151,7 +151,7 @@ class PrintDog extends Dog{
            return $this->retCell('url_puppy', $dna_id, 'randodna');
         }
     }
- 
+
     /*функция печатает собаку как ссылку, можно указать размер картинки в пикселях. проверяет щенок или нет(печатает из ANIMALS)*/
     function picLink($id,$size='100%'){
         // $dna_id=$this->retDnaId($id);
@@ -370,7 +370,39 @@ class Users{
          
     }
 }
-
+Class Office extends Dog {
+    
+    public function randoEvent(){
+        $num = rand(2, 3);
+        //echo $num;
+        $print = new PrintDog();
+        $rand = new RandDog();
+        
+        if ( 1 == $num ){
+            //подкинули деньги
+           echo 'Утром кто-то подкинул вам денег';
+           $price = rand(500,2900);
+           $owner = $this->retOwnerNoId();
+           $this->putMoney($owner, $price);
+           $print->picCoins(); echo $price;
+        }
+        if ( 2 == $num){
+            echo 'Ночью кто-то подкинул вам щенка. Пристройте его или оставьте себе<br>';
+            echo $data_dna = $rand->randDna();
+            $url = $rand->doUrlPuppy($data_dna);
+            $print->dogPic($url);
+            
+        }
+        if ( 3 == $num){
+            echo 'Кто-то подбросил вам старую собаку. Что будете делать с ней?!';
+             echo $data_dna = $rand->randDna();
+            $url = $rand->doUrl($data_dna);
+            $print->dogPic($url);
+            
+        }
+      
+    }
+}
 /************************ Работа с таблицей RANDODNA ***************/
 Class Dna extends Dog{
     public function retDna($dna_id) {
@@ -441,6 +473,9 @@ Class Dog extends Tabl{
     }
     public function retOwner($id){
         return R::getCell('SELECT owner FROM animals WHERE id = ? LIMIT 1', [$id]);
+    }
+    public function retOwnerNoId(){
+        return $_SESSION['logged_user']->login;
     }
     public function retKennel($id){
         return R::getCell('SELECT kennel FROM animals WHERE id = ? LIMIT 1', [$id]);

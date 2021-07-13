@@ -15,7 +15,7 @@ $owner=ret_owner(); //сохраняем название владельца в 
         $char='all_dogs';
         ?>
 <div class="content">
-<p class="kennel"><br>Питомник: <?php echo $kennel;?> // Владелец: <?php echo $owner;?> // Количество собак: <?php echo $count;?><br><img src = "/pici/coins_mini.png"> <?php echo  $coins;
+    <p class="kennel"><br>Питомник: <?php echo $kennel;?> // Владелец: <?php echo $owner;?> // Количество собак: <?php echo $count;?><br><?php $printdog->picCoins(); echo  $coins;
        
 ?>
 <!--создаем форму с кнопками по сортировке собак на виды-->
