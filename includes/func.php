@@ -167,8 +167,8 @@ class PrintDog extends Dog{
     }
     
     /* функция печатает собаку по ее URL */
-    public function dogPic($url){
-       ?><img src="<?php echo $url;?>"><?php
+    public function dogPic($url,$size=100){
+       ?><img src="<?php echo $url;?>" width="<?php echo $size?>"><?php
     }
     public function picSex($id_dog) {
         $dna_id = $this->retDnaId($id_dog);
@@ -373,7 +373,7 @@ class Users{
 Class Office extends Dog {
     
     public function randoEvent(){
-        $num = rand(2, 3);
+        $num = rand(1, 100);
         //echo $num;
         $print = new PrintDog();
         $rand = new RandDog();
@@ -388,18 +388,35 @@ Class Office extends Dog {
         }
         if ( 2 == $num){
             echo 'Ночью кто-то подкинул вам щенка. Пристройте его или оставьте себе<br>';
-            echo $data_dna = $rand->randDna();
-            $url = $rand->doUrlPuppy($data_dna);
-            $print->dogPic($url);
+            $id=6;
+            $obj6 = new RandDog;
+            $tabl = new Tabl;
+            $obj6->InsertData($id);
+            $url=$obj6->retUrl($id); //рисуте URL
+            //echo ' Url ' . $url;
+            //$obj6->dogPic($url);
+            $url_pup=$obj6->retUrlPuppy($id);
+           // echo " url_pup " . $url_pup;
+            echo '<br>' . $obj6->dogPic($url_pup);
+            $tabl->UpdateData('randodna', $id, 'about', 'puppyPodkinut');
             
         }
         if ( 3 == $num){
-            echo 'Кто-то подбросил вам старую собаку. Что будете делать с ней?!';
-             echo $data_dna = $rand->randDna();
-            $url = $rand->doUrl($data_dna);
-            $print->dogPic($url);
+            echo 'Кто-то подбросил вам старую собаку. Что будете делать с ней?!<br>';
+             $id=7;
+            $obj6 = new RandDog;
+            $tabl = new Tabl;
+            $obj6->InsertData($id);
+            $url=$obj6->retUrl($id); //рисуте URL
+            //echo ' Url ' . $url;
+            $obj6->dogPic($url);
+            $url_pup=$obj6->retUrlPuppy($id);
+           // echo " url_pup " . $url_pup;
+           //echo '<br>' . $obj6->dogPic($url_pup);
+            $tabl->UpdateData('randodna', $id, 'about', 'OldPodkinut');
             
         }
+        return $num;
       
     }
 }
@@ -744,9 +761,9 @@ Class RandDog extends PrintDog{
           } 
         return $url;  //получаем $URL
     }
-    public function dogPic($url){
-       ?><img src="<?php echo $url;?>"><?php
-    }
+/*   public function dogPic($url){
+ ?><img src="<?php echo $url;?>"><?php 
+} */
     public function randSex(){
         return Rand(0,1);
     }
