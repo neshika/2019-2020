@@ -608,14 +608,14 @@ Class Dog extends Tabl{
         $coins=number_format ($coins , $decimals = 0 ,$dec_point = "." , $thousands_sep = " " ); //number_format — Форматирует число с разделением групп
         return $coins;
      }
-    /***************увеличивает сумму денег  на сумму  $price************/
+     /***************увеличивает сумму денег  на сумму  $price************/
     public function putMoney($owner,$price){
           $id=$this->getId($owner);
           $coins = $this->getCount('1', $id);
           $coins = $coins + $price;
           R::exec( 'UPDATE owneritems SET count= :coins WHERE owner_id = :id AND item_id = :item', array(':coins' => $coins,':item'=> '1', ':id' => $id));
         }
-
+    
 }  
  /*                                *************************    РАСПЕЧАТКА Собаки на экране КАРТИНКА  */
 Class RandDog extends PrintDog{

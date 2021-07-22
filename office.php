@@ -100,7 +100,7 @@ if( isset($_POST['shelter']) ){
  //**************************  уменьшаем стоимость на 50 % ***************** //
   $price=$price/2;
   $obj->printMoney($login);
-  $obj->putMoney($login,$price);
+  $dog->putMoney($login,$price);
   echo 'Выручка составила: ' . $price;
   $dogshelter = R::load('animals', $id);
   $dogshelter->owner='shelter';
