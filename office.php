@@ -72,8 +72,10 @@ echo "<h3><li>Важные события:</h3>";
     if (2 == $num){ //если выпал щенок
         ?>
         <form method="POST" action="office.php">
-        <input type="submit" class="btn btn-dark" name="puppy" value="Пристроить малыша"><br>
-       <!-- <input type="button" class="btn btn-dark" name="my_puppy" value="Оставить у себя на передержку"> -->
+        <div> Что делаем с щенком ?
+        <input type="submit" class="btn btn-dark" name="puppy" value="Пристроить">
+        <input type="button" class="btn btn-dark" name="my_puppy" value="Оставить">
+        <div>
         </form>
         <?php
         
