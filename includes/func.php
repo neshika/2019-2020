@@ -668,7 +668,6 @@ Class Dog extends Tabl{
           R::exec( 'UPDATE owneritems SET count= :coins WHERE owner_id = :id AND item_id = :item', array(':coins' => $coins,':item'=> '1', ':id' => $id));
         }
     
-
 }  
  /*                                *************************    РАСПЕЧАТКА Собаки на экране КАРТИНКА  */
 Class RandDog extends PrintDog{

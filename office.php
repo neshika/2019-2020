@@ -105,13 +105,33 @@ echo "<h3><li>Важные события:</h3>";
             [':owner' => $owner, ':name' => $name]);
     $obj = new PrintDog; //создаем объект класса распечатки собаки
 
-    If(!empty($array)){
-        echo "Нужно дать имена малышам на их страничке:";
-        foreach ($array as $key => $value) {
-            //pic_link($key, 55);
-           $obj->picLink($key, 55);
-        }
-    }
+if( isset($_POST['shelter']) ){ 
+    echo 'Cобака отдана в приют!';
+    //echo '<br>Вы не смогли ее содержать!';
+    $id = $_SESSION['Dog'];
+    $obj->picLink($id, 50);
+    //dog_pic_size($id, 50);
+    
+    $ret_dna = $dog->retDnaId($id);
+    // Загружаем объект с ID = собаки, который взяли из animals
+        $dog = R::load('randodna', $ret_dna);
+    // Обращаемся к свойству объекта и назначаем ему новое значение
+    $dog->about = 'shelter';
+    // Сохраняем объект
+     R::store($dog);
+     
+    //высчитываем стоимость в зависимости от параметров
+    $price=$rand_dog->dogPrice($id);
+ //**************************  уменьшаем стоимость на 50 % ***************** //
+  $price=$price/2;
+  $obj->printMoney($login);
+  $dog->putMoney($login,$price);
+  echo 'Выручка составила: ' . $price;
+  $dogshelter = R::load('animals', $id);
+  $dogshelter->owner='shelter';
+  R::store($dogshelter);
+  
+}
 
     if( isset($_POST['shelter']) ){ 
         echo 'Cобака отдана в приют!';
