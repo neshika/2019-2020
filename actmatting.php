@@ -1,15 +1,16 @@
 <?php
 require "db.php";
-require "includes/functions.php";
+require "includes/func.php";
  //R::fancyDebug( TRUE );
 ini_set('display_errors',-1);
 error_reporting(E_ALL);
 
 
-$id_m=$_SESSION['id_m'];
-$id_d=$_SESSION['id_d'];
-$_SESSION['para']=$id_m;
-$_SESSION['ONONA']=$id_d;
+$id_m = $_SESSION['id_m'];
+$id_d = $_SESSION['id_d'];
+
+$tabl = new Tabl();
+
 
 ?> 
 <!DOCTYPE HTML>
@@ -38,16 +39,16 @@ $_SESSION['ONONA']=$id_d;
         }
         
     </style>
-    <div class="wrapper" ><h1 align="center">АКТ ВЯЗКИ</h1>
-        <div><img src = "/pic/logo_mini.png"><h3>Питомник: <?php echo ret_Cell('kennel', $id_m, 'animals')?></h3><hr></div>
+    <div class="cont" ><h1 align="center">АКТ ВЯЗКИ</h1>
+        <div><img src = "/pici/bred_mini.png"><h3>Питомник: <?php echo $tabl->retCell('kennel', $id_m, 'animals'); //echo ret_Cell('kennel', $id_m, 'animals')?></h3><hr></div>
         <table width="50%" cellpadding="5" cellspacing="0" border="1">
             <caption>СВЕДЕНИЯ О ПЕРВОНАЧАЛЬНОЙ ВЯЗКЕ.</caption><br>
-            <tr><td><strong>Мы влядельцы собак породы: </strong></td><td id="text2"><?php echo ret_Cell('race', $id_m, 'animals')?></td>  </tr>
+            <tr><td><strong>Мы, владельцы собак породы: </strong></td><td id="text2"><?php echo $tabl->retCell('race', $id_m, 'animals');//echo ret_Cell('race', $id_m, 'animals')?></td>  </tr>
             <br>
-         <tr><td>1) КОБЕЛЯ(полная кличка):</td><td id="text2"><?php echo ret_Cell('name', $id_d, 'animals')?></td></tr>
+            <tr><td>1) КОБЕЛЯ(полная кличка):</td><td id="text2"><?php echo $tabl->retCell('name', $id_d, 'animals');?></td></tr>
          <tr><td>Родословная РКФ(клеймо):</td><td id="text2"><?php echo $id_d;?></td></tr>
          <br>
-         <tr><td>2) СУКИ(полная кличка):</td><td id="text2"><?php echo ret_Cell('name', $id_m, 'animals')?></td></tr>
+         <tr><td>2) СУКИ(полная кличка):</td><td id="text2"><?php echo $tabl->retCell('name', $id_m, 'animals')?></td></tr>
          <tr><td>Родословная РКФ(клеймо):</td><td id="text2"><?php echo $id_m;?></td></tr>
          <br>
          <td colspan="2"><strong>подтверждаем,</strong> <br> а) что "<span><?php echo date("d/m/Y");?></span>" произведена идентификация вышеуказанных собак по имеющимся на них клеймам
@@ -58,9 +59,9 @@ $_SESSION['ONONA']=$id_d;
          </table>
         <br>
         <table width="25%" cellpadding="2" cellspacing="0" border="0">
-            <tr><td><strong>  Владелец кобеля: </strong></td><td><?php echo ret_Cell('breeder', $id_d, 'animals');?></td><td>Электронная подпись: </td></tr>
-             <tr><td><strong>  Владелец суки: </strong></td><td><?php echo ret_Cell('breeder', $id_m, 'animals');?></td><td>Электронная подпись: </td></tr>
-             <tr><td><strong>  Инструктор вязки: </strong></td><td><?php echo ret_Cell('breeder', $id_m, 'animals');?></td><td>Электронная подпись: </td></tr>
+            <tr><td><strong>  Владелец кобеля: </strong></td><td><?php echo $tabl->retCell('breeder', $id_d, 'animals');?></td><td>  Электронная подпись: </td></tr>
+             <tr><td><strong>  Владелец суки: </strong></td><td><?php echo $tabl->retCell('breeder', $id_m, 'animals');?></td><td>  Электронная подпись: </td></tr>
+             <tr><td><strong>  Инструктор вязки: </strong></td><td><?php echo $tabl->retCell('breeder', $id_m, 'animals');?></td><td>  Электронная подпись: </td></tr>
         </table> 
         <br><br><br>
         <table width="50%" cellpadding="5" cellspacing="0" border="1">
@@ -73,13 +74,14 @@ $_SESSION['ONONA']=$id_d;
         </table>
          <br>
         <table width="25%" cellpadding="2" cellspacing="0" border="0">
-            <tr><td><strong>  Владелец кобеля: </strong></td><td><?php echo ret_Cell('breeder', $id_d, 'animals');?></td><td>Электронная подпись: </td></tr>
-             <tr><td><strong>  Владелец суки: </strong></td><td><?php echo ret_Cell('breeder', $id_m, 'animals');?></td><td>Электронная подпись: </td></tr>
-             <tr><td><strong>  Инструктор вязки: </strong></td><td><?php echo ret_Cell('breeder', $id_m, 'animals');?></td><td>Электронная подпись: </td></tr>
+            <tr><td><strong>  Владелец кобеля: </strong></td><td><?php echo $tabl->retCell('breeder', $id_d, 'animals');?></td><td>  Электронная подпись: </td></tr>
+             <tr><td><strong>  Владелец суки: </strong></td><td><?php echo $tabl->retCell('breeder', $id_m, 'animals');?></td><td>  Электронная подпись: </td></tr>
+             <tr><td><strong>  Инструктор вязки: </strong></td><td><?php echo $tabl->retCell('breeder', $id_m, 'animals');?></td><td>  Электронная подпись: </td></tr>
         </table> 
         <br><br><br>
         <form method="POST" action="/breedding.php">
-            <input type="submit" name="exit" value="Вернуться" class="knopka"/>
+            <input type="submit" name="exit" value="вернуться" class="btn btn btn-dark"/>
+            
         </form>
     </div>     
 </body>

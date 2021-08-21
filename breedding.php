@@ -2,12 +2,19 @@
 require_once(__DIR__ . '/libs/up.php');
 require_once(__DIR__ . '/includes/func.php');
 
-//debug($_POST);
+//debug($_SESSION);
 
-$id=(int)$_POST['ONONA'];
-$id_p=(int)$_POST['para'];
-//var_dump($id);
-//var_dump($id_p);
+if(isset ($_POST['exit'])){ //если нажимали actmatting
+    $id = $_SESSION['id_m'];
+    $id_p = $_SESSION['id_d'];
+}
+else{   //если перешли с кнопки "вязка"
+    $id=(int)$_POST['ONONA'];
+    $id_p=(int)$_POST['para'];
+}
+
+var_dump($id);
+var_dump($id_p);
 
 $dog = new Dog;
 $print = new PrintDog;
@@ -67,7 +74,7 @@ width: 250px;
 <tr id="tr1">
     <td id="col1"><h3 align="center">Мама: </h3>
     <?php $print->picLink($id_m, '50%');
-    echo '<br>'. $dog->retName($id_m) . '<br>щенков ' . $print->retPuppy($id_m);
+    echo '<br>'. $id_m .'<br>'. $dog->retName($id_m) . '<br>щенков ' . $print->retPuppy($id_m);
        
            /*print_lit_pup($id_m);
            detalis($id_m);
@@ -101,7 +108,7 @@ width: 250px;
                                   </td>
         <td id="col3"><h3 align="center">Папа:</h3>
                 <?php $print->picLink($id_d, '55%');
-                echo '<br>' . $dog->retName($id_d) .  '<br>щенков ' . $print->retPuppy($id_d);
+                echo '<br>'. $id_d .'<br>' . $dog->retName($id_d) .  '<br>щенков ' . $print->retPuppy($id_d);
              
               /* print_lit_pup($id_d);
                detalis($id_d);
