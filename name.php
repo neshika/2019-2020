@@ -130,7 +130,7 @@ require_once(__DIR__ . '/includes/func.php');
                        <li>Хозяин: <?php echo $owner;?></li>
                        <li>Происхождение: <?php echo $dog->retOrignText($id);?></li>
                        <li>Оценка: <?php echo $dog->retMarkText($id) ?></li>
-                       <li>примерная стоимость собаки: <?php echo $rand_dog->dogPrice($id); ?></li>
+                       <li>примерная стоимость собаки: <?php echo $rand_dog->dogPrice($dog->retDnaId($id)); ?></li>
                         <hr>
                        <li>ID собаки: <?php echo $id;?></li>
 
@@ -146,7 +146,7 @@ require_once(__DIR__ . '/includes/func.php');
                       
                      </td>
 			<td class="пусто"></td>
-			<td class="картинка"><div class="border_pic"> <?php $dog->picLink($id, '50%');?>
+			<td class="картинка"><div class="border_pic"> <?php $dog->picLink($id, '100%');?>
                               
                             
                             </div><button type="button" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Добавки +Энергия">

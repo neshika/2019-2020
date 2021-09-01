@@ -1085,7 +1085,8 @@ Class RandDog extends PrintDog{
     public function dogPrice($id){
       $sex = R::getCell('SELECT sex FROM randodna WHERE id = ? LIMIT 1', [$id]);
       $dna = R::getCell('SELECT dna FROM randodna WHERE id = ? LIMIT 1', [$id]);
-
+      //echo 'sex: ' . $sex . 'dna: ' . $dna;
+      
         if(1 == $sex) //кобель
         { 
             //echo ' кобель/';
