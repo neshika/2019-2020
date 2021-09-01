@@ -241,6 +241,219 @@ class Kennels{
        return R::getcell('SELECT dogs FROM kennels WHERE owner_k =:owner', array(':owner'=> $owner));
         
     }
+    /*Получаем запросом  навание питомника, при условии что владелец идентифицируется по куку Сессии*/
+    public function retKennel($owner) {
+        return R::getCell('SELECT kennel FROM users WHERE login = :owner',
+        [':owner' => $owner]);
+    }    
+ 
+    /* функция печатает все собак питомника*/
+    public function printDogsByKennel($owner) {
+        ?>
+        <table class="table">
+    <tr>
+    <?php
+    $printdog = new PrintDog();
+    $dog = new Dog();
+      $array[] = R::getAssoc('SELECT id,name FROM animals WHERE owner = :owner && status = 1' ,
+       [':owner' => $owner]);
+    //  debug($array);
+    foreach($array as $item) {
+        $count=0; // считает количество столбиков не больше 4
+        foreach ($item as $key => $value) {
+            //echo '<br>' . $count;
+/*сохранение данных о голости собаки + вязки/щенки*/
+            $lit = $dog->retLitter($key);
+            $pup = $dog->retPuppy($key);
+            $sex = $dog->retSexText($key);
+           $GLOBALS['Data_dog']=data_animals($key);    //сохраняем данные по собаке
+               
+/*выводим на экран имя собаки как ссылку*/
+            If('4'>$count){ //если еще не 4 столбика, вписываем
+            ?>
+            <td> <!-- строка таблицы --> 
+                <!-- http://dog.ru/test.php?id=8&owner=nesh -->
+               
+                <?php $printdog->picLink($key, '25%'); ?>
+               <div><?php   //  вывод на экран количество вязок и щенков
+                            echo '<br>имя: ' . $value;
+                            echo '<br> пол : ' . $sex . '<br>';
+                            echo bdika_estrus($key);
+                            echo '<a href="/lit&pup.php?id=' . $key . '">' . "<br> вязки/дети: ". $lit .'/'. $pup;
+                            $count=$count+1;
+                            ?>
+               </div>                           
+                               
+            
+  <?php     }else{ //если закончилась стрка перехрдить на следующую
+                ?></td></tr><td> <!-- строка таблицы -->
+                 <?php $printdog->picLink($key, '25%'); ?>
+               <div><?php   //  вывод на экран количество вязок и щенков
+                            echo '<br>имя: ' . $value;
+                            echo '<br> пол : ' . $sex . '<br>';
+                            echo bdika_estrus($key);
+                            echo '<a href="/lit&pup.php?id=' . $key . '">' . "<br> вязки/дети: ". $lit .'/'. $pup;?>
+               </div>                       
+                <?php
+                 $count=1;   
+                //}
+            }
+                            
+             }    //foreach ($item as $key => $value) {
+            echo "<br/>";
+            }   // foreach($array as $item)
+            
+    }
+    
+ /* Функция печатает всех сук питомника*/   
+    public function printFemalesByKennel($owner) {
+        $printdog = new PrintDog();
+        $dog = new Dog();
+                       
+        ?><table class="table"><tr>
+        <?php 
+        $count=0;
+         $array[] = R::getAssoc('SELECT id,name FROM animals WHERE owner = :owner && status = 1' ,
+       [':owner' => $owner]);
+     // debug($array);
+    foreach($array as $item) {
+        $countf=0; // считает количество столбиков не больше 4
+        foreach ($item as $id => $value) {
+                $countf='0'; // считает количество столбиков не больше 4
+                $sex = $dog->retSex($id); 
+                $sex_txt = $dog->retSexText($id);
+                $lit = $dog->retLitter($id);
+                $pup = $dog->retPuppy($id);
+               // $age = $dog->retAgeText($id);
+                $age_norma = $dog->retAgeId($id); //ret_cell('age_id',$id,'animals');
+                //$name= $dog->retName($id); //ret_Cell('name', $id, 'animals');
+                if(('0'== $sex) && (13<=$age_norma)){  //и старше 6 месяцев
+                    if(4 > $count){ //если еще не 4 столбика, вписываем
+            ?>
+            <td> <!-- строка таблицы --> 
+                <!-- http://dog.ru/test.php?id=8&owner=nesh -->
+               
+                <?php $printdog->picLink($id, '25%'); ?>
+               <div><?php   //  вывод на экран количество вязок и щенков
+                            echo '<br>имя: ' . $value;
+                            echo '<br> пол : ' . $sex_txt . '<br>';
+                            echo bdika_estrus($id);
+                            echo '<a href="/lit&pup.php?id=' . $id . '">' . "<br> вязки/дети: ". $lit .'/'. $pup;
+                            $count=$count+1;
+                            ?>
+               </div>                           
+                               
+            
+  <?php     }else{ //если закончилась стрка перехрдить на следующую
+                ?></td></tr><td> <!-- строка таблицы -->
+                 <?php $printdog->picLink($id, '25%'); ?>
+               <div><?php   //  вывод на экран количество вязок и щенков
+                            echo '<br>имя: ' . $value;
+                            echo '<br> пол : ' . $sex_txt . '<br>';
+                            echo bdika_estrus($id);
+                            echo '<a href="/lit&pup.php?id=' . $id . '">' . "<br> вязки/дети: ". $lit .'/'. $pup;?>
+               </div>                       
+                <?php
+                 $count=1;   
+                //}
+            }
+                            }//elseif(('0'== $sex) && (13<$age_norma)){  //и старше 6 месяцев   
+                        } //foreach ($item as $id => $value) 
+                }//foreach($data as $item)
+            }
+  /* Функция печатает всех кобелей питомника*/   
+    public function printMalesByKennel($owner) {
+        $printdog = new PrintDog();
+        $dog = new Dog();
+        $ken = new Kennels();
+        $count = 0;
+                
+        ?><table class="table"><tr>
+        <?php 
+ //         $array[] = R::getAssoc('SELECT id,name FROM animals WHERE owner = :owner && status = 1' ,
+//       [':owner' => $owner]);
+        $data = R::getCol('SELECT id FROM animals WHERE owner = :owner && status = 1' , [':owner' => $owner]);
+     // debug($data);
+    foreach($data as $id) {
+       // $countm=0; // считает количество столбиков не больше 4
+                       ?> <!-- <td> строка таблицы --> 
+                <?php
+                $sex = $dog->retSex($id); 
+                $sex_txt = $dog->retSexText($id);
+                $lit = $dog->retLitter($id);
+                $pup = $dog->retPuppy($id);
+                $age_norma = $dog->retAgeId($id); //ret_cell('age_id',$id,'animals');
+                $name = $dog->retName($id); //ret_Cell('name', $id, 'animals');
+                if(('1'== $sex) && (13<$age_norma)){  //и старше 6 месяцев
+                   if(4 > $count){ //если еще не 4 столбика, вписываем
+            ?>
+            <td> <!-- строка таблицы --> 
+                <!-- http://dog.ru/test.php?id=8&owner=nesh -->
+               
+                <?php $printdog->picLink($id, '25%'); ?>
+               <div><?php   //  вывод на экран количество вязок и щенков
+                            echo '<br>имя: ' . $name;
+                            echo '<br> пол : ' . $sex_txt . '<br>';
+                            echo bdika_estrus($id);
+                            echo '<a href="/lit&pup.php?id=' . $id . '">' . "<br> вязки/дети: ". $lit .'/'. $pup;
+                            $count=$count+1;
+                            ?>
+               </div>                           
+                               
+            
+  <?php     }else{ //если закончилась стрка перехрдить на следующую
+                ?></td></tr><td> <!-- строка таблицы -->
+                 <?php $printdog->picLink($id, '25%'); ?>
+               <div><?php   //  вывод на экран количество вязок и щенков
+                            echo '<br>имя: ' . $name;
+                            echo '<br> пол : ' . $sex_txt . '<br>';
+                            echo bdika_estrus($id);
+                            echo '<a href="/lit&pup.php?id=' . $id . '">' . "<br> вязки/дети: ". $lit .'/'. $pup;?>
+               </div>                       
+                <?php
+                 $count=1;   
+                //}
+                    }
+                  }//elseif(('0'== $sex) && (13<$age_norma)){  //и старше 6 месяцев   
+              }//foreach($data as $id)
+            }       
+            public function printPuppyByKennel($owner) {
+                // if(13>$GLOBALS['Data_dog']['age_id']){ //возраст <6 месяцев
+                $printdog = new PrintDog();
+                $dog = new Dog();
+                $count = 0;
+                ?><table class="table"><tr> <?php
+                $data = R::getCol('SELECT id FROM animals WHERE owner = :owner && status = 1' , [':owner' => $owner]);
+                // debug($data);
+                foreach($data as $id) {
+                $sex_txt = $dog->retSexText($id);
+                $age_norma = $dog->retAgeId($id); //ret_cell('age_id',$id,'animals');
+                $name = $dog->retName($id); //ret_Cell('name', $id, 'animals');
+                if(13>$age_norma){  //младше 6 месяцев
+                    if(4 > $count){ //если еще не 4 столбика, вписываем
+                        ?><td><?php
+                        $printdog->picLink($id, '25%'); 
+                        ?><div><?php   //  вывод на экран количество вязок и щенков
+                        echo '<br>имя: ' . $name;
+                        echo '<br> пол : ' . $sex_txt . '<br>';
+                        echo '<a href="/lit&pup.php?id=' . $id . '">';
+                        $count=$count+1;
+                        ?></div><?php         
+                    }else{ //если закончилась стрка перехрдить на следующую
+                        ?></td></tr><td> <!-- строка таблицы -->
+                        <?php $printdog->picLink($id, '25%');
+                        $count=1;
+                        ?><div><?php   //  вывод на экран количество вязок и щенков
+                        echo '<br>имя: ' . $name;
+                        echo '<br> пол : ' . $sex_txt . '<br>';
+                        echo '<a href="/lit&pup.php?id=' . $id . '">';
+                        ?></div><?php
+                    } //if(4 > $count){
+                  } //if(13>$age_norma){ 
+              } //foreach($data as $id)
+            
+            }
+            
 }
 class Family extends PrintDog{
     ///////////////////////  Работа с FAMILY СЕМЬЕЙ ////////////////
@@ -325,6 +538,13 @@ class Tabl{
         return R::getRow(get_sql($id,$tabl));   //$id - индекс ; $tabl - таблица с данными
 
     }
+    /*Функция достает даннные собаки по ее Id из нужно таблицы*/
+    function TakeDataFrom($id,$tabl){   //$id - индекс ; $tabl - таблица с данными
+
+       $sql = 'SELECT * FROM ' . $tabl .  ' WHERE id =' . $id; 
+        return R::getRow($sql);
+        
+    }
 
 }
 /************************ Работа с таблицей USERS ***************/
@@ -368,6 +588,13 @@ class Users{
     public function retDogByOwner($owner){
         return R::getCol ('SELECT id FROM animals WHERE owner =:owner and status=1', array(':owner' => $owner));
          
+    }
+    public function retMoney($owner){ //indeks ltytu = 1
+        $user = new Users();
+        $owner_id = $user->retId($owner);
+        $dog = new Dog();
+        $money = (int) $dog->getCount('1', $owner_id);
+        return $money;
     }
 }
 Class Office extends Dog {
@@ -667,6 +894,14 @@ Class Dog extends Tabl{
           $coins = $coins + $price;
           R::exec( 'UPDATE owneritems SET count= :coins WHERE owner_id = :id AND item_id = :item', array(':coins' => $coins,':item'=> '1', ':id' => $id));
         }
+    public function retSexText($dna_id) {
+        if($this->retSex($dna_id)){
+            return 'кобель';
+        }
+        else {
+            return 'сука';
+        }
+    }
     
 }  
  /*                                *************************    РАСПЕЧАТКА Собаки на экране КАРТИНКА  */
@@ -974,6 +1209,64 @@ class Matting extends Dog {
        //  echo '<br>' . $errort;
      //}
      return $errort;
+}
+public function bdikaMutation($id_m,$id_d) {
+    $family_mum = new Family();
+    $family_dad = new Family();
+    $tabl = new Tabl();
+
+
+$f_data_m  = $tabl->TakeDataFrom($family_mum->retFamilyId($id_m), 'family'); // получаем id на фамилию  //родственники по линии матери
+$f_data_d = $tabl->TakeDataFrom($family_dad->retFamilyId($id_d), 'family'); //Получаем данные из семьи  //родственники по линии отца
+
+    echo '<br>function bdika_mutation <br>';
+    $temp =0; //нет мутации
+    $num =Rand(1,100);   //шанс получения мутации
+ 
+    ////////////////////////////////////////////////проверка самки и родни партнера
+    
+    if($f_data_m['id']==$f_data_d['mum']){  //самка и мать партнера 75% мутация
+        echo 'партнерша - мать';
+        if($num>0 && $num<75){
+            $temp=1;
+        }
+    }
+     if( ($f_data_m['id']==$f_data_d['g1mum']) || ($f_data_m['id']==$f_data_d['g0mum']) ){  //самка и бабки партнера 50% мутация
+        echo 'партнерша - бабка';
+        if($num>50 && $num<100){
+            $temp=1;
+        }
+    }
+    if( ($f_data_m['id']==$f_data_d['gg1mum2']) || ($f_data_m['id']==$f_data_d['gg0mum2']) || ($f_data_m['id']==$f_data_d['gg1mum4']) || ($f_data_m['id']==$f_data_d['gg0mum4']) ){
+        //самка и пробабки партнера 25% мутация
+        echo 'партнерша - пробабка';
+        if($num>0 && $num<25){
+            $temp=1;
+        }
+    }
+    
+       /////////////////////////////////////////////проверка самца и родни партнера
+    if($f_data_d['id']==$f_data_m['dad']){  //самец и отец партнерши 75%
+        echo 'партнер - отец';
+        if($num>0 && $num<75){
+            $temp=1;
+        }
+    }
+     if( ($f_data_d['id']==$f_data_m['g1dad']) || ($f_data_d['id']==$f_data_m['g0dad']) ){
+         //самец и деды партнерши 50%
+        echo 'партнер - дед';
+        if($num>50 && $num<100){
+            $temp=1;
+        }
+    }
+    if( ($f_data_d['id']==$f_data_m['gg1dad1']) || ($f_data_d['id']==$f_data_m['gg0dad1']) || ($f_data_d['id']==$f_data_m['gg1dad3']) || ($f_data_d['id']==$f_data_m['gg0dad3']) ){
+        //самец и прадеды партнерши 25%
+        echo 'партнер прадед';
+        if($num>0 && $num<25){
+            $temp=1;    //если прошла мутация
+        }
+    }
+    return $temp;
 }
 
 }

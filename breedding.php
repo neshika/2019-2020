@@ -88,19 +88,18 @@ width: 250px;
                     echo ' самка: ' . $mat->bdikaForBreed($id_m);
                     echo ' <br>самец: ' . $mat->bdikaForBreed($id_d);
                         
-                 /*   if(bdika_mutation($id_m,$id_d)){  //если вернулся 1, то есть мутация
-                      ?><h3 style="color:red" align="center"><?php echo '<br>При вязки близкородственных партнеров возможны ухудшения качеств и получение мутаций! Будьте осторожнее!';?></h3><?php
-                    //}
-                    if(bdika_balance($_SESSION['owner'],5000)){ //проверка остатка средств на вязку. если хватает активна кнопка "ВЯЗКА" ?>
+                   if($mat->bdikaMutation($id_m, $id_d)):  //если вернулся 1, то есть мутация ?>
+                        <h3 style="color:red" align="center">При вязки близкородственных партнеров возможны ухудшения качеств и получение мутаций! Будьте осторожнее!</h3>
+              <?php Endif;
+              
+                    echo $money = $user->retMoney($owner);
+                    if($money >= 5000): //проверка остатка средств на вязку. если хватает активна кнопка "ВЯЗКА" ?>
                           
                       <form method="POST" action="/NewDog.php">
-                                <input type="submit" name="nazvanie_knopki" value="Вяжем" class="knopka"/>
+                                <input type="submit" name="nazvanie_knopki" value="Вяжем" class="btn btn btn-dark"/>
                       </form>
-                    <?php }else 
-                        echo 'не достаточно средст для вязки!'
-*/
-                    ?>
-                            <!-- кнопки для формы-->
+               <?php Endif; ?>
+                     <!-- кнопки для формы-->
                             <br>
                            <a href="/kennel.php" class="btn btn btn-dark" role="button" aria-pressed="true">в офис</a>
                            <a href="<?php echo '/matting.php?id=' . $id;?>" class="btn btn btn-dark" role="button" aria-pressed="true">вернутся к собаке</a>
@@ -118,8 +117,6 @@ width: 250px;
    </tr>
   </table>
     </div>        
- <?php 
 
-?>
   
   
