@@ -2,62 +2,65 @@
 require_once(__DIR__ . '/libs/up.php');
 require_once(__DIR__ . '/includes/func.php');
 
-$id_m = 4;
-$id_d = 6;
 
-$family_mum = new Family();
-$family_dad = new Family();
-$tabl = new Tabl();
+function MumDad($mum,$dad) {
+    $array1 = $mum;
+    $array2 = $dad;
+//echo '$array1 ' . $array1 = 'hr0w0f0b0t0m0';
+//echo '<br>$array2 ' . $array2 = 'hr1w1f1b1t1m1';
+echo '<br>$array3 ' . $array3 = 'hr0w0f0b0t0m0';
+    $num = 0;
+
+    for($i = 2; $i < strlen($array1); $i+=2){ // прогоняет первый стринг
+        if(($array1[$i] == $array2[$i]) AND ($array1[$i] == 0)){ //hr0 == hr0  100% будет 0
+            echo '<br>1 вариант == 0 ';
+            $array3[$i] = 0;
+
+            echo '<br>0: ' . $array3;
+        }
+        if(($array1[$i] == $array2[$i]) AND ($array1[$i] == 1)){ //hr1 == hr1  100% будет 75% - 1, 25% - 0
+            echo '<br>2 вариант == 1 ';
+            echo '<br>num' . $num = Rand(1,4);   //1 - 25%
+            if( 1 == $num ){    //0 - 25%
+                 $array3[$i] = 0;
+            }
+            else{   //1 - 75%
+                $array3[$i] = 1;
+            }
+          echo '<br>1: ' . $array3;  
+         }
+         if($array1[$i] != $array2[$i]){ // если hr1 -50% hr0 - 50%    hr1 - 75%  hr0 -25%
+             echo '<br>3-тий вариант не равны ';
+             echo '<br>num' . $num = Rand(1,4);   //1 - 25%
+             if( 1 == $num ){    //0 - 25%
+                 echo ' 25% - 0 ';
+                  $array3[$i] = 0;
+             }
+             if ( 3 == $num){ //1 - 75%
+                 echo ' 75% - 1 ';
+                 $array3[$i] = 1;
+             }
+             else{ // 2,3 - 50%
+                  echo '<br>num' . $num = Rand(1,2);   //1 - 50% , 0 - 50%
+                  echo ' 2,3 - 50%  = 1';
+                   if( 1 == $num ){ //50%
+                       $array3[$i] = 1;
+                   }
+                   else{
+                       echo ' 2,3 - 50%  = 0';
+                       $array3[$i] = 0;
+                   }
+
+             }
+
+        }
+    }
+    return $array3;
+}
+
+$mum = 'hr0w0f0b0t0m0';
+$dad = 'hr1w1f1b1t1m1';
+$puppy = MumDad($mum, $dad);
+echo '<br>' . $puppy;
 
 
-$f_data_m  = $tabl->TakeDataFrom($family_mum->retFamilyId($id_m), 'family'); // получаем id на фамилию  //родственники по линии матери
-$f_data_d = $tabl->TakeDataFrom($family_dad->retFamilyId($id_d), 'family'); //Получаем данные из семьи  //родственники по линии отца
-
-    echo '<br>function bdika_mutation <br>';
-    $temp =0; //нет мутации
-    $num =Rand(1,100);   //шанс получения мутации
- 
-    ////////////////////////////////////////////////проверка самки и родни партнера
-    
-    if($f_data_m['id']==$f_data_d['mum']){  //самка и мать партнера 75% мутация
-        echo 'партнерша - мать';
-        if($num>0 && $num<75){
-            $temp=1;
-        }
-    }
-     if( ($f_data_m['id']==$f_data_d['g1mum']) || ($f_data_m['id']==$f_data_d['g0mum']) ){  //самка и бабки партнера 50% мутация
-        echo 'партнерша - бабка';
-        if($num>50 && $num<100){
-            $temp=1;
-        }
-    }
-    if( ($f_data_m['id']==$f_data_d['gg1mum2']) || ($f_data_m['id']==$f_data_d['gg0mum2']) || ($f_data_m['id']==$f_data_d['gg1mum4']) || ($f_data_m['id']==$f_data_d['gg0mum4']) ){
-        //самка и пробабки партнера 25% мутация
-        echo 'партнерша - пробабка';
-        if($num>0 && $num<25){
-            $temp=1;
-        }
-    }
-    
-       /////////////////////////////////////////////проверка самца и родни партнера
-    if($f_data_d['id']==$f_data_m['dad']){  //самец и отец партнерши 75%
-        echo 'партнер - отец';
-        if($num>0 && $num<75){
-            $temp=1;
-        }
-    }
-     if( ($f_data_d['id']==$f_data_m['g1dad']) || ($f_data_d['id']==$f_data_m['g0dad']) ){
-         //самец и деды партнерши 50%
-        echo 'партнер - дед';
-        if($num>50 && $num<100){
-            $temp=1;
-        }
-    }
-    if( ($f_data_d['id']==$f_data_m['gg1dad1']) || ($f_data_d['id']==$f_data_m['gg0dad1']) || ($f_data_d['id']==$f_data_m['gg1dad3']) || ($f_data_d['id']==$f_data_m['gg0dad3']) ){
-        //самец и прадеды партнерши 25%
-        echo 'партнер прадед';
-        if($num>0 && $num<25){
-            $temp=1;    //если прошла мутация
-        }
-    }
-    return $temp;
