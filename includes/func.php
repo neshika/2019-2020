@@ -25,6 +25,61 @@
 <?php
   /*                                *************************   СОЗДАНИЕ НОВОЙ СОБАКИ */
 Class GreateNewDog{
+    public function InsertDogDna($id_m,$id_d,$puppy_dna) {
+        
+        $mat = new Matting();
+        $dna = new Dna();
+        $rand = new RandDog();
+        $plus =  $mat->bdikaMutation($id_m, $id_d);
+        $mutation=Rand(1,100)/100;
+        $dna_m = $dna->retAllDna($id_m);
+        $dna_d = $dna->retAllDna($id_d);
+        $sex = Rand(0,1);  
+        $lucky = Rand(1,100);
+        $url = $rand->doUrl($puppy_dna);
+        $url_puppy = $rand->DoUrlPuppy($url);
+        
+        $bean = R::dispense('randodna');
+       
+        
+         $bean->sex = $sex;
+         $bean->lucky = $lucky;
+         $bean->spd = $this->StatsFromMumDad($dna_m['spd'],$dna_d['spd'],$mutation,$plus);
+         $bean->agl = $this->StatsFromMumDad($dna_m['agl'],$dna_d['agl'],$mutation,$plus);
+         $bean->tch = $this->StatsFromMumDad($dna_m['spd'],$dna_d['tch'],$mutation,$plus);
+         $bean->jmp = $this->StatsFromMumDad($dna_m['spd'],$dna_d['jmp'],$mutation,$plus);
+         $bean->nuh = $this->StatsFromMumDad($dna_m['spd'],$dna_d['nuh'],$mutation,$plus);
+         $bean->fnd = $this->StatsFromMumDad($dna_m['spd'],$dna_d['fnd'],$mutation,$plus);
+         $bean->mut = $mutation*100;
+         $bean->dna = $puppy_dna;
+         $bean->about = 'owner';
+         $bean->url = $url;
+         $bean->url_puppy = $url_puppy;
+         
+         debug($bean);
+            
+                  
+       // return R::store($bean);
+        
+    }
+    /**********************  Рандомный подсчет стат в зависимости от мутаций и родителей***************/
+    public function StatsFromMumDad($param_m,$param_d,$mutation,$plus){
+        
+       $temp = 0;       
+        $temp=($param_m+$param_d)/2;
+       echo '<br> m: ' .  $param_m . ' +d:' . $param_d . ' = ' . $temp;
+        if(1==$plus){
+          $temp=$temp+($temp*$mutation/100);
+        }
+        if(0==$plus){
+          $temp=$temp-($temp*$mutation/100);
+        }
+       
+        $temp = number_format ($temp , $decimals = 2 ,$dec_point = "." , $thousands_sep = " " );
+
+        return $temp;
+
+    }     
     
    public function retDna($id) {
         return R::getCell('SELECT dna FROM randodna WHERE id = ? LIMIT 1', [$id]);
@@ -55,6 +110,7 @@ Class GreateNewDog{
         return R::store($bean);
     }
    public function insertDogAnimals($owner,$dna_id){
+       echo '<br> insertDogAnimals($owner,$dna_id)';
     $kennel=R::getCell('SELECT `name_k` FROM `kennels` WHERE `owner_k` = ? LIMIT 1', [$owner]);
     $sex = R::getCell('SELECT sex FROM randodna WHERE id = ? LIMIT 1', [$dna_id]);
     
@@ -77,27 +133,55 @@ Class GreateNewDog{
          $dogs->estrus = 14;
      }
      
+     debug($dogs);
      /*сохраняем id новой собаки*/
-     $id_new_dog1 = R::store($dogs);
+     //$id_new_dog1 = R::store($dogs);
      
-    return $id_new_dog1;
+    //return $id_new_dog1;
  
     }
     public function insertDogFamilyTree($id){
+        
     $dog22 = R::dispense('family');
         foreach ($dog22 as $key) {
             if($key!='id'){
                 $dog22->$key=0;  //вносим всех предков по нулям
             }
-        }      
-    $family_id2 = R::store($dog22);  
+        }     
+        
+   $family_id2 = R::store($dog22);  
     
     /* созраняем данные о семье в таблице animals*/
     $book = R::load('animals', $id);
     $book->family_id = $family_id2;
     return R::store($book);
     
- }
+    }
+    public function insertNewPuppyFamilyTree($id_m,$id_d) {
+        echo '<br> insertNewPuppyFamilyTree($id_m,$id_d)';
+        $fam = new Family();
+        
+        $puppy = R::dispense( 'family' );
+        
+        $puppy->mum = $id_m;
+        $puppy->dad = $id_d;
+        $puppy->g1dad = $fam->retDad($id_d);
+        $puppy->g1mum = $fam->retMum($id_d);
+        $puppy->g0dad = $fam->retDad($id_m);
+        $puppy->g0mum = $fam->retMum($id_m);
+        $puppy->gg1dad1 = $fam->retG1Dad($id_d);
+        $puppy->gg1mum2 = $fam->retG1Mum($id_d);
+        $puppy->gg1dad3 = $fam->retG0Dad($id_d);
+        $puppy->gg1mum4 = $fam->retG0Mum($id_d);
+        $puppy->gg0dad1 = $fam->retG1Dad($id_m);
+        $puppy->gg0mum2 = $fam->retG1Mum($id_m);
+        $puppy->gg0dad3 = $fam->retG0Dad($id_m);
+        $puppy->gg0mum4 = $fam->retG0Mum($id_m);
+        
+        debug($puppy);
+        //return R::store($puppy);
+        
+    }
         
     
 } //end class GreateNewDog
@@ -754,6 +838,13 @@ Class Dna extends Dog{
         if(1 == $string[8]){
             return 'Нет гена шоколадности';    
         }
+    }
+    public function retAllDna($id) {
+        
+        $dna_id = $this->retDnaId($id);
+        $dna_array = R::getRow('SELECT * FROM randodna WHERE id =:id', array(':id' => $dna_id));
+        return $dna_array;
+        
     }
     
 }
