@@ -56,6 +56,7 @@ Class GreateNewDog{
     }
    public function insertDogAnimals($owner,$dna_id){
     $kennel=R::getCell('SELECT `name_k` FROM `kennels` WHERE `owner_k` = ? LIMIT 1', [$owner]);
+    $sex = R::getCell('SELECT sex FROM randodna WHERE id = ? LIMIT 1', [$dna_id]);
     
     $date=date('d.m.Y');
     $dogs = R::dispense('animals');
@@ -70,6 +71,11 @@ Class GreateNewDog{
      $dogs->family_id=0;
      $dogs->mark_id=1; //отлично оценка
      $dogs->birth=$date;
+     
+     // установить течку у суки
+     if(0 == $sex){
+         $dogs->estrus = 14;
+     }
      
      /*сохраняем id новой собаки*/
      $id_new_dog1 = R::store($dogs);
