@@ -8,12 +8,12 @@ $user = new Users();
 $owner = $user->retOwner(); //сохраняем название владельца в переменную из куки
 $ken = new Kennels();
 $kennel_name = $ken->retKennel($owner);
-$count = $ken->retCountDog($owner);
+$count = $ken->retCountPuppyDog($owner);
 $coins = $printdog->printMoney($owner);
 ?>
 <div class="content">
 <p class="kennel"><br>Питомник: <?php echo $kennel_name;?> // Владелец: <?php echo $owner;?>
-    // Количество собак: <?php echo $count;?>
+    // Количество щенков: <?php echo $count;?>
     // <img src = "/pici/coins_mini.png"><?php echo  $coins;
     
 /****************************** Если нажата кнопка щенки выводим на экран всех собак, пренадлежащих владельцу*/

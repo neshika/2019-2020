@@ -242,9 +242,70 @@ function detalis($id){
 }
 class Kennels{
     ///////////////////////  Работа с kennels питомники ////////////////
+    /* возвращает количесво собак в питомнике*/
     public function retCountDog($owner) {
         
        return R::getcell('SELECT dogs FROM kennels WHERE owner_k =:owner', array(':owner'=> $owner));
+        
+    }
+    /* возвращает количесво сук в питомнике*/
+    public function retCountFemaleDog($owner) {
+        
+       $count=0;
+       $dog = new Dog();
+         $array = R::getCol('SELECT id FROM animals WHERE owner = :owner && status = 1' ,
+       [':owner' => $owner]);
+     //debug($array);
+    foreach($array as $id => $id_dog) {
+        $sex = $dog->retSex($id_dog);
+        $age_norma = $dog->retAgeId($id_dog);
+        
+       if(('0' == $sex) && (13 <= $age_norma)){  //и старше 6 месяцев
+          // echo $id_dog . ' / ';
+            $count = $count + 1;
+        }
+    }    
+    return $count;
+        
+    }
+    /* возвращает количесво КОБЕЛЕЙ в питомнике*/
+    public function retCountMaleDog($owner) {
+        
+       $count=0;
+       $dog = new Dog();
+         $array = R::getCol('SELECT id FROM animals WHERE owner = :owner && status = 1' ,
+       [':owner' => $owner]);
+     //debug($array);
+    foreach($array as $id => $id_dog) {
+        $sex = $dog->retSex($id_dog);
+        $age_norma = $dog->retAgeId($id_dog);
+        
+       if(('1' == $sex) && (13 <= $age_norma)){  //и старше 6 месяцев
+                //echo $id_dog . ' \ ';
+                $count = $count + 1;
+        }
+    }    
+    return $count;
+        
+    }
+     /* возвращает количесво Щенков (младше 6 месяцев) в питомнике*/
+    public function retCountPuppyDog($owner) {
+        
+       $count=0;
+       $dog = new Dog();
+         $array = R::getCol('SELECT id FROM animals WHERE owner = :owner && status = 1' ,
+       [':owner' => $owner]);
+    // debug($array);
+    foreach($array as $id => $id_dog) {
+        $sex = $dog->retSex($id_dog);
+        $age_norma = $dog->retAgeId($id_dog);
+        //echo $id_dog;
+       if(13 > $age_norma){  //и младше 6 месяцев
+           //echo $id_dog . ' / ';
+           $count = $count + 1;
+        }
+    }    
+    return $count;
         
     }
     /*Получаем запросом  навание питомника, при условии что владелец идентифицируется по куку Сессии*/
@@ -333,7 +394,7 @@ class Kennels{
                // $age = $dog->retAgeText($id);
                 $age_norma = $dog->retAgeId($id); //ret_cell('age_id',$id,'animals');
                 //$name= $dog->retName($id); //ret_Cell('name', $id, 'animals');
-                if(('0'== $sex) && (13<=$age_norma)){  //и старше 6 месяцев
+                if(('0'== $sex) && ($age_norma >= 13)){  //и старше 6 месяцев
                     if(4 > $count){ //если еще не 4 столбика, вписываем
             ?>
             <td> <!-- строка таблицы --> 
@@ -390,7 +451,7 @@ class Kennels{
                 $pup = $dog->retPuppy($id);
                 $age_norma = $dog->retAgeId($id); //ret_cell('age_id',$id,'animals');
                 $name = $dog->retName($id); //ret_Cell('name', $id, 'animals');
-                if(('1'== $sex) && (13<$age_norma)){  //и старше 6 месяцев
+                if(('1'== $sex) && ($age_norma >= 13)){  //и старше 6 месяцев
                    if(4 > $count){ //если еще не 4 столбика, вписываем
             ?>
             <td> <!-- строка таблицы --> 
@@ -435,7 +496,7 @@ class Kennels{
                 $sex_txt = $dog->retSexText($id);
                 $age_norma = $dog->retAgeId($id); //ret_cell('age_id',$id,'animals');
                 $name = $dog->retName($id); //ret_Cell('name', $id, 'animals');
-                if(13>$age_norma){  //младше 6 месяцев
+                if($age_norma < 13){  //младше 6 месяцев
                     if(4 > $count){ //если еще не 4 столбика, вписываем
                         ?><td><?php
                         $printdog->picLink($id, '25%'); 
