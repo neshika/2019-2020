@@ -95,7 +95,7 @@ width: 250px;
                     echo $money = $user->retMoney($owner);
                     if($money >= 5000): //проверка остатка средств на вязку. если хватает активна кнопка "ВЯЗКА" ?>
                           
-                      <form method="POST" action="/NewDog.php">
+                        <form method="POST" action="/newDog.php">
                                 <input type="submit" name="nazvanie_knopki" value="Вяжем" class="btn btn btn-dark"/>
                       </form>
                <?php Endif; ?>

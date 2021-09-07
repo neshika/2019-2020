@@ -25,6 +25,63 @@
 <?php
   /*                                *************************   СОЗДАНИЕ НОВОЙ СОБАКИ */
 Class GreateNewDog{
+    
+    /* функция создает ДНК для щенка в зависимости от предков возвращает hr0w0f0b0t0m0*/
+    public function DoDnaMumDad($mum,$dad) {
+    $array1 = $mum;
+    $array2 = $dad;
+//echo '$array1 ' . $array1 = 'hr0w0f0b0t0m0';
+//echo '<br>$array2 ' . $array2 = 'hr1w1f1b1t1m1';
+echo '<br>$array3 ' . $array3 = 'hr0w0f0b0t0m0';
+    $num = 0;
+
+    for($i = 2; $i < strlen($array1); $i+=2){ // прогоняет первый стринг
+        if(($array1[$i] == $array2[$i]) AND ($array1[$i] == 0)){ //hr0 == hr0  100% будет 0
+            echo '<br>1 вариант == 0 ';
+            $array3[$i] = 0;
+
+            echo '<br>0: ' . $array3;
+        }
+        if(($array1[$i] == $array2[$i]) AND ($array1[$i] == 1)){ //hr1 == hr1  100% будет 75% - 1, 25% - 0
+            echo '<br>2 вариант == 1 ';
+            echo '<br>num' . $num = Rand(1,4);   //1 - 25%
+            if( 1 == $num ){    //0 - 25%
+                 $array3[$i] = 0;
+            }
+            else{   //1 - 75%
+                $array3[$i] = 1;
+            }
+          echo '<br>1: ' . $array3;  
+         }
+         if($array1[$i] != $array2[$i]){ // если hr1 -50% hr0 - 50%    hr1 - 75%  hr0 -25%
+             echo '<br>3-тий вариант не равны ';
+             echo '<br>num' . $num = Rand(1,4);   //1 - 25%
+             if( 1 == $num ){    //0 - 25%
+                 echo ' 25% - 0 ';
+                  $array3[$i] = 0;
+             }
+             if ( 3 == $num){ //1 - 75%
+                 echo ' 75% - 1 ';
+                 $array3[$i] = 1;
+             }
+             else{ // 2,3 - 50%
+                  echo '<br>num' . $num = Rand(1,2);   //1 - 50% , 0 - 50%
+                  echo ' 2,3 - 50%  = 1';
+                   if( 1 == $num ){ //50%
+                       $array3[$i] = 1;
+                   }
+                   else{
+                       echo ' 2,3 - 50%  = 0';
+                       $array3[$i] = 0;
+                   }
+
+             }
+
+        }
+    }
+    return $array3;
+}
+    /* Заполнение данными ДНК+статы*/
     public function InsertDogDna($id_m,$id_d,$puppy_dna) {
         
         $mat = new Matting();
@@ -56,10 +113,10 @@ Class GreateNewDog{
          $bean->url = $url;
          $bean->url_puppy = $url_puppy;
          
-         debug($bean);
+        // debug($bean);
             
                   
-       // return R::store($bean);
+        return R::store($bean);
         
     }
     /**********************  Рандомный подсчет стат в зависимости от мутаций и родителей***************/
@@ -86,29 +143,29 @@ Class GreateNewDog{
     } 
    
 
-    public function updateDNA($id) {
-      $post = R :: getRow('SELECT * FROM `randodna` WHERE `id` = ? LIMIT 1', [$id]);
-       // debug($post);
-        //for each customer post create a new bean as a row/record          
-            $bean = R::dispense('randodna');
-             //assign column values 
-             $bean->sex = $post['sex'];
-             $bean->lucky = $post['lucky'];
-             $bean->dna = $post['dna'];
-             $bean->about = 'owner';
-             $bean->spd = $post['spd'];
-             $bean->agl = $post['agl'];
-             $bean->tch = $post['tch'];
-             $bean->jmp = $post['jmp'];
-             $bean->nuh = $post['nuh'];
-             $bean->fnd = $post['fnd'];
-             $bean->mut = $post['mut'];
-             $bean->url = $post['url'];
-             $bean->url_puppy = $post['url_puppy'];
-            
-       //store the whole array of beans at once               
-        return R::store($bean);
-    }
+//    public function updateDNA($id) {
+//      $post = R :: getRow('SELECT * FROM `randodna` WHERE `id` = ? LIMIT 1', [$id]);
+//       // debug($post);
+//        //for each customer post create a new bean as a row/record          
+//            $bean = R::dispense('randodna');
+//             //assign column values 
+//             $bean->sex = $post['sex'];
+//             $bean->lucky = $post['lucky'];
+//             $bean->dna = $post['dna'];
+//             $bean->about = 'owner';
+//             $bean->spd = $post['spd'];
+//             $bean->agl = $post['agl'];
+//             $bean->tch = $post['tch'];
+//             $bean->jmp = $post['jmp'];
+//             $bean->nuh = $post['nuh'];
+//             $bean->fnd = $post['fnd'];
+//             $bean->mut = $post['mut'];
+//             $bean->url = $post['url'];
+//             $bean->url_puppy = $post['url_puppy'];
+//            
+//       //store the whole array of beans at once               
+//        return R::store($bean);
+//    }
    public function insertDogAnimals($owner,$dna_id){
        echo '<br> insertDogAnimals($owner,$dna_id)';
     $kennel=R::getCell('SELECT `name_k` FROM `kennels` WHERE `owner_k` = ? LIMIT 1', [$owner]);
@@ -133,11 +190,11 @@ Class GreateNewDog{
          $dogs->estrus = 14;
      }
      
-     debug($dogs);
+     //debug($dogs);
      /*сохраняем id новой собаки*/
-     //$id_new_dog1 = R::store($dogs);
+     $id_new_dog1 = R::store($dogs);
      
-    //return $id_new_dog1;
+    return $id_new_dog1;
  
     }
     public function insertDogFamilyTree($id){
@@ -178,10 +235,43 @@ Class GreateNewDog{
         $puppy->gg0dad3 = $fam->retG0Dad($id_m);
         $puppy->gg0mum4 = $fam->retG0Mum($id_m);
         
-        debug($puppy);
-        //return R::store($puppy);
+        return R::store($puppy);
         
     }
+    public function addPupAndLit($id_m,$id_d,$count_puppy) {
+        $dog = new Dog();
+        $tabl = new Tabl();
+        $mum_pup = $dog->retPuppy($id_m);
+        $dad_pup = $dog->retPuppy($id_d);   
+        $mum_lit = $dog->retLitter($id_m);
+        $dad_lit = $dog->retLitter($id_d);
+        
+        //echo '<br>mumPup ' . ++$mum_pup;
+        $tabl->UpdateData('animals', $id_m, 'puppy', $mum_pup+=$count_puppy);
+        $tabl->UpdateData('animals', $id_d, 'puppy', $dad_pup+=$count_puppy);
+        $tabl->UpdateData('animals', $id_m, 'litter', ++$mum_lit);
+        $tabl->UpdateData('animals', $id_d, 'litter', ++$dad_lit);
+        
+        echo '<br>mumPup ' . $mum_pup = $dog->retPuppy($id_m);
+        echo '<br>dadPup ' . $dad_pup = $dog->retPuppy($id_d);   
+        echo '<br>mumLit ' . $mum_lit = $dog->retLitter($id_m);
+        echo '<br>dadLit ' . $dad_lit = $dog->retLitter($id_d);
+     
+    }
+    
+    public function buying($owner,$money) {
+        $itm = new OwnerItems();
+        
+// $money = 5000;
+        $item = 1;
+        
+        $now = $itm->retItemByOwner($item, $owner);
+        //echo $now;
+        $itm->removeItemByOwner($item, $owner, $money);
+        $now = $itm->retItemByOwner($item, $owner);
+        //echo ' soff ' . $now;
+    }
+  
         
     
 } //end class GreateNewDog
@@ -275,6 +365,7 @@ class PrintDog extends Dog{
  
 /**************************** функция печатает на экран статы и ГП*************************/
 function detalis($id){
+    /*   !! НЕ РАБОТАЕТ*/
     
     $data_dna= take_data_from(ret_dna($id), 'randodna');
     
@@ -747,6 +838,7 @@ class Users{
         $money = (int) $dog->getCount('1', $owner_id);
         return $money;
     }
+    
 }
 Class Office extends Dog {
     
@@ -1428,4 +1520,47 @@ $f_data_d = $tabl->TakeDataFrom($family_dad->retFamilyId($id_d), 'family'); //П
     return $temp;
 }
 
+}
+class OwnerItems{
+    
+    public function retIdOwnerItems($item,$owner) {
+          $user = new Users();
+          
+        $owner_id = $user->retId($owner); //возвращает id Юзера
+         $id = R::getCell('SELECT id FROM owneritems WHERE owner_id = :id AND item_id = :item', [
+        'id' => $owner_id,
+        'item' => $item
+        ]);
+         return $id;
+    }
+    public function retItemByOwner($item,$owner) {
+        $user = new Users();
+        
+        $owner_id = $user->retId($owner); //возвращает id Юзера
+        $sql = R::getCell('SELECT count FROM owneritems WHERE owner_id = :id AND item_id = :item', [
+        'id' => $owner_id,
+        'item' => $item
+        ]);
+        //var_dump($sql);
+        if (empty($sql)){
+          $sql='0';
+        }
+        return $sql;
+    }
+    public function removeItemByOwner($item,$owner,$count) {
+        //echo ' function removeItemByOwner($item,$owner,$count) ';
+        $tabl = new Tabl();
+        $now = $this->retItemByOwner($item, $owner);
+        if($now >= $count){
+            $now = $now - $count;
+            $id = $this->retIdOwnerItems($item, $owner);
+            $tabl->UpdateData('owneritems', $id, 'count', $now);
+        }
+        else{
+            echo '<br> Не хватает предметов! ';
+        }
+        
+        
+    }
+    
 }

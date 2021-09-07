@@ -45,25 +45,25 @@ if (isset($_POST['comment'])) { //если в форме NewDog включена
     echo '<br> родился малыш: ';
     echo $a = $_POST['comment'];
     // echo $_SESSION['id_new'];
-    $tabl->UpdateData('animals',$_SESSION['id_new'],'name',$_POST['comment']);
+    $tabl->UpdateData('animals',$_SESSION['id_new_dog'],'name',$_POST['comment']);
    // insert_data('animals',$_SESSION['id_new'],'name',$_POST['comment']);
 //  insert_name($_SESSION['id_new'],$_POST['comment']);
-    if ($tabl->retCell('l_time', $id, 'users') == $now ) {
-        //echo '<br> Чудо свершилось! рождены: <br>';
-        //$count = R::count( 'animals', 'owner = :owner && status = 1',[':owner' => $owner]);
-        //$array[] = R::getAssoc('SELECT id FROM animals WHERE owner = :owner && status = 1' ,[':owner' => $owner);
-        //debug($array);
-         foreach($array as $item) {
-            foreach ($item as $key => $value) {
-                if ( ('Без имени' == $tabl->retCell('name', $key,'animals')) || (''== $tabl->retCell('name', $key,'animals')) ){
-                    echo '<br>необходимо дать имя новой собаке: ';
-                    echo '<a href="/name.php?id=' . $key . '">';?>
-                    <img src="<?php echo $tabl->retCell('url_puppy',$key,'animals');?>" width="5%" float="left"></a><?php
-                }
-            }
-        }
-              						
-    } //find_where('users', $id,'l_time') == $now 
+//    if ($tabl->retCell('l_time', $id, 'users') == $now ) {
+//        //echo '<br> Чудо свершилось! рождены: <br>';
+//        //$count = R::count( 'animals', 'owner = :owner && status = 1',[':owner' => $owner]);
+//        $array[] = R::getAssoc('SELECT id FROM animals WHERE owner = :owner && status = 1' ,[':owner' => $owner]);
+//        //debug($array);
+//         foreach($array as $item) {
+//            foreach ($item as $key => $value) {
+//                if ( ('Без имени' == $tabl->retCell('name', $key,'animals')) || (''== $tabl->retCell('name', $key,'animals')) ){
+//                    echo '<br>необходимо дать имя новой собаке: ';
+//                    echo '<a href="/name.php?id=' . $key . '">';?>
+                    <img src="<?php //echo $tabl->retCell('url_puppy',$key,'animals');?>" width="5%" float="left"></a><?php
+//                }
+//            }
+//        }
+//              						
+//    } //if('users', $id,'l_time') == $now 
 } //isset($_POST['comment'])
 
 echo "<h3><li>Важные события:</h3>";
