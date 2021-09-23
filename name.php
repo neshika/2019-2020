@@ -176,7 +176,9 @@ require_once(__DIR__ . '/includes/func.php');
                         </form>
           </td>
 		<td class="статус бары" colspan="2">
-                Генетический код: <?php echo $dna->retDna($dna_id);?></li>
+                <li>Генетический код: <?php echo $dna->retDna($dna_id);?></li>
+                <li>ссылка на URL взрослый: <?php echo $dna->retUrl($dna_id);?></li> 
+                <li>ссылка на URL щенок: <?php echo $dna->retUrlPuppy($dna_id);?></li> 
                       
                              <table width="100%" border="1">
                                 <tbody>

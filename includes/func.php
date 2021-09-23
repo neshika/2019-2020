@@ -142,30 +142,6 @@ echo '<br>$array3 ' . $array3 = 'hr0w0f0b0t0m0';
         return R::getCell('SELECT dna FROM randodna WHERE id = ? LIMIT 1', [$id]);
     } 
    
-
-//    public function updateDNA($id) {
-//      $post = R :: getRow('SELECT * FROM `randodna` WHERE `id` = ? LIMIT 1', [$id]);
-//       // debug($post);
-//        //for each customer post create a new bean as a row/record          
-//            $bean = R::dispense('randodna');
-//             //assign column values 
-//             $bean->sex = $post['sex'];
-//             $bean->lucky = $post['lucky'];
-//             $bean->dna = $post['dna'];
-//             $bean->about = 'owner';
-//             $bean->spd = $post['spd'];
-//             $bean->agl = $post['agl'];
-//             $bean->tch = $post['tch'];
-//             $bean->jmp = $post['jmp'];
-//             $bean->nuh = $post['nuh'];
-//             $bean->fnd = $post['fnd'];
-//             $bean->mut = $post['mut'];
-//             $bean->url = $post['url'];
-//             $bean->url_puppy = $post['url_puppy'];
-//            
-//       //store the whole array of beans at once               
-//        return R::store($bean);
-//    }
    public function insertDogAnimals($owner,$dna_id){
        echo '<br> insertDogAnimals($owner,$dna_id)';
     $kennel=R::getCell('SELECT `name_k` FROM `kennels` WHERE `owner_k` = ? LIMIT 1', [$owner]);
@@ -363,57 +339,6 @@ class PrintDog extends Dog{
         }
     }
  
-/**************************** функция печатает на экран статы и ГП*************************/
-function detalis($id){
-    /*   !! НЕ РАБОТАЕТ*/
-    
-    $data_dna= take_data_from(ret_dna($id), 'randodna');
-    
-?>
-    <div align="left">
-      
-        <table width="100" cellpadding="2" cellspacing="0" border="1" >
-              <colgroup width="150">
-                  <colgroup span="9" align="center" width="10">
-                  <col span="5">
-                  <col span="4">
-              </colgroup>
-              <tr border="1"> 
-                     <td>имя</td><td><b><?php echo ret_cell('name',$id,'animals'); ?></b></td>
-                     <td>пол</td><td><b><?php echo w_sex($id);?></b></td>
-              </tr>
-              <tr border="1"> 
-                     <td>Скорость</td><td><?php echo $data_dna['spd']; ?></td>
-                     <td>вид</td><td><?php echo $data_dna['hr']; ?></td>
-              </tr>
-              <tr border="1"> 
-                     <td>Уворот</td><td><?php echo $data_dna['agl']; ?></td>
-                      <td>белый</td><td><?php echo $data_dna['ww']; ?></td>
-              </tr>
-              <tr border="1"> 
-                     <td>Обучение</td><td><?php echo $data_dna['tch']; ?></td>
-                     <td>рыжий</td><td><?php echo $data_dna['ff']; ?></td>
-              </tr>
-              <tr border="1"> 
-                     <td>Прыжки</td><td><?php echo $data_dna['jmp']; ?></td>
-                      <td>черный</td><td><?php echo $data_dna['bb']; ?></td>
-              </tr>
-              <tr border="1"> 
-                     <td>Обоняние</td><td><?php echo $data_dna['nuh']; ?></td>
-                     <td>пятна</td><td><?php echo $data_dna['mm']; ?></td>
-              </tr>
-              <tr border="1"> 
-                     <td>Поиск</td><td><?php echo $data_dna['fnd']; ?></td>
-                     <td>крап</td><td><?php echo $data_dna['tt']; ?></td>
-              </tr>
-              
-              </colgroup>
-        </table>
-      </div>
-
-<?php
-
-}
 }
 class Kennels{
     ///////////////////////  Работа с kennels питомники ////////////////
@@ -1230,7 +1155,7 @@ Class RandDog extends PrintDog{
           }
           if(0 == $data_dna[2]){  //если собака пуховая
               $data_dna[10]=0; //tt=0    собака нет крапа
-              $num2=Rand(3,5);  //количество варианций окраса собаки
+              $num2=Rand(1,5);  //количество варианций окраса собаки
               if(1==$data_dna[4]){   //если собака бела пух, то нет пятен и крапа    
                  $data_dna[6]=0; //ff=0    собака не модет быть рыжей
                  $data_dna[12]=0; //mm=0    собака нет пятен
