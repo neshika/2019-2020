@@ -8,7 +8,8 @@ require "db.php";
 //require "includes/functions.php";
 require "includes/func.php";
 
-?><hr><a href="http://dog.ru/test.php">тестим тут</a><hr> <?php
+?><hr><a href="http://dog.ru/test.php"> тестим тут </a>
+<a href="http://dog.ru/tailwind.html"> /стили/ </a><hr> <?php
 
 
 $login = $_SESSION['logged_user']->login;
