@@ -13,6 +13,7 @@ require "includes/functions.php";?>
 </head>
 <body>
     <div class="image_wrap" style="text-align: center;">
+        
         <p>
 <?php  
 /** Проверяет залогинен ли польззователь Если да, дает выбр действий **/

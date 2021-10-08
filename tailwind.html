@@ -1,112 +1,50 @@
-
-
-
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
+<!doctype html>
 <html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-       <!-- <link rel="stylesheet" type="text/css" href="css/tailwind.css" />-->
-       <link href="https://unpkg.com/tailwindcss@^2.0/dist/tailwind.min.css"
-            rel="stylesheet">       
-    </head>
-    <body>
-        .container
-    
-        <div>TODO write content</div>
-        <p class="my-5">
-  Bender, quit destroying the universe! Yeah, I do that with my 
-stupidness. I never loved you. Moving along…
-  Belligerent and numerous.
-</p>
-<h1 class="text-2xl font-bold mt-10 mb-10"> тут тукст </h1>
-<button class="text-white font-bold bg-purple-500 hover:bg-purple-
-800 py-2 px-4 rounded">
-  Party with Slurm!
-</button>
+<head>
+  <!-- ... -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="css/tailwind.css" rel="stylesheet">
+</head>
+<body>
+  <!-- ... -->
+  <div class="container mx-auto px-4"> 
+      <header class="flex justify-between font-2xl py-8 border-b-2 border-blue-100">
+          <a href="">Logo</a>
+          <ul class="flex justufy-between">
+              <li><a class="ml-4" href="">About</a></li>
+              <li><a class="ml-4" href="">Blog</a></li>
+              <li><a class="ml-4" href="">Contact</a></li>
+          </ul>
 
-<div class="text-red-600">
-  <p>Относительный родитель</p>
-  <div class="text-blue-700">
-    <p>Абсолютный ребенок</p>
+      </header>
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum, reiciendis, ipsa incidunt accusantium repellat fugit laudantium adipisci esse similique ex commodi sunt asperiores debitis minus velit nobis atque quas accusamus?
+  <div class="grid grid-cols-3 gap-4 text-center ">
+   <div class="transition duration-500 ease-in-out bg-blue-100 hover:bg-blue-600 transform hover:-translate-y-1 hover:scale-110 rounded-md p-5">1</div>
+   <div class="transition duration-500 ease-in-out bg-blue-100 hover:bg-blue-600 transform hover:-translate-y-1 hover:scale-110 rounded-md p-5">2</div>
+   <div class="transition duration-500 ease-in-out bg-blue-100 hover:bg-blue-600 transform hover:-translate-y-1 hover:scale-110 rounded-md p-5">3</div>
+   <div class="transition duration-500 ease-in-out bg-blue-100 hover:bg-blue-600 transform hover:-translate-y-1 hover:scale-110 rounded-md p-5">4</div>
+   <div class="transition duration-500 ease-in-out bg-blue-100 hover:bg-blue-600 transform hover:-translate-y-1 hover:scale-110 rounded-md p-5">5</div>
+   <div class="transition duration-500 ease-in-out bg-blue-100 hover:bg-blue-600 transform hover:-translate-y-1 hover:scale-110 rounded-md p-5">6</div>
+
   </div>
-</div>
-
-<table class="table-fixed">
-  <thead>
-    <tr>
-      <th class="w-1/2 ...">Заголовок</th>
-      <th class="w-1/4 ...">Автор</th>
-      <th class="w-1/4 ...">Просмотры</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Введение в CSS</td>
-      <td>Адам</td>
-      <td>858</td>
-    </tr>
-    <tr class="bg-blue-200">
-      <td>Длинный и извилистый тур по истории UI-фреймворков и инструментов и их влияния на дизайн</td>
-      <td>Адам</td>
-      <td>112</td>
-    </tr>
-    <tr>
-      <td>Введение в JavaScript</td>
-      <td>Крис</td>
-      <td>1,280</td>
-    </tr>
-  </tbody>
-</table>
-
-
-<select>
-  <option>Да</option>
-  <option>Нет</option>
-  <option>Возможно</option>
-</select>
-
-<select class="appearance-none">
-  <option>Да</option>
-  <option>Нет</option>
-  <option>Возможно</option>
-</select>
-
-<div class="p-6 max-w-sm mx-auto bg-white rounded-xl shadow-md flex items-center space-x-4">
-  <div class="flex-shrink-0">
-    <img class="h-12 w-12" src="/img/logo.svg" alt="ChitChat Logo">
+          <div class="flex justify-center py-8">
+       <svg class="animate-bounce w-6 h-6 text-amber-900" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+      <path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+    </svg>
+   </div>
+   <div class="bg-blue-100 rounded-md p-8">
+       <h2 class="text-lg mb-4">подпишись на меня</h2>
+       <form action="action" class="flex -m-2">
+           <input class="border-2 border-blue-400 rounded-md px-2 py-4 m-2" type="text" placeholder="Your name">
+           <input class="border-2 border-blue-400 rounded-md px-2 py-4 m-2" type="text" placeholder="Your mail">
+           <button class="bg-blue-400 border-2 border-blue-400 rounded-md px-2 py-4 m-2" type="submit">подпишись</button>
+       </form>
+   </div>
   </div>
-  <div>
-    <div class="text-xl font-medium text-black">ChitChat</div>
-    <p class="text-gray-500">У вас новое сообщение!</p>
-  </div>
-</div>
-
-<div class="py-8 px-8 max-w-sm mx-auto bg-white rounded-xl shadow-md space-y-2 sm:py-4 sm:flex sm:items-center sm:space-y-0 sm:space-x-6">
-  <img class="block mx-auto h-24 rounded-full sm:mx-0 sm:flex-shrink-0" src="/img/erin-lindford.jpg" alt="Woman's Face">
-  <div class="text-center space-y-2 sm:text-left">
-    <div class="space-y-0.5">
-      <p class="text-lg text-black font-semibold">
-        Эрин Линдфорд
-      </p>
-      <p class="text-gray-500 font-medium">
-        Инженер по продукту
-      </p>
-    </div>
-    <button class="px-4 py-1 text-sm text-purple-600 font-semibold rounded-full border border-purple-200 hover:text-white hover:bg-purple-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2">Сообщение</button>
-  </div>
-</div>
-
-<!-- Использование утилит -->
-<button class="py-2 px-4 font-semibold rounded-lg shadow-md text-white bg-green-500 hover:bg-green-700">
-  Нажми на меня
-</button>
-
-
-    </body>
+</body>
 </html>
+
+
+
+

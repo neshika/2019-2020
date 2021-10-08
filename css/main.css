@@ -15,6 +15,10 @@
 #2c2c2c - фон
 */
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 
 @font-face {
     font-family: 'Scriptorama';
