@@ -162,10 +162,11 @@ require_once(__DIR__ . '/includes/func.php');
 		</tr>
                 <tr class="stroka2">
                     <td class="НовоеИмя">
-                         
-                        <input class ="form-controll form-control-small" placeholder="Введите новое имя" type="text" name="name1">
-                        <input class="btn btn-dark" name="newName" type="submit" value="Внести">
-                        </form>
+                    <?php if ('Без имени' == $dog->retName($id)):?>
+                            <input class ="form-controll form-control-small" placeholder="Введите новое имя" type="text" name="name1">
+                            <input class="btn btn-dark" name="newName" type="submit" value="Внести">
+                    <?php endif;?>
+                </form>
                          <form method="POST" action = "/matting.php">
                              <?php $_SESSION['Dog']=$id;?>
                               <input class="btn btn-dark" name="matting" type="submit" value="Вязка">
