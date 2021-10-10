@@ -1031,6 +1031,10 @@ Class Dog extends Tabl{
 
         $this->UpdateData('animals',$id,'age_id', $age_id); //вставляем новые данные в таблицу по id 
     }
+       /*устанавливаем возраст на 1 */
+    public function setAge1($id){
+       $this->UpdateData('animals',$id,'age_id', 1); //вставляем новые данные в таблицу по id 
+    }
      public function addEstus($id,$num){
         $est_id = $this->retEstrus($id); //получаем цыфру возраста из табл animals
         $est_id=$est_id+$num;  //увеличивает на 1 пункт

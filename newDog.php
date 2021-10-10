@@ -91,6 +91,9 @@ echo '<br>start ';
 $dna_id = $puppy->InsertDogDna($id_m,$id_d,$puppy_dna);
 echo ' two ';
 $id_new_dog = $puppy->insertDogAnimals($owner, $dna_id);
+
+// по умолчанию age_id 13, меняем на щенка 1
+$dog->setAge1($id_new_dog);
 $id_family_new_dpg = $puppy->insertNewPuppyFamilyTree($id_m, $id_d);
 $tabl->UpdateData('animals', $id_new_dog, 'breeder', $owner); //присваиваем заводчика новой собаке
 $puppy_dna = $rnd->doUrl($puppy_dna);

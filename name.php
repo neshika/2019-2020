@@ -91,10 +91,12 @@ require_once(__DIR__ . '/includes/func.php');
     if ( !empty($_POST['add_age']) ){
         $age = new Dog();
         $age->addAge($id);
-//        echo '<br>тут текст' . $_POST['add_age'];
-//        unset($_POST['add_age']);
-//        echo '<br>тут нету' . $_POST['add_age'];
         
+    }
+    /*если нажата кнопка кушать*/
+    
+    if (isset($_POST['eat'])){
+       
     }
    
 ?>
@@ -115,7 +117,7 @@ require_once(__DIR__ . '/includes/func.php');
        <tbody>
 		<tr class="stroka1">
                     <td class="текст"><div class="border_text">
-                        <button type="button" class="btn btn-dark">Есть <i class="fa fa-cutlery" aria-hidden="true"></i></button>
+                        <button type="submit" class="btn btn-dark" name="eat">Есть <i class="fa fa-cutlery" aria-hidden="true"></i></button>
                         <button type="button" class="btn btn-dark">Пить <i class="fa fa-tint" aria-hidden="true"></i></button>
                         <button type="button" class="btn btn-dark">Чесать <i class="fa fa-bath" aria-hidden="true"></i></button>
                         <button type="button" class="btn btn-dark">Гулять <i class="fa fa-umbrella" aria-hidden="true"></i></button>
