@@ -692,7 +692,7 @@ class Tabl{
         $array = R::getAssoc($this->getSql($id,$tabl));
             foreach($array as $item) {
                 foreach ($item as $key => $value) {
-                    if($key==$bdika){
+                    if($key == $bdika){
                         return $item[$bdika];
                     }
                 }
@@ -1395,6 +1395,7 @@ public function bdikaMutation($id_m,$id_d) {
 $f_data_m  = $tabl->TakeDataFrom($family_mum->retFamilyId($id_m), 'family'); // получаем id на фамилию  //родственники по линии матери
 $f_data_d = $tabl->TakeDataFrom($family_dad->retFamilyId($id_d), 'family'); //Получаем данные из семьи  //родственники по линии отца
 
+
     echo '<br>function bdika_mutation <br>';
     $temp =0; //нет мутации
     $num =Rand(1,100);   //шанс получения мутации
@@ -1488,4 +1489,75 @@ class OwnerItems{
         
     }
     
+}
+class Registry{
+    /******************* ВНЕСЕНИЕ В табл REGISTRY   ************************/
+/*ФУНКЦИЯ проверяет последнюю будку помета и увеличивает ее на 1*/
+
+    public function retLit($id) {
+        $lit = R::getCell('SELECT `lit` FROM registry WHERE `id` = ? LIMIT 1', [$id]);
+        return $lit;
+    }
+    function addLit($id){
+        echo 'сравниваем букву ' . $lit = $this->retLit($id);
+        if('Я' == $lit){ //если конец алфавита, начинаем сначала
+            $lit = 'А';
+            return $lit;
+            //break;
+        }
+        //$array[] = range('А','Я');
+        $array [] = array(
+	'А', 'Б', 'В', 'Г', 'Д', 'Е', 'Ё', 'Ж', 'З', 'И', 'Й', 'К', 'Л', 'М', 'Н', 'О', 'П', 'Р', 
+	'С', 'Т', 'У', 'Ф', 'Х', 'Ц', 'Ч', 'Ш', 'Щ', 'Ъ', 'Ы', 'Ь', 'Э', 'Ю', 'Я'
+        );
+       foreach($array as $item) {
+        foreach ($item as $key => $value) {
+           
+            if($lit == $value){
+                 echo '[' . $key . ']= ' . $value;
+                $key++;
+                $lit = $item[$key];
+                return $lit;
+                break;
+            }
+        }
+       }
+        
+    }
+
+    function insertReg($id_m,$id_d,$id_new){
+        $dog = new Dog;
+        $tabl = new Tabl;
+        $sex_puppy = $dog->retSex($id_new);
+   
+    $date = date("Y-m-d");    
+    $datebirth=Rand(55,70);
+    $count=1;
+    $male = $female = 0;
+    $count45=$count;
+    $sex_puppy ? $male = 1 : $female = 1;
+            
+// Указываем, что будем работать с таблицей book
+    $book = R::dispense('registry');
+    // Заполняем объект свойствами
+    $book->date = $date;
+    $book->mum = $id_m;
+    $book->dad = $id_d;
+
+    $book->datebirth = $datebirth;
+    $book->count = $count;
+    $book->count45 = $count45;
+    $book->female = $female;
+    $book->male = $male;
+    $book->tatoo = 0;
+    // Сохраняем объект
+    $id = R::store($book);
+    echo 'новый ИД ' . $id; //= R::getInsertID();
+    $id--;
+    echo '<br>старый ИД ' . $id;
+    //$lit=ret_Cell('lit', $id, 'registry');
+    echo 'буква новая ' . $lit = $this->addLit($id);
+    $id++;
+    $tabl->UpdateData('registry', $id, 'lit', $lit);
+    }
 }

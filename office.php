@@ -1,14 +1,12 @@
 <?php
+//подключение файлов
 require "db.php";
-		//подключение файлов
-		require_once(__DIR__ . '/html/header.html');
-               		
-?><div class="content">
-<?php
-//require "includes/functions.php";
-require "includes/func.php";
-
-?><hr><a href="http://dog.ru/test.php"> тестим тут </a>
+require_once(__DIR__ . '/html/header.html');
+require_once(__DIR__ . '/includes/func.php');
+             		
+?>
+<div class="content">
+<hr><a href="http://dog.ru/test.php"> тестим тут </a>
 <a href="http://dog.ru/tailwind.html"> /стили/ </a><hr> <?php
 
 
@@ -21,11 +19,12 @@ $tabl = new Tabl;
 $ken = new Kennels;
 $rand_dog = new RandDog;
 $event = new Office;
+$print = new PrintDog;
 
 
 
 
-$now=date('d.m.Y');  //03.08.2017
+$now = date('d.m.Y');  //03.08.2017
 $owner = $user->retOwner();
 $dog->countDogs($owner); // считает количество собак у владельца
 
@@ -42,30 +41,18 @@ echo '<br> собак в питомнике: ' . $ken->retCountDog($owner); // �
 
 echo "<h3><li>Последние новости</li></h3>";
 
-if (isset($_POST['comment'])) { //если в форме NewDog включена кнопка отправки имени собаки
-    echo '<br> родился малыш: ';
-    echo $a = $_POST['comment'];
-    // echo $_SESSION['id_new'];
-    $tabl->UpdateData('animals',$_SESSION['id_new_dog'],'name',$_POST['comment']);
-   // insert_data('animals',$_SESSION['id_new'],'name',$_POST['comment']);
-//  insert_name($_SESSION['id_new'],$_POST['comment']);
-//    if ($tabl->retCell('l_time', $id, 'users') == $now ) {
-//        //echo '<br> Чудо свершилось! рождены: <br>';
-//        //$count = R::count( 'animals', 'owner = :owner && status = 1',[':owner' => $owner]);
-//        $array[] = R::getAssoc('SELECT id FROM animals WHERE owner = :owner && status = 1' ,[':owner' => $owner]);
-//        //debug($array);
-//         foreach($array as $item) {
-//            foreach ($item as $key => $value) {
-//                if ( ('Без имени' == $tabl->retCell('name', $key,'animals')) || (''== $tabl->retCell('name', $key,'animals')) ){
-//                    echo '<br>необходимо дать имя новой собаке: ';
-//                    echo '<a href="/name.php?id=' . $key . '">';?>
-                    <img src="<?php //echo $tabl->retCell('url_puppy',$key,'animals');?>" width="5%" float="left"></a><?php
-//                }
-//            }
-//        }
-//              						
-//    } //if('users', $id,'l_time') == $now 
-} //isset($_POST['comment'])
+
+
+if (isset($_POST['comment'])): //если в форме NewDog включена кнопка отправки имени собаки
+    if($now == $user->retLTime($owner)): //если данные о смене имени прищли сегодня
+        echo '<br> Сегодня родился малыш: ';
+        echo $name = $_POST['comment'];
+        //var_dump($_SESSION['id_new']);
+        $id = $_SESSION['id_new'];
+        $tabl->UpdateData('animals',$id,'name',$name);
+        $print->picLink($id,'50');
+    endif;
+endif;
 
 echo "<h3><li>Важные события:</h3>";
     $num = 0;
@@ -163,15 +150,13 @@ if( isset($_POST['shelter']) ){
     }
     //кнопка купить собаку. акция актуальна только сегодня
     $rando = rand(1, 100);
-     if ($rando == 1){
-         ?>
-                    <h3><li>Только сегодня акция: </li></h3>";   
-
-                    <form action="buy.php" method="POST">
-                        <button type="submit" class="knopka" name="buy">Купить собаку</button>
-                    </form>
-         <?php           
-     }
+    if ($rando == 1):?>
+        <h3><li>Только сегодня акция: </li></h3>";   
+        <form action="buy.php" method="POST">
+            <button type="submit" class="knopka" name="buy">Купить собаку</button>
+        </form>
+    <?php Endif; 
+  
 
 
                      

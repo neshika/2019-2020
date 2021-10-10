@@ -65,6 +65,7 @@ $tabl = new Tabl();
 $dog = new Dog();
 $prt = new PrintDog();
 $usr = new Users();
+$reg = new Registry; // Регистарционная книга
 
 $id_m = $_SESSION['id_m'];
 $id_d = $_SESSION['id_d'];
@@ -102,37 +103,10 @@ $tabl->UpdateData('animals', $id_new_dog, 'dna_id', $dna_id); //внести  с
 echo ' $puppy->addPupAndLit($id_m, $id_d, $count_puppy) ';
 $puppy->addPupAndLit($id_m, $id_d, $count_puppy); //увеличить количество вязок и щенков
 
-//
-//
-// $id_new=greate_animal($id_m,$id_d); // функция для получания параметров собаки 
-//        // ******************** вывод картинки собаки по id  *****************-->  
-//     // echo "<br>Малыш:";
-//     // $id_new=7;
-//      //var_dump($id_new);
-//
-//     $data_dna=do_dna($id_new);    //полцчаем Генетический код hr0w0f1b1t1m0
-//     $dna_id= ret_dna($id_new);    //ссылка на его dna_id
-//    // echo '<br> ДНА Малыша: ' . $data_dna;
-//      insert_data('randodna', $dna_id, 'dna', $data_dna);   //вставляем ГК в поле DNA
-//    
-//      $url=do_url($data_dna);       //создаем url собаки
-//     // echo '<br> ссылка на URL щенка' . $url;
-// 
-//      insert_url($id_new,$url);     //вставляем в табл url
-//     
-//     // echo 'вносим ссылку на картинку щенка';
-//      insert_url_puppy($id_new);
-//      
-//      
-//   /***************функция по получению стат в зависимости от отца и матери************/
-////echo 'добавляем щенков и вязки';
-//     add_litters($_SESSION['id_m'],$_SESSION['id_d']);
-//     add_puppies($_SESSION['id_m'],$_SESSION['id_d']);
-//     get_estrus($id_new);   //дает первую течку сукам
-//  
+// внести данные в регистарционную книгу registry
+$reg->insertReg($id_m, $id_d, $id_new_dog);
 
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!//внесни данные об увеличении вязок мама и папа
-     $_SESSION['id_new'] = $id_new_dog;
+$_SESSION['id_new'] = $id_new_dog;
    
 
 ?>
@@ -142,7 +116,7 @@ $puppy->addPupAndLit($id_m, $id_d, $count_puppy); //увеличить коли�
   <tr>
   
  
-      <td id="col1"><h3>Щенок: </h3>
+      <td id="col1"><h3>Щенок: <?php echo $id_new_dog;?></h3>
              <div align="center">
                  <?php $prt->picLink($id_new_dog, 120);
                  ?></div>

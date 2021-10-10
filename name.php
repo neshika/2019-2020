@@ -1,9 +1,8 @@
 <?php
 require_once(__DIR__ . '/libs/up.php');
 require_once(__DIR__ . '/includes/func.php');
-    
+ 
 ?>
-<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 <style>
     .border{
         -webkit-box-shadow: 5px 5px 15px 5px #000000, 5px 5px 15px 5px #000000; 
@@ -216,6 +215,7 @@ require_once(__DIR__ . '/includes/func.php');
 <?php 
 
 
-  
 require_once(__DIR__ . '/html/footer.html');    
+?>
+<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
  
