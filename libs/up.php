@@ -3,7 +3,7 @@
 require $_SERVER['DOCUMENT_ROOT']."/db.php";
 
 //подключение файла с функциями
-require $_SERVER['DOCUMENT_ROOT']."/includes/functions.php";
+//require $_SERVER['DOCUMENT_ROOT']."/includes/functions.php";
 
 require $_SERVER['DOCUMENT_ROOT'].'/html/header.html';
 //require '/public_html/html/header.html';

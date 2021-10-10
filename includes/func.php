@@ -4,10 +4,11 @@
 <style>
 .table {
 	width: 100%;
-	margin-bottom: 20px;
-	border: 15px solid #F2F8F8;
+	margin-bottom: 10px;
+	border: 3px solid #F2F8F8;
 	border-top: 5px solid #F2F8F8;
 	border-collapse: collapse; 
+        color: silver;
 }
 .table th {
 	font-weight: bold;
@@ -258,7 +259,7 @@ class PrintDog extends Dog{
                 'search' => "%$id%"]);  
       //debug($str);
       ?>
-       <table class="table">
+<table class="table">
     <tr> 
         <td>удача</td>
         <td><?php echo $array['lucky']?></td>
@@ -320,6 +321,13 @@ class PrintDog extends Dog{
              <?php 
          
     
+    }
+    
+    /*функция печатает собаку , можно указать размер картинки в пикселях. проверяет щенок или нет(печатает из ANIMALS)*/
+    function printDogPic($id,$size='100%'){
+        $owner = $this->retOwner($id);
+        $url = $this->bdikaUrl($id);
+         ?><img src="<?php echo $url;?>" width="<?php echo $size?>"><?php 
     }
     
     /* функция печатает собаку по ее URL */
@@ -433,7 +441,8 @@ class Kennels{
             $lit = $dog->retLitter($key);
             $pup = $dog->retPuppy($key);
             $sex = $dog->retSexText($key);
-           $GLOBALS['Data_dog']=data_animals($key);    //сохраняем данные по собаке
+           $GLOBALS['Data_dog']= R::getRow( 'SELECT * FROM animals WHERE id = :id',
+                                            [':id' => $key]);;    //сохраняем данные по собаке
                
 /*выводим на экран имя собаки как ссылку*/
             If('4'>$count){ //если еще не 4 столбика, вписываем
@@ -445,7 +454,7 @@ class Kennels{
                <div><?php   //  вывод на экран количество вязок и щенков
                             echo '<br>имя: ' . $value;
                             echo '<br> пол : ' . $sex . '<br>';
-                            echo bdika_estrus($key);
+                            echo $dog->retEstrusStatus($key);
                             echo '<a href="/lit&pup.php?id=' . $key . '">' . "<br> вязки/дети: ". $lit .'/'. $pup;
                             $count=$count+1;
                             ?>
@@ -458,7 +467,7 @@ class Kennels{
                <div><?php   //  вывод на экран количество вязок и щенков
                             echo '<br>имя: ' . $value;
                             echo '<br> пол : ' . $sex . '<br>';
-                            echo bdika_estrus($key);
+                            echo $dog->retEstrusStatus($key);
                             echo '<a href="/lit&pup.php?id=' . $key . '">' . "<br> вязки/дети: ". $lit .'/'. $pup;?>
                </div>                       
                 <?php
@@ -504,7 +513,7 @@ class Kennels{
                <div><?php   //  вывод на экран количество вязок и щенков
                             echo '<br>имя: ' . $value;
                             echo '<br> пол : ' . $sex_txt . '<br>';
-                            echo bdika_estrus($id);
+                            echo $dog->retEstrusStatus($id);
                             echo '<a href="/lit&pup.php?id=' . $id . '">' . "<br> вязки/дети: ". $lit .'/'. $pup;
                             $count=$count+1;
                             ?>
@@ -517,7 +526,7 @@ class Kennels{
                <div><?php   //  вывод на экран количество вязок и щенков
                             echo '<br>имя: ' . $value;
                             echo '<br> пол : ' . $sex_txt . '<br>';
-                            echo bdika_estrus($id);
+                            echo $dog->retEstrusStatus($id);
                             echo '<a href="/lit&pup.php?id=' . $id . '">' . "<br> вязки/дети: ". $lit .'/'. $pup;?>
                </div>                       
                 <?php
@@ -561,7 +570,7 @@ class Kennels{
                <div><?php   //  вывод на экран количество вязок и щенков
                             echo '<br>имя: ' . $name;
                             echo '<br> пол : ' . $sex_txt . '<br>';
-                            echo bdika_estrus($id);
+                            echo $dog->retEstrusStatus($id);
                             echo '<a href="/lit&pup.php?id=' . $id . '">' . "<br> вязки/дети: ". $lit .'/'. $pup;
                             $count=$count+1;
                             ?>
@@ -574,7 +583,7 @@ class Kennels{
                <div><?php   //  вывод на экран количество вязок и щенков
                             echo '<br>имя: ' . $name;
                             echo '<br> пол : ' . $sex_txt . '<br>';
-                            echo bdika_estrus($id);
+                            echo $dog->retEstrusStatus($id);
                             echo '<a href="/lit&pup.php?id=' . $id . '">' . "<br> вязки/дети: ". $lit .'/'. $pup;?>
                </div>                       
                 <?php

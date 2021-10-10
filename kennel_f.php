@@ -4,7 +4,7 @@ require_once(__DIR__ . '/libs/up.php');
 require_once(__DIR__ . '/includes/func.php');
 $printdog = new PrintDog();
 $dog = new Dog();
-$owner=ret_owner(); //сохраняем название владельца в переменную из куки
+$owner = $dog->retOwnerNoId(); //сохраняем название владельца в переменную из куки
 $ken = new Kennels();
 $kennel = $ken->retKennel($owner);
 $count = $ken->retCountFemaleDog($owner);
