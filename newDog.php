@@ -53,10 +53,16 @@ error_reporting(E_ALL);
       width: 450px;
       background: #F5F5DC;; /* Цвет фона  колонки */
    }
-   
+  details summary::after {
+    content: "Открыть debug";
+  }
+  details[open] summary::after {
+    content: "Закрыть debug";
+  }
      
   </style>
- 
+  <details>
+  <summary></summary>
 <?php
 $puppy = new GreateNewDog();
 $rnd = new RandDog();
@@ -113,7 +119,9 @@ $_SESSION['id_new'] = $id_new_dog;
    
 
 ?>
-  
+
+  <summary></summary>
+</details>
   <div class="wrapper">
   <table width="100%" cellpadding="5" cellspacing="0">
   <tr>
