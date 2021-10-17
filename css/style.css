@@ -99,8 +99,8 @@ p {и в конце параграфов}*/
     border: 1px groove #9868CE;
 }
  
-.content{
-    width: 1170px;  /*520*/
+content{
+   width: 1170px;  
     height: auto;
     float: left;
    background: #E0E0E0;
@@ -109,6 +109,7 @@ p {и в конце параграфов}*/
     color: #FFF;
             
 }
+
 div.title_cont{
   background: #E0E0E0;
   height:  10px;

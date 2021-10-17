@@ -45,6 +45,69 @@ hr{
     -moz-border-radius: 3px;
     border-radius: 3px;
 }
+.container2 {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+  
+  @media (min-width: 576px) {
+    .container2 {
+      max-width: 540px;
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .container2 {
+      max-width: 720px;
+    }
+  }
+  
+  @media (min-width: 992px) {
+    .container2 {
+      max-width: 960px;
+    }
+  }
+  
+  @media (min-width: 1200px) {
+    .container2 {
+      max-width: 1140px;
+    }
+  }
+  
+  .container2-fluid, .container2-sm, .container2-md, .container2-lg, .container2-xl {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+  
+  @media (min-width: 576px) {
+    .container2, .container2-sm {
+      max-width: 540px;
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .container2, .container2-sm, .container2-md {
+      max-width: 720px;
+    }
+  }
+  
+  @media (min-width: 992px) {
+    .container2, .container2-sm, .container2-md, .container2-lg {
+      max-width: 960px;
+    }
+  }
+  
+  @media (min-width: 1200px) {
+    .container2, .container2-sm, .container2-md, .container2-lg, .container2-xl {
+      max-width: 1140px;
+    }
+  }
 
 #header {
     border-bottom: 1px solid #eee;
@@ -142,8 +205,9 @@ div{
     overflow: hidden;
     text-align: center;
     text-shadow: 0 -1px 0 #000;    
-    -webkit-box-shadow: inset 0 0 10px transparent;
+   /* -webkit-box-shadow: inset 0 0 10px transparent;
     -moz-box-shadow: inset 0 0 10px transparent;
+    */
 }
 
 #nav a:after {
@@ -741,8 +805,9 @@ a.buttons:not(:hover) {
     background-color: rgb(165,117,181);
     background-image: -webkit-gradient( linear, left bottom, left top, color-stop(0, rgb(165,117,181)), color-stop(1, rgb(165,117,181)) );
     background-image: -moz-linear-gradient( center bottom, rgb(43,194,83) 37%, rgb(84,240,84) 69% );
-    -webkit-box-shadow: inset 0 2px 9px rgba(255,255,255,0.3), inset 0 -2px 6px rgba(0,0,0,0.4);
+    /*-webkit-box-shadow: inset 0 2px 9px rgba(255,255,255,0.3), inset 0 -2px 6px rgba(0,0,0,0.4);
     -moz-box-shadow: inset 0 2px 9px rgba(255,255,255,0.3), inset 0 -2px 6px rgba(0,0,0,0.4);
+    */
     position: relative;
     overflow: hidden;
 }
@@ -823,7 +888,6 @@ fieldset[disabled] .btn-link2:focus {
     width: 100%;
     margin-bottom: 1rem;
    
-    
 }
 
 .table th,
@@ -1015,4 +1079,5 @@ background: #2B2A29
         box-shadow: 5px 5px 15px 5px #727272;
         /*border-radius: 15px;*/
 }
+/*///////////////////  shelter.php ///////////*/
 
