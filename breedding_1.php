@@ -95,7 +95,7 @@ $temp2=(int)$_SESSION['ONONA'];
                     }
                     if(bdika_balance($_SESSION['owner'],5000)){ //проверка остатка средств на вязку. если хватает активна кнопка "ВЯЗКА" ?>
                           
-                      <form method="POST" action="/NewDog.php">
+                      <form method="POST" action="/newdog.php">
                                 <input type="submit" name="nazvanie_knopki" value="Вяжем" class="knopka"/>
                       </form>
                     <?php }else 
