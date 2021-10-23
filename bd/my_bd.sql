@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Окт 23 2021 г., 12:19
+-- Время создания: Окт 23 2021 г., 19:20
 -- Версия сервера: 5.5.62
 -- Версия PHP: 7.1.33
 
@@ -394,7 +394,8 @@ INSERT INTO `kennels` (`id`, `name_k`, `owner_k`, `date`, `dogs`, `l_litter`, `e
 (34, 'Голубые бантики', 'кто-то', '22.11.2020', 2, '', 'blue@gfh.tu'),
 (35, 'Лучики', 'Елена', '22.11.2020', 2, '', 'Lena43@gmail.com'),
 (36, 'Звездочки', 'Ольга Тимофеева', '22.11.2020', 2, '', 'o.timka@yandex.ru'),
-(37, 'Чашка', 'Дима', '22.11.2020', 6, '', 'da/steapnoav@gdjn.com');
+(37, 'Чашка', 'Дима', '22.11.2020', 6, '', 'da/steapnoav@gdjn.com'),
+(44, '', '', '00.00.0000', 0, '', NULL);
 
 -- --------------------------------------------------------
 
@@ -611,7 +612,7 @@ INSERT INTO `randodna` (`id`, `hr`, `ww`, `ff`, `bb`, `tt`, `mm`, `sex`, `lucky`
 
 CREATE TABLE `registry` (
   `id` int(11) NOT NULL,
-  `lit` varchar(5) NOT NULL COMMENT 'Буква помета',
+  `lit` varchar(5) NOT NULL DEFAULT 'Я' COMMENT 'Буква помета',
   `date` date NOT NULL COMMENT 'дата вязки',
   `mum` int(11) NOT NULL COMMENT 'id мамы',
   `dad` int(11) NOT NULL COMMENT 'id папы',
@@ -628,12 +629,12 @@ CREATE TABLE `registry` (
 --
 
 INSERT INTO `registry` (`id`, `lit`, `date`, `mum`, `dad`, `datebirth`, `count`, `count45`, `female`, `male`, `tatoo`) VALUES
-(1, 'a', '2017-09-17', 2, 3, '55', 1, 1, 0, 1, 0),
-(2, 'b', '2018-01-10', 1, 5, '60', 1, 1, 0, 1, 0),
-(3, 'c', '2018-01-07', 2, 6, '55', 1, 1, 0, 1, 0),
-(4, 'd', '2018-11-22', 1, 6, '57', 1, 1, 0, 1, 0),
-(5, 'e', '0000-00-00', 1, 5, '67', 2, 2, 0, 2, 0),
-(6, 'f', '2019-04-28', 1, 5, '57', 3, 3, 2, 1, 0);
+(1, 'А', '2017-09-17', 2, 3, '55', 1, 1, 0, 1, 0),
+(2, 'Б', '2018-01-10', 1, 5, '60', 1, 1, 0, 1, 0),
+(3, 'В', '2018-01-07', 2, 6, '55', 1, 1, 0, 1, 0),
+(4, 'Г', '2018-11-22', 1, 6, '57', 1, 1, 0, 1, 0),
+(5, 'Д', '0000-00-00', 1, 5, '67', 2, 2, 0, 2, 0),
+(6, 'Е', '2019-04-28', 1, 5, '57', 3, 3, 2, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -684,7 +685,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `login`, `email`, `password`, `kennel`, `f_time`, `l_time`, `online`, `sign`, `visits`) VALUES
-(1, 'nesh', 'stepanova@mail.ru', '$2y$10$pinvDspcODn0zxHMfyEUoufayxxNfwrQoqHGX2.Ky1I.fB7FnDan.', 'Чарующий соблазн', '03.09.2017', '23.10.2021', 1, 0, 205),
+(1, 'nesh', 'stepanova@mail.ru', '$2y$10$pinvDspcODn0zxHMfyEUoufayxxNfwrQoqHGX2.Ky1I.fB7FnDan.', 'Чарующий соблазн', '03.09.2017', '23.10.2021', 1, 0, 206),
 (2, 'test', 'test@test', '$2y$10$Vy0Am7CkZj5SYrzoNR26W.XsiO21HWtuQezqns20CfpcqAqdlm7D.', 'Тестики', '04.09.2017', '10.09.2017', 0, 0, 4),
 (3, 'новый заводчик', 'test@test2.ru', '$2y$10$eOSfjXze0C3M1FJgNsR3F.A2gohq8kG/avSzH4VEt1.U9q09wUGu2', 'НовыйПитомник', '18.11.2020', '00.00.0000', 0, 0, 0),
 (4, 'Заводчик', 'test1@test.ru', '$2y$10$PsPFKFAR7shobc1ugQ983eppBEsxSnyncfSbwGui4ItBxt5bq6ibG', 'Пушистики', '19.11.2020', '29.05.2021', 0, 0, 47),
@@ -850,7 +851,7 @@ ALTER TABLE `items`
 -- AUTO_INCREMENT для таблицы `kennels`
 --
 ALTER TABLE `kennels`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT для таблицы `litters`

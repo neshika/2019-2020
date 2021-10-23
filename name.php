@@ -17,6 +17,7 @@ require_once(__DIR__ . '/includes/func.php');
         
     }
      .border_pic{
+        position: relative; 
         padding: 10px;
         margin: 25px;
         width: 300px;
@@ -25,7 +26,11 @@ require_once(__DIR__ . '/includes/func.php');
         box-shadow: 5px 5px 15px 5px #727272;
         border-radius: 15px;
         /* background-color: #fff;*/
-        
+    .border_pic img{
+        position: absolute;
+        height: 75%;
+        width: auto;
+        }
     .border_text{
         padding: 5px;
         margin: 25px;
