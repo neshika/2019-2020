@@ -2,79 +2,10 @@
 require_once(__DIR__ . '/libs/up.php');
 require_once(__DIR__ . '/includes/func.php');
  
-?>
-<style>
-    .border{
-        -webkit-box-shadow: 5px 5px 15px 5px #000000, 5px 5px 15px 5px #000000; 
-        box-shadow: 5px 5px 15px 5px #000000, 5px 5px 15px 5px #000000;
-    }
-    .border2{
-        padding: 5px;
-        margin: 25px;
-        -webkit-box-shadow: 5px 5px 15px 5px #727272; 
-        box-shadow: 5px 5px 15px 5px #727272;
-        border-radius: 15px;
-        
-    }
-     .border_pic{
-        position: relative; 
-        padding: 10px;
-        margin: 25px;
-        width: 300px;
-        height: 300px;
-        -webkit-box-shadow: 5px 5px 15px 5px #727272; 
-        box-shadow: 5px 5px 15px 5px #727272;
-        border-radius: 15px;
-        /* background-color: #fff;*/
-    .border_pic img{
-        position: absolute;
-        height: 75%;
-        width: auto;
-        }
-    .border_text{
-        padding: 5px;
-        margin: 25px;
-        width: 800px;
-        height: 500px;
-        
-        -webkit-box-shadow: 5px 5px 15px 5px #727272; 
-        box-shadow: 5px 5px 15px 5px #727272;
-        border-radius: 15px;
-        
-    }
-    table{
-        width: 100%;
-        border-collapse:collapse;
-        border-spacing:0
-            
-    }
-    table, td, th{
-        border: 1px solid #595959;
-    }
-    td, th{
-        padding: 3px;
-        width: 30px;
-        height: 25px;
-    }
-    th{
-        background-color: #7accee!important;
-    }
-    .stroka1{
-        width: 800px;
-    }
-}
-</style>    
-<?php   
   if(!isset($_GET['id']) || !isset($_GET['owner'])){
      $id = $_SESSION['Dog'];
      $dog = new PrintDog();
      $owner = $dog->retOwner($id);
-     
-     
-     
-      //echo $GLOBALS['Data_dog']['name'];
-     
-    // $owner = $_SESSION['owner'];
     }
     else{
         $id = $_GET['id'];
@@ -103,33 +34,26 @@ require_once(__DIR__ . '/includes/func.php');
     if (isset($_POST['eat'])){
        
     }
-   
-?>
-<div class="border2">
-<?php
-   // echo $id . '<br>' . $owner;
-    //$dog = new PrintDog();
     $new_dog = new GreateNewDog();
     $dna = new Dna();
     $dog = new PrintDog();
     $dna_id=$dog->retDnaId($id);
     $rand_dog = new RandDog;
-
-        
+   
 ?>
-    <form method="POST">    
-<div class="table-responsive"><table  border="1">
-       <tbody>
-		<tr class="stroka1">
-                    <td class="текст"><div class="border_text">
-                        <button type="submit" class="btn btn-dark" name="eat">Есть <i class="fa fa-cutlery" aria-hidden="true"></i></button>
+
+<div class="dogcontent">
+<form method="POST">
+<table border="1">
+     <tr>
+         <td><div class="dannie">
+         <button type="submit" class="btn btn-dark" name="eat">Есть <i class="fa fa-cutlery" aria-hidden="true"></i></button>
                         <button type="button" class="btn btn-dark">Пить <i class="fa fa-tint" aria-hidden="true"></i></button>
                         <button type="button" class="btn btn-dark">Чесать <i class="fa fa-bath" aria-hidden="true"></i></button>
                         <button type="button" class="btn btn-dark">Гулять <i class="fa fa-umbrella" aria-hidden="true"></i></button>
                         <button type="button" class="btn btn-dark">Спать <i class="fa fa-bed" aria-hidden="true"></i></button>
                         <input type="submit" class="btn btn-dark" name="add_age" value="Растить"><br>
-                       
-                        </div>
+
                         <br>Кличка <?php echo $dog->picSex($id);?><strong><h1><?php echo $dog->retName($id) . " " . "\"" . $dog->retKennel($id) . "\"";?></h1></strong>
                         <hr>
                         <li>Заводчик: <?php echo $dog->retBreeder($id);?></li>    
@@ -149,13 +73,10 @@ require_once(__DIR__ . '/includes/func.php');
                        <li>Шокоген:  <?php echo $dna->retShocoGen($dna_id)?></li>
                        <a href="<?php echo '/family_tree.php?id=' . $id;?>" class="btn btn btn-dark" role="button" aria-pressed="true">родословная</a><br>
                        <button type="button" class="btn btn-dark">щенки</button>
-                      
-                     </td>
-			<td class="пусто"></td>
-			<td class="картинка"><div class="border_pic"> <?php $dog->picLink($id, '100%');?>
-                              
-                            
-                            </div><button type="button" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Добавки +Энергия">
+                </div></td>
+                <td><div class="kartinka"> картинка <?php $dog->picLink($id, '50%');?></div>
+                    <div class="arba">
+                    </div><button type="button" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Добавки +Энергия">
                                 <i class="fa fa-leaf fa-2x" aria-hidden="true"></i><i class="fa fa-bolt" aria-hidden="true"></i>+</button>
                         <button type="button" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Спа уход +Счастье" >
                             <i class="fa fa-umbrella fa-2x" aria-hidden="true"></i> <i class="fa fa-certificate" aria-hidden="true"></i>+</button>
@@ -163,11 +84,12 @@ require_once(__DIR__ . '/includes/func.php');
                             <i class="fa fa-medkit fa-2x" aria-hidden="true"></i> <i class="fa fa-heart" aria-hidden="true"></i>+</button>
                         <button type="button" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Тренировка -Энергия+Счастье">
                             <i class="fa fa-graduation-cap fa-2x" aria-hidden="true"></i> <i class="fa fa-bolt" aria-hidden="true"></i>-<i class="fa fa-certificate" aria-hidden="true"></i>+</button>
-                        <br></td>
-                             
-		</tr>
-                <tr class="stroka2">
-                    <td class="НовоеИмя">
+                        <br>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td><div class="sobitia"> ссылки
                     <?php if ('Без имени' == $dog->retName($id)):?>
                             <input class ="form-controll form-control-small" placeholder="Введите новое имя" type="text" name="name1">
                             <input class="btn btn-dark" name="newName" type="submit" value="Внести">
@@ -182,7 +104,8 @@ require_once(__DIR__ . '/includes/func.php');
                              <?php $_SESSION['Dog'] = $id; ?>
                         </form>
           </td>
-		<td class="статус бары" colspan="2">
+                </div></td>
+                <td><div class="status" colspan="2">
                 <li>Генетический код: <?php echo $dna->retDna($dna_id);?></li>
                 <li>ссылка на URL взрослый: <?php echo $dna->retUrl($dna_id);?></li> 
                 <li>ссылка на URL щенок: <?php echo $dna->retUrlPuppy($dna_id);?></li> 
@@ -213,16 +136,12 @@ require_once(__DIR__ . '/includes/func.php');
                                     </tr>
                                 </tbody>
                         </table>   
-                        </td>
-		</tr>
-	</tbody>
-</table></div>
-</div> 
+                        </td></div></td>
+            </tr>
+          </=> 
+        </div>
 </form>
-<?php 
-
-
-require_once(__DIR__ . '/html/footer.html');    
-?>
-<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
- 
+</body>
+</html>
+<?php
+require_once(__DIR__ . '/html/footer.html');

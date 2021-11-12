@@ -1,0 +1,1081 @@
+/*============================*/
+/* General
+/*============================*/
+
+/* #FFFFFF - белый
+  #F2F2F2 - серый
+  #FFCCFF - розовый
+  #9868CE - сиреневый
+  #9C339A - малиновыйF
+  #66029A - фиолетовый
+  #291839 - кнопки
+  #A575B5 - текст кнопок
+  #626262 - т. серый
+#D0D0D0      - чуть серый  
+#2c2c2c - фон
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+*/
+@import "_name";
+
+@font-face {
+    font-family: 'Scriptorama';
+    src: url('/fonts/s/Scriptorama.ttf');
+}
+
+html, body {
+    background: #2c2c2c;
+    color: #adb5bd;
+    font-family: Montserrat, Georgia, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    
+}
+hr{
+   color: #D0D0D0;
+}
+
+#container {
+    margin: 10px auto;
+    width: 800px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+.container2 {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+  
+  @media (min-width: 576px) {
+    .container2 {
+      max-width: 540px;
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .container2 {
+      max-width: 720px;
+    }
+  }
+  
+  @media (min-width: 992px) {
+    .container2 {
+      max-width: 960px;
+    }
+  }
+  
+  @media (min-width: 1200px) {
+    .container2 {
+      max-width: 1140px;
+    }
+  }
+  
+  .container2-fluid, .container2-sm, .container2-md, .container2-lg, .container2-xl {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+  
+  @media (min-width: 576px) {
+    .container2, .container2-sm {
+      max-width: 540px;
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .container2, .container2-sm, .container2-md {
+      max-width: 720px;
+    }
+  }
+  
+  @media (min-width: 992px) {
+    .container2, .container2-sm, .container2-md, .container2-lg {
+      max-width: 960px;
+    }
+  }
+  
+  @media (min-width: 1200px) {
+    .container2, .container2-sm, .container2-md, .container2-lg, .container2-xl {
+      max-width: 1140px;
+    }
+  }
+
+#header {
+    border-bottom: 1px solid #eee;
+    margin: 0 0 20px;
+    overflow: hidden;
+    padding: 0 0 10px;
+}
+
+h1 {
+    color: #fff;
+   /* float: left;*/
+    font-size: 30px;
+    font-weight: normal;
+    letter-spacing: -1px;
+    margin: 0;
+}
+
+h2 {
+    color: #999;
+    float: right;
+    font-size: 11px;
+    font-weight: normal;
+    margin: 20px 0 0 0;
+}
+pre {
+    color: #9868ce;
+}
+a {
+    color: #111;
+    font-weight: bold;
+    text-decoration: none;
+    -moz-transition: all 300ms ease-out;
+    -webkit-transition: all 300ms ease-out; 
+    -ms-transition: all 300ms ease-out; 
+    transition: all 300ms ease-out;
+}
+div.content {
+   color: #F2F2F2;
+    /*background: #fff;*/
+    /*color: #00FFA9;*/
+}
+
+a:hover {
+    color: #555;    
+}
+div{
+    color: silver;
+}
+/*============================*/
+/* Main Navigation
+/*============================*/
+#nav {            
+    height: 50px;
+    line-height: 50px;            
+    width: 100%;
+}
+
+#nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+#nav li {    
+    background: #333;
+    background-image: -o-linear-gradient(bottom, #222222 0%, #555555 100%);
+    background-image: -moz-linear-gradient(bottom, #222222 0%, #555555 100%);
+    background-image: -webkit-linear-gradient(bottom, #222222 0%, #555555 100%);
+    background-image: -ms-linear-gradient(bottom, #222222 0%, #555555 100%);    
+    background-image: -webkit-gradient(linear,left bottom,left top,color-stop(0, #222222),color-stop(1, #555555));    
+    background-image: linear-gradient(bottom, #222222 0%, #555555 100%);
+    float: left;
+    position: relative;
+    width: 20%;    
+}
+
+#nav li:first-child, #nav li:first-child a { 
+    -webkit-border-radius: 3px 0 0 3px; 
+    -moz-border-radius: 3px 0 0 3px; 
+    border-radius: 3px 0 0 3px; 
+}
+#nav li:last-child, #nav li:last-child a { 
+    -webkit-border-radius: 0 3px 3px 0; 
+    -moz-border-radius: 0 3px 3px 0; 
+    border-radius: 0 3px 3px 0; 
+}
+
+#nav a {                
+    border-right: 1px solid #222;
+    border-left: 1px solid #555;
+    color: #ccc;
+    display: block;
+    font-size: 14px;
+    height: 50px;
+    overflow: hidden;
+    text-align: center;
+    text-shadow: 0 -1px 0 #000;    
+   /* -webkit-box-shadow: inset 0 0 10px transparent;
+    -moz-box-shadow: inset 0 0 10px transparent;
+    */
+}
+
+#nav a:after {
+    background: rgba(255,255,255,.07);
+    content: "";
+    height: 25px;
+    left: 0;
+    position: absolute;
+    width: 100%;
+}
+
+#nav li:hover > a {
+    background: #333;
+    border-left-color: #222;
+    color: #fff;
+    text-shadow: 0 1px 0 #000;
+    -webkit-box-shadow: inset 0 0 10px #111;
+    -moz-box-shadow: inset 0 0 10px #111;
+    box-shadow: inset 0 0 10px #111;
+    text-decoration: none;
+}
+#nav span {
+    position: relative;    
+}
+
+#nav a:active span {
+    color: #ffd;
+    position: relative;
+    top: 1px;
+}
+
+#nav li:first-child a {
+    border-left: none;    
+}
+
+#nav li:last-child a {
+    border-right: none;    
+}
+/*форма для ввода данных "Новое имя"*/
+
+.form-controll {
+  display: block;
+  width: 100%;
+  height: calc(1.5em + 0.75rem + 2px);
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.form-control-small {
+  height: calc(1.5em + 0.5rem);
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  border-radius: 0.2rem;
+}
+/*конец форма для ввода данных "Новое имя"*/
+
+/**/
+.dropdown > a span:after {
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 5px solid #ccc;
+    content: "";
+    right: -13px;
+    position: absolute;
+    top: 3px;
+}
+
+.dropdown:hover > a span:after {
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #fff;
+    content: "";
+    right: -15px;
+    position: absolute;
+    top: 6px;
+}
+
+/*============================*/
+/* Sub Navigation
+/*============================*/
+#nav ul ul {
+    opacity: 0;
+    position: absolute;
+    top: 50px;
+    visibility: hidden;
+    width: 0;
+    -moz-transition: all 600ms ease-out;
+    -webkit-transition: all 600ms ease-out; 
+    -ms-transition: all 600ms ease-out; 
+    transition: all 600ms ease-out;
+}
+
+#nav ul li:hover ul {
+    opacity: 1;
+    visibility: visible;
+    width: 100%;
+    text-decoration: none;
+}
+
+#nav ul ul li {
+    background: #f3f3f3;
+    float: none;    
+    line-height: 0;
+    width: 100%;            
+}
+
+#nav ul ul li:nth-child(odd) {
+    background: #eee;    
+}
+
+#nav ul ul li:first-child, #nav ul ul li:first-child a { 
+    -webkit-border-radius: 0; 
+    -moz-border-radius: 0; 
+    border-radius: 0; 
+}
+#nav ul ul li:last-child, #nav ul ul li:last-child a { 
+    -webkit-border-radius: 0 0 3px 3px; 
+    -moz-border-radius: 0 0 3px 3px; 
+    border-radius: 0 0 3px 3px; 
+}
+
+#nav ul ul li a {
+    border-right: none;
+    border-left: none;
+    border-top: 1px solid #fff;
+    color: #555;
+    font-size: 12px;
+    height: 36px;
+    line-height: 36px;
+    padding: 0 0 0 15px;
+    text-align: left;
+    text-shadow: 0 -1px 0 #eee;
+}
+
+#nav ul li ul li a:after {
+    background: rgba(0,0,0,.02);
+    content: "";
+    height: 18px;
+    left: 0;
+    position: absolute;
+    top: 19px;
+    width: 100%;
+}
+
+#nav ul ul li a:hover {
+    background: #ffd;
+    color: #111;
+    text-shadow: 0 1px 0 #fff;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    text-decoration: none;
+    
+}
+
+#nav ul ul a:active span {
+    color: #111;
+    position: relative;
+    top: 1px;
+}
+
+
+
+/* из dogs/php*/
+
+.wrapper {
+    width: 1650px; /*960*/
+    margin: 18px auto;
+    height: auto;
+    background: #9868CE;
+}
+
+.header {
+    height: 80px;
+    width: 1600px;
+    padding: 5px;
+    /*background: #3BBCF2;*/
+    clear: both;
+    border: 1px groove #9868CE;
+    padding: 3px;
+    text-align: left;
+}
+
+.leftimg {
+    float: left; /* Выравнивание по левому краю */
+    margin: 3px 3px 3px 0; /* Отступы вокруг картинки */
+}
+
+.navigation {
+    width: 1000px;
+    height: 20px;
+}
+
+.left_sidebar {
+    width: 200px;
+    height: auto;
+    float: left;
+    background: #FAFABF;
+    padding: 3px;
+    border: 1px groove #9868CE;
+}
+
+.content {
+    width: 1500px; /*520*/
+    height: auto;
+   /* background: #E0E0E0;*/
+   /* border: 1px groove #9868CE;*/
+    padding: 3px;
+   /* position: relative;*/
+    text-align: left;
+    margin: 0px auto 0px auto;
+
+}
+p.kennel{
+    text-align: center;
+    background: none;
+   
+}
+
+div.title_cont {
+    background: #E0E0E0;
+    height: 10px;
+}
+
+.content_mum {
+    float: left;
+    width: 45%;
+}
+
+.content_dad {
+    float: right;
+    width: 45%
+}
+
+.right_sidebar {
+    width: 200px;
+    height: 800px;
+    float: right;
+    /*background: #DBA0F0;*/
+    padding: 3px;
+    border: 1px groove #9868CE;
+   /* position: absolute;*/
+    margin-right: 20%;
+  
+}
+
+.footer {
+    margin-right: 25px;
+    clear: both;
+    background: #2c2c2c;
+    text-align: right;
+   /* background: #A9B4FF; */
+    padding: 20px;
+   /* border: 1px groove #9868CE;*/
+}
+
+@font-face {
+    font-family: 'Scriptorama';
+    src: url('/fonts/s/Scriptorama.ttf');
+}
+
+
+.autoriz {
+    font-size: 25px;
+    color: blue;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /*text-align: center;  выровнять текст и картинки по горизонтали */
+}
+
+.image_wrap {
+    height: 600px;
+    border: 5px solid #626262;
+    border-radius: 10px;
+    width: 500px;
+    padding-right: 10px;
+    padding-left: 10px;
+    padding-top: 20px;
+    padding-bottom: 10px;
+    /*text-align: center;*/
+    position: relative;
+    margin: 0 auto;
+    margin-top: 10px;
+}
+.image_wrap p{
+    color: silver;
+    font-size: 30px;
+    margin: 0 auto;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%)
+}
+div.center {
+ 
+ margin: 0 auto;
+  width: 600px; /*по серидине экрана, при ширине 500 px*/
+}
+
+
+
+
+
+
+#name {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+#my_text {
+    color: black;
+    padding: 15px;
+    margin: 15px;
+    margin-bottom: 16px;
+    border: 7px solid blue;
+    border-radius: 10px;
+}
+/*/////////////////////////////////*/
+/*display: inline-block;
+  width: 200px;
+  padding: 8px;
+  color: #fff;
+  border: 1px solid #fff;
+  text-align: center;
+  outline: none;
+  text-decoration: none;*/
+
+.knopka {
+    width: 150px;
+    height: 50px;
+    text-decoration: none;
+    color: #a675b3;
+    text-align: center;
+    line-height: 20px;
+    display: block;
+    margin: 20px auto;
+    border: 3px solid #311d47;
+    font: normal 17px arial;
+    outline: none;
+ 
+}
+
+.knopka:not(.active) {
+    box-shadow: inset 0 1px 1px rgba(111, 55, 125, 0.8), inset 0 -1px 0px rgba(63, 59, 113, 0.2), 0 9px 16px 0 rgba(0, 0, 0, 0.3), 0 4px 3px 0 rgba(0, 0, 0, 0.3), 0 0 0 1px #150a1e;
+    background-image: linear-gradient(#3b2751, #271739);
+    text-shadow: 0 0 21px rgba(223, 206, 228, 0.5), 0 -1px 0 #311d47;
+    outline: none;
+}
+
+.knopka:not(.active):hover,
+.knopka:not(.active):focus {
+    transition: color 200ms linear, text-shadow 500ms linear;
+    color: #fff;
+    text-shadow: 0 0 21px rgba(223, 206, 228, 0.5), 0 0 10px rgba(223, 206, 228, 0.4), 0 0 2px #2a153c;
+    outline: none;
+   
+}
+
+.knopka:not(:hover) {
+    transition: 0.6s;
+    outline: none;
+}
+
+
+a.buttons {
+    width: 150px;
+    height: 40px;
+    text-decoration: none;
+    padding-top: 10px;
+    color: #a675b3;
+    text-align: center;
+    line-height: 20px;
+    display: block;
+    margin: 20px auto;
+    font: normal 17px arial;
+}
+
+a.buttons:not(.active) {
+    box-shadow: inset 0 1px 1px rgba(111, 55, 125, 0.8), inset 0 -1px 0px rgba(63, 59, 113, 0.2), 0 9px 16px 0 rgba(0, 0, 0, 0.3), 0 4px 3px 0 rgba(0, 0, 0, 0.3), 0 0 0 1px #150a1e;
+    background-image: linear-gradient(#3b2751, #271739);
+    text-shadow: 0 0 21px rgba(223, 206, 228, 0.5), 0 -1px 0 #311d47;
+}
+
+a.buttons:not(.active):hover,
+a.buttons:not(.active):focus {
+    transition: color 200ms linear, text-shadow 500ms linear;
+    color: #fff;
+    text-shadow: 0 0 21px rgba(223, 206, 228, 0.5), 0 0 10px rgba(223, 206, 228, 0.4), 0 0 2px #2a153c;
+}
+
+a.buttons:not(:hover) {
+    transition: 0.6s;
+}
+
+
+/****************************Внешний вид меню****************/
+.side {
+    width: 150px; /*ширина кнопки*/
+    margin: 25px; /* отступ по бокам*/
+    position: inherit; /*Наследует значение родителя.*/
+}
+
+.menu a {
+    background-image: linear-gradient(#3b2751, #271739);
+    color: #FFCCFF;
+    padding: 10px;
+    display: block;
+    border-bottom: 1px solid #666; /*каждая кнопка в серой рамке*/
+    transition: 0.5s all; /*плавность*/
+}
+/*что будет при наведении*/
+.menu a:hover {
+    background: #666; /*цвет серый*/
+    padding: 10px 0 10px 20px; /*пункты будут плавать / сдвигается текст вправо*/
+}
+/*для всех тегов Ли первый ребенок(Пункт 1)*/
+.menu li:first-child a {
+    border-radius: 3px 3px 0 0;
+}
+
+/*а радиус у подменю убираем*/
+.menu li .menu__drop li a {
+    border-radius: 0;
+}
+/****************************Всплывающие меню****************/
+.menu__list {
+    position: relative; /*чтобы подменю. прилепелны к меню*/
+}
+
+.menu__drop {
+    position: absolute;
+    width: 100%; /*ширина кнопок подменю*/
+    left: 100%; /*отступ влево 100% от основного*/
+    /*появляется на уровне пункт 1 top:0;*/
+    /*мы уводим меню за пределы экрана вверх*/
+    top: -9999em;
+    opacity: 0;
+    transition: 0.5s opacity; /*плавность*/
+}
+
+/*при наведении на лист, наш класс будет меняться*/
+.menu__list:hover .menu__drop {
+    opacity: 1; /*при наведении на пункт 1 включается видимость подпунктов*/
+    top: 0; /*меняем положение на 0*/
+}
+
+/*иконки для всплывающих менюшек >*/
+.menu__list::after {
+    content: " "; /*пустое поле*/
+    position: absolute;
+    border: 5px solid; /* рамка в 10 */
+    border-color: transparent transparent transparent #fff; /*закрашивает все углы*/
+    top: 1em; /*переместидись */
+    right: 0.7em; /*вправо */
+    transition: 0.5s; /*анимация*/
+}
+/*при наведении треугольнички переворачиваются*/
+.menu__list:hover::after {
+    transform: scale(-1);
+}
+
+/*************************************данные lit&pup.php***********************/
+.dog {
+    position: relative;
+    height: 5px;
+    margin: 0px auto 0 auto;
+}
+
+.mydog {
+    text-align: center;
+    float: left;
+    width: 99%;
+    height: 200px;
+    /*background: #D0D0D0;*/
+}
+
+.dad_mum {
+    position: relative;
+    height: 200px;
+}
+
+#dad {
+    text-align: center;
+    float: left;
+    width: 49%;
+    height: 200px;
+   /* background: #D0D0D0;*/
+}
+
+#mum {
+    text-align: center;
+    float: left;
+    width: 49%;
+    height: 200px;
+   /* background: #D0D0D0;*/
+}
+
+.GG_dad_mum {
+    position: relative;
+    height: 200px;
+}
+
+#one {
+    text-align: center;
+    float: left;
+    width: 24%;
+    height: 200px;
+   /* background: #D0D0D0;*/
+}
+
+#two {
+    text-align: center;
+    float: left;
+    width: 24%;
+    height: 200px;
+    /*background: #D0D0D0;*/
+}
+
+#three {
+    text-align: center;
+    float: left;
+    width: 24%;
+    height: 200px;
+    /*background: #D0D0D0;*/
+}
+
+#four {
+    text-align: center;
+    float: left;
+    width: 24%;
+    height: 200px;
+   /* background-color: #D0D0D0;*/
+}
+
+#left_breed {
+    position: absolute;
+    left: 0;
+    width: 500px;
+}
+
+#right_breed {
+    position: absolute;
+    left: 500px;
+    width: 200px;
+}
+
+#all_breed {
+    width: 1200px;
+    position: relative;
+    background: white;
+}
+
+/************************ прогресс бар ********************/
+.meter {
+    height: 10px; /* Can be anything */
+    width: 150px;
+    position: relative;
+    background: #291839;
+    -moz-border-radius: 25px;
+    -webkit-border-radius: 25px;
+    border-radius: 25px;
+    padding: 10px;
+    -webkit-box-shadow: inset 0 -1px 1px rgba(255,255,255,0.3);
+    -moz-box-shadow: inset 0 -1px 1px rgba(255,255,255,0.3);
+    box-shadow: inset 0 -1px 1px rgba(255,255,255,0.3);
+}
+
+.meter > span {
+    display: block;
+    height: 100%;
+    -webkit-border-top-right-radius: 8px;
+    -webkit-border-bottom-right-radius: 8px;
+    -moz-border-radius-topright: 8px;
+    -moz-border-radius-bottomright: 8px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    -webkit-border-top-left-radius: 20px;
+    -webkit-border-bottom-left-radius: 20px;
+    -moz-border-radius-topleft: 20px;
+    -moz-border-radius-bottomleft: 20px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    background-color: rgb(165,117,181);
+    background-image: -webkit-gradient( linear, left bottom, left top, color-stop(0, rgb(165,117,181)), color-stop(1, rgb(165,117,181)) );
+    background-image: -moz-linear-gradient( center bottom, rgb(43,194,83) 37%, rgb(84,240,84) 69% );
+    /*-webkit-box-shadow: inset 0 2px 9px rgba(255,255,255,0.3), inset 0 -2px 6px rgba(0,0,0,0.4);
+    -moz-box-shadow: inset 0 2px 9px rgba(255,255,255,0.3), inset 0 -2px 6px rgba(0,0,0,0.4);
+    */
+    position: relative;
+    overflow: hidden;
+}
+
+Другие цвета
+/*****Давайте очень просто поменяем цвет. Просто добавьте класс с именем «orange» или «red» к оболочке div/****’а и цвет будет изменен.****/
+.orange > span {
+    background-color: #f1a165;
+    background-image: -moz-linear-gradient(top, #f1a165, #f36d0a);
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #f1a165),color-stop(1, #f36d0a));
+    background-image: -webkit-linear-gradient(#f1a165, #f36d0a);
+}
+
+.red > span {
+    background-color: #f0a3a3;
+    background-image: -moz-linear-gradient(top, #f0a3a3, #f42323);
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #f0a3a3),color-stop(1, #f42323));
+    background-image: -webkit-linear-gradient(#f0a3a3, #f42323);
+}
+
+/************** адаптация в мобильнику ******************/
+
+@media screen and (max-device-width: 480px) {
+    html {
+        -webkit-text-size-adjust: none;
+    }
+
+    h1 {
+        color: #00FFA9;
+    }
+}
+
+/************** кнопка на линк войти login ******************/
+
+.btn-link2 {
+    font-weight:600;
+    color: black;
+    cursor: pointer;
+    border-radius: 2px;
+    text-decoration-line: none;
+
+}
+
+.btn-link2,
+.btn-link2:active,
+.btn-link2[disabled],
+fieldset[disabled] .btn-link2 {
+    background-color: transparent;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    transition: 0.6s;
+}
+
+.btn-link2,
+.btn-link2:hover,
+.btn-link2:focus,
+.btn-link2:active {
+    border-color: transparent;
+}
+
+.btn-link2:hover,
+.btn-link2:focus {
+    color: black;
+    text-decoration: none;
+    background-color: floralwhite;
+}
+
+.btn-link2[disabled]:hover,
+fieldset[disabled] .btn-link2:hover,
+.btn-link2[disabled]:focus,
+fieldset[disabled] .btn-link2:focus {
+    color: #999999;
+    text-decoration: none;
+}
+
+.table{
+    border-collapse:collapse;
+    width: 100%;
+    margin-bottom: 1rem;
+   
+}
+
+.table th,
+.table td {
+  padding: 0.75rem;
+  /*vertical-align: top;*/
+  border-style: solid;
+  margin: 3px;
+  border-color: #626262;
+  text-align: center;
+  
+}
+
+
+/*************************************данные lit&pup.php***********************/
+.dog{
+   position:relative;
+    height:5px;
+    color: #FFF;
+ 
+}
+
+#mydog{
+  text-align: center;
+    float:left;
+    width:99%;
+    height:200px;
+    /*background: #D0D0D0 ;*/
+}
+.dad_mum{
+  position:relative;
+  height:200px;
+}
+#dad{
+  text-align: center;
+float:left;
+width:49%;
+height:200px;
+/*background:#D0D0D0 ;*/
+}
+
+#mum{
+  text-align: center;
+float:left;
+width:49%;
+height:200px;
+/*background:#D0D0D0 ;*/
+}
+.GG_dad_mum{
+  position:relative;
+  height:200px;
+}
+#one{
+  text-align: center;
+float:left;
+width:24%;
+height:200px;
+/*background:#D0D0D0 ;*/
+}
+
+#two{
+  text-align: center;
+float:left;
+width:24%;
+height:200px;
+/*background:#D0D0D0 ;*/
+}
+
+#three{
+  text-align: center;
+float:left;
+width:24%;
+height:200px;
+/*background:#D0D0D0 ;*/
+}
+
+#four{
+text-align: center;
+float:left;
+width:24%;
+height:200px;
+/*background-color: #D0D0D0;*/
+}
+
+#left_breed{
+  position:absolute;
+left:0;
+width:500px;
+}
+
+#right_breed{
+  position:absolute;
+left:500px;
+width:200px;
+}
+#all_breed{
+  width:1200px;
+  position:relative;
+  background: white;
+  
+
+} 
+
+/*family_tree*/
+table.iksweb{
+	width: 100%;
+	border-collapse:collapse;
+	border-spacing:0;
+	height: auto;
+        background: #2c2c2c;}
+table.iksweb,table.iksweb td, table.iksweb th {
+	border: 1px solid #2c2c2c;
+        border-left: 0;
+	border-bottom: 0;
+        
+}
+table.iksweb td,table.iksweb th {
+	padding: 3px;
+	width: 30px;
+	height: auto;
+        
+}
+table.iksweb th {
+	background: #2c2c2c; 
+	color: #fff; 
+	font-weight: normal;
+        
+}
+.text_effect {
+    font-family: 'Scriptorama';
+    color: rgb(170, 0, 255);
+    font-size: 48px;
+    text-shadow: rgb(3, 3, 3) -1px 4px 4px;
+}
+.text_effect_mini {
+    font-family: 'Scriptorama';
+    color: rgb(255, 255, 255);
+    font-size: 25px;
+    text-shadow: rgb(3, 3, 3) -1px 4px 4px;
+}
+/*ShadowBox*/
+#demoObjectdad {
+-webkit-box-shadow: 5px 5px 5px 0px #000000, inset 4px 4px 15px 0px #000000, inset 5px 5px 15px -2px rgba(255,184,230,0), 5px 5px 15px -2px rgba(255,184,230,0); 
+box-shadow: 5px 5px 5px 0px #000000, inset 4px 4px 15px 0px #000000, inset 5px 5px 15px -2px rgba(255,184,230,0), 5px 5px 15px -2px rgba(255,184,230,0);
+background: #050E77;
+height: 200px;
+width: 200px;
+text-align: center;
+margin: 0 auto 0 auto;
+position: relative;
+padding-top: 2%;
+}
+body#tinymce {
+background: #2B2A29
+}
+
+.myButton {
+	box-shadow:inset 0px 1px 2px 0px #cbc6cc;
+	background:linear-gradient(to bottom, #959096 5%, #0f0d0f 100%);
+	background-color:#959096;
+	border-radius:10px;
+	border:1px solid #878787;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Georgia;
+	font-size:17px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #9b999c;
+}
+.myButton:hover {
+	background:linear-gradient(to bottom, #0f0d0f 5%, #959096 100%);
+	background-color:#0f0d0f;
+}
+.myButton:active {
+	position:relative;
+	top:1px;
+}
+/*///////////////////////// matting.php /////////////*/
+.AlfaDog{
+    width: 500px;
+    height: auto;
+    /*background: #D0D0D0;*/
+        padding-left: 5px;
+        margin-left: 25px;
+        -webkit-box-shadow: 5px 5px 15px 5px #727272; 
+        box-shadow: 5px 5px 15px 5px #727272;
+        /*border-radius: 15px;*/
+}
+/*///////////////////  shelter.php ///////////*/
