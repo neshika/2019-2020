@@ -24,6 +24,35 @@
 }
 </style>
 <?php
+
+// ***************  ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ *********************  //
+
+$GLOBALS['name']=' ';
+$GLOBALS['age']='15';
+//***** multipliers множители характеристик ****// 
+$GLOBALS['buy_stats']='100';
+$GLOBALS['timer']=1440;
+
+
+// ***********************************************************
+
+function globals(){
+   echo '<br> Глобальные переменные:';
+    $array[]=$GLOBALS;
+    foreach ($array as $key => $value) {
+         echo '<br>[' . $key . '] ' . $value;
+    }    
+}
+
+
+function test(){
+	echo 'подключен файл functions.php';
+}
+function debug($arr){
+    echo '<pre>' . print_r($arr, true). '</pre>';
+}
+
+
   /*                                *************************   СОЗДАНИЕ НОВОЙ СОБАКИ */
 Class GreateNewDog{
     
@@ -302,10 +331,10 @@ class PrintDog extends Dog{
          $dna_id = $this->retDnaId($id);
          
         if (13<=$age_id){   //age_id = 4 (6 мес)  age_id = 9 (15 мес = 1 год 3 мес)
-            return $this->retCell('url', $dna_id, 'randodna');
+            return R::getCell('SELECT `url` FROM randodna WHERE `id` = ? LIMIT 1', [$dna_id]);
         }
-        else{
-           return $this->retCell('url_puppy', $dna_id, 'randodna');
+        else{ 
+           return R::getCell('SELECT `url_puppy` FROM randodna WHERE `id` = ? LIMIT 1', [$dna_id]);
         }
     }
 
@@ -314,7 +343,7 @@ class PrintDog extends Dog{
         // $dna_id=$this->retDnaId($id);
          //$url=$this->retCell('url', $dna_id, 'randodna');
         $owner = $this->retOwner($id);
-         $url = $this->bdikaUrl($id);
+        $url = $this->bdikaUrl($id);
          ?><a href="/name.php?id=<?php echo $id . "&owner=" . $owner; ?>">
                 <img src="<?php echo $url;?>" width="<?php echo $size?>">
                     </a>
@@ -688,11 +717,12 @@ class Tabl{
     /*Функция достает даннные из заданного поля($cell) по ее Id из таблицы $tabl*/
     public function retCellById($id, $cell,$tabl){
         $sql = 'SELECT ' . $cell . ' FROM ' . $tabl . 'WHERE id=' . $id; 
+
         return R::getCell($sql);
     }
 
     public function getSql($id,$tabl){
-    $sql = 'SELECT * FROM ' . $tabl . ' WHERE id=' . $id; 
+    $sql = 'SELECT * FROM \'' . $tabl . '\'WHERE id = ' . $id; 
     return $sql;
     }
     /*Функция возвращает данные по параметру $cell из таблицы $tabl по индексу $id*/
@@ -1231,7 +1261,7 @@ Class RandDog extends PrintDog{
 //echo '<br>' . $result;
 
         $dna=$result;
-        $num = Rand(1,4);  //количество варианций окраса собаки щенки
+        $num = Rand(1,3);  //количество варианций окраса собаки щенки
         
         if(0 == $dna['2']){   //если пух
                if(0 == $dna['4']){   //если не белый 

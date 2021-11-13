@@ -89,9 +89,18 @@ echo "<h3><li>Важные события:</h3>";
    
     /*Проверяем, есть ли в питомнике собаки без Имени и даем ссылку на страницу*/
     $name = 'Без имени';
-    $array = R::getAssoc('SELECT id FROM animals WHERE owner = :owner && name = :name' ,
+    $array = R::getAll('SELECT id FROM animals WHERE owner = :owner && name = :name' ,
             [':owner' => $owner, ':name' => $name]);
-    $obj = new PrintDog; //создаем объект класса распечатки собаки
+     if(!empty($array)){
+        $obj = new PrintDog; //создаем объект класса распечатки собаки
+        echo '<br>В питомнике собаки без имени: ';
+       // debug($array);
+        for($i=0; $i<=count($array); $i++){
+            $obj->picLink($array[$i]['id'],'3%');
+        }
+     }    
+  
+
 
 if( isset($_POST['shelter']) ){ 
     echo 'Cобака отдана в приют!';

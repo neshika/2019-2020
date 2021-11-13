@@ -24,7 +24,7 @@
 .dogcontent {
   padding: 5px;
   margin: 25px;
-  width: 1150px;
+  width: 1350px;
   -webkit-box-shadow: 5px 5px 15px 5px #727272;
   box-shadow: 5px 5px 15px 5px #727272;
   border-radius: 15px;
@@ -32,7 +32,7 @@
 
 .dannie {
   padding: 3px;
-  width: 500px;
+  width: 700px;
   height: auto;
 }
 
@@ -56,6 +56,51 @@
   text-align: right;
   /*background: #A9B4FF; */
   padding: 20px;
+}
+
+/* newdog.php*/
+.wrapper2 {
+  -webkit-box-shadow: 5px 5px 15px 5px #727272;
+  box-shadow: 5px 5px 15px 5px #727272;
+  border-radius: 15px;
+  margin-left: 15%;
+  /* Отступ слева */
+  width: 1250px;
+  /* Ширина слоя */
+  height: auto;
+}
+
+TD {
+  vertical-align: top;
+  /* Выравнивание по верхнему краю ячейки */
+}
+
+#col1 {
+  width: 450px;
+  /*background: #F5F5DC; /* Цвет фона первой колонки */
+}
+
+#col2 {
+  width: 100px;
+  /*background: #F5F5DC; /* Цвет фона второй колонки */
+}
+
+#lf {
+  width: 450px;
+  /*background: #F5F5DC; /* Цвет фона  колонки */
+}
+
+#rt {
+  width: 450px;
+  /*background: #F5F5DC;; /* Цвет фона  колонки */
+}
+
+details summary::after {
+  content: "Открыть debug";
+}
+
+details[open] summary::after {
+  content: "Закрыть debug";
 }
 
 @font-face {

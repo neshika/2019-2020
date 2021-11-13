@@ -50,7 +50,7 @@ error_reporting(E_ALL);
    
 ?>
 <div class="dogcontent">
-    <table border="1">
+    <table>
         <tr>
             <td><div class="dannie">
                 <div class="dannie_knopki">
@@ -124,7 +124,7 @@ error_reporting(E_ALL);
                     <li>ссылка на URL щенок: <?php echo $dna->retUrlPuppy($dna_id);?></li> 
                  </div>
                 <div class="status_bar">
-                <table width="100%" border="1">
+                <table width="100%">
                 <tbody>
                     <tr>
                         <td><i class="fa fa-tachometer" aria-hidden="true"></i> Энергия</td>
