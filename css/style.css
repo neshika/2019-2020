@@ -24,7 +24,7 @@
 .dogcontent {
   padding: 5px;
   margin: 25px;
-  width: 800px;
+  width: 1150px;
   -webkit-box-shadow: 5px 5px 15px 5px #727272;
   box-shadow: 5px 5px 15px 5px #727272;
   border-radius: 15px;
@@ -32,52 +32,30 @@
 
 .dannie {
   padding: 3px;
-  width: 300px;
+  width: 500px;
   height: auto;
 }
 
 .kartinka {
-  background: lightgray;
+  padding-left: 25px;
+  width: 310px;
+  height: 310px;
+}
+
+.kartinka_img {
+  /*background:cornflowerblue;*/
+  display: block;
+  text-align: center;
   padding: 5px;
   margin: 0 3px 0 3px;
-  width: 300px;
-  height: 400px;
   overflow: hidden;
 }
 
-.arba {
-  padding-left: 3px;
-  margin-left: 3px;
-  text-align: left;
-  background-color: #fff;
-}
-
-.sobitia {
-  padding: auto;
-}
-
-.status {
-  padding: auto;
-}
-
-.table {
-  width: 80%;
-  border-collapse: collapse;
-  border-spacing: 0;
-}
-
-.table, td, th {
-  /* border: 1px solid #595959;*/
-}
-
-td, th {
-  padding: 3px;
-  width: 30px;
-  height: 25px;
-}
-
-th {
-  /*background-color: #7accee!important;*/
+.footer2 {
+  clear: both;
+  text-align: right;
+  /*background: #A9B4FF; */
+  padding: 20px;
 }
 
 @font-face {
