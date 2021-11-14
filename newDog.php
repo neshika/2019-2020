@@ -1,12 +1,12 @@
 <?php
 //require_once(__DIR__ . '/libs/up.php');
 //подключение библиотеки redBeanphp
-require $_SERVER['DOCUMENT_ROOT']."/db.php";
+require $_SERVER['DOCUMENT_ROOT'] . "/db.php";
 //подключение шапки
 require_once(__DIR__ . '/html/header.html');
 require_once(__DIR__ . '/includes/func.php');
 //включение ошибок//включение отчета по ошибкам
-ini_set('display_errors',1);
+ini_set('display_errors', 1);
 error_reporting(E_ALL);
 ?>
 <details>
@@ -42,7 +42,7 @@ error_reporting(E_ALL);
   //
   //echo '<br> spd =' . $new ->StatsFromMumDad($dna_m['spd'],$dna_d['spd'], $mutation, $plus);
   echo '<br>start ';
-  $dna_id = $puppy->InsertDogDna($id_m,$id_d,$puppy_dna);
+  $dna_id = $puppy->InsertDogDna($id_m, $id_d, $puppy_dna);
   echo ' two ';
   $id_new_dog = $puppy->insertDogAnimals($owner, $dna_id);
 
@@ -64,40 +64,51 @@ error_reporting(E_ALL);
   $reg->insertReg($id_m, $id_d, $id_new_dog);
 
   $_SESSION['id_new'] = $id_new_dog;
-    
+
   ?>
-<summary></summary>
+  <summary></summary>
 </details>
-  <div class="wrapper2">
+<div class="wrapper2">
   <table width="100%" cellpadding="5" cellspacing="0">
-    <tr><td id="col1"><h3>Щенок: <?php echo $id_new_dog;?></h3>
-        <div align="center"><?php $prt->picLink($id_new_dog, 120);?></div>
-        </td>
-        <td id="col2"><h3>Характеристики: </h3>
-                      <?php echo $prt->picSex($id_new_dog); $prt->printStats($id_new_dog);?>
-        </td>
-        <td id="buttom"><h3>Кнопки: </h3>
-            <form method="POST" action="/kennel.php">
-              <input type="submit" name="exit" value="В питомник" class="btn btn btn-dark">
-            </form>
-            <form method="POST" action="/office.php">
-              <p>Имя щенка: 
-              <textarea name="comment"></textarea></p>
-              <input type="submit" value="Отправить" name="send" class="btn btn btn-dark">
-            </form>
-          </td>
-    </tr>   
     <tr>
-    <td id="lf"><h3>Мама: </h3> <?php echo $id_m; $prt->picLink($id_m, 75); $prt->printStats($id_m);?></td>
-    <td id="rt"><h3>Папа: </h3> <?php echo $id_d; $prt->picLink($id_d, 75); $prt->printStats($id_d);?></td>
+      <td id="col1">
+        <h3>Щенок: <?php echo $id_new_dog; ?></h3>
+        <div align="center"><?php $prt->picLink($id_new_dog, 120); ?></div>
+      </td>
+      <td id="col2">
+        <h3>Характеристики: </h3>
+        <?php echo $prt->picSex($id_new_dog);
+        $prt->printStats($id_new_dog); ?>
+      </td>
+      <td id="buttom">
+        <h3>Кнопки: </h3>
+        <form method="POST" action="/kennel.php">
+          <input type="submit" name="exit" value="В питомник" class="btn btn btn-dark">
+        </form>
+        <form method="POST" action="/office.php">
+          <p>Имя щенка:
+            <textarea name="comment"></textarea>
+          </p>
+          <input type="submit" value="Отправить" name="send" class="btn btn btn-dark">
+        </form>
+      </td>
     </tr>
-</table>
-   
+    <tr>
+      <td id="lf">
+        <h3>Мама: </h3> <?php echo $id_m;
+                        $prt->picLink($id_m, 75);
+                        $prt->printStats($id_m); ?>
+      </td>
+      <td id="rt">
+        <h3>Папа: </h3> <?php echo $id_d;
+                        $prt->picLink($id_d, 75);
+                        $prt->printStats($id_d); ?>
+      </td>
+    </tr>
+  </table>
+
 </div>
 
 </body>
+
 </html>
-
-
-
-

@@ -1,66 +1,60 @@
 /* name */
-    .dogcontent {
-        padding: 5px;
-        margin: 25px;
-         width: 1350px;
-        -webkit-box-shadow: 5px 5px 15px 5px #727272; 
-         box-shadow: 5px 5px 15px 5px #727272;
-        border-radius: 15px;
-    }
-    .dannie {
+.dogcontent {
+  padding: 5px;
+  margin: 25px;
+  width: 1350px;
+  -webkit-box-shadow: 5px 5px 15px 5px #727272;
+  box-shadow: 5px 5px 15px 5px #727272;
+  border-radius: 15px;
+}
+.dannie {
+  padding: 3px;
+  width: 700px;
+  height: auto;
+  &-knopki {
+    padding: auto;
+  }
 
-        padding: 3px;
-        width: 700px;
-        height: auto;
-            &-knopki {
-                padding: auto;
-            }
-    
-            &-text {
-                li{
-                    list-style: '\1F5F8'; /*галочка*/
-                    /*margin-right: 2rem;*/
-                }
-            }
+  &-text {
+    li {
+      list-style: "\1F5F8"; /*галочка*/
+      /*margin-right: 2rem;*/
     }
-    .kartinka {
-        padding-left: 25px;
-            width: 310px;
-            height: 310px;
-            &-img {
-                background:cornflowerblue;
-                display: block;
-                content: [alt];
-                text-align: center;
-                margin: 1rem 0 0 0;
-                overflow: hidden;
-            }
-    .arba {
-              padding: auto;
+  }
+}
+.kartinka {
+  padding-left: 25px;
+  width: 310px;
+  height: 310px;
+  &-img {
+    background: cornflowerblue;
+    display: block;
+    content: [alt];
+    text-align: center;
+    margin: 1rem 0 0 0;
+    overflow: hidden;
+  }
+  .arba {
+    padding: auto;
+  }
+}
+.sobitia {
+  margin-left: 2rem;
+}
+.status {
+  &-gk {
+    li {
+      list-style: none;
+    }
+  }
 
-            }
-    }
-    .sobitia {
-        margin-left: 2rem;
-    }
-    .status {
-    
-            &-gk {
-                li{
-                    list-style: none;
-                }
-               
-            }
-    
-            &-bar {
-                padding-left: 2rem;
-            }
-    }
-    .footer2{
-       clear: both;
-       text-align: right;
-        /*background: #A9B4FF; */
-        padding: 20px;
-    }
-    
-  
+  &-bar {
+    padding-left: 2rem;
+  }
+}
+.footer2 {
+  clear: both;
+  text-align: right;
+  /*background: #A9B4FF; */
+  padding: 20px;
+}
