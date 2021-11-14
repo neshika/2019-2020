@@ -47,13 +47,14 @@ error_reporting(E_ALL);
     $dog = new PrintDog();
     $dna_id=$dog->retDnaId($id);
     $rand_dog = new RandDog;
+    
    
 ?>
 <div class="dogcontent">
     <table>
         <tr>
             <td><div class="dannie">
-                <div class="dannie_knopki">
+                <div class="dannie-knopki">
                     <form method="POST">
                     <button type="submit" class="btn btn-dark" name="eat">Есть <i class="fa fa-cutlery" aria-hidden="true"></i></button>
                     <button type="button" class="btn btn-dark">Пить <i class="fa fa-tint" aria-hidden="true"></i></button>
@@ -63,28 +64,33 @@ error_reporting(E_ALL);
                     <input type="submit" class="btn btn-dark" name="add_age" value="Растить">
                     </form>         
                 </div>
-                <div class="dannie_text">
+                <div class="dannie-text">
                     <br>Кличка <?php echo $dog->picSex($id);?><strong><h1><?php echo $dog->retName($id) . " " . "\"" . $dog->retKennel($id) . "\"";?></h1></strong>
                     <hr>
-                    <li>Заводчик: <?php echo $dog->retBreeder($id);?></li>    
-                    <li>Хозяин: <?php echo $owner;?></li>
-                    <li>Происхождение: <?php echo $dog->retOrignText($id);?></li>
-                    <li>Оценка: <?php echo $dog->retMarkText($id) ?></li>
-                    <li>примерная стоимость собаки: <?php echo $rand_dog->dogPrice($dog->retDnaId($id)); ?></li>
+                    <li> Заводчик: <?php echo $dog->retBreeder($id);?></li>    
+                    <li> Хозяин: <?php echo $owner;?></li>
+                    <li> Происхождение: <?php echo $dog->retOrignText($id);?></li>
+                    <li> Оценка: <?php echo $dog->retMarkText($id) ?></li>
+                    <li> Примерная стоимость собаки: <?php echo $rand_dog->dogPrice($dog->retDnaId($id)); ?></li>
                     <hr>
-                    <li>ID собаки: <?php echo $id;?></li>
+                    <li> ID собаки: <?php echo $id;?></li>
 
-                    <li>пол: <?php echo $dna->retSexText($dna_id);?></li>
-                    <li>Возраст: <?php echo $dog->retAgeText($id);?></li>
-                    <li>Вязок: <?php echo $dog->retLitter($id);?></li>
-                    <li>Щенков: <?php echo $dog->retPuppy($id);?></li>
-                    <li>Состояние:  <?php echo $dog->retEstrusStatus($id);?></li>
-                    <li>Голая/пуховая:  <?php echo $dna->retGolPooh($dna_id)?></li>
-                    <li>Шокоген:  <?php echo $dna->retShocoGen($dna_id)?></li>
+                    <li> Пол: <?php echo $dna->retSexText($dna_id);?></li>
+                    <li> Возраст: <?php echo $dog->retAgeText($id);?></li>
+                    <li> Вязок: <?php echo $dog->retLitter($id);?></li>
+                    <li> Щенков: <?php echo $dog->retPuppy($id);?></li>
+                    <li> Состояние:  <?php echo $dog->retEstrusStatus($id);?></li>
+                    <li> Голая/пуховая:  <?php echo $dna->retGolPooh($dna_id)?></li>
+                    <li> Шокоген:  <?php echo $dna->retShocoGen($dna_id)?></li>
+                    <details>
+                    <summary>статы</summary>
+                    <?php $dog->printStats($id);?> 
+                    </details>
+                    
                 </div>
             </div></td>
             <td><div class="kartinka">
-                <div class="kartinka_img"><?php $dog->picLink($id, '75%');?></div>
+                <div class="kartinka-img"><?php $dog->picLink($id, '75%');?></div>
                 </div>
                 <div class="arba">
                 <button type="button" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Добавки +Энергия">
@@ -118,12 +124,12 @@ error_reporting(E_ALL);
                     </form>
             </div></td>
             <td><div class="status">
-                <div class="status_gk">
+                <div class="status-gk">
                     <li>Генетический код: <?php echo $dna->retDna($dna_id);?></li>
                     <li>ссылка на URL взрослый: <?php echo $dna->retUrl($dna_id);?></li> 
                     <li>ссылка на URL щенок: <?php echo $dna->retUrlPuppy($dna_id);?></li> 
                  </div>
-                <div class="status_bar">
+                <div class="status-bar">
                 <table width="100%">
                 <tbody>
                     <tr>

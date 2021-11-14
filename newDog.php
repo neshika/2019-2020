@@ -89,7 +89,7 @@ error_reporting(E_ALL);
     </tr>   
     <tr>
     <td id="lf"><h3>Мама: </h3> <?php echo $id_m; $prt->picLink($id_m, 75); $prt->printStats($id_m);?></td>
-    <td id="rt"><h3>Папа:: </h3> <?php echo $_SESSION['id_d']; $prt->picLink($_SESSION['id_d'], 75); $prt->printStats($_SESSION['id_d']);?></td>
+    <td id="rt"><h3>Папа: </h3> <?php echo $id_d; $prt->picLink($id_d, 75); $prt->printStats($id_d);?></td>
     </tr>
 </table>
    

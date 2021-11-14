@@ -3,7 +3,7 @@
 <link rel="stylesheet" type="text/css" href="css/main.css" />
 <style>
 .table {
-	width: 100%;
+	width: 50%;
 	margin-bottom: 10px;
 	border: 3px solid #F2F8F8;
 	border-top: 5px solid #F2F8F8;
@@ -284,8 +284,10 @@ echo '<br>$array3 ' . $array3 = 'hr0w0f0b0t0m0';
  /*                                *************************    РАСПЕЧАТКА Собаки на экране КАРТИНКА  */
 class PrintDog extends Dog{
     function printStats($id){
+        $dog = new Dog;
+        $dna_id = $dog->retDnaId($id);
       $array =  R::getRow('SELECT * FROM `randodna` WHERE `id` LIKE :search LIMIT 1', [
-                'search' => "%$id%"]);  
+                'search' => "%$dna_id%"]);  
       //debug($str);
       ?>
 <table class="table">
@@ -345,7 +347,7 @@ class PrintDog extends Dog{
         $owner = $this->retOwner($id);
         $url = $this->bdikaUrl($id);
          ?><a href="/name.php?id=<?php echo $id . "&owner=" . $owner; ?>">
-                <img src="<?php echo $url;?>" width="<?php echo $size?>">
+                <img src="<?php echo $url;?>" width="<?php echo $size?>" alt="фото собаки">
                     </a>
              <?php 
          
