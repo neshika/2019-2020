@@ -91,15 +91,14 @@ if (isset($_POST['old_dog'])) {
 
 /*Проверяем, есть ли в питомнике собаки без Имени и даем ссылку на страницу*/
 $name = 'Без имени';
-$array = R::getAll(
-    'SELECT id FROM animals WHERE owner = :owner && name = :name',
-[':owner' => $owner, ':name' => $name]
-);
+$array = R::getAll('SELECT id FROM animals WHERE owner = :owner && name = :name',
+[':owner' => $owner, ':name' => $name]);
+$obj = new PrintDog; //создаем объект класса распечатки собаки
 if (!empty($array)) {
-    $obj = new PrintDog; //создаем объект класса распечатки собаки
+    
     echo '<br>В питомнике собаки без имени: ';
     // debug($array);
-    for ($i = 0; $i <= count($array); $i++) {
+    for ($i = 0; $i < count($array); $i++) {
         $obj->picLink($array[$i]['id'], '3%');
     }
 }
@@ -126,7 +125,7 @@ if (isset($_POST['shelter'])) {
     //**************************  уменьшаем стоимость на 50 % ***************** //
     $price = $price / 2;
     $obj->printMoney($login);
-    $dog->putMoney($login, $price);
+    $obj->putMoney($login, $price);
     echo 'Выручка составила: ' . $price;
     $dogshelter = R::load('animals', $id);
     $dogshelter->owner = 'shelter';
@@ -153,7 +152,7 @@ if (isset($_POST['shelter'])) {
     //**************************  уменьшаем стоимость на 50 % ***************** //
     $price = $price / 2;
     $obj->printMoney($login);
-    $dog->putMoney($login, $price);
+    $obj->putMoney($login, $price);
     echo 'Выручка составила: ' . $price;
     $dogshelter = R::load('animals', $id);
     $dogshelter->owner = 'shelter';

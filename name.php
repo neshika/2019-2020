@@ -8,47 +8,46 @@ require_once(__DIR__ . '/includes/func.php');
 //включение ошибок//включение отчета по ошибкам
 ini_set('display_errors',1);
 error_reporting(E_ALL);
-
  
-  if(!isset($_GET['id']) || !isset($_GET['owner'])){
-     $id = $_SESSION['Dog'];
-     $dog = new PrintDog();
-     $owner = $dog->retOwner($id);
-    }
-    else{
-        $id = $_GET['id'];
-        $owner = $_GET['owner'];
-    }
-    /*Если кнопка "сменить имя" нажата*/
-    if ( isset($_POST['newName']) ){ 
-        
-        if("" != $_POST['name1']){
-            $newName = new Tabl();
-            $newName->UpdateData('animals', $id, 'name', $_POST['name1']);
-        }
-        else {  // всплывающее окно, если имя не ввели
-            ?> <script>alert ("Введите имя");</script><?php
-        }
-    }
-    /*Если нажата кнопка "Растить"*/
-   
-    if ( !empty($_POST['add_age']) ){
-        $age = new Dog();
-        $age->addAge($id);
-        
-    }
-    /*если нажата кнопка кушать*/
-    
-    if (isset($_POST['eat'])){
-       
-    }
-    $new_dog = new GreateNewDog();
-    $dna = new Dna();
+if(!isset($_GET['id']) || !isset($_GET['owner'])){
+    $id = $_SESSION['Dog'];
     $dog = new PrintDog();
-    $dna_id=$dog->retDnaId($id);
-    $rand_dog = new RandDog;
+    $owner = $dog->retOwner($id);
+}
+else{
+    $id = $_GET['id'];
+    $owner = $_GET['owner'];
+}
+/*Если кнопка "сменить имя" нажата*/
+if ( isset($_POST['newName']) ){ 
     
-   
+    if("" != $_POST['name1']){
+        $newName = new Tabl();
+        $newName->UpdateData('animals', $id, 'name', $_POST['name1']);
+    }
+    else {  // всплывающее окно, если имя не ввели
+        ?> <script>alert ("Введите имя");</script><?php
+    }
+}
+/*Если нажата кнопка "Растить"*/
+
+if ( !empty($_POST['add_age']) ){
+    $age = new Dog();
+    $age->addAge($id);
+    
+}
+/*если нажата кнопка кушать*/
+
+if (isset($_POST['eat'])){
+    
+}
+$new_dog = new GreateNewDog();
+$dna = new Dna();
+$dog = new PrintDog();
+$dna_id=$dog->retDnaId($id);
+$rand_dog = new RandDog;
+    
+  
 ?>
 <div class="dogcontent">
     <table>
@@ -77,6 +76,7 @@ error_reporting(E_ALL);
 
                     <li> Пол: <?php echo $dna->retSexText($dna_id);?></li>
                     <li> Возраст: <?php echo $dog->retAgeText($id);?></li>
+                    <li> Помет: <?php echo $dog->retRegText($id)?></li>
                     <li> Вязок: <?php echo $dog->retLitter($id);?></li>
                     <li> Щенков: <?php echo $dog->retPuppy($id);?></li>
                     <li> Состояние:  <?php echo $dog->retEstrusStatus($id);?></li>

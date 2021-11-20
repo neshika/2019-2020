@@ -1,5 +1,13 @@
 <?php
-require "/libs/up.php";
+//require_once(__DIR__ . '/libs/up.php');
+//подключение библиотеки redBeanphp
+require $_SERVER['DOCUMENT_ROOT']."/db.php";
+//подключение шапки
+require_once(__DIR__ . '/html/header.html');
+require_once(__DIR__ . '/includes/func.php');
+//включение ошибок//включение отчета по ошибкам
+ini_set('display_errors',1);
+error_reporting(E_ALL);
 
 
       function regbook_mum($id){
