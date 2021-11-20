@@ -1,6 +1,5 @@
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
-
-<link rel="stylesheet" type="text/css" href="css/main.css" />
+<link rel="stylesheet" type="text/css" href="css/style.css" />
 <style>
 .table {
 	width: 100%;
@@ -491,14 +490,17 @@ class Kennels{
            <?php foreach($data as $id):
                $lit = $dog->retLitter($id);
                $pup = $dog->retPuppy($id);
+               $pol = $dog->retSex($id);
                $sex = $dog->retSexText($id);
                $value = $dog->retName($id);
                if(5 > $count):
                    ?><td><?php 
                    $printdog->picLink($id, '50%');
                    echo '<br>имя: ' . $value;
-                   echo '<br> пол : ' . $sex . '<br>';
-                   echo $dog->retEstrusStatus($id);
+                   echo '<br> пол : ' . $sex;
+                   if( '0' == $pol):
+                        echo '<br>' . $dog->retEstrusStatus($id);
+                   endif;
                    echo '<a href="/lit&pup.php?id=' . $id . '">' . "<br> вязки/дети: ". $lit .'/'. $pup;
                        
                        $count=$count+1;
@@ -508,8 +510,10 @@ class Kennels{
            <?php 
            $printdog->picLink($id, '50%');
            echo '<br>имя: ' . $value;
-           echo '<br> пол : ' . $sex . '<br>';
-           echo $dog->retEstrusStatus($id);
+           echo '<br> пол : ' . $sex;
+           if( '0' == $pol):
+                echo '<br>' . $dog->retEstrusStatus($id);
+            endif;
            echo '<a href="/lit&pup.php?id=' . $id . '">' . "<br> вязки/дети: ". $lit .'/'. $pup;
            $count = 1;
            endif; ?>
@@ -541,8 +545,8 @@ class Kennels{
                             ?><td><?php 
                             $printdog->picLink($id, '50%');
                             echo '<br>имя: ' . $value;
-                            echo '<br> пол : ' . $sex . '<br>';
-                            echo $dog->retEstrusStatus($id);
+                            echo '<br> пол : ' . $sex;
+                            echo '<br>' . $dog->retEstrusStatus($id);
                             echo '<a href="/lit&pup.php?id=' . $id . '">' . "<br> вязки/дети: ". $lit .'/'. $pup;
                                 
                                 $count=$count+1;
@@ -552,8 +556,8 @@ class Kennels{
                     <?php 
                     $printdog->picLink($id, '50%');
                     echo '<br>имя: ' . $value;
-                    echo '<br> пол : ' . $sex . '<br>';
-                    echo $dog->retEstrusStatus($id);
+                    echo '<br> пол : ' . $sex;
+                    echo '<br>' . $dog->retEstrusStatus($id);
                     echo '<a href="/lit&pup.php?id=' . $id . '">' . "<br> вязки/дети: ". $lit .'/'. $pup;
                     $count = 1;
                     endif; 
@@ -587,7 +591,7 @@ class Kennels{
                                 ?><td><?php 
                                 $printdog->picLink($id, '50%');
                                 echo '<br>имя: ' . $value;
-                                echo '<br> пол : ' . $sex . '<br>';
+                                echo '<br> пол : ' . $sex;
                                 echo '<a href="/lit&pup.php?id=' . $id . '">' . "<br> вязки/дети: ". $lit .'/'. $pup;
                                     
                                     $count=$count+1;
@@ -597,7 +601,7 @@ class Kennels{
                         <?php 
                         $printdog->picLink($id, '50%');
                         echo '<br>имя: ' . $value;
-                        echo '<br> пол : ' . $sex . '<br>';
+                        echo '<br> пол : ' . $sex;
                         echo '<a href="/lit&pup.php?id=' . $id . '">' . "<br> вязки/дети: ". $lit .'/'. $pup;
                         $count = 1;
                         endif; 
@@ -626,11 +630,11 @@ class Kennels{
                         $pup = $dog->retPuppy($id);
                         $sex = $dog->retSexText($id);
                         $value = $dog->retName($id);
-                            if(5 > $count):
+                            if(10 > $count):
                                 ?><td><?php 
                                 $printdog->picLink($id, '50%');
                                 echo '<br>имя: ' . $value;
-                                echo '<br> пол : ' . $sex . '<br>';
+                                echo '<br> пол : ' . $sex;
                                 echo '<a href="/lit&pup.php?id=' . $id . '">' . "<br> вязки/дети: ". $lit .'/'. $pup;
                                     
                                     $count=$count+1;
@@ -640,7 +644,7 @@ class Kennels{
                         <?php 
                         $printdog->picLink($id, '50%');
                         echo '<br>имя: ' . $value;
-                        echo '<br> пол : ' . $sex . '<br>';
+                        echo '<br> пол : ' . $sex;
                         echo '<a href="/lit&pup.php?id=' . $id . '">' . "<br> вязки/дети: ". $lit .'/'. $pup;
                         $count = 1;
                         endif; 
@@ -1597,5 +1601,6 @@ class Registry{
     echo 'буква новая ' . $lit = $this->addLit($id);
     $id++;
     $tabl->UpdateData('registry', $id, 'lit', $lit);
+    $tabl->UpdateData('animals',$id_new,'reg_id',$id); //внести  ссылку на ссылку на помет в таблицу Animals*/
     }
 }

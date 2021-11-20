@@ -62,6 +62,7 @@ error_reporting(E_ALL);
 
   // внести данные в регистарционную книгу registry
   $reg->insertReg($id_m, $id_d, $id_new_dog);
+  
 
   $_SESSION['id_new'] = $id_new_dog;
 
