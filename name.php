@@ -108,7 +108,7 @@ $rand_dog = new RandDog;
             <td><div class="sobitia">
             <form method = POST>
                         <a href="<?php echo '/family_tree.php?id=' . $id;?>" class="btn btn btn-dark" role="button" aria-pressed="true">родословная</a><br>
-                        <button type="button" class="btn btn-dark">щенки</button>
+                        <a href="<?php echo '/lit&pup.php?id=' . $id;?>" class="btn btn btn-dark" role="button" aria-pressed="true">щенки</a><br>
                         <?php if ('Без имени' == $dog->retName($id)):?>
                             <input class ="form-controll form-control-small" placeholder="Введите новое имя" type="text" name="name1">
                             <input class="btn btn-dark" name="newName" type="submit" value="Внести">
