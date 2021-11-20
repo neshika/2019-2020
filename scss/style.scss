@@ -13,15 +13,13 @@
   #626262 - т. серый
 #D0D0D0      - чуть серый  
 #2c2c2c - фон
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-
 */
+
 @import "_name";
 @import "_newdog";
+
+$box-shadow: 5px 5px 15px 5px #727272;
+$br: 15px;
 
 @font-face {
     font-family: 'Scriptorama';
@@ -423,7 +421,7 @@ div{
 .content {
     width: 1500px; /*520*/
     height: auto;
-   /* background: #E0E0E0;*/
+   /*background: #E0E0E0;*/
    /* border: 1px groove #9868CE;*/
     padding: 3px;
    /* position: relative;*/
@@ -431,11 +429,7 @@ div{
     margin: 0px auto 0px auto;
 
 }
-p.kennel{
-    text-align: center;
-    background: none;
-   
-}
+
 
 div.title_cont {
     background: #E0E0E0;
@@ -1075,8 +1069,97 @@ background: #2B2A29
     /*background: #D0D0D0;*/
         padding-left: 5px;
         margin-left: 25px;
-        -webkit-box-shadow: 5px 5px 15px 5px #727272; 
-        box-shadow: 5px 5px 15px 5px #727272;
-        /*border-radius: 15px;*/
+        -webkit-box-shadow: $box-shadow; 
+        box-shadow: $box-shadow;
+        /*border-radius: $br;*/
 }
-/*///////////////////  shelter.php ///////////*/
+/*///////////////////  kennel.php ///////////*/
+
+.kennel {
+    position: relative;
+    width: 1500px; /*520*/
+    height: auto;
+    padding: 1em;
+    margin-bottom: 50px;
+   -webkit-box-shadow: $box-shadow;
+    box-shadow: $box-shadow;
+    border-radius: $br;
+   
+    /*text-align: left;*/
+   /*background:red;*/
+}
+.kennel-stroka {
+    /*background:#00FFA9;*/
+    text-align: left;
+}
+.kennel-pol{
+    text-align: left;
+}
+
+.dogk div{
+    background-color: #150a1e;
+    max-width: 75px;
+    max-height: 75px;
+    border-radius: 1px #000;
+
+}
+.dogk-pic{
+    
+    background-color: #050E77;
+    display: block;
+    &_img{
+        max-width: 50px;
+        max-height: 50px;
+    }
+}
+.dogk-name {
+    text-align: center;
+}
+.dogk-sex {
+    text-align: left;
+}
+.dogk-estrus {
+    text-align: left;
+}
+.dogk-litpup {
+    text-align: left;
+}
+.kennel-knopka {
+    width: 150px;
+    height: 50px;
+    text-decoration: none;
+    color: #a675b3;
+    text-align: center;
+    line-height: 20px;
+    display: block;
+    margin: 20px auto;
+    border: 3px solid #311d47;
+    font: normal 17px arial;
+    outline: none;
+ 
+}
+
+.kennel-knopka:not(.active) {
+    box-shadow: inset 0 1px 1px rgba(111, 55, 125, 0.8), inset 0 -1px 0px rgba(63, 59, 113, 0.2), 0 9px 16px 0 rgba(0, 0, 0, 0.3), 0 4px 3px 0 rgba(0, 0, 0, 0.3), 0 0 0 1px #150a1e;
+    background-image: linear-gradient(#3b2751, #271739);
+    text-shadow: 0 0 21px rgba(223, 206, 228, 0.5), 0 -1px 0 #311d47;
+    outline: none;
+}
+
+.kennel-knopka:not(.active):hover,
+.kennel-knopka:not(.active):focus {
+    transition: color 200ms linear, text-shadow 500ms linear;
+    color: #fff;
+    text-shadow: 0 0 21px rgba(223, 206, 228, 0.5), 0 0 10px rgba(223, 206, 228, 0.4), 0 0 2px #2a153c;
+    outline: none;
+   
+}
+
+.kennel-knopka:not(:hover) {
+    transition: 0.6s;
+    outline: none;
+}
+
+
+
+

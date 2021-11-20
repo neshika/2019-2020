@@ -1,11 +1,14 @@
 /* name */
+$box-shadow: $box-shadow;
+$br: 15px;
+
 .dogcontent {
   padding: 5px;
   margin: 25px;
   width: 1350px;
-  -webkit-box-shadow: 5px 5px 15px 5px #727272;
-  box-shadow: 5px 5px 15px 5px #727272;
-  border-radius: 15px;
+  -webkit-box-shadow: $box-shadow;
+  box-shadow: $box-shadow;
+  border-radius: $br;
 }
 .dannie {
   padding: 3px;

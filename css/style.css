@@ -13,12 +13,6 @@
   #626262 - т. серый
 #D0D0D0      - чуть серый  
 #2c2c2c - фон
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-
 */
 /* name */
 .dogcontent {
@@ -526,7 +520,7 @@ div {
   width: 1500px;
   /*520*/
   height: auto;
-  /* background: #E0E0E0;*/
+  /*background: #E0E0E0;*/
   /* border: 1px groove #9868CE;*/
   padding: 3px;
   /* position: relative;*/
@@ -534,9 +528,27 @@ div {
   margin: 0px auto 0px auto;
 }
 
-p.kennel {
+.kennel {
+  position: relative;
+  width: 1500px;
+  /*520*/
+  height: auto;
+  padding: 1em;
+  margin: 0 auto;
+  -webkit-box-shadow: 5px 5px 15px 5px #727272;
+  box-shadow: 5px 5px 15px 5px #727272;
+  border-radius: 15px;
   text-align: center;
-  background: none;
+  /* background:red;*/
+}
+
+.kennel-stroka {
+  /*background:#00FFA9;*/
+  text-align: center;
+}
+
+.kennel-pol {
+  text-align: center;
 }
 
 div.title_cont {
@@ -1213,7 +1225,7 @@ body#tinymce {
   margin-left: 25px;
   -webkit-box-shadow: 5px 5px 15px 5px #727272;
   box-shadow: 5px 5px 15px 5px #727272;
-  /*border-radius: 15px;*/
+  /*border-radius: $br;*/
 }
 
 /*///////////////////  shelter.php ///////////*/

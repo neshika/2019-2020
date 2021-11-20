@@ -3,12 +3,12 @@
 <link rel="stylesheet" type="text/css" href="css/main.css" />
 <style>
 .table {
-	width: 50%;
+	width: 100%;
 	margin-bottom: 10px;
 	border: 3px solid #F2F8F8;
 	border-top: 5px solid #F2F8F8;
 	border-collapse: collapse; 
-        color: silver;
+    color: silver;
 }
 .table th {
 	font-weight: bold;
@@ -22,6 +22,31 @@
 	border: none;
 	border-bottom: 5px solid #F2F8F8;
 }
+.table-stats{
+    width: 50%;
+	margin-bottom: 3px;
+    text-align: center;
+	border: 3px solid #F2F8F8;
+	border-top: 3px solid #F2F8F8;
+	border-collapse: collapse; 
+    border-bottom: 3px solid #F2F8F8;
+    
+  
+}
+/*.table-stats th {
+	font-weight: bold;
+	/*padding: 5px;*/
+	/*background: #626262;;
+	border: none;
+	border-bottom: 3px solid #626262;;
+}*/
+.table-stats td {
+	padding: 5px;
+	border: none;
+	border-bottom: 5px solid #626262;
+   
+}
+
 </style>
 <?php
 
@@ -290,7 +315,7 @@ class PrintDog extends Dog{
                 'search' => "%$dna_id%"]);  
       //debug($str);
       ?>
-<table class="table">
+<table class="table-stats">
     <tr> 
         <td>удача</td>
         <td><?php echo $array['lucky']?></td>
