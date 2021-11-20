@@ -23,41 +23,23 @@ if (isset ($_POST['money'])){
     
   }    
 ?>
-<style>
-    .test{
-    box-shadow: 10px 10px 5px 0px rgba(212, 6, 6, 0.75);
--webkit-box-shadow: 10px 10px 5px 0px rgba(99, 3, 3, 0.75);
--moz-box-shadow: 10px 10px 5px 0px rgba(230, 31, 31, 0.75);
-}
-</style>
-<div class="kennel">
+<div class="content">
     <div class="kennel-stroka">
     Питомник: <?php echo $kennel;?> // Владелец: <?php echo $owner;?>// Собак: <?php echo $count;?><br><?php $printdog->picCoins(); echo  $coins;?>
     </div>
     <!--создаем форму с кнопками по сортировке собак на виды-->
     <form method="POST" action="/kennel.php">
-        <button type="submit" class="kennel-knopka" name="money" >кредит 50 000</button>
+        <button type="submit" class="knopka" name="money" >кредит 50 000</button>
     </form>
     <div class="kennel-pol">
     <img src = "/pici/male.png" width="3%"><img src = "/pici/female.png" width="3%">
     </div>
     <!-- начало таблицы c указанием собак-->
 <!--<table class="table222 table-bordered222 table-inverse222">-->
-<?php    // $ken->printDogsByKennel($owner);
-     $data = R::getCol('SELECT id FROM animals WHERE owner = :owner && status = 1' , [':owner' => $owner]);
-     // debug($data);
-foreach($data as $id): ?>
-<span class="dogk">
-    <span class="dogk-pic"><?php $printdog->picLink($id, '150px'); ?></span>
-    <span class="dogk-name">имя</span>
-    <span class="dogk-sex">пол</span>
-    <span class="dogk-estrus">течка</span>
-    <span class="dogk-litpup">щенки</span>
-</span>
-<?php endforeach;
-?>
+<?php    $ken->printDogsByKennel($owner); ?>
+
 </div>
-<div class="test">Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis, vel?</div>
+
 
 
            

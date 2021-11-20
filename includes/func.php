@@ -479,64 +479,47 @@ class Kennels{
     }    
  
     /* функция печатает все собак питомника*/
-    public function printDogsByKennel($owner) {
-        ?>
-        <table class="table">
-    <tr>
-    <?php
-    $printdog = new PrintDog();
-    $dog = new Dog();
-      $array[] = R::getAssoc('SELECT id,name FROM animals WHERE owner = :owner && status = 1' ,
-       [':owner' => $owner]);
-    //  debug($array);
-    foreach($array as $item) {
-        $count=0; // считает количество столбиков не больше 4
-        foreach ($item as $key => $value) {
-            //echo '<br>' . $count;
-/*сохранение данных о голости собаки + вязки/щенки*/
-            $lit = $dog->retLitter($key);
-            $pup = $dog->retPuppy($key);
-            $sex = $dog->retSexText($key);
-           $GLOBALS['Data_dog']= R::getRow( 'SELECT * FROM animals WHERE id = :id',
-                                            [':id' => $key]);;    //сохраняем данные по собаке
+    public function printDogsByKennel($owner){
+        $dog = new Dog();
+        $printdog = new PrintDog();
+        $data = R::getCol('SELECT id FROM animals WHERE owner = :owner && status = 1' , [':owner' => $owner]);
+        // debug($data);
+        $count = 0;
+   ?>
+   <table class="kennel-table">
+       <tr>
+           <?php foreach($data as $id):
+               $lit = $dog->retLitter($id);
+               $pup = $dog->retPuppy($id);
+               $sex = $dog->retSexText($id);
+               $value = $dog->retName($id);
+               if(5 > $count):
+                   ?><td><?php 
+                   $printdog->picLink($id, '50%');
+                   echo '<br>имя: ' . $value;
+                   echo '<br> пол : ' . $sex . '<br>';
+                   echo $dog->retEstrusStatus($id);
+                   echo '<a href="/lit&pup.php?id=' . $id . '">' . "<br> вязки/дети: ". $lit .'/'. $pup;
+                       
+                       $count=$count+1;
+               else:
+                   ?></td>
+       </tr><td>
+           <?php 
+           $printdog->picLink($id, '50%');
+           echo '<br>имя: ' . $value;
+           echo '<br> пол : ' . $sex . '<br>';
+           echo $dog->retEstrusStatus($id);
+           echo '<a href="/lit&pup.php?id=' . $id . '">' . "<br> вязки/дети: ". $lit .'/'. $pup;
+           $count = 1;
+           endif; ?>
+       </td>
                
-/*выводим на экран имя собаки как ссылку*/
-            If('4'>$count){ //если еще не 4 столбика, вписываем
-            ?>
-            <td> <!-- строка таблицы --> 
-                <!-- http://dog.ru/test.php?id=8&owner=nesh -->
-               
-                <?php $printdog->picLink($key, '25%'); ?>
-               <div><?php   //  вывод на экран количество вязок и щенков
-                            echo '<br>имя: ' . $value;
-                            echo '<br> пол : ' . $sex . '<br>';
-                            echo $dog->retEstrusStatus($key);
-                            echo '<a href="/lit&pup.php?id=' . $key . '">' . "<br> вязки/дети: ". $lit .'/'. $pup;
-                            $count=$count+1;
-                            ?>
-               </div>                           
-                               
-            
-  <?php     }else{ //если закончилась стрка перехрдить на следующую
-                ?></td></tr><td> <!-- строка таблицы -->
-                 <?php $printdog->picLink($key, '25%'); ?>
-               <div><?php   //  вывод на экран количество вязок и щенков
-                            echo '<br>имя: ' . $value;
-                            echo '<br> пол : ' . $sex . '<br>';
-                            echo $dog->retEstrusStatus($key);
-                            echo '<a href="/lit&pup.php?id=' . $key . '">' . "<br> вязки/дети: ". $lit .'/'. $pup;?>
-               </div>                       
-                <?php
-                 $count=1;   
-                //}
-            }
-                            
-             }    //foreach ($item as $key => $value) {
-            echo "<br/>";
-            }   // foreach($array as $item)
-            
+           <?php endforeach; ?>
+       </tr>
+   </table><?php
     }
-    
+   
  /* Функция печатает всех сук питомника*/   
     public function printFemalesByKennel($owner) {
         $printdog = new PrintDog();
