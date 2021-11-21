@@ -71,8 +71,6 @@ function globals()
         echo '<br>[' . $key . '] ' . $value;
     }
 }
-
-
 function test()
 {
     echo 'подключен файл functions.php';
@@ -754,7 +752,8 @@ class Tabl
     public function retRow($id, $tabl)
     {
 
-        return R::getRow(get_sql($id, $tabl));   //$id - индекс ; $tabl - таблица с данными
+        $sql = 'SELECT * FROM ' . $tabl .  ' WHERE id =' . $id;
+        return R::getRow($sql); //$id - индекс ; $tabl - таблица с данными
 
     }
     /*Функция достает даннные собаки по ее Id из нужно таблицы*/
@@ -1607,8 +1606,8 @@ class Registry
 
     public function retLit($id)
     {
-        $lit = R::getCell('SELECT `lit` FROM registry WHERE `id` = ? LIMIT 1', [$id]);
-        return $lit;
+        return R::getCell('SELECT `lit` FROM registry WHERE `id` = ? LIMIT 1', [$id]);
+        
     }
     function addLit($id)
     {
@@ -1620,8 +1619,8 @@ class Registry
         }
         //$array[] = range('А','Я');
         $array[] = array(
-            'А', 'Б', 'В', 'Г', 'Д', 'Е', 'Ё', 'Ж', 'З', 'И', 'Й', 'К', 'Л', 'М', 'Н', 'О', 'П', 'Р',
-            'С', 'Т', 'У', 'Ф', 'Х', 'Ц', 'Ч', 'Ш', 'Щ', 'Ъ', 'Ы', 'Ь', 'Э', 'Ю', 'Я'
+            'А', 'Б', 'В', 'Г', 'Д', 'Е', 'Ё', 'Ж', 'З', 'И', 'К', 'Л', 'М', 'Н', 'О', 'П', 'Р',
+            'С', 'Т', 'У', 'Ф', 'Х', 'Ц', 'Ч', 'Ш', 'Щ', 'Э', 'Ю', 'Я'
         );
         foreach ($array as $item) {
             foreach ($item as $key => $value) {
@@ -1674,4 +1673,35 @@ class Registry
         $tabl->UpdateData('registry', $id, 'lit', $lit);
         $tabl->UpdateData('animals', $id_new, 'reg_id', $id); //внести  ссылку на ссылку на помет в таблицу Animals*/
     }
+    public function retMum($id_reg)
+    {
+        return R::getCell('SELECT `mum` FROM registry WHERE `id` = ? LIMIT 1', [$id_reg]);
+    }
+    public function retDad($id_reg)
+    {
+        return R::getCell('SELECT `dad` FROM registry WHERE `id` = ? LIMIT 1', [$id_reg]);
+    }
+    public function retFemale($id_reg)
+    {
+        return R::getCell('SELECT `female` FROM registry WHERE `id` = ? LIMIT 1', [$id_reg]);
+    }
+    public function retMale($id_reg)
+    {
+        return R::getCell('SELECT `male` FROM registry WHERE `id` = ? LIMIT 1', [$id_reg]);
+    }
+    /*функция возвращае данные по помету*/
+    function do_do($reg_id){
+        $prt = new PrintDog;
+        $arr = R::getAssoc( 'SELECT id,name FROM animals WHERE reg_id = :id',[':id' => $reg_id]);  
+        //debug($arr); 
+        $newAr=array_keys($arr);
+        foreach ($newAr as $key => $value){
+                //echo '<br>' . $newAr[$key] . ' '  . 
+                echo R::getCell('SELECT `name` FROM animals WHERE `id_reg` = ? LIMIT 1', [$newAr[$key]]); 
+                //$url=ret_Cell('url_puppy', $newAr[$key], 'animals');
+                $prt->picLink($newAr[$key], '75px');
+                
+        } 
+    }   
+
 }
