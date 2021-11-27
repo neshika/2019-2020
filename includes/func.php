@@ -580,7 +580,7 @@ class Kennels
         $dog = new Dog();
         $printdog = new PrintDog();
         $data = R::getCol('SELECT id FROM animals WHERE owner = :owner && status = 1', [':owner' => $owner]);
-        // debug($data);
+        //debug($data);
         $count = 0;?>
         <table class="kennel-table">
             <tr><?php
@@ -598,8 +598,9 @@ class Kennels
                                 echo '<br>имя: ' . $value;
                                 echo '<br> пол : ' . $sex;
                                 echo '<a href="/lit&pup.php?id=' . $id . '">' . "<br> вязки/дети: " . $lit . '/' . $pup;
-                                $count = $count + 1;?>
-                                                                                                                                            else :
+                                $count = $count + 1;
+
+                            else :?>
                 </td>
             </tr>
                 <td><?php

@@ -47,7 +47,7 @@
 }
 
 .kartinka-img {
-  background: cornflowerblue;
+  /*background: cornflowerblue;*/
   display: block;
   content: [alt];
   text-align: center;
