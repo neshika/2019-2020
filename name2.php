@@ -21,8 +21,10 @@ require $_SERVER['DOCUMENT_ROOT']."/libs/up.php";?>
     height: 400px;
   }
   .sobitia {
+    padding: 1px;
   }
   .status {
+    padding: 1px;
   }
      
     table{

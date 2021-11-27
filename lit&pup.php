@@ -104,12 +104,13 @@ color: red;
                 </table>
                            
            <?php endforeach; 
+        else:
+            echo ' У данной собаки еще не было вязок! На старничку собаки ';
+            echo $prt->picLink($id, '75px');
         endif;
     ?>
     
 </div>
- <div class= "testim">
-<p>Изменяем цвет текста абзаца и <a href=”#”>ссылки</a></p>
-</div>
+
 
 

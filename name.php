@@ -29,6 +29,75 @@ if ( isset($_POST['newName']) ){
         ?> <script>alert ("Введите имя");</script><?php
     }
 }
+/*Если нажата кнопка продать*/
+if( isset($_POST['cell'])){
+   ?> 
+    <SCRIPT LANGUAGE="javascript">
+        if (confirm("Хотите продать собаку?")) {
+            var peremka = 'продана';
+           alert("Собака продана");
+        }
+        else {
+            var peremka = 'отмена';
+           alert("Оставляем собаку");
+            
+           
+            }
+         
+            
+    </SCRIPT>
+    <?php
+    //var_dump($_GET['u_name']);
+        /*if ($_GET['u_name'] = true)
+            {
+            var_dump($_GET);
+              //  $newName = new Tabl();
+               // $newName->UpdateData('animals', $id, 'name', "еще раз");
+            // echo '<script type="text/javascript">';
+                //echo 'document.location.href="' . $_SERVER['REQUEST_URI'] . '&u_name="';
+            // echo '</script>';
+                //exit();
+                
+            }
+        if ('' == $_GET['u_name'])
+            {
+                echo '<script type="text/javascript">';
+                echo 'document.location.href="' . $_SERVER['REQUEST_URI'] . '&u_name=" + peremka';
+                echo '</script>';
+                echo $_GET['u_name'];
+               // exit();
+            }
+    */
+    if (isset($_GET['u_name']))
+    {
+        echo '<script type="text/javascript">';
+        echo 'document.location.href="' . $_SERVER['REQUEST_URI'] . '&u_name=" + peremka';
+        echo '</script>';
+       
+        if('продана' == $_GET['u_name']){
+            $newName = new Tabl();
+            $newName->UpdateData('animals', $_GET['id'], 'owner', 'shop');?>
+            <script type="text/javascript">
+                function goToOtherPage() {
+                    window.location.href = "http://www.yandex.ru/";
+                }
+
+                window.setTimeout(goToOtherPage, 1);
+            </script>
+        <?php }
+        exit;
+               
+    }
+    else {
+        echo '<script type="text/javascript">';
+        echo 'document.location.href="' . $_SERVER['REQUEST_URI'] . '&u_name=" + peremka';
+        echo '</script>';
+        exit();
+    }
+  
+   
+    
+}
 /*Если нажата кнопка "Растить"*/
 
 if ( !empty($_POST['add_age']) ){
@@ -61,6 +130,7 @@ $rand_dog = new RandDog;
                     <button type="button" class="btn btn-dark">Гулять <i class="fa fa-umbrella" aria-hidden="true"></i></button>
                     <button type="button" class="btn btn-dark">Спать <i class="fa fa-bed" aria-hidden="true"></i></button>
                     <input type="submit" class="btn btn-dark" name="add_age" value="Растить">
+                    
                     </form>         
                 </div>
                 <div class="dannie-text">
@@ -90,19 +160,9 @@ $rand_dog = new RandDog;
                 </div>
             </div></td>
             <td><div class="kartinka">
-                <div class="kartinka-img"><?php $dog->picLink($id, '75%');?></div>
+                <div class="kartinka-img"><?php if (isset ($_GET['u_name'])) {echo $_GET['u_name'];} $dog->picLink($id);?></div>
                 </div>
-                <div class="arba">
-                <button type="button" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Добавки +Энергия">
-                        <i class="fa fa-leaf fa-2x" aria-hidden="true"></i><i class="fa fa-bolt" aria-hidden="true"></i>+</button>
-                        <button type="button" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Спа уход +Счастье" >
-                        <i class="fa fa-umbrella fa-2x" aria-hidden="true"></i> <i class="fa fa-certificate" aria-hidden="true"></i>+</button>
-                        <button type="button" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Ветеринар +Здоровье">
-                        <i class="fa fa-medkit fa-2x" aria-hidden="true"></i> <i class="fa fa-heart" aria-hidden="true"></i>+</button>
-                        <button type="button" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Тренировка -Энергия+Счастье">
-                        <i class="fa fa-graduation-cap fa-2x" aria-hidden="true"></i> <i class="fa fa-bolt" aria-hidden="true"></i>-<i class="fa fa-certificate" aria-hidden="true"></i>+</button></div>
-                
-            </div></td>
+                </td>
         </tr>
         <tr>
             <td><div class="sobitia">
@@ -122,8 +182,22 @@ $rand_dog = new RandDog;
                         <input class="btn btn-dark" name="shelter" type="submit" value="в приют">
                         <?php $_SESSION['Dog'] = $id; ?>
                     </form>
+                    <form method="POST">
+                    <input type="submit" class="btn btn-dark" name="cell" value="продать">
+                    </form>
             </div></td>
             <td><div class="status">
+                <div class="arba">
+                <button type="button" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Добавки +Энергия">
+                        <i class="fa fa-leaf fa-2x" aria-hidden="true"></i><i class="fa fa-bolt" aria-hidden="true"></i>+</button>
+                        <button type="button" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Спа уход +Счастье" >
+                        <i class="fa fa-umbrella fa-2x" aria-hidden="true"></i> <i class="fa fa-certificate" aria-hidden="true"></i>+</button>
+                        <button type="button" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Ветеринар +Здоровье">
+                        <i class="fa fa-medkit fa-2x" aria-hidden="true"></i> <i class="fa fa-heart" aria-hidden="true"></i>+</button>
+                        <button type="button" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Тренировка -Энергия+Счастье">
+                        <i class="fa fa-graduation-cap fa-2x" aria-hidden="true"></i> <i class="fa fa-bolt" aria-hidden="true"></i>-<i class="fa fa-certificate" aria-hidden="true"></i>+</button></div>
+                
+                </div>
                 <div class="status-gk">
                     <li>Генетический код: <?php echo $dna->retDna($dna_id);?></li>
                     <li>ссылка на URL взрослый: <?php echo $dna->retUrl($dna_id);?></li> 

@@ -725,21 +725,21 @@ class Tabl
     /*Функция достает даннные из заданного поля($cell) по ее Id из таблицы $tabl*/
     public function retCellById($id, $cell, $tabl)
     {
-        $sql = 'SELECT ' . $cell . ' FROM ' . $tabl . 'WHERE id=' . $id;
-
-        return R::getCell($sql);
+        $sql =  'SELECT '  . $cell . ' FROM ' . $tabl .  ' WHERE id =' . $id;
+        return R::getCell($sql); 
     }
 
     public function getSql($id, $tabl)
     {
-        $sql = 'SELECT * FROM \'' . $tabl . '\'WHERE id = ' . $id;
-        return $sql;
+        return 'SELECT * FROM \'' . $tabl . '\' WHERE id = ' . $id;
+        
     }
     /*Функция возвращает данные по параметру $cell из таблицы $tabl по индексу $id*/
     public function retCell($bdika, $id, $tabl)
     {
-        //if('animals'==$tabl){
-        $array = R::getAssoc($this->getSql($id, $tabl));
+        $sql = 'SELECT * FROM ' . $tabl .  ' WHERE id =' . $id;
+        $array = R::getAssoc($sql);
+       // var_dump($array);
         foreach ($array as $item) {
             foreach ($item as $key => $value) {
                 if ($key == $bdika) {

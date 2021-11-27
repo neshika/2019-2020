@@ -13,7 +13,7 @@ $mat = new Matting;
 ?>
 <!-- <link href="css/radio.css" rel="stylesheet" type="text/css"/>  -->
 <style>
-.AlfaDog{
+.alfa-dog{
     width: 500px;
     height: auto;
     /*background: #D0D0D0;*/
@@ -23,11 +23,9 @@ $mat = new Matting;
         box-shadow: 5px 5px 15px 5px #727272;
         /*border-radius: 15px;*/
 }
-.radio_butt{
-    
-}
+
 </style>
-<div class="AlfaDog">
+<div class="alfa-dog">
    <?php
    //распечатка основной собаки:
     echo $print->picSex($id) . $id; $print->picLink($id, '25%');
@@ -44,7 +42,7 @@ $mat = new Matting;
        $age = $dog->retAgeId($id_p); //распечатываем только половозрелых самцов и самок старше 14 и меньше 7 лет
        If( ((1 == $sex_partner) && ($age < 79) && ($age > 16)) || ( (0 == $sex_partner) && ($age > 16) && ($age < 59)) ){
        $print->picLink($id_p, '30%');
-       echo $print->retAgeText($id_p) . '/док:' . $print->retOrignText($id_p);
+       echo $print->retAgeText($id_p) . '/док: ' . $print->retOrignText($id_p);
        
        ?><form method="POST" action="/breedding.php">
            <input type="hidden" name="para" value="<?php echo $id_p;?>" >
