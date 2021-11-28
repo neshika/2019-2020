@@ -8,6 +8,8 @@ require_once(__DIR__ . '/includes/func.php');
 //включение ошибок//включение отчета по ошибкам
 ini_set('display_errors',1);
 error_reporting(E_ALL);
+
+
  
 if(!isset($_GET['id']) || !isset($_GET['owner'])){
     $id = $_SESSION['Dog'];
@@ -18,6 +20,13 @@ else{
     $id = $_GET['id'];
     $owner = $_GET['owner'];
 }
+
+$new_dog = new GreateNewDog();
+$dna = new Dna();
+$dog = new PrintDog();
+$dna_id=$dog->retDnaId($id);
+$rand_dog = new RandDog;
+
 /*Если кнопка "сменить имя" нажата*/
 if ( isset($_POST['newName']) ){ 
     
@@ -29,7 +38,7 @@ if ( isset($_POST['newName']) ){
         ?> <script>alert ("Введите имя");</script><?php
     }
 }
-/*Если нажата кнопка продать*/
+/*Если нажата кнопка продать
 if( isset($_POST['cell'])){
    ?> 
     <SCRIPT LANGUAGE="javascript">
@@ -43,31 +52,10 @@ if( isset($_POST['cell'])){
             
            
             }
-         
-            
+               
     </SCRIPT>
     <?php
-    //var_dump($_GET['u_name']);
-        /*if ($_GET['u_name'] = true)
-            {
-            var_dump($_GET);
-              //  $newName = new Tabl();
-               // $newName->UpdateData('animals', $id, 'name', "еще раз");
-            // echo '<script type="text/javascript">';
-                //echo 'document.location.href="' . $_SERVER['REQUEST_URI'] . '&u_name="';
-            // echo '</script>';
-                //exit();
-                
-            }
-        if ('' == $_GET['u_name'])
-            {
-                echo '<script type="text/javascript">';
-                echo 'document.location.href="' . $_SERVER['REQUEST_URI'] . '&u_name=" + peremka';
-                echo '</script>';
-                echo $_GET['u_name'];
-               // exit();
-            }
-    */
+    
     if (isset($_GET['u_name']))
     {
         echo '<script type="text/javascript">';
@@ -94,10 +82,10 @@ if( isset($_POST['cell'])){
         echo '</script>';
         exit();
     }
-  
    
     
 }
+*/
 /*Если нажата кнопка "Растить"*/
 
 if ( !empty($_POST['add_age']) ){
@@ -110,11 +98,59 @@ if ( !empty($_POST['add_age']) ){
 if (isset($_POST['eat'])){
     
 }
-$new_dog = new GreateNewDog();
-$dna = new Dna();
-$dog = new PrintDog();
-$dna_id=$dog->retDnaId($id);
-$rand_dog = new RandDog;
+/* Проверка внесения данных*/
+function bdika($cell, $count){
+    
+    if($cell >= 0 && $cell <=100){
+        $cell = $cell + $count;
+        if($cell>100){
+            $cell = 100;
+        }
+        if($cell < 0){
+            $cell = 0;
+        }
+        return $cell;
+
+    }
+}
+/*если нажата кнопка добавки - добавляет 13 энергии*/
+if(isset($_POST['badd'])){
+    $cell = $dog->retVitality($id);
+    $vit = bdika($cell,13);
+    $dog->UpdateData('animals',$id,'Vitality',$vit);
+}
+/*если нажата кнопка спа салон - добавляет 21 счастья*/
+if(isset($_POST['spa'])){
+   $cell = $dog->retJoy($id);
+   $joy = bdika($cell,21);
+   $dog->UpdateData('animals',$id,'joy',$joy);
+
+    }
+
+/*если нажата кнопка ветврач - добавляет 5 здоровья*/
+if(isset($_POST['vet'])){
+    $cell = $dog->retHp($id);
+    $hp = bdika($cell,5);
+    $dog->UpdateData('animals',$id,'Hp',$hp);
+}
+/*если нажата кнопка тренировки - добавляет -10 энергии + 10 здоровья*/
+if(isset($_POST['train'])){
+    $vit = $dog->retVitality($id);
+    if($vit >= 0 && $vit <=100){
+        $vit = $vit - 10;
+        if($vit>100){
+            $vit = 100;
+        }
+        if($vit < 0){
+            $vit = 0;
+        }
+    }
+    $hp = $dog->retHp($id);
+    $hp = bdika($hp,10);
+    $dog->UpdateData('animals',$id,'Vitality',$vit);
+    $dog->UpdateData('animals',$id,'Hp',$hp);
+}
+
     
   
 ?>
@@ -160,7 +196,7 @@ $rand_dog = new RandDog;
                 </div>
             </div></td>
             <td><div class="kartinka">
-                <div class="kartinka-img"><?php if (isset ($_GET['u_name'])) {echo $_GET['u_name'];} $dog->picLink($id);?></div>
+                <div class="kartinka-img"><?php /*if (isset ($_GET['u_name'])) {echo $_GET['u_name'];}*/ $dog->picLink($id);?></div>
                 </div>
                 </td>
         </tr>
@@ -183,19 +219,22 @@ $rand_dog = new RandDog;
                         <?php $_SESSION['Dog'] = $id; ?>
                     </form>
                     <form method="POST">
-                    <input type="submit" class="btn btn-dark" name="cell" value="продать">
+                    <input type="submit" class="btn btn-dark" name="cell" value="продать" disabled="disabled">
                     </form>
             </div></td>
             <td><div class="status">
                 <div class="arba">
-                <button type="button" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Добавки +Энергия">
+                    <form method="POST">
+                    <button type="submit" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Добавки +Энергия" name="badd">
                         <i class="fa fa-leaf fa-2x" aria-hidden="true"></i><i class="fa fa-bolt" aria-hidden="true"></i>+</button>
-                        <button type="button" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Спа уход +Счастье" >
+                        <button type="submit" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Спа уход +Счастье" name="spa" >
                         <i class="fa fa-umbrella fa-2x" aria-hidden="true"></i> <i class="fa fa-certificate" aria-hidden="true"></i>+</button>
-                        <button type="button" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Ветеринар +Здоровье">
+                        <button type="submit" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Ветеринар +Здоровье" name="vet">
                         <i class="fa fa-medkit fa-2x" aria-hidden="true"></i> <i class="fa fa-heart" aria-hidden="true"></i>+</button>
-                        <button type="button" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Тренировка -Энергия+Счастье">
-                        <i class="fa fa-graduation-cap fa-2x" aria-hidden="true"></i> <i class="fa fa-bolt" aria-hidden="true"></i>-<i class="fa fa-certificate" aria-hidden="true"></i>+</button></div>
+                        <button type="submit" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Тренировка -Энергия+Счастье" name="train">
+                        <i class="fa fa-graduation-cap fa-2x" aria-hidden="true"></i> <i class="fa fa-bolt" aria-hidden="true"></i>-<i class="fa fa-certificate" aria-hidden="true"></i>+</button>
+                    </form>
+                </div>
                 
                 </div>
                 <div class="status-gk">

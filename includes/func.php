@@ -389,9 +389,9 @@ class PrintDog extends Dog
         ?><img src="<?php echo $url; ?>" width="<?php echo $size ?>"><?php
     }
     /* функция печатает собаку по ее URL */
-public function dogPic($url, $size = 100)
-{
-?><img src="<?php echo $url; ?>" width="<?php echo $size ?>"><?php
+    public function dogPic($url, $size = 100)
+    {
+        ?><img src="<?php echo $url; ?>" width="<?php echo $size ?>"><?php
     }
     public function picSex($id_dog)
     {
