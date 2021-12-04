@@ -8,6 +8,7 @@ require_once(__DIR__ . '/includes/func.php');
 <div class="content">
     <hr><a href="http://dog.ru/test.php"> тестим тут </a>
     <a href="http://dog.ru/tailwind.html"> /стили/ </a>
+    <?php phpinfo();?>
     <hr> 
 <?php
 
@@ -42,6 +43,7 @@ echo '<br> количество посещений: ' . $user->retVisits($owner)
 echo '<br> собак в питомнике: ' . $ken->retCountDog($owner); // считает количество собак у владельца
 
 echo "<h3><li>Последние новости</li></h3>";
+
 
 
 
@@ -169,3 +171,16 @@ if ($rando == 1): ?>
         </form>
     <?php
 endif;
+
+?>
+<style>
+    #picdog, #firewokfs{
+    position: relative;
+    }
+    #firewokfs{
+        top: -300px;
+        left: 10px;
+    }
+</style>
+<div id="picdog"><img src="/pici/hr1w0f0b0t0m0_02.png" width="300px"> </div>
+<div id="firewokfs"><img src="/pici/fireworks.gif" width="300px"></div>
