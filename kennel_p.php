@@ -14,7 +14,7 @@ $dog = new Dog();
 $owner = $dog->retOwnerNoId(); //сохраняем название владельца в переменную из куки
 $ken = new Kennels();
 $kennel = $ken->retKennel($owner);
-$count = $ken->retCountMaleDog($owner);
+$count = $ken->retCountPuppyDog($owner);
 $coins = $printdog->printMoney($owner);
 ?>
 <div class="content">

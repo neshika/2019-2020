@@ -8,7 +8,6 @@ require_once(__DIR__ . '/includes/func.php');
 <div class="content">
     <hr><a href="http://dog.ru/test.php"> тестим тут </a>
     <a href="http://dog.ru/tailwind.html"> /стили/ </a>
-    <?php phpinfo();?>
     <hr> 
 <?php
 
@@ -134,32 +133,6 @@ if (isset($_POST['shelter'])) {
     R::store($dogshelter);
 }
 
-if (isset($_POST['shelter'])) {
-    echo 'Cобака отдана в приют!';
-    //echo '<br>Вы не смогли ее содержать!';
-    $id = $_SESSION['Dog'];
-    $obj->picLink($id, 50);
-    //dog_pic_size($id, 50);
-
-    $ret_dna = $dog->retDnaId($id);
-    // Загружаем объект с ID = собаки, который взяли из animals
-    $dog = R::load('randodna', $ret_dna);
-    // Обращаемся к свойству объекта и назначаем ему новое значение
-    $dog->about = 'shelter';
-    // Сохраняем объект
-    R::store($dog);
-
-    //высчитываем стоимость в зависимости от параметров
-    $price = $rand_dog->dogPrice($id);
-    //**************************  уменьшаем стоимость на 50 % ***************** //
-    $price = $price / 2;
-    $obj->printMoney($login);
-    $obj->putMoney($login, $price);
-    echo 'Выручка составила: ' . $price;
-    $dogshelter = R::load('animals', $id);
-    $dogshelter->owner = 'shelter';
-    R::store($dogshelter);
-}
 //кнопка купить собаку. акция актуальна только сегодня
 $rando = rand(1, 100);
 if ($rando == 1): ?>
@@ -182,5 +155,5 @@ endif;
         left: 10px;
     }
 </style>
-<div id="picdog"><img src="/pici/hr1w0f0b0t0m0_02.png" width="300px"> </div>
-<div id="firewokfs"><img src="/pici/fireworks.gif" width="300px"></div>
+<div id="picdog"><img src="/pici/hr1w0f0b0t0m0_02.png77" width="300px"> </div>
+<div id="firewokfs"><img src="/pici/fireworks.gif77" width="300px"></div>
