@@ -42,9 +42,13 @@ echo '<br> количество посещений: ' . $user->retVisits($owner)
 echo '<br> собак в питомнике: ' . $ken->retCountDog($owner); // считает количество собак у владельца
 
 echo "<h3><li>Последние новости</li></h3>";
-
-
-
+?>
+<div class="progress-bar">
+  <span class="bar">
+    <span class="progress"><progress max ="100" value="10"></progress></span>
+  </span>
+</div>
+<?php
 
 if (isset($_POST['comment'])): //если в форме NewDog включена кнопка отправки имени собаки
     if ($now == $user->retLTime($owner)): //если данные о смене имени прищли сегодня
@@ -155,5 +159,5 @@ endif;
         left: 10px;
     }
 </style>
-<div id="picdog"><img src="/pici/hr1w0f0b0t0m0_02.png77" width="300px"> </div>
-<div id="firewokfs"><img src="/pici/fireworks.gif77" width="300px"></div>
+<!--<div id="picdog"><img src="/pici/hr1w0f0b0t0m0_02.png" width="300px"> </div>
+<div id="firewokfs"><img src="/pici/fireworks.gif" width="300px"></div>

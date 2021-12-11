@@ -1,0 +1,25 @@
+progress {
+  border: 0;
+  width: 300px;
+  height: 20px;
+  border-radius: 10px;
+  background: #f1f1f1;
+}
+
+progress::-webkit-progress-bar {
+  width: 300px;
+  height: 20px;
+  border-radius: 10px;
+  background: #f1f1f1;
+}
+
+progressprogress::-webkit-progress-value {
+  border-radius: 10px;
+  background: #7a0270;
+}
+
+progressprogress::-moz-progress-bar {
+  border-radius: 5px;
+  background: #7a0270;
+}
+/*# sourceMappingURL=test2.css.map */
