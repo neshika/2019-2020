@@ -42,13 +42,6 @@ echo '<br> количество посещений: ' . $user->retVisits($owner)
 echo '<br> собак в питомнике: ' . $ken->retCountDog($owner); // считает количество собак у владельца
 
 echo "<h3><li>Последние новости</li></h3>";
-?>
-<div class="progress-bar">
-  <span class="bar">
-    <span class="progress"><progress max ="100" value="10"></progress></span>
-  </span>
-</div>
-<?php
 
 if (isset($_POST['comment'])): //если в форме NewDog включена кнопка отправки имени собаки
     if ($now == $user->retLTime($owner)): //если данные о смене имени прищли сегодня
