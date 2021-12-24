@@ -1,6 +1,7 @@
 
 <?php 
 /*require_once(__DIR__ . '/libs/up.php');*/
+require_once(__DIR__ . '/db.php');
 require_once(__DIR__ . '/includes/func.php');
 
 
@@ -64,6 +65,16 @@ require_once(__DIR__ . '/includes/func.php');
     <span class="progress"></span>
   </span>
 </div>
+<div id="content">
+<?php 
+$adm = new Adminka();
+//$adm->randoTypeAll();
+
+
+?>
+
+</div>
+
 
 
 

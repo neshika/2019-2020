@@ -79,7 +79,12 @@ function debug($arr)
 {
     echo '<pre>' . print_r($arr, true) . '</pre>';
 }
-
+ function RandChar(){
+     
+    $types = ['Холерик','Сангвиник','Флегматик','Меланхолик'];
+    $arr = array_rand($types, 1);
+    return $types[$arr];
+ }
 
 /**************************   СОЗДАНИЕ НОВОЙ СОБАКИ ***************/
 class GreateNewDog
@@ -164,6 +169,7 @@ class GreateNewDog
         $bean->nuh = $this->StatsFromMumDad($dna_m['spd'], $dna_d['nuh'], $mutation, $plus);
         $bean->fnd = $this->StatsFromMumDad($dna_m['spd'], $dna_d['fnd'], $mutation, $plus);
         $bean->mut = $mutation * 100;
+        $bean->type = RandChar();
         $bean->dna = $puppy_dna;
         $bean->about = 'owner';
         $bean->url = $url;
@@ -345,6 +351,7 @@ class PrintDog extends Dog
                 <td>поиск</td>
                 <td><?php echo $array['fnd'] ?></td>
             </tr>
+          
         </table><?php
 
     }
@@ -404,6 +411,12 @@ class PrintDog extends Dog
         } else {
             return '<img src = "/pici/male_mini.png">';
         }
+    }
+    public function printChar($id_dog){
+        $dna_id = $this->retDnaId($id_dog);
+
+         return R::getCell('SELECT type FROM randodna WHERE id = ? LIMIT 1', [$dna_id]);
+
     }
 }
 /************************** Работа с kennels питомники ***************/
@@ -883,6 +896,9 @@ class Dna extends Dog
     {
         return R::getCell('SELECT dna FROM randodna WHERE id = ? LIMIT 1', [$dna_id]);
     }
+    public function retChar($dna_id){
+        return R::getCell('SELECT type FROM randodna WHERE id = ? LIMIT 1', [$dna_id]);
+    }
     public function retUrl($dna_id)
     {
         return R::getCell('SELECT url FROM randodna WHERE id = ? LIMIT 1', [$dna_id]);
@@ -1219,6 +1235,7 @@ class RandDog extends PrintDog
         $dog->nuh = $new['nuh'];
         $dog->fnd = $new['fnd'];
         $dog->mut = $new['mut'];
+        $dog->type = RandChar();
         //$dog->dna = $this->startDna();
         $dog->dna = $dna;
         $dog->about = 'shop';
@@ -1704,5 +1721,31 @@ class Registry
                 
         } 
     }   
+
+}
+class Adminka{
+    public function randoTypeAll(){
+
+        $types = ['Холерик','Сангвиник','Флегматик','Меланхолик'];
+        //$arr = array_rand($types, 1);
+        //echo $types[$arr];
+        
+        $types = ['Холерик','Сангвиник','Флегматик','Меланхолик'];
+        $end = R::count('randodna');
+        
+        print_r($types);
+        echo $types['3'];
+       
+        $num=1; // до конца идет и меняет у каждого рандомно вид характеристики
+        While($num<=$end){
+            $arr = array_rand($types, 1); //находит рандомное значение из $types
+            $dog = R::load('randodna', $num); 
+            $dog->type = $types[$arr];  //вставляет получившееся значение
+            R::store($dog);
+            $num++;
+        }
+        
+        
+    }
 
 }

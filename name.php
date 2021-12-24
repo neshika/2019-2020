@@ -178,7 +178,7 @@ if( isset($_POST['cell'])){
                         <li> Происхождение: <?php echo $dog->retOrignText($id); ?></li>
                         <li> Оценка: <?php echo $dog->retMarkText($id) ?></li>
                         <li> Примерная стоимость собаки: <?php echo $rand_dog->dogPrice($dog->retDnaId($id)); ?></li>
-                        <li> Характер собаки: <a href="/text/char.php">?</a> </li>
+                        <li> <a href="/text/char.php">?</a> Характер собаки: <?php echo $dog->printChar($id); ?> </li>
                         <hr>
                         <li> ID собаки: <?php echo $id; ?></li>
 
