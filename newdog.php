@@ -35,7 +35,7 @@ error_reporting(E_ALL);
 
   /* выводим ДНК щенка на основе данных родителей */
   $puppy_dna = $puppy->DoDnaMumDad($mum, $dad); //hr1w1f1b1t1m1
-  echo '<br>' . $puppy_dna; /* Не забыть внести DNA в таблицу Randodna*/
+    echo '<br>' . $puppy_dna; /* Не забыть внести DNA в таблицу Randodna*/
 
   //debug($dna_m = $dna->retAllDna($id_m));
   //debug($dna_d = $dna->retAllDna($id_d));
@@ -45,6 +45,7 @@ error_reporting(E_ALL);
   $dna_id = $puppy->InsertDogDna($id_m, $id_d, $puppy_dna);
   echo ' two ';
   $id_new_dog = $puppy->insertDogAnimals($owner, $dna_id);
+  $prt->printChar($id_new_dog); //распечатывает характеристику щенка
 
   // по умолчанию age_id 13, меняем на щенка 1
   $dog->setAge1($id_new_dog);
@@ -78,7 +79,7 @@ error_reporting(E_ALL);
       </td>
       <td id="col2">
         <h3>Характеристики: </h3>
-        <?php echo $prt->picSex($id_new_dog);
+        <?php echo $prt->picSex($id_new_dog) . $prt->printChar($id_new_dog); //распечатывает характеристику щенка;
         $prt->printStats($id_new_dog); ?>
       </td>
       <td id="buttom">

@@ -77,9 +77,10 @@ function test()
 }
 function debug($arr)
 {
-    echo '<pre>' . print_r($arr, true) . '</pre>';
+    echo '<pre style="color:white;">' . print_r($arr, true) . '</pre>';
 }
- function RandChar(){
+
+function RandChar(){
      
     $types = ['Холерик','Сангвиник','Флегматик','Меланхолик'];
     $arr = array_rand($types, 1);
@@ -145,6 +146,7 @@ class GreateNewDog
     public function InsertDogDna($id_m, $id_d, $puppy_dna)
     {
 
+        
         $mat = new Matting();
         $dna = new Dna();
         $rand = new RandDog();
@@ -154,6 +156,7 @@ class GreateNewDog
         $dna_d = $dna->retAllDna($id_d);
         $sex = Rand(0, 1);
         $lucky = Rand(1, 100);
+        
         $url = $rand->doUrl($puppy_dna);
         $url_puppy = $rand->DoUrlPuppy($url);
 
@@ -296,8 +299,7 @@ class GreateNewDog
         echo '<br>mumLit ' . $mum_lit = $dog->retLitter($id_m);
         echo '<br>dadLit ' . $dad_lit = $dog->retLitter($id_d);
     }
-
-    public function buying($owner, $money)
+public function buying($owner, $money)
     {
         $itm = new OwnerItems();
 
@@ -384,8 +386,11 @@ class PrintDog extends Dog
                 <img src="<?php echo $url; ?>" width="<?php echo $size ?>" alt="фото собаки">
             </a>
         <?php
-
-
+    }
+    public function nameLink($id){
+        $owner = $this->retOwner($id);
+        ?><a href="/name.php?id=<?php echo $id . "&owner=" . $owner; ?>"><?php echo $this->retName($id)?></a>
+        <?php
     }
 
     /*функция печатает собаку , можно указать размер картинки в пикселях. проверяет щенок или нет(печатает из ANIMALS)*/
@@ -497,7 +502,14 @@ class Kennels
     {
         return R::getCell('SELECT kennel FROM users WHERE login = :owner',[':owner' => $owner]);
     }
-
+    /*  возвращает id собак, одного питомника в array */
+    public function retAllDogsByKennel($owner){
+                
+        return R::getCol('SELECT id FROM animals WHERE owner = :owner && status = 1', [':owner' => $owner]);
+        // foreach ($array_dogs as $value) {
+        //     echo $value . "<br>\r\n";
+        // }
+    }
     /* функция печатает все собак питомника*/
     public function printDogsByKennel($owner)
     {
@@ -1133,6 +1145,11 @@ class Dog extends Tabl
             }
             return $array;
         }
+    }
+    public function retCharacter($id){
+        $dna = new Dna;
+        return $dna->retChar($this->retDnaId($id));
+        
     }
     /*увеличивает возраст на 1 тик*/
     public function addAge($id)

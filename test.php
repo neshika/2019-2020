@@ -70,7 +70,81 @@ require_once(__DIR__ . '/includes/func.php');
 //phpinfo(); 
 //$adm = new Adminka();
 //$adm->randoTypeAll();
+$kennel = new Kennels;
+$dog = new Dna;
+$prt = new PrintDog;
+$owner = 'Nesh';
+$count = $kennel->retCountDog($owner); //количество собак в питомнике
+$array_dogs = $kennel->retAllDogsByKennel($owner); //перечень собак из питомника
+//debug($array_dogs); 
+$num = Rand(1 , $count); //рандомное количество id собак
+//$num = 3;
+$rand_arr = array_rand($array_dogs, $num); //получаем ИД собак для последующего вытягивания из общего количества.
 
+//var_dump($rand_arr);
+
+if(is_array($rand_arr)){
+    foreach ($rand_arr as $val) {
+        foreach($array_dogs as $id => $value){
+            if($val == $id){
+               // echo '<br>id ' . $value . ' его ДНК ' . $dog->retDnaId($value) . ' его характер ' . $dog->retCharacter($value) . "<br>\r\n";
+                if('Сангвиник' == $dog->retCharacter($value)){
+                   // $param = $prt->nameLink($value);
+                   //$text = "<a href=\"/name.php?id=" . $value . "&owner=" . $owner . ">" . $dog->retName($value) . "</a>";
+                    echo 'Сегодня у сангвиника <strong><a href="/name.php?id=' . $value . "&owner=" . $owner . "\">" . $dog->retName($value) . "</a></strong>  состояние веселое<br>";
+                }
+                // if('Холерик' == $dog->retCharacter($value)){
+                //     echo 'Сегодня собака <strong>' . $dog->retName($value) . $prt->nameLink($value). '</strong> холерик выла всю ночь, соседи вызвали полицию. Оплатить штраф? да/нет<br>';
+                // }
+                // if('Меланхолик' == $dog->retCharacter($value)){
+                //     echo 'Сегодня собаке <strong>' . $dog->retName($value) . $prt->nameLink($value) . '</strong> - меланхолик. Ничего не хотелось делать!<br>';
+                // }
+                // if('Флегматик' == $dog->retCharacter($value)){
+                //     echo 'Сегодня флегматик <strong>' . $dog->retName($value) . $prt->nameLink($value). '</strong> сидит около двери и ждет тебя... может поиграем? да/нет <br>';
+                // }
+            }
+        }
+    }
+}
+else{
+    foreach($array_dogs as $id => $value){
+        if($rand_arr == $id){
+           // echo '<br>id ' . $value . ' его ДНК ' . $dog->retDnaId($value) . ' его характер ' . $dog->retCharacter($value) . "<br>\r\n";
+            if('Сангвиник' == $dog->retCharacter($value)){
+                echo 'Сегодня у сангвиника <strong>' . $dog->retName($value) . $prt->nameLink($value). '</strong>  состояние веселое<br>';
+            }
+            if('Холерик' == $dog->retCharacter($value)){
+                echo 'Сегодня собак <strong>' . $dog->retName($value) . $prt->nameLink($value). '</strong> холерик выла всю ночь, соседи вызвали полицию. Оплатить штраф? да/нет<br>';
+            }
+            if('Меланхолик' == $dog->retCharacter($value)){
+                echo 'Сегодня собаке <strong>' . $dog->retName($value) . $prt->nameLink($value). '</strong> - меланхолик. Ничего не хотелось делать!<br>';
+            }
+            if('Флегматик' == $dog->retCharacter($value)){
+                echo 'Сегодня флегматик <strong>' . $dog->retName($value) . $prt->nameLink($value). '</strong> сидит около двери и ждет тебя... может поиграем? да/нет <br>';
+            }
+        }
+    }
+
+
+}
+
+    // if(0 != $value) {
+    //     echo '<br>id ' . $value . ' его ДНК ' . $dog->retDnaId($value) . ' его характер ' . $dog->retCharacter($value) . "<br>\r\n";
+    // if('Сангвиник' == $dog->retCharacter($value)){
+    //     echo 'Сегодня у сангвиника <strong>' . $dog->retName($value) . '</strong>  состояние веселое<br>';
+    // }
+    // if('Холерик' == $dog->retCharacter($value)){
+    //     echo 'Сегодня собак <strong>' . $dog->retName($value) . '</strong> холерик выла всю ночь, соседи вызвали полицию. Оплатить штраф? да/нет<br>';
+    // }
+    // if('Меланхолик' == $dog->retCharacter($value)){
+    //     echo 'Сегодня собаке <strong>' . $dog->retName($value) . '</strong> - меланхолик. Ничего не хотелось делать!<br>';
+    // }
+    // if('Флегматик' == $dog->retCharacter($value)){
+    //     echo 'Сегодня флегматик <strong>' . $dog->retName($value) . '</strong> сидит около двери и ждет тебя... может поиграем? да/нет <br>';
+    // }
+    // }
+	
+//}
 
 ?>
 
