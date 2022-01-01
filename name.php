@@ -231,12 +231,12 @@ if( isset($_POST['cell'])){
                 </div>
             </td>
             <td>
-                <div class="status">
+               <!-- <div class="status">
                     <div class="progress5-bar5">
                         <span class="bar5">
                             <span class="progress5"></span>
                         </span>
-                    </div>
+                    </div>-->
                     <div class="arba">
                         <form method="POST">
                             <button type="submit" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Добавки +Энергия" name="badd">

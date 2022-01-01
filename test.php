@@ -66,8 +66,9 @@ require_once(__DIR__ . '/includes/func.php');
   </span>
 </div>
 <div id="content">
-<?php 
-$adm = new Adminka();
+<?php
+//phpinfo(); 
+//$adm = new Adminka();
 //$adm->randoTypeAll();
 
 
