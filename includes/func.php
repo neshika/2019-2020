@@ -389,8 +389,9 @@ class PrintDog extends Dog
     }
     public function nameLink($id){
         $owner = $this->retOwner($id);
-        ?><a href="/name.php?id=<?php echo $id . "&owner=" . $owner; ?>"><?php echo $this->retName($id)?></a>
-        <?php
+        $name = $this->retName($id);
+        $text = '<a href="/name.php?id=' . $id . "&owner=" . $owner . "\">" . $name . "</a>";
+        return $text;
     }
 
     /*функция печатает собаку , можно указать размер картинки в пикселях. проверяет щенок или нет(печатает из ANIMALS)*/
