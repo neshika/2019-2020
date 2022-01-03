@@ -73,7 +73,7 @@ require_once(__DIR__ . '/includes/func.php');
 $kennel = new Kennels;
 $dog = new Dna;
 $prt = new PrintDog;
-$owner = 'кто-то';
+$owner = 'nesh';
 
 $count = $kennel->retCountDog($owner); //количество собак в питомнике
 $array_dogs = $kennel->retAllDogsByKennel($owner); //перечень собак из питомника
@@ -84,8 +84,10 @@ $rand_arr = array_rand($array_dogs, $num); //получаем ИД собак д
 
 //var_dump($rand_arr);
 $arr_char = [];
+$_SESSION['arr_char'] = $arr_char;
 
 if(is_array($rand_arr)){
+    
     foreach ($rand_arr as $val) {
         foreach($array_dogs as $id => $value){
             if($val == $id){
@@ -95,6 +97,7 @@ if(is_array($rand_arr)){
                     echo 'Сегодня у сангвиника <strong>' . $prt->nameLink($value) . '</strong>  состояние веселое<br>';
                    $text = 'Сегодня У ' . $dog->retName($value) . ' состояние веселое.';
                    $arr_char[$value] = $text;
+
                 }
                 if('Холерик' == $dog->retCharacter($value)){
                     echo 'Сегодня собака <strong>' . $prt->nameLink($value) . '</strong> выла всю ночь(собака холерик), соседи вызвали полицию. Оплатить штраф? да/нет<br>';
@@ -139,6 +142,7 @@ else{
             echo 'Сегодня флегматик <strong>' . $prt->nameLink($value) . '</strong> сидит около двери и ждет тебя... может поиграем? да/нет <br>';
             $text = 'Сегодня ' . $dog->retName($value) . ' сидит около двери и ждет тебя...';
            $arr_char[$value] = $text;
+         
         }
         }
     }
@@ -147,6 +151,8 @@ else{
 }
 
 var_dump($arr_char);
+$_SESSION['arr_char'] = $arr_char;
+//var_dump($_POST['arr_char']);
     // if(0 != $value) {
     //     echo '<br>id ' . $value . ' его ДНК ' . $dog->retDnaId($value) . ' его характер ' . $dog->retCharacter($value) . "<br>\r\n";
     // if('Сангвиник' == $dog->retCharacter($value)){

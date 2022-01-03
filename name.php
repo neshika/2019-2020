@@ -159,6 +159,7 @@ if( isset($_POST['cell'])){
                 <div class="dannie">
                     <div class="dannie-knopki">
                         <form method="POST">
+                       
                             <button type="submit" class="btn btn-dark" name="eat">Есть <i class="fa fa-cutlery" aria-hidden="true"></i></button>
                             <button type="button" class="btn btn-dark">Пить <i class="fa fa-tint" aria-hidden="true"></i></button>
                             <button type="button" class="btn btn-dark">Чесать <i class="fa fa-bath" aria-hidden="true"></i></button>
@@ -200,7 +201,12 @@ if( isset($_POST['cell'])){
             </td>
             <td>
                 <div class="kartinka">
-                    <div class="kartinka-img"><?php /*if (isset ($_GET['u_name'])) {echo $_GET['u_name'];}*/ $dog->picLink($id); ?></div>
+                    <div class="kartinka-img">
+                        <?php if (isset($_SESSION['arr_char'])){
+                                echo $_SESSION['arr_char'][$id];
+                            };
+                                $dog->picLink($id); ?>
+                    </div>
 
                 </div>
             </td>
