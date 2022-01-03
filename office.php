@@ -28,7 +28,7 @@ $print = new PrintDog;
 
 $now = date('d.m.Y'); //03.08.2017
 $owner = $user->retOwner();
-$dog->countDogs($owner); // считает количество собак у владельца
+//$dog->countDogs($owner); // считает количество собак у владельца
 
 
 if ($now != $user->retLTime($owner)) {
