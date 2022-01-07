@@ -1,64 +1,68 @@
 /* name */
-$box-shadow: $box-shadow;
+
+$box-shadow: 5px 5px 15px 5px #a2a2a3;
 $br: 15px;
-
 .dogcontent {
-  padding: 5px;
-  margin: 25px;
-  width: 1350px;
-  -webkit-box-shadow: $box-shadow;
-  box-shadow: $box-shadow;
-  border-radius: $br;
+    padding: 5px;
+    margin: 25px;
+    width: 1350px;
+    -webkit-box-shadow: $box-shadow;
+    box-shadow: $box-shadow;
+    border-radius: $br;
 }
+
 .dannie {
-  padding: 3px;
-  width: 700px;
-  height: auto;
-  &-knopki {
-    padding: auto;
-  }
-
-  &-text {
-    li {
-      list-style: "\1F5F8"; /*галочка*/
-      /*margin-right: 2rem;*/
+    padding: 3px;
+    width: 700px;
+    height: auto;
+    &-knopki {
+        padding: auto;
     }
-  }
+    &-text {
+        li {
+            list-style: "\1F5F8";
+            /*галочка*/
+            /*margin-right: 2rem;*/
+        }
+    }
 }
+
 .kartinka {
-  padding-left: 25px;
-  width: 310px;
-  height: 310px;
-  margin-top: 20px;
-  border-radius: 1px rgb(20, 0, 14);
-  &-img {
-    display: block;
-    content: [alt];
-    text-align: center;
-    margin: 10px 0 0 0;
-    overflow: hidden;
-  }
-  .arba {
-    padding: auto;
-  }
-}
-.sobitia {
-  margin-left: 2rem;
-}
-.status {
-  &-gk {
-    li {
-      list-style: none;
+    padding-left: 25px;
+    width: 310px;
+    height: 310px;
+    margin-top: 20px;
+    border-radius: 1px rgb(20, 0, 14);
+    &-img {
+        display: block;
+        content: [alt];
+        text-align: center;
+        margin: 10px 0 0 0;
+        overflow: hidden;
     }
-  }
-
-  &-bar {
-    padding-left: 2rem;
-  }
+    .arba {
+        padding: auto;
+    }
 }
+
+.sobitia {
+    margin-left: 2rem;
+}
+
+.status {
+    &-gk {
+        li {
+            list-style: none;
+        }
+    }
+    &-bar {
+        padding-left: 2rem;
+    }
+}
+
 .footer2 {
-  clear: both;
-  text-align: right;
-  /*background: #A9B4FF; */
-  padding: 20px;
+    clear: both;
+    text-align: right;
+    /*background: #A9B4FF; */
+    padding: 20px;
 }

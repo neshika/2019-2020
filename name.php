@@ -202,7 +202,8 @@ if( isset($_POST['cell'])){
             <td>
                 <div class="kartinka">
                     <div class="kartinka-img">
-                        <?php if (isset($_SESSION['arr_char'])){
+                        <?php if (isset($_SESSION['arr_char']) AND !empty($_SESSION['arr_char'][$id])){
+
                                 echo $_SESSION['arr_char'][$id];
                             };
                                 $dog->picLink($id); ?>

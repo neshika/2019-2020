@@ -901,6 +901,88 @@ class Office extends Dog
         }
         return $num;
     }
+    public function CharEvent($owner){
+        $kennel = new Kennels;
+        $dog = new Dna;
+        $prt = new PrintDog;
+        $count = $kennel->retCountDog($owner); //количество собак в питомнике
+        $array_dogs = $kennel->retAllDogsByKennel($owner); //перечень собак из питомника
+        //debug($array_dogs); 
+        $num = Rand(1 , $count); //рандомное количество id собак
+        //$num = 3;
+        $rand_arr = array_rand($array_dogs, $num); //получаем ИД собак для последующего вытягивания из общего количества.
+        
+        //var_dump($rand_arr);
+        $arr_char = [];
+        $_SESSION['arr_char'] = $arr_char;
+        
+        if(is_array($rand_arr)){
+            
+            foreach ($rand_arr as $val) {
+                foreach($array_dogs as $id => $value){
+                    if($val == $id){
+        
+                       // echo '<br>id ' . $value . ' его ДНК ' . $dog->retDnaId($value) . ' его характер ' . $dog->retCharacter($value) . "<br>\r\n";
+                        if('Сангвиник' == $dog->retCharacter($value)){
+                            echo '<br>Сегодня у сангвиника <strong>' . $prt->nameLink($value) . '</strong>  состояние веселое';
+                           $text = 'Сегодня У ' . $dog->retName($value) . ' состояние веселое.';
+                           $arr_char[$value] = $text;
+        
+                        }
+                        if('Холерик' == $dog->retCharacter($value)){
+                            echo '<br>Сегодня собака <strong>' . $prt->nameLink($value) . '</strong> выла всю ночь(собака холерик), соседи вызвали полицию. Оплатить штраф? да/нет';
+                            $text = 'Сегодня собака ' . $dog->retName($value) . ' выла всю ночь, соседи вызвали полицию.';
+                           $arr_char[$value] = $text;
+                        }
+                        if('Меланхолик' == $dog->retCharacter($value)){
+                            echo '<br>Сегодня собаке <strong>' . $prt->nameLink($value) . '</strong> ничего не хотелось делать!(собака-меланхолик)';
+                            $text = 'Сегодня собаке ' . $dog->retName($value) . ' ничего не хотелось делать!';
+                           $arr_char[$value] = $text;
+                        }
+                        if('Флегматик' == $dog->retCharacter($value)){
+                            echo '<br>Сегодня флегматик <strong>' . $prt->nameLink($value) . '</strong> сидит около двери и ждет тебя... может поиграем? да/нет';
+                            $text = 'Сегодня ' . $dog->retName($value) . ' сидит около двери и ждет тебя...';
+                           $arr_char[$value] = $text;
+                        }
+                    }
+                }
+            }
+        }
+        
+        else{
+            foreach($array_dogs as $id => $value){
+                if($rand_arr == $id){
+                   // echo '<br>id ' . $value . ' его ДНК ' . $dog->retDnaId($value) . ' его характер ' . $dog->retCharacter($value) . "<br>\r\n";
+                   if('Сангвиник' == $dog->retCharacter($value)){
+                    echo '<br>Сегодня у сангвиника <strong>' . $prt->nameLink($value) . '</strong>  состояние веселое';
+                   $text = 'Сегодня У ' . $dog->retName($value) . ' состояние веселое.';
+                   $arr_char[$value] = $text;
+                }
+                if('Холерик' == $dog->retCharacter($value)){
+                    echo '<br>Сегодня собака <strong>' . $prt->nameLink($value) . '</strong> выла всю ночь(собака холерик), соседи вызвали полицию. Оплатить штраф? да/нет';
+                    $text = 'Сегодня собака ' . $dog->retName($value) . ' выла всю ночь, соседи вызвали полицию.';
+                   $arr_char[$value] = $text;
+                }
+                if('Меланхолик' == $dog->retCharacter($value)){
+                    echo '<br>Сегодня собаке <strong>' . $prt->nameLink($value) . '</strong> ничего не хотелось делать!(собака-меланхолик)';
+                    $text = 'Сегодня собаке ' . $dog->retName($value) . ' ничего не хотелось делать!';
+                   $arr_char[$value] = $text;
+                }
+                if('Флегматик' == $dog->retCharacter($value)){
+                    echo '<br>Сегодня флегматик <strong>' . $prt->nameLink($value) . '</strong> сидит около двери и ждет тебя... может поиграем? да/нет';
+                    $text = 'Сегодня ' . $dog->retName($value) . ' сидит около двери и ждет тебя...';
+                   $arr_char[$value] = $text;
+                 
+                }
+                }
+            }
+        
+        
+        }
+        
+        //var_dump($arr_char);
+        $_SESSION['arr_char'] = $arr_char;
+    }
 }
 /************************ Работа с таблицей RANDODNA ***************/
 class Dna extends Dog

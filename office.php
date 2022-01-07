@@ -23,25 +23,23 @@ $rand_dog = new RandDog;
 $event = new Office;
 $print = new PrintDog;
 
-
-
-
 $now = date('d.m.Y'); //03.08.2017
 $owner = $user->retOwner();
 //$dog->countDogs($owner); // считает количество собак у владельца
 
+echo '<br> количество посещений: ' . $user->retVisits($owner);
+echo '<br> собак в питомнике: ' . $ken->retCountDog($owner); // считает количество собак у владельца
 
+echo "<h3><li>Последние новости</li></h3>";
 if ($now != $user->retLTime($owner)) {
+    $event->CharEvent($owner);
+
     //echo '<br> разые';
     $visits = $user->retVisits($owner);
     $visits += 1;
     $tabl->UpdateData('users', $user->retId($owner), 'visits', $visits);
     $tabl->UpdateData('users', $user->retId($owner), 'l_time', $now);
 }
-echo '<br> количество посещений: ' . $user->retVisits($owner);
-echo '<br> собак в питомнике: ' . $ken->retCountDog($owner); // считает количество собак у владельца
-
-echo "<h3><li>Последние новости</li></h3>";
 
 if (isset($_POST['comment'])): //если в форме NewDog включена кнопка отправки имени собаки
     if ($now == $user->retLTime($owner)): //если данные о смене имени прищли сегодня
