@@ -86,27 +86,34 @@ if ('1' == $dog->retSex($id)) {
                 $_SESSION['id_m'] = $id_m;
                 $_SESSION['id_d'] = $id_d;
 
-                echo ' самка: ' . $mat->bdikaForBreed($id_m);
-                echo ' <br>самец: ' . $mat->bdikaForBreed($id_d);
+               $bdika_mum = $mat->bdikaForBreed($id_m);
+               $bdika_dad = $mat->bdikaForBreed($id_d);
 
+               if(!empty($bdika_mum)){
+                echo ' самка: ' . $bdika_mum;
+               }
+               if(!empty($bdika_dad)){
+                echo ' самец: ' . $bdika_dad;
+               }
                 if ($mat->bdikaMutation($id_m, $id_d)) :  //если вернулся 1, то есть мутация 
                 ?>
                     <h3 style="color:red" align="center">При вязки близкородственных партнеров возможны ухудшения качеств и получение мутаций! Будьте осторожнее!</h3>
                 <?php endif;
 
                 echo $print->picCoins() .  $money = $user->retMoney($owner);
-                if ($money >= 5000) : //проверка остатка средств на вязку. если хватает активна кнопка "ВЯЗКА" 
+                if ( $money >= 5000 && (empty($bdika_mum) && empty($bdika_dad))) : //проверка остатка средств на вязку. если хватает активна кнопка "ВЯЗКА" 
                 ?>
 
                     <form method="POST" action="/newdog.php">
                         <input type="submit" name="nazvanie_knopki" value="Вяжем" class="btn btn btn-dark" />
+                        <a href="/actmatting.php" class="btn btn btn-dark" role="button" aria-pressed="true">акт вязки</a><br>
                     </form>
                 <?php endif; ?>
                 <!-- кнопки для формы-->
                 <br>
                 <a href="/kennel.php" class="btn btn btn-dark" role="button" aria-pressed="true">в офис</a>
                 <a href="<?php echo '/matting.php?id=' . $id; ?>" class="btn btn btn-dark" role="button" aria-pressed="true">вернутся к собаке</a>
-                <a href="/actmatting.php" class="btn btn btn-dark" role="button" aria-pressed="true">акт вязки</a><br>
+                
             </td>
             <td id="col3">
                 <h3 align="center">Папа:</h3>

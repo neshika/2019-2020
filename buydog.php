@@ -12,19 +12,12 @@ require_once(__DIR__ . '/includes/func.php');
         border: 10px;
         width: 400px;
         height: auto;
-}
+   }
 </style>
 <p class="content">
 <a class="buttons" href="/office.php" >в офис</a>
 <div id="dogs">
 <?php 
-/**
- * @param id собаки из animals
- * @return 0 вносит данные в две таблицы
- * @todo проверитm работу
- */
-
-
 
 
 

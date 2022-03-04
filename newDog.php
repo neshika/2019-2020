@@ -74,6 +74,7 @@ error_reporting(E_ALL);
   <table width="100%" cellpadding="5" cellspacing="0">
     <tr>
       <td id="col1">
+        <h3>Зарегистрирован помет: <?php echo $dog->retRegText($id_new_dog);?></h3>
         <h3>Щенок: <?php echo $id_new_dog; ?></h3>
         <div align="center"><?php $prt->picLink($id_new_dog, 120); ?></div>
       </td>

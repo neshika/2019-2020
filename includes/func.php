@@ -86,11 +86,41 @@ function RandChar(){
     $arr = array_rand($types, 1);
     return $types[$arr];
  }
-
+function ret_owner(){
+    return $_SESSION['logged_user']->login;
+}
 /**************************   СОЗДАНИЕ НОВОЙ СОБАКИ ***************/
 class GreateNewDog
 {
+    /* функция копирует строку 3,4,5 в новое ID*/
+       public function updateDNA($id){
+        $array_dna = R::getRow('SELECT * FROM `randodna` WHERE `id` = ? ', [$id]);
+        debug($array_dna);
 
+        $dna = R::dispense('randodna');
+     
+        foreach($dna as $key){
+           if($key!= 'id'){
+              //$dna->$key = $array_dna[$key];
+              //$dna->sex = $array_dna['sex'];
+           }
+        }
+     
+        /*$dna->sex = $array_dna['sex'];
+        $dna->about = $array_dna['about'];
+        $dna->owner = $array_dna['owner'];
+        $dna->spd = $array_dna['spd'];
+        $dna->agl = $array_dna['agl'];
+        $dna->tch = $array_dna['tch'];
+        $dna->jmp = $array_dna['jmp'];
+        $dna->nuh = $array_dna['nuh'];
+        $dna->fnd = $array_dna['fnd'];
+        $dna->mut = $array_dna['mut'];
+        //$dna->sex = $array_dna['sex'];
+     */
+       debug($dna);
+       // return R::store($dna);
+     }
     /* функция создает ДНК для щенка в зависимости от предков возвращает hr0w0f0b0t0m0*/
     public function DoDnaMumDad($mum, $dad)
     {
@@ -926,22 +956,26 @@ class Office extends Dog
                         if('Сангвиник' == $dog->retCharacter($value)){
                             echo '<br>Сегодня у сангвиника <strong>' . $prt->nameLink($value) . '</strong>  состояние веселое';
                            $text = 'Сегодня У ' . $dog->retName($value) . ' состояние веселое.';
+                           $dog->UpdateData('animals', $value, 'vitality', 15);
                            $arr_char[$value] = $text;
         
                         }
                         if('Холерик' == $dog->retCharacter($value)){
                             echo '<br>Сегодня собака <strong>' . $prt->nameLink($value) . '</strong> выла всю ночь(собака холерик), соседи вызвали полицию. Оплатить штраф? да/нет';
                             $text = 'Сегодня собака ' . $dog->retName($value) . ' выла всю ночь, соседи вызвали полицию.';
+                            $dog->UpdateData('animals', $value, 'hp', 50);
                            $arr_char[$value] = $text;
                         }
                         if('Меланхолик' == $dog->retCharacter($value)){
                             echo '<br>Сегодня собаке <strong>' . $prt->nameLink($value) . '</strong> ничего не хотелось делать!(собака-меланхолик)';
-                            $text = 'Сегодня собаке ' . $dog->retName($value) . ' ничего не хотелось делать!';
+                            $text = 'Сегодня собаке ' . $dog->retName($value) . ' ничего не хотелось делать!(счастье 10)';
+                            $dog->UpdateData('animals', $value, 'joy', 10);
                            $arr_char[$value] = $text;
                         }
                         if('Флегматик' == $dog->retCharacter($value)){
                             echo '<br>Сегодня флегматик <strong>' . $prt->nameLink($value) . '</strong> сидит около двери и ждет тебя... может поиграем? да/нет';
-                            $text = 'Сегодня ' . $dog->retName($value) . ' сидит около двери и ждет тебя...';
+                            $text = 'Сегодня ' . $dog->retName($value) . ' сидит около двери и ждет тебя...(счастье 20)';
+                            $dog->UpdateData('animals', $value, 'joy', 20);
                            $arr_char[$value] = $text;
                         }
                     }
@@ -1586,7 +1620,7 @@ class Matting extends Dog
                 $error = true;
                 $errort = 'кобель слишком молодой';
             else :
-                $errort = 'Кобель готов к вязке';
+               // $errort = 'Кобель готов к вязке';
             endif;
         elseif (0 == $sex) : //сука
             if ($dog->retEstrus($id) < 15 ||  $dog->retEstrus($id) !=  $dog->retAgeId($id)) :
@@ -1599,7 +1633,8 @@ class Matting extends Dog
                 $error = true;
                 $errort = 'количество вязок уже 7';
             else :
-                $errort = 'Сука готова к вязке';
+               // $errort = 'Сука готова к вязке';
+
             endif;
         else :
             echo 'Что-то пошло не так! ';
@@ -1622,7 +1657,7 @@ class Matting extends Dog
         $f_data_d = $tabl->TakeDataFrom($family_dad->retFamilyId($id_d), 'family'); //Получаем данные из семьи  //родственники по линии отца
 
 
-        echo '<br>function bdika_mutation <br>';
+        //echo '<br>function bdika_mutation <br>';
         $temp = 0; //нет мутации
         $num = Rand(1, 100);   //шанс получения мутации
 

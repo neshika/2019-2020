@@ -53,6 +53,7 @@ if (isset($_POST['comment'])): //если в форме NewDog включена 
 endif;
 
 echo "<h3><li>Важные события:</h3>";
+
 $num = 0;
 $num = $event->randoEvent();
 if (2 == $num) { //если выпал щенок
@@ -129,11 +130,11 @@ if (isset($_POST['shelter'])) {
 }
 
 //кнопка купить собаку. акция актуальна только сегодня
-$rando = rand(1, 100);
+$rando = rand(1, 1);
 if ($rando == 1): ?>
         <h3>
             <li>Только сегодня акция: </li>
-        </h3>";
+        </h3>
         <form action="buy.php" method="POST">
             <button type="submit" class="knopka" name="buy">Купить собаку</button>
         </form>
