@@ -246,14 +246,14 @@ if( isset($_POST['cell'])){
                     </div>-->
                     <div class="arba">
                         <form method="POST">
-                            <button type="submit" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Добавки +Энергия" name="badd">
-                                <i class="fa fa-leaf fa-2x" aria-hidden="true"></i><i class="fa fa-bolt" aria-hidden="true"></i>+</button>
-                            <button type="submit" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Спа уход +Счастье" name="spa">
-                                <i class="fa fa-umbrella fa-2x" aria-hidden="true"></i> <i class="fa fa-certificate" aria-hidden="true"></i>+</button>
-                            <button type="submit" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Ветеринар +Здоровье" name="vet">
-                                <i class="fa fa-medkit fa-2x" aria-hidden="true"></i> <i class="fa fa-heart" aria-hidden="true"></i>+</button>
-                            <button type="submit" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Тренировка -Энергия+Счастье" name="train">
-                                <i class="fa fa-graduation-cap fa-2x" aria-hidden="true"></i> <i class="fa fa-bolt" aria-hidden="true"></i>-<i class="fa fa-certificate" aria-hidden="true"></i>+</button>
+                            <button type="submit" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="+Энергия" name="badd">
+                               <!-- <i class="fa fa-leaf fa-2x" aria-hidden="true"></i><i class="#fa fa-bolt" aria-hidden="true"></i>-->Добавки</button>
+                            <button type="submit" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="+Счастье" name="spa">
+                                <!--<i class="fa fa-umbrella fa-2x" aria-hidden="true"></i><i class="fa fa-certificate" aria-hidden="true"></i>-->Спа уход</button>
+                            <button type="submit" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" title=" +Здоровье" name="vet">
+                                <!--<i class="fa fa-medkit fa-2x" aria-hidden="true"></i> <i class="fa fa-heart" aria-hidden="true">--></i>Ветеринар</button>
+                            <button type="submit" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" title=" -Энергия+Счастье" name="train">
+                                <!--<i class="fa fa-graduation-cap fa-2x" aria-hidden="true"></i> <i class="fa fa-bolt" aria-hidden="true"></i><i class="fa fa-certificate" aria-hidden="true"></i>-->Тренировка</button>
                         </form>
                     </div>
 
