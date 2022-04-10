@@ -27,6 +27,10 @@ $dog = new PrintDog();
 $dna_id = $dog->retDnaId($id);
 $rand_dog = new RandDog;
 
+$_SESSION['vit'] = $dog->retVitality($id);
+$_SESSION['joy'] = $dog->retJoy($id);
+$_SESSION['hp'] = $dog->retHp($id);
+
 /*Если кнопка "сменить имя" нажата*/
 if (isset($_POST['newName'])) {
 
@@ -152,6 +156,7 @@ if( isset($_POST['cell'])){
 
 
                     ?>
+                    
 <div class="dogcontent">
     <table>
         <tr>
@@ -209,6 +214,13 @@ if( isset($_POST['cell'])){
                                 $dog->picLink($id); ?>
                     </div>
 
+                </div>
+            </td>
+            <td>
+                <div class="r_bar">
+                    <?php 
+                    echo 'События тут: <br>';
+                    echo $_POST['vit'];?>
                 </div>
             </td>
         </tr>

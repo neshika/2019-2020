@@ -13,7 +13,7 @@ $br: 15px;
 
 .dannie {
     padding: 3px;
-    width: 700px;
+    width: 600px;
     height: auto;
     &-knopki {
         padding: auto;
@@ -65,4 +65,10 @@ $br: 15px;
     text-align: right;
     /*background: #A9B4FF; */
     padding: 20px;
+}
+
+.r_bar {
+    float: right;
+    height: auto;
+    width: 100px;
 }
