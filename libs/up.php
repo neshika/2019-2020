@@ -12,5 +12,5 @@ require $_SERVER['DOCUMENT_ROOT'].'/html/header.html';
 
 //включение отчета по ошибкам
 ini_set('display_errors',1);
-error_reporting(E_ALL);
+//error_reporting(E_ALL);
 

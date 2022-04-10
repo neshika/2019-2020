@@ -61,6 +61,7 @@ $GLOBALS['buy_stats'] = '100';
 $GLOBALS['timer'] = 1440;
 
 
+
 // ***********************************************************
 
 function globals()
@@ -95,31 +96,23 @@ class GreateNewDog
     /* функция копирует строку 3,4,5 в новое ID*/
        public function updateDNA($id){
         $array_dna = R::getRow('SELECT * FROM `randodna` WHERE `id` = ? ', [$id]);
-        debug($array_dna);
+       // echo 'что в строке'  . $id . '<br>';
+       // debug($array_dna);
 
         $dna = R::dispense('randodna');
-     
-        foreach($dna as $key){
-           if($key!= 'id'){
-              //$dna->$key = $array_dna[$key];
-              //$dna->sex = $array_dna['sex'];
-           }
+            
+        foreach ($array_dna as $key => $value)
+        {
+            
+            if ($key != 'id'){
+               // echo $key . " = " . $value . ' ';
+                $dna->$key = $value;
+            }
+            
         }
-     
-        /*$dna->sex = $array_dna['sex'];
-        $dna->about = $array_dna['about'];
-        $dna->owner = $array_dna['owner'];
-        $dna->spd = $array_dna['spd'];
-        $dna->agl = $array_dna['agl'];
-        $dna->tch = $array_dna['tch'];
-        $dna->jmp = $array_dna['jmp'];
-        $dna->nuh = $array_dna['nuh'];
-        $dna->fnd = $array_dna['fnd'];
-        $dna->mut = $array_dna['mut'];
-        //$dna->sex = $array_dna['sex'];
-     */
-       debug($dna);
-       // return R::store($dna);
+        return R::store($dna);
+       
+       
      }
     /* функция создает ДНК для щенка в зависимости от предков возвращает hr0w0f0b0t0m0*/
     public function DoDnaMumDad($mum, $dad)
@@ -237,9 +230,9 @@ class GreateNewDog
         return R::getCell('SELECT dna FROM randodna WHERE id = ? LIMIT 1', [$id]);
     }
 
-    public function insertDogAnimals($owner, $dna_id)
+    public function  insertDogAnimals($owner, $dna_id)
     {
-        echo '<br> insertDogAnimals($owner,$dna_id)';
+        //echo '<br> insertDogAnimals($owner,$dna_id)';
         $kennel = R::getCell('SELECT `name_k` FROM `kennels` WHERE `owner_k` = ? LIMIT 1', [$owner]);
         $sex = R::getCell('SELECT sex FROM randodna WHERE id = ? LIMIT 1', [$dna_id]);
 
@@ -257,9 +250,22 @@ class GreateNewDog
         $dogs->mark_id = 1; //отлично оценка
         $dogs->birth = $date;
 
-        // установить течку у суки
-        if (0 == $sex) {
-            $dogs->estrus = 14;
+        // параметры, зависящие от пола
+        //сука
+        if (0 == $sex){
+            $dogs->estrus = 14; //установка у суки течки
+            $height = Rand(23,30);
+            $dogs->height = $height;
+            $weight = Rand(3000,4500);
+            $dogs->weight = $weight;
+        }
+        //кобель
+        if(1 == $sex){
+            $dogs->estrus = 0; //течки у кобеля не бывает
+            $height = Rand(28,33);
+            $dogs->height = $height;
+            $weight = Rand(4500,5000);
+            $dogs->weight = $weight;
         }
 
         //debug($dogs);
@@ -268,22 +274,30 @@ class GreateNewDog
 
         return $id_new_dog1;
     }
-    public function insertDogFamilyTree($id)
+    public function insertDogFamilyTree($id_dog)
     {
-
-        $dog22 = R::dispense('family');
-        foreach ($dog22 as $key) {
-            if ($key != 'id') {
-                $dog22->$key = 0;  //вносим всех предков по нулям
+        $id = 1;
+        $array_fml = R::getRow('SELECT * FROM `family` WHERE `id` = ? ', [$id]);
+      
+        $fml = R::dispense('family');
+            
+        foreach ($array_fml as $key => $value)
+        {
+            
+            if ($key != 'id'){
+                //echo $key . " = " . $value . ' ';
+                $fml->$key = 0;
             }
+            
         }
-
-        $family_id2 = R::store($dog22);
-
+        $id_new_fml = R::store($fml);
+       
         /* созраняем данные о семье в таблице animals*/
-        $book = R::load('animals', $id);
-        $book->family_id = $family_id2;
-        return R::store($book);
+        $dog = R::load('animals', $id_dog);
+        $dog->family_id = $id_new_fml;
+        R::store($dog);
+        return $id_new_fml;
+        
     }
     public function insertNewPuppyFamilyTree($id_m, $id_d)
     {

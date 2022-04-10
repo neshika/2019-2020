@@ -1724,6 +1724,11 @@ class OODBBean implements \IteratorAggregate,\ArrayAccess,\Countable,Jsonable
 	protected $all = FALSE;
 
 	/**
+	 * @var string
+	 */
+	protected $castProperty = NULL;
+
+	/**
 	 * If fluid count is set to TRUE then $bean->ownCount() will
 	 * return 0 if the table does not exists.
 	 * Only for backward compatibility.
@@ -2126,6 +2131,21 @@ class OODBBean implements \IteratorAggregate,\ArrayAccess,\Countable,Jsonable
 			}
 		}
 		return $this;
+	}
+
+	/**
+	 * Same as import() but trims all values by default.
+	 * Set the second parameter to apply a different function.
+	 *
+	 * @param array        $array     what you want to import
+	 * @param string       $function  function to apply (default is trim)
+	 * @param string|array $selection selection of values
+	 * @param boolean      $notrim    if TRUE selection keys will NOT be trimmed
+	 *
+	 * @return OODBBean
+	 */
+	public function trimport( $array, $function='trim', $selection = FALSE, $notrim = FALSE ) {
+		return $this->import( array_map( $function, $array ), $selection, $notrim );
 	}
 
 	/**
@@ -2571,6 +2591,7 @@ class OODBBean implements \IteratorAggregate,\ArrayAccess,\Countable,Jsonable
 		$this->noLoad     = FALSE;
 		$this->all        = FALSE;
 		$this->via        = NULL;
+		$this->castProperty = NULL;
 		return $this;
 	}
 
@@ -2672,7 +2693,12 @@ class OODBBean implements \IteratorAggregate,\ArrayAccess,\Countable,Jsonable
 
 		//If exists and no list or exits and list not changed, bail out.
 		if ( $exists && ((!$isOwn && !$isShared ) || (!$hasSQL && !$differentAlias && !$hasAll)) ) {
+			$castProperty = $this->castProperty;
 			$this->clearModifiers();
+			if (!is_null($castProperty)) {
+				$object = new $castProperty( $this->properties[$property] );
+				return $object;
+			}
 			return $this->properties[$property];
 		}
 
@@ -2713,7 +2739,6 @@ class OODBBean implements \IteratorAggregate,\ArrayAccess,\Countable,Jsonable
 		$this->properties[$property]          = $beans;
 		$this->__info["sys.shadow.$property"] = $beans;
 		$this->__info['tainted']              = TRUE;
-
 		$this->clearModifiers();
 		return $this->properties[$property];
 
@@ -2944,6 +2969,29 @@ class OODBBean implements \IteratorAggregate,\ArrayAccess,\Countable,Jsonable
 	}
 
 	/**
+	 * Captures a dynamic casting.
+	 * Enables you to obtain a bean value as an object by type-hinting
+	 * the desired return object using asX where X is the class you wish
+	 * to use as a wrapper for the property.
+	 *
+	 * Usage:
+	 *
+	 * $dateTime = $bean->asDateTime()->date;
+	 *
+	 * @param string $method method (asXXX)...
+	 *
+	 * @return self|NULL
+	 */
+	public function captureDynamicCasting( $method )
+	{
+		if ( strpos( $method, 'as' ) === 0 && ctype_upper( substr( $method, 2, 1) ) === TRUE ) {
+			$this->castProperty = substr( $method, 2 );
+			return $this;
+		}
+		return NULL;
+	}
+
+	/**
 	 * Sends the call to the registered model.
 	 * This method can also be used to override bean behaviour.
 	 * In that case you don't want an error or exception to be triggered
@@ -2968,7 +3016,7 @@ class OODBBean implements \IteratorAggregate,\ArrayAccess,\Countable,Jsonable
 	public function __call( $method, $args )
 	{
 		if ( empty( $this->__info['model'] ) ) {
-			return NULL;
+			return $this->captureDynamicCasting($method);
 		}
 
 		$overrideDontFail = FALSE;
@@ -2978,6 +3026,9 @@ class OODBBean implements \IteratorAggregate,\ArrayAccess,\Countable,Jsonable
 		}
 
 		if ( !is_callable( array( $this->__info['model'], $method ) ) ) {
+
+			$self = $this->captureDynamicCasting($method);
+			if ($self) return $self;
 
 			if ( self::$errorHandlingFUSE === FALSE || $overrideDontFail ) {
 				return NULL;
@@ -6187,6 +6238,10 @@ abstract class AQueryWriter
 	public function glueSQLCondition( $sql, $glue = NULL )
 	{
 		static $snippetCache = array();
+
+		if ( is_null( $sql ) ) {
+			return '';
+		}
 
 		if ( trim( $sql ) === '' ) {
 			return $sql;
@@ -11929,6 +11984,20 @@ class SimpleFacadeBeanHelper implements BeanHelper
 		$model     = $bean->getMeta( 'type' );
 		$prefix    = defined( 'REDBEAN_MODEL_PREFIX' ) ? REDBEAN_MODEL_PREFIX : '\\Model_';
 
+		return $this->resolveModel($prefix, $model, $bean);
+	}
+
+	/**
+	 * Resolves the model associated with the bean using the model name (type),
+	 * the prefix and the bean.
+	 *
+	 * @param string   $prefix Prefix to use for resolution
+	 * @param string   $model  Type name
+	 * @param OODBBean $bean   Bean to resolve model for
+	 *
+	 * @return SimpleModel|CustomModel|NULL
+	 */
+	protected function resolveModel($prefix, $model, $bean) {
 		if ( strpos( $model, '_' ) !== FALSE ) {
 			$modelParts = explode( '_', $model );
 			$modelName = '';
@@ -11960,6 +12029,63 @@ class SimpleFacadeBeanHelper implements BeanHelper
 	{
 		return Facade::getExtractedToolbox();
 	}
+}
+}
+
+namespace RedBeanPHP\BeanHelper {
+
+use RedBeanPHP\BeanHelper as BeanHelper;
+use RedBeanPHP\Facade as Facade;
+use RedBeanPHP\OODBBean as OODBBean;
+use RedBeanPHP\SimpleModelHelper as SimpleModelHelper;
+use RedBeanPHP\BeanHelper\SimpleFacadeBeanHelper as SimpleFacadeBeanHelper;
+
+/**
+ * Dynamic Bean Helper.
+ *
+ * The dynamic bean helper allows you to use differently namespaced
+ * classes for models per database connection.
+ *
+ * @file    RedBeanPHP/BeanHelper/DynamicBeanHelper.php
+ * @author  Gabor de Mooij and the RedBeanPHP Community
+ * @license BSD/GPLv2
+ *
+ * @copyright
+ * (c) copyright G.J.G.T. (Gabor) de Mooij and the RedBeanPHP Community
+ * This source file is subject to the BSD/GPLv2 License that is bundled
+ * with this source code in the file license.txt.
+ */
+class DynamicBeanHelper extends SimpleFacadeBeanHelper implements BeanHelper
+{
+	/**
+	 * Model prefix to be used for the current database connection.
+	 *
+	 * @var string
+	 */
+	private $modelPrefix;
+
+	/**
+	 * Constructor
+	 *
+	 * Usage:
+	 *
+	 * <code>
+	 * R::addDatabase( ..., new DynamicBeanHelper('Prefix1_')  );
+	 * </code>
+	 *
+	 * @param string $modelPrefix prefix
+	 */
+	public function __construct( $modelPrefix ) {
+		$this->modelPrefix = $modelPrefix;
+	}
+
+	/**
+	 * @see BeanHelper::getModelForBean
+	 */
+	public function getModelForBean( OODBBean $bean )
+	{
+		return $this->resolveModel( $this->modelPrefix, $bean->getMeta( 'type' ), $bean );
+	}	
 }
 }
 
@@ -13109,28 +13235,35 @@ class Facade
 	 * This method allows you to dynamically add (and select) new databases
 	 * to the facade. Adding a database with the same key will cause an exception.
 	 *
-	 * @param string      $key    ID for the database
-	 * @param string      $dsn    DSN for the database
-	 * @param string      $user   user for connection
-	 * @param NULL|string $pass   password for connection
-	 * @param bool        $frozen whether this database is frozen or not
+	 * @param string      $key    		ID for the database
+	 * @param string      $dsn    		DSN for the database
+	 * @param string      $user   		user for connection
+	 * @param NULL|string $pass   		password for connection
+	 * @param bool        $frozen 		whether this database is frozen or not
+	 * @param bool 		  $partialBeans should we load partial beans?
+	 * @param array		  $options		additional options for the query writer
+	 * @param BeanHelper  $beanHelper	Beanhelper to use (use this for DB specific model prefixes)
 	 *
 	 * @return void
 	 */
-	public static function addDatabase( $key, $dsn, $user = NULL, $pass = NULL, $frozen = FALSE, $partialBeans = FALSE, $options = array() )
+	public static function addDatabase( $key, $dsn, $user = NULL, $pass = NULL, $frozen = FALSE, $partialBeans = FALSE, $options = array(), $beanHelper = NULL )
 	{
 		if ( isset( self::$toolboxes[$key] ) ) {
 			throw new RedException( 'A database has already been specified for this key.' );
 		}
 
 		self::$toolboxes[$key] = self::createToolbox($dsn, $user, $pass, $frozen, $partialBeans, $options);
+
+		if ( !is_null( $beanHelper ) ) {
+			self::$toolboxes[$key]->getRedBean()->setBeanHelper( $beanHelper );
+		}
 	}
 
 	/**
 	 * Creates a toolbox. This method can be called if you want to use redbean non-static.
-   * It has the same interface as R::setup(). The createToolbx() method can be called
-   * without any arguments, in this case it will try to create a SQLite database in
-   * /tmp called red.db (this only works on UNIX-like systems).
+	 * It has the same interface as R::setup(). The createToolbx() method can be called
+	 * without any arguments, in this case it will try to create a SQLite database in
+	 * /tmp called red.db (this only works on UNIX-like systems).
 	 *
 	 * Usage:
 	 *
@@ -13159,8 +13292,8 @@ class Facade
 	 *
 	 * @return ToolBox
 	 */
-  public static function createToolbox( $dsn = NULL, $username = NULL, $password = NULL, $frozen = FALSE, $partialBeans = FALSE, $options = array() )
-  {
+	public static function createToolbox( $dsn = NULL, $username = NULL, $password = NULL, $frozen = FALSE, $partialBeans = FALSE, $options = array() )
+	{
 		if ( is_object($dsn) ) {
 			$db  = new RPDO( $dsn );
 			$dbType = $db->getDatabaseType();
@@ -13232,6 +13365,7 @@ class Facade
 		if ( !isset( self::$toolboxes[$key] ) ) {
 			throw new RedException( 'Database not found in registry. Add database using R::addDatabase().' );
 		}
+
 
 		self::configureFacadeWithToolbox( self::$toolboxes[$key] );
 		self::$currentDB = $key;
@@ -18041,6 +18175,25 @@ if ( !function_exists( 'pint' ) ) {
 	function pint( $value )
 	{
 		return array( intval( $value ) , \PDO::PARAM_INT );
+	}
+}
+
+/**
+ * Function DBPrefix() is a simple function to allow you to
+ * quickly set a different namespace for FUSE model resolution
+ * per database connection. It works by creating a new DynamicBeanHelper
+ * with the specified string as model prefix.
+ *
+ * Usage:
+ *
+ * <code>
+ * R::addDatabase( ..., DBPrefix( 'Prefix1_' )  );
+ * </code>
+ */
+if ( !function_exists( 'DBPrefix' ) ) {
+
+	function DBPrefix( $prefix = '\\Model' ) {
+		return new \RedBeanPHP\BeanHelper\DynamicBeanHelper( $prefix );
 	}
 }
 

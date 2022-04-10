@@ -41,9 +41,7 @@ error_reporting(E_ALL);
    width: 450px;
     background: #F5F5DC; /* Цвет фона второй колонки */
    }
-   #buttom {
-   
-    }
+  
    #lf{
         width: 450px;
         background: #F5F5DC; /* Цвет фона  колонки */

@@ -5,6 +5,7 @@ require_once(__DIR__ . '/db.php');
 require_once(__DIR__ . '/includes/func.php');
 
 
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -69,13 +70,25 @@ require_once(__DIR__ . '/includes/func.php');
 <div id="content">
 <?php
 
-$id = 3;
-$array_dna = R::getRow('SELECT * FROM `randodna` WHERE `id` = ? ', [$id]);
-debug($array_dna);
 
-$dogs = R::dispense('animals');
-$dogs->name = 'Без имени';
-echo $dogs->name;
+$id = 1;
+$array_fml = R::getRow('SELECT * FROM `family` WHERE `id` = ? ', [$id]);
+       // echo 'что в строке'  . $id . '<br>';
+        debug($array_fml);
+
+        $fml = R::dispense('family');
+            
+        foreach ($array_fml as $key => $value)
+        {
+            
+            if ($key != 'id'){
+                //echo $key . " = " . $value . ' ';
+                $fml->$key = 0;
+            }
+            
+        }
+        $id_new_fml = R::store($fml);
+        echo 'new afamily ' . $id_new_fml;
 
 ?>
 
