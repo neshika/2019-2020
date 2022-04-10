@@ -152,7 +152,9 @@ if( isset($_POST['cell'])){
                 $dog->UpdateData('animals', $id, 'Vitality', $vit);
                 $dog->UpdateData('animals', $id, 'Hp', $hp);
             }
-
+            $_SESSION['vit'] = $dog->retVitality($id);
+            $_SESSION['joy'] = $dog->retJoy($id);
+            $_SESSION['hp'] = $dog->retHp($id);
 
 
                     ?>
@@ -217,10 +219,13 @@ if( isset($_POST['cell'])){
                 </div>
             </td>
             <td>
-                <div class="r_bar">
+                <div class="rbar">
                     <?php 
                     echo 'События тут: <br>';
-                    echo $_POST['vit'];?>
+                    echo '<br> vit ' . $_SESSION['vit'];
+                    echo '<br> joy ' . $_SESSION['joy'];
+                    echo '<br> hp ' . $_SESSION['hp'];
+                    ?>
                 </div>
             </td>
         </tr>
