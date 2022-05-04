@@ -6,28 +6,35 @@
   #66029A - фиолетовый
   #626262 - т. серый
 */
-body{
-   margin: 0;
-   padding: 0;
-   background-image:url('/pic/1.jpg');
-  /*[pre lang=css]*/
-  font-family: Georgia, Verdana, sans-serif;
-  /*text-align: center;*/
-  
+
+body {
+    margin: 0;
+    padding: 0;
+    background: #2c2c2c;
+    /*[pre lang=css]*/
+    font-family: Georgia, Verdana, sans-serif;
+    /*text-align: center;*/
 }
 
-img{
-  max-width: 100%;
+img {
+    max-width: 100%;
 }
 
-a{
-  text-decoration: none;
+a {
+    text-decoration: none;
 }
-ul{
-  margin:0;
-  padding: 0;
-  list-style: none;
+
+ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
 }
+
+h1 {
+    color: #fff;
+}
+
+
 /**{
 margin:3px;
 padding:0;
@@ -36,172 +43,212 @@ font-size: 16px;
 color: #333;
 }*/
 
+
 /******************Рабочая область*/
-.wrapper{
 
-	width: 1100px; 
-	margin: 25px auto;
-	height: 1100px;
-	/*background: #fff;*/
-	/*border: 1px groove #9868CE;*/
-	justify-content: center;
-  padding: 10px;
-
+.wrapper {
+    width: 1100px;
+    margin: 25px auto;
+    height: 1100px;
+    background: #2c2c2c;
+    /*border: 1px groove #9868CE;*/
+    justify-content: center;
+    padding: 10px;
 }
-.left{
 
-  float: left;
-  width:200px;
-  margin: 25px auto;
-  height: auto;
-  /*background: #fff;*/
- border: 1px groove #9868CE;
-  justify-content: center;
-  padding: 10px;
+.left {
+    float: left;
+    width: 200px;
+    margin: 25px auto;
+    height: auto;
+    /*background: #fff;*/
+    border: 1px groove #9868CE;
+    justify-content: center;
+    padding: 10px;
 }
-.right{
 
-  float: right;
-  width:800px;
-  margin: 25px auto;
-  height: auto;
-  /*background: #fff;*/
- border: 1px groove #9868CE;
-  justify-content: center;
-  padding: 10px;
-
-
+.right {
+    float: right;
+    width: 800px;
+    margin: 25px auto;
+    height: auto;
+    /*background: #fff;*/
+    border: 1px groove #9868CE;
+    justify-content: center;
+    padding: 10px;
 }
+
+
 /****************************Внешний вид меню****************/
+
 .side {
-	width: 150px; /*ширина кнопки*/
-	margin: 25px; /* отступ по бокам*/
-	position: inherit; /*Наследует значение родителя.*/
-
+    width: 150px;
+    /*ширина кнопки*/
+    margin: 25px;
+    /* отступ по бокам*/
+    position: inherit;
+    /*Наследует значение родителя.*/
 }
 
-.menu a{
-	background-image: linear-gradient(#3b2751, #271739);
-	color:#FFCCFF;
-	padding: 10px;
-	display: block;
-	border-bottom: 1px solid #666; /*каждая кнопка в серой рамке*/
-	transition: 0.5s all; /*плавность*/
+.menu a {
+    background-image: linear-gradient(#3b2751, #271739);
+    color: #FFCCFF;
+    padding: 10px;
+    display: block;
+    border-bottom: 1px solid #666;
+    /*каждая кнопка в серой рамке*/
+    transition: 0.5s all;
+    /*плавность*/
 }
+
+
 /*что будет при наведении*/
-.menu a:hover{
-	background: #666; /*цвет серый*/
-	padding: 10px 0 10px 20px; /*пункты будут плавать / сдвигается текст вправо*/
 
+.menu a:hover {
+    background: #666;
+    /*цвет серый*/
+    padding: 10px 0 10px 20px;
+    /*пункты будут плавать / сдвигается текст вправо*/
 }
+
+
 /*для всех тегов Ли первый ребенок(Пункт 1)*/
-.menu li:first-child a{
-	border-radius: 3px 3px 0 0;
+
+.menu li:first-child a {
+    border-radius: 3px 3px 0 0;
 }
+
 
 /*а радиус у подменю убираем*/
-.menu li .menu__drop li a{
-	border-radius: 0;
+
+.menu li .menu__drop li a {
+    border-radius: 0;
 }
+
+
 /****************************Всплывающие меню****************/
-.menu__list{
-	position: relative; /*чтобы подменю. прилепелны к меню*/
+
+.menu__list {
+    position: relative;
+    /*чтобы подменю. прилепелны к меню*/
 }
-.menu__drop{
-	position: absolute;
-	width: 100%; /*ширина кнопок подменю*/
-	left:100%;	/*отступ влево 100% от основного*/
-	/*появляется на уровне пункт 1 top:0;*/
-	/*мы уводим меню за пределы экрана вверх*/
-	top:-9999em;
-	opacity: 0;
-	transition: 0.5s opacity; /*плавность*/
+
+.menu__drop {
+    position: absolute;
+    width: 100%;
+    /*ширина кнопок подменю*/
+    left: 100%;
+    /*отступ влево 100% от основного*/
+    /*появляется на уровне пункт 1 top:0;*/
+    /*мы уводим меню за пределы экрана вверх*/
+    top: -9999em;
+    opacity: 0;
+    transition: 0.5s opacity;
+    /*плавность*/
 }
+
 
 /*при наведении на лист, наш класс будет меняться*/
-.menu__list:hover .menu__drop{
-	opacity: 1; /*при наведении на пункт 1 включается видимость подпунктов*/
-	top:0; /*меняем положение на 0*/
+
+.menu__list:hover .menu__drop {
+    opacity: 1;
+    /*при наведении на пункт 1 включается видимость подпунктов*/
+    top: 0;
+    /*меняем положение на 0*/
 }
+
 
 /*иконки для всплывающих менюшек >*/
-.menu__list::after{
-	content: " ";		/*пустое поле*/
-	position: absolute;
-	border: 5px solid;  /* рамка в 10 */
-	border-color: transparent transparent transparent #fff; /*закрашивает все углы*/
-	top:1em; /*переместидись */
-	right: 0.7em; /*вправо */
-	transition: 0.5s; /*анимация*/
-}
-/*при наведении треугольнички переворачиваются*/
-.menu__list:hover::after{
-	transform: scale(-1);
+
+.menu__list::after {
+    content: " ";
+    /*пустое поле*/
+    position: absolute;
+    border: 5px solid;
+    /* рамка в 10 */
+    border-color: transparent transparent transparent #fff;
+    /*закрашивает все углы*/
+    top: 1em;
+    /*переместидись */
+    right: 0.7em;
+    /*вправо */
+    transition: 0.5s;
+    /*анимация*/
 }
 
+
+/*при наведении треугольнички переворачиваются*/
+
+.menu__list:hover::after {
+    transform: scale(-1);
+}
+
+
 /***********************кнопка--ссылка*/
+
 a.buttons {
-  width: 150px;
-  height: 30px;
-  text-decoration: none;
-  padding-top: 9px;
-  color: #a675b3;
-  text-align: center;
-  line-height: 20px;
-  display: block;
-  margin: 20px auto;
-  font: normal 17px arial;
+    width: 150px;
+    height: 30px;
+    text-decoration: none;
+    padding-top: 9px;
+    color: #a675b3;
+    text-align: center;
+    line-height: 20px;
+    display: block;
+    margin: 20px auto;
+    font: normal 17px arial;
 }
 
 a.buttons:not(.active) {
-  box-shadow: inset 0 1px 1px rgba(111, 55, 125, 0.8), inset 0 -1px 0px rgba(63, 59, 113, 0.2), 0 9px 16px 0 rgba(0, 0, 0, 0.3), 0 4px 3px 0 rgba(0, 0, 0, 0.3), 0 0 0 1px #150a1e;
-  background-image: linear-gradient(#3b2751, #271739);
-  text-shadow: 0 0 21px rgba(223, 206, 228, 0.5), 0 -1px 0 #311d47;
+    box-shadow: inset 0 1px 1px rgba(111, 55, 125, 0.8), inset 0 -1px 0px rgba(63, 59, 113, 0.2), 0 9px 16px 0 rgba(0, 0, 0, 0.3), 0 4px 3px 0 rgba(0, 0, 0, 0.3), 0 0 0 1px #150a1e;
+    background-image: linear-gradient(#3b2751, #271739);
+    text-shadow: 0 0 21px rgba(223, 206, 228, 0.5), 0 -1px 0 #311d47;
 }
 
 a.buttons:not(.active):hover,
 a.buttons:not(.active):focus {
-  transition: color 200ms linear, text-shadow 500ms linear;
-  color: #fff;
-  text-shadow: 0 0 21px rgba(223, 206, 228, 0.5), 0 0 10px rgba(223, 206, 228, 0.4), 0 0 2px #2a153c;
+    transition: color 200ms linear, text-shadow 500ms linear;
+    color: #fff;
+    text-shadow: 0 0 21px rgba(223, 206, 228, 0.5), 0 0 10px rgba(223, 206, 228, 0.4), 0 0 2px #2a153c;
 }
-a.buttons:not(:hover) {
-  transition: 0.6s;
-}
-/*************************************ВИД КНОПКИ*/
-.knopka {
-  width: 150px;
-  height: 50px;
-  text-decoration: none;
-  color: #a675b3;
-  text-align: center;
-  line-height: 20px;
-  display: block;
-  margin: 20px auto;
-  border: 3px solid #311d47;
-  font: normal 17px arial;
-  outline: none;
 
+a.buttons:not(:hover) {
+    transition: 0.6s;
+}
+
+
+/*************************************ВИД КНОПКИ*/
+
+.knopka {
+    width: 150px;
+    height: 50px;
+    text-decoration: none;
+    color: #a675b3;
+    text-align: center;
+    line-height: 20px;
+    display: block;
+    margin: 20px auto;
+    border: 3px solid #311d47;
+    font: normal 17px arial;
+    outline: none;
 }
 
 .knopka:not(.active) {
-  box-shadow: inset 0 1px 1px rgba(111, 55, 125, 0.8), inset 0 -1px 0px rgba(63, 59, 113, 0.2), 0 9px 16px 0 rgba(0, 0, 0, 0.3), 0 4px 3px 0 rgba(0, 0, 0, 0.3), 0 0 0 1px #150a1e;
-  background-image: linear-gradient(#3b2751, #271739);
-  text-shadow: 0 0 21px rgba(223, 206, 228, 0.5), 0 -1px 0 #311d47;
-  outline: none;
+    box-shadow: inset 0 1px 1px rgba(111, 55, 125, 0.8), inset 0 -1px 0px rgba(63, 59, 113, 0.2), 0 9px 16px 0 rgba(0, 0, 0, 0.3), 0 4px 3px 0 rgba(0, 0, 0, 0.3), 0 0 0 1px #150a1e;
+    background-image: linear-gradient(#3b2751, #271739);
+    text-shadow: 0 0 21px rgba(223, 206, 228, 0.5), 0 -1px 0 #311d47;
+    outline: none;
 }
 
 .knopka:not(.active):hover,
 .knopka:not(.active):focus {
-  transition: color 200ms linear, text-shadow 500ms linear;
-  color: #fff;
-  text-shadow: 0 0 21px rgba(223, 206, 228, 0.5), 0 0 10px rgba(223, 206, 228, 0.4), 0 0 2px #2a153c;
-  outline: none;
+    transition: color 200ms linear, text-shadow 500ms linear;
+    color: #fff;
+    text-shadow: 0 0 21px rgba(223, 206, 228, 0.5), 0 0 10px rgba(223, 206, 228, 0.4), 0 0 2px #2a153c;
+    outline: none;
 }
+
 .knopka:not(:hover) {
     transition: 0.6s;
     outline: none;
 }
-
-
-
