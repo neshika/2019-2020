@@ -1440,9 +1440,7 @@ class RandDog extends PrintDog
         }
         return $url;  //получаем $URL
     }
-    /*   public function dogPic($url){
-?><img src="<?php echo $url;?>"><?php 
-} */
+   
     public function randSex()
     {
         return Rand(0, 1);
@@ -1872,8 +1870,10 @@ class Registry
     }   
 
 }
-class Adminka{
-    public function randoTypeAll(){
+class Adminka
+{
+    public function randoTypeAll()
+    {
 
         $types = ['Холерик','Сангвиник','Флегматик','Меланхолик'];
         //$arr = array_rand($types, 1);

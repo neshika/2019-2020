@@ -1,5 +1,6 @@
 <?php
 require "settings.php";
+//require_once($_SERVER['DOCUMENT_ROOT'] . '/includes/func.php');
 ?>
 
 <!DOCTYPE html>
