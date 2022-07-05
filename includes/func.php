@@ -1784,6 +1784,29 @@ public function addItemToOwner($item, $owner,$count){
     
     
 }
+/* функция вносит новый предмет в базу данных*/
+public function AddItem($ItemName)
+{
+    
+    $VBaze = NULL;
+    $VBaze = R::findOne('items', 'name LIKE ?', ["%$ItemName%"]);
+   // var_dump($VBaze);
+     if(NULL != $VBaze){
+        echo '<br><strong>' . $ItemName . '</strong> уже есть в базе'; 
+        return FALSE;
+    
+     }
+     else
+     {
+         $itm = R::dispense('items');
+	     $itm->name = $ItemName;
+         
+	     return R::store($itm);
+         //echo 'сохранил в базе';
+     }
+
+	
+}
 }
 /**************************   регистрация вязки литтеры ***************/
 class Registry
