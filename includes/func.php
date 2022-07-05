@@ -834,6 +834,24 @@ class Tabl
         $sql = 'SELECT * FROM ' . $tabl .  ' WHERE id =' . $id;
         return R::getRow($sql);
     }
+    public function PrintItem(){
+        $items = R::findAll('items');
+      
+        ?><table class="table"> 
+        <tr>
+            <td>id</td>
+            <td>name</td>
+            <td>icons</td>
+        </tr><?php  foreach ($items as $key=>$item):?>
+        <tr>
+            <td><?php echo $key?> </td>
+            <td><?php echo $item['name']?></td>
+            <td><?php echo $item['icons']?></td>
+            <?php endforeach?>
+        </tr>
+    </table>
+   <?php  
+    }
 }
 /************************ Работа с таблицей USERS ***************/
 class Users
@@ -1787,7 +1805,6 @@ public function addItemToOwner($item, $owner,$count){
 /* функция вносит новый предмет в базу данных*/
 public function AddItem($ItemName)
 {
-    
     $VBaze = NULL;
     $VBaze = R::findOne('items', 'name LIKE ?', ["%$ItemName%"]);
    // var_dump($VBaze);
@@ -1800,13 +1817,32 @@ public function AddItem($ItemName)
      {
          $itm = R::dispense('items');
 	     $itm->name = $ItemName;
-         
-	     return R::store($itm);
+         return R::store($itm);
          //echo 'сохранил в базе';
      }
-
-	
 }
+/* функция вносит в базу картинку к предмету*/
+    public function AddIcon($ItemName, $Icon){
+        $VBaze = NULL;
+        $VBaze = R::findOne('items', 'name = ?', ["$ItemName"]);
+        $new_icon = '/pici/' . $Icon . '.png';
+        //var_dump($VBaze['id']);
+        if(isset($VBaze['id'])){
+            echo '<br><strong>' . $ItemName . '</strong> в базе'; 
+            $icn = R::load('items',$VBaze['id']);
+            $icn->icons = $new_icon;
+            return R::store($icn);
+            echo $new_icon; 
+        }
+        else
+        {
+            echo '<br>предмет: <strong>' . $ItemName . '</strong> не найден'; 
+            return FALSE;
+        }
+        
+
+    }
+
 }
 /**************************   регистрация вязки литтеры ***************/
 class Registry
