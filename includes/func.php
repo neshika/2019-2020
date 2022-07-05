@@ -350,10 +350,10 @@ public function buying($owner, $money)
         // $money = 5000;
         $item = 1;
 
-        $now = $itm->retItemByOwner($item, $owner);
+        $now = $itm->retCountItemByOwner($item, $owner);
         //echo $now;
         $itm->removeItemByOwner($item, $owner, $money);
-        $now = $itm->retItemByOwner($item, $owner);
+        $now = $itm->retCountItemByOwner($item, $owner);
         //echo ' soff ' . $now;
     }
 } 
@@ -1722,26 +1722,35 @@ class Matting extends Dog
 /**************************    предменты владельца питомника  ***************/
 class OwnerItems
 {
-
+/* функция возвращает ИД итема из таблицы Items по названию*/
+    public function retItemIdByName($nameItem){
+        
+        $id = R::getCell('SELECT `id` FROM items WHERE `name` = ? LIMIT 1', [$nameItem]);
+       
+        return $id;
+    }   
+/*функция возвращает номер ИД по названию итема у владельца*/
     public function retIdOwnerItems($item, $owner)
     {
         $user = new Users();
-
         $owner_id = $user->retId($owner); //возвращает id Юзера
+        $id_item = $this->retItemIdByName($item);
         $id = R::getCell('SELECT id FROM owneritems WHERE owner_id = :id AND item_id = :item', [
             'id' => $owner_id,
-            'item' => $item
+            'item' => $id_item
         ]);
         return $id;
     }
-    public function retItemByOwner($item, $owner)
+/*функция возвращает количество итемов по ИД */    
+    public function retCountItemByOwner($item, $owner)
     {
         $user = new Users();
 
         $owner_id = $user->retId($owner); //возвращает id Юзера
+        $id_item = $this->retItemIdByName($item);
         $sql = R::getCell('SELECT count FROM owneritems WHERE owner_id = :id AND item_id = :item', [
             'id' => $owner_id,
-            'item' => $item
+            'item' => $id_item
         ]);
         //var_dump($sql);
         if (empty($sql)) {
@@ -1749,19 +1758,32 @@ class OwnerItems
         }
         return $sql;
     }
+/*Функция удаляет итем у пользователя */    
     public function removeItemByOwner($item, $owner, $count)
     {
         //echo ' function removeItemByOwner($item,$owner,$count) ';
         $tabl = new Tabl();
-        $now = $this->retItemByOwner($item, $owner);
+        $now = $this->retCountItemByOwner($item, $owner);
+        var_dump($now);
         if ($now >= $count) {
-            $now = $now - $count;
+            $new = $now - $count;
             $id = $this->retIdOwnerItems($item, $owner);
-            $tabl->UpdateData('owneritems', $id, 'count', $now);
+            $tabl->UpdateData('owneritems', $id, 'count', $new);
         } else {
             echo '<br> Не хватает предметов! ';
         }
     }
+/*Функция добавляет предменты пользователю */
+public function addItemToOwner($item, $owner,$count){
+  
+    $tabl = new Tabl();
+    $stroka = $this->retIdOwnerItems($item,$owner);
+    $now = $this->retCountItemByOwner($item, $owner);
+    $new = $now + $count;
+    $tabl->UpdateData('owneritems', $stroka, 'count', $new);
+    
+    
+}
 }
 /**************************   регистрация вязки литтеры ***************/
 class Registry
