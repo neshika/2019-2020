@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+    <title>Индикатор прогресса HTML5 (тег – progress)</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style>
+        progress {
+            border: 0;
+            width: 300px;
+            height: 20px;
+            border-radius: 10px;
+            background: #f1f1f1;
+        }
+        
+        progress::-webkit-progress-bar {
+            width: 300px;
+            height: 20px;
+            border-radius: 10px;
+            background: #f1f1f1;
+        }
+        
+        progress::-webkit-progress-value {
+            border-radius: 10px;
+            background: #7a0270;
+        }
+        
+        progress::-moz-progress-bar {
+            border-radius: 5px;
+            background: #7a0270;
+        }
+    </style>
+</head>
+
+<body>
+
+    <script type="text/javascript" src="jquery.min.js"></script>
+    <script>
+        setInterval(() => {
+                document.getElementsByTagName('progress')[0].value =
+                    document.getElementsByTagName('progress')[0].value + 1
+                if (document.getElementsByTagName('progress')[0].value === 50) {
+                    document.getElementsByTagName('progress')[0].value = 1
+
+                }
+            },
+            150)
+
+        var progressbar = $('#progressbar'),
+            max = progressbar.attr('max'),
+            time = (1000 / max) * 5,
+            value = progressbar.val();
+    </script>
+    <div class="progress-bar-wrapper">
+        <progress id="progressbar" value="0" max="50"></progress>
+        <span class="progress-value"></span>
+    </div>
+
+</body>
+
+</html>

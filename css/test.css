@@ -1,0 +1,21 @@
+progress {
+  -webkit-appearance: none;
+  width: 50%;
+  height: 50px;
+  border: 1px solid #ccc;
+  color: #aaa;
+  border-radius: 50px;
+}
+
+progress::-webkit-progress-bar {
+  background: yellowgreen;
+}
+
+progress::-webkit-progress-value {
+  background: black;
+}
+
+progress::-moz-progress-bar {
+  background: black;
+}
+/*# sourceMappingURL=test.css.map */

@@ -1,47 +1,115 @@
 
 <?php 
-require_once(__DIR__ . '/libs/up.php');
+/*require_once(__DIR__ . '/libs/up.php');*/
+require_once(__DIR__ . '/db.php');
 require_once(__DIR__ . '/includes/func.php');
 
 
-//$mum = 'hr0w0f0b0t0m0';
-//$dad = 'hr1w1f1b1t1m1';
-//$puppy_dna = DoDnaMumDad($mum, $dad);
-//echo '<br>' . $puppy_dna; /* Не забыть внести DNA в таблицу Randodna*/
-//
-$new = new GreateNewDog();
-$dna = new Dna();
-$tabl = new Tabl();
-$dog = new Dog();
-//
-$id_m = 1;
-$id_d = 3;
-$count_puppy = 1; // количество рожденных щенков
+
+?>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Симулятор заводчика</title>
+     <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+     <link rel="stylesheet" type="text/css" href="css/test5.css" />
+     <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+     <link rel="stylesheet" href="https://use.fontawesome.com/8fea78c7d8.css">
+
+</head>
+<body>
+  
+<div id="container">
+    <div id="header">
+        <table width="900">
+            <tr>
+                <td><h1>Симулятор заводчика</h1></td>
+                <h2><td><img src="pici/test2.png"><img src="pici/test.png"></td></h2>
+            </tr>
+        </table>
+                
+    </div>
+    <div id="nav">
+        <ul>
+            <li><a href="/index.php"><span>главная</span></a></li>
+            <li><a href="/office.php"><span>офис</span></a></li>
+            
+            <li class="dropdown">
+                <a href="/kennel.php"><span>КХС</span></a>
+                <ul>
+                    <li><a href="/kennel.php"><span>питомник</span></a></li>
+                    <li><a href="/kennel_f.php"><span>суки</span></a></li>
+                    <li><a href="/kennel_m.php"><span>кобели</span></a></li>
+                    <li><a href="/kennel_p.php"><span>щенки</span></a></li>
+                    <li><a href="shelter.php"><span>приют</span></a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="/mumdad.php"><span>АГТ</span></a>
+                <ul>
+                    <li><a href="#"><span>суки</span></a></li>
+                    <li><a href="#"><span>кобели</span></a></li>
+                    <li><a href="#"><span>щенки</span></a></li>
+                    <li><a href="#"><span>история породы</span></a></li>
+                    <li><a href="#"><span>расчет окраса</span></a></li>
+                </ul>
+            </li>
+                    <li><a href="/logout.php">выйти</a></li>
+            </ul>
+    </div>
+</div>
+
+<!--<div class="progress-bar">
+  <span class="bar">
+    <span class="progress"></span>
+  </span>
+</div>
+-->
+<div id="content">
+<img src="pici/resnuh.png" alt="альтернативный текст" height="100px">
+<img src="pici/resspd.png" alt="альтернативный текст" height="100px">
+<img src="pici/restrn.png" alt="альтернативный текст" height="100px">
+<img src="pici/поиск.png" alt="альтернативный текст" height="100px">
+<img src="pici/spd.png" alt="альтернативный текст" height="100px">
+<img src="pici/fnd.png" alt="альтернативный текст" height="100px">
+<img src="pici/lck.png" alt="альтернативный текст" height="100px">
+<?php
+
 $owner = 'Nesh';
-//
-//
-////debug($dna_m = $dna->retAllDna($id_m));
-////debug($dna_d = $dna->retAllDna($id_d));
-////
-////echo '<br> spd =' . $new ->StatsFromMumDad($dna_m['spd'],$dna_d['spd'], $mutation, $plus);
-//
-//$dna_id = $new->InsertDogDna($id_m,$id_d,$puppy_dna);
-//$id_new_dog = $new->insertDogAnimals($owner, $dna_id);
-//$id_family_new_dpg = $new->insertNewPuppyFamilyTree($id_m, $id_d);
-////$tabl->UpdateData('animals', $id_new_dog, 'breeder', $owner); //присваиваем заводчика новой собаке
-////$tabl->UpdateData('randodna', $dna_id, 'url', $puppy_dna); //вносим ДНК в таблицу РандоДНА
-////$tabl->UpdateData('animals', $id_new_dog, 'family_id', $id_family_new_dpg); //вносим в таблицу сссылку на семью
-////$tabl->UpdateData('animals', $id_new_dog, 'dna_id', $dna_id); //внести  ссылку на ДНА_ИД в таблицу Animals
-////$count_puppy = 1; // количество рожденных щенков
-////$new->addPupAndLit($id_m, $id_d, $count_puppy); //увеличить количество вязок и щенков
+$green = 'green';
+$red = 'red';
+$blue = 'blue';
+$numR =rand(1,5); 
+$item = new OwnerItems();
+// $itm = $item->retIdOwnerItems(10,$owner);
+// var_dump($itm);
+// $count = $item->retCountItemByOwner(10,$owner);
+// //var_dump($count);
+// if(FALSE != $count)
+// {
+//     echo $count;
+// }
+// else
+// echo "такого итема нету";
+// $id = $item->retItemIdByName('green');
+// var_dump($id);
 
-//$itm = new OwnerItems();
-//$item = 1;
-//$owner = 'Дима';
-//$money = 5000;
-////echo ' now ' .$now = $itm->retItemByOwner($item, $owner);
-////echo ' delet ' . $itm->removeItemByOwner($item, $owner, $count);
-////echo ' now soff ' .$now = $itm->retItemByOwner($item, $owner);
-////$new->buying($owner, $money);
+// echo '<hr>';
+// $idStroki = $item->retIdOwnerItems($nameItem, $owner);
+// var_dump($idStroki);
+//echo '<br>was ' . $item->retCountItemByOwner($nameItem, $owner);
+//$item->addItemToOwner($nameItem, $owner,100);
+//echo '<br>now ' . $item->retCountItemByOwner($nameItem, $owner);
+//$item->removeItemByOwner($nameItem, $owner, 10);
+//echo '<br>now - ' . $item->retCountItemByOwner($nameItem, $owner);
 
-echo $mum = $dna->retDna($dna->retDnaId($id_m));
+?>
+
+
+<script src="https://use.fontawesome.com/e1a1261a75.js"></script>
+      <script src="{% static 'app/scripts/modernizr-2.6.2.js' %}"></script>
+    <script src="{% static 'app/scripts/modernizr-2.6.2.js' %}"></script>
+</body>
+</html>

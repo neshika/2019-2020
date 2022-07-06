@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Симулятор заводчика</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="css/test.css" />
+
+    <body>
+        <progress max="100" value="5"></progress>
+        <script>
+            setInterval(() => {
+                document.getElementsByTagName('progress')[0].value =
+                    document.getElementsByTagName('progress')[0].value + 1
+                if (document.getElementsByTagName('progress')[0].value === 100) {
+                    document.getElementsByTagName('progress')[0].value = 1
+                }
+            }, 250)
+        </script>
+    </body>
+
+
+
+    <script src="https://use.fontawesome.com/e1a1261a75.js"></script>
+    <script src="{% static 'app/scripts/modernizr-2.6.2.js' %}"></script>
+    <script src="{% static 'app/scripts/modernizr-2.6.2.js' %}"></script>
+    </body>
+
+</html>

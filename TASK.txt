@@ -125,7 +125,7 @@ bdika_mutation)
 99. bdika_estrus
 - 22.11.2018 - 
 98. bdika_age_for_breeding функция для проверки разрешения на вязку
-91. отрисовка NewDog.php
+91. отрисовка newdog.php
 100.bdika_for_breed($id); функция для проверки всех усовий для вязки
 - 25.11.2018 - 
 94. отрисовка lit&pup.php

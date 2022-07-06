@@ -819,7 +819,11 @@ class RPDO implements Driver
 					$this->resultArray = array();
 					return $statement;
 				}
-				$this->resultArray = $statement->fetchAll( $fetchStyle );
+				if ( is_null( $fetchStyle) ) {
+					$this->resultArray = $statement->fetchAll();
+				} else {
+					$this->resultArray = $statement->fetchAll( $fetchStyle );
+				}
 				if ( $this->loggingEnabled && $this->logger ) {
 					$this->logger->log( 'resultset: ' . count( $this->resultArray ) . ' rows' );
 				}
@@ -1142,7 +1146,7 @@ class RPDO implements Driver
 		if ( isset($options['runInitCode']) )   $runInitCode   = $options['runInitCode'];
 		if ( isset($options['stringFetch']) )   $stringFetch   = $options['stringFetch'];
 
-		if ($connected) $this->connected = $connected;
+		if ($connected) $this->isConnected = $connected;
 		if ($setEncoding) $this->setEncoding();
 		if ($setAttributes) {
 			$this->pdo->setAttribute( \PDO::ATTR_ERRMODE,\PDO::ERRMODE_EXCEPTION );
@@ -1612,7 +1616,7 @@ if (interface_exists('\JsonSerializable')) { interface Jsonable extends \JsonSer
  * This source file is subject to the BSD/GPLv2 License that is bundled
  * with this source code in the file license.txt.
  */
-class OODBBean implements\IteratorAggregate,\ArrayAccess,\Countable,Jsonable
+class OODBBean implements \IteratorAggregate,\ArrayAccess,\Countable,Jsonable
 {
 	/**
 	 * FUSE error modes.
@@ -1718,6 +1722,11 @@ class OODBBean implements\IteratorAggregate,\ArrayAccess,\Countable,Jsonable
 	 * @var boolean
 	 */
 	protected $all = FALSE;
+
+	/**
+	 * @var string
+	 */
+	protected $castProperty = NULL;
 
 	/**
 	 * If fluid count is set to TRUE then $bean->ownCount() will
@@ -2059,6 +2068,7 @@ class OODBBean implements\IteratorAggregate,\ArrayAccess,\Countable,Jsonable
 	 *
 	 * @return ArrayIterator
 	 */
+	 #[\ReturnTypeWillChange]
 	public function getIterator()
 	{
 		return new \ArrayIterator( $this->properties );
@@ -2121,6 +2131,21 @@ class OODBBean implements\IteratorAggregate,\ArrayAccess,\Countable,Jsonable
 			}
 		}
 		return $this;
+	}
+
+	/**
+	 * Same as import() but trims all values by default.
+	 * Set the second parameter to apply a different function.
+	 *
+	 * @param array        $array     what you want to import
+	 * @param string       $function  function to apply (default is trim)
+	 * @param string|array $selection selection of values
+	 * @param boolean      $notrim    if TRUE selection keys will NOT be trimmed
+	 *
+	 * @return OODBBean
+	 */
+	public function trimport( $array, $function='trim', $selection = FALSE, $notrim = FALSE ) {
+		return $this->import( array_map( $function, $array ), $selection, $notrim );
 	}
 
 	/**
@@ -2566,6 +2591,7 @@ class OODBBean implements\IteratorAggregate,\ArrayAccess,\Countable,Jsonable
 		$this->noLoad     = FALSE;
 		$this->all        = FALSE;
 		$this->via        = NULL;
+		$this->castProperty = NULL;
 		return $this;
 	}
 
@@ -2667,7 +2693,12 @@ class OODBBean implements\IteratorAggregate,\ArrayAccess,\Countable,Jsonable
 
 		//If exists and no list or exits and list not changed, bail out.
 		if ( $exists && ((!$isOwn && !$isShared ) || (!$hasSQL && !$differentAlias && !$hasAll)) ) {
+			$castProperty = $this->castProperty;
 			$this->clearModifiers();
+			if (!is_null($castProperty)) {
+				$object = new $castProperty( $this->properties[$property] );
+				return $object;
+			}
 			return $this->properties[$property];
 		}
 
@@ -2708,7 +2739,6 @@ class OODBBean implements\IteratorAggregate,\ArrayAccess,\Countable,Jsonable
 		$this->properties[$property]          = $beans;
 		$this->__info["sys.shadow.$property"] = $beans;
 		$this->__info['tainted']              = TRUE;
-
 		$this->clearModifiers();
 		return $this->properties[$property];
 
@@ -2939,6 +2969,29 @@ class OODBBean implements\IteratorAggregate,\ArrayAccess,\Countable,Jsonable
 	}
 
 	/**
+	 * Captures a dynamic casting.
+	 * Enables you to obtain a bean value as an object by type-hinting
+	 * the desired return object using asX where X is the class you wish
+	 * to use as a wrapper for the property.
+	 *
+	 * Usage:
+	 *
+	 * $dateTime = $bean->asDateTime()->date;
+	 *
+	 * @param string $method method (asXXX)...
+	 *
+	 * @return self|NULL
+	 */
+	public function captureDynamicCasting( $method )
+	{
+		if ( strpos( $method, 'as' ) === 0 && ctype_upper( substr( $method, 2, 1) ) === TRUE ) {
+			$this->castProperty = substr( $method, 2 );
+			return $this;
+		}
+		return NULL;
+	}
+
+	/**
 	 * Sends the call to the registered model.
 	 * This method can also be used to override bean behaviour.
 	 * In that case you don't want an error or exception to be triggered
@@ -2963,7 +3016,7 @@ class OODBBean implements\IteratorAggregate,\ArrayAccess,\Countable,Jsonable
 	public function __call( $method, $args )
 	{
 		if ( empty( $this->__info['model'] ) ) {
-			return NULL;
+			return $this->captureDynamicCasting($method);
 		}
 
 		$overrideDontFail = FALSE;
@@ -2973,6 +3026,9 @@ class OODBBean implements\IteratorAggregate,\ArrayAccess,\Countable,Jsonable
 		}
 
 		if ( !is_callable( array( $this->__info['model'], $method ) ) ) {
+
+			$self = $this->captureDynamicCasting($method);
+			if ($self) return $self;
 
 			if ( self::$errorHandlingFUSE === FALSE || $overrideDontFail ) {
 				return NULL;
@@ -3052,6 +3108,7 @@ class OODBBean implements\IteratorAggregate,\ArrayAccess,\Countable,Jsonable
 	 *
 	 * @return void
 	 */
+	 #[\ReturnTypeWillChange]
 	public function offsetSet( $offset, $value )
 	{
 		$this->__set( $offset, $value );
@@ -3069,6 +3126,7 @@ class OODBBean implements\IteratorAggregate,\ArrayAccess,\Countable,Jsonable
 	 *
 	 * @return boolean
 	 */
+	 #[\ReturnTypeWillChange]
 	public function offsetExists( $offset )
 	{
 		return $this->__isset( $offset );
@@ -3087,6 +3145,7 @@ class OODBBean implements\IteratorAggregate,\ArrayAccess,\Countable,Jsonable
 	 *
 	 * @return void
 	 */
+	 #[\ReturnTypeWillChange]
 	public function offsetUnset( $offset )
 	{
 		$this->__unset( $offset );
@@ -3105,6 +3164,7 @@ class OODBBean implements\IteratorAggregate,\ArrayAccess,\Countable,Jsonable
 	 *
 	 * @return mixed
 	 */
+	 #[\ReturnTypeWillChange]
 	public function &offsetGet( $offset )
 	{
 		return $this->__get( $offset );
@@ -3245,6 +3305,7 @@ class OODBBean implements\IteratorAggregate,\ArrayAccess,\Countable,Jsonable
 	 *
 	 * @return integer
 	 */
+	 #[\ReturnTypeWillChange]
 	public function count()
 	{
 		return count( $this->properties );
@@ -3821,12 +3882,14 @@ class OODBBean implements\IteratorAggregate,\ArrayAccess,\Countable,Jsonable
 	 * the flavour label attachec to the $coffee bean. This illustrates
 	 * how to use equals() with RedBeanPHP-style enums.
 	 *
-	 * @param OODBBean $bean other bean
+	 * @param OODBBean|null $bean other bean
 	 *
 	 * @return boolean
 	 */
 	public function equals(OODBBean $bean)
 	{
+		if ( is_null($bean) ) return false;
+
 		return (bool) (
 			   ( (string) $this->properties['id'] === (string) $bean->properties['id'] )
 			&& ( (string) $this->__info['type']   === (string) $bean->__info['type']   )
@@ -3850,6 +3913,7 @@ class OODBBean implements\IteratorAggregate,\ArrayAccess,\Countable,Jsonable
 	 *
 	 * @return array
 	 */
+	 #[\ReturnTypeWillChange]
 	public function jsonSerialize()
 	{
 		$json = $this->__call( '@__jsonSerialize', array( ) );
@@ -4688,19 +4752,26 @@ class BeanCollection
 	protected $type = NULL;
 
 	/**
+	 * @var string
+	 */
+	protected $mask = NULL;
+
+	/**
 	 * Constructor, creates a new instance of the BeanCollection.
 	 *
 	 * @param string     $type       type of beans in this collection
 	 * @param Repository $repository repository to use to generate bean objects
 	 * @param Cursor     $cursor     cursor object to use
+	 * @param string     $mask       meta mask to apply (optional)
 	 *
 	 * @return void
 	 */
-	public function __construct( $type, Repository $repository, Cursor $cursor )
+	public function __construct( $type, Repository $repository, Cursor $cursor, $mask = '__meta' )
 	{
 		$this->type = $type;
 		$this->cursor = $cursor;
 		$this->repository = $repository;
+		$this->mask = $mask;
 	}
 
 	/**
@@ -4715,7 +4786,7 @@ class BeanCollection
 	{
 		$row = $this->cursor->getNextItem();
 		if ( $row ) {
-			$beans = $this->repository->convertToBeans( $this->type, array( $row ) );
+			$beans = $this->repository->convertToBeans( $this->type, array( $row ), $this->mask );
 			return reset( $beans );
 		}
 		return NULL;
@@ -5417,8 +5488,10 @@ abstract class AQueryWriter
 	 * For instance to add  ROW_FORMAT=DYNAMIC to all MySQL tables
 	 * upon creation:
 	 *
+	 * <code>
 	 * $sql = $writer->getDDLTemplate( 'createTable', '*' );
 	 * $writer->setDDLTemplate( 'createTable', '*', $sql . '  ROW_FORMAT=DYNAMIC ' );
+	 * </code>
 	 *
 	 * For property-specific templates set $beanType to:
 	 * account.username -- then the template will only be applied to SQL statements relating
@@ -5553,13 +5626,32 @@ abstract class AQueryWriter
 	 * Globally available service method for RedBeanPHP.
 	 * Converts a camel cased string to a snake cased string.
 	 *
-	 * @param string $camel camelCased string to converty to snake case
+	 * @param string $camel camelCased string to convert to snake case
 	 *
 	 * @return string
 	 */
 	public static function camelsSnake( $camel )
 	{
 		return strtolower( preg_replace( '/(?<=[a-z])([A-Z])|([A-Z])(?=[a-z])/', '_$1$2', $camel ) );
+	}
+
+	/**
+	 * Globally available service method for RedBeanPHP.
+	 * Converts a snake cased string to a camel cased string.
+	 *
+	 * @param string  $snake   snake_cased string to convert to camelCase
+	 * @param boolean $dolphin exception for Ids - (bookId -> bookID)
+	 *                         too complicated for the human mind, only dolphins can understand this
+	 *
+	 * @return string
+	 */
+	public static function snakeCamel( $snake, $dolphinMode = false )
+	{
+		$camel = lcfirst( str_replace(' ', '', ucwords( str_replace('_', ' ', $snake ) ) ) );
+		if ( $dolphinMode ) {
+			$camel = preg_replace( '/(\w)Id$/', '$1ID', $camel );
+		}
+		return $camel;
 	}
 
 	/**
@@ -6146,6 +6238,10 @@ abstract class AQueryWriter
 	public function glueSQLCondition( $sql, $glue = NULL )
 	{
 		static $snippetCache = array();
+
+		if ( is_null( $sql ) ) {
+			return '';
+		}
 
 		if ( trim( $sql ) === '' ) {
 			return $sql;
@@ -10238,7 +10334,7 @@ class OODB extends Observable
 	 * this is not the case.
 	 *
 	 * You can also pass an array containing a selection of frozen types.
-	 * Let's call this chilly mode, it's just like fluid mode except that
+	 * Let's call this chill mode, it's just like fluid mode except that
 	 * certain types (i.e. tables) aren't touched.
 	 *
 	 * @param boolean|array $toggle TRUE if you want to use OODB instance in frozen mode
@@ -10982,7 +11078,7 @@ class Finder
 	 *    R::genSlots( $users,
 	 *       'SELECT country.* FROM country WHERE id IN ( %s )' ),
 	 *    array_column( $users, 'country_id' ),
-	 *    [Finder::onmap('country', $gebruikers)]
+	 *    [Finder::onmap('country', $users)]
 	 * );
 	 * </code>
 	 *
@@ -11888,6 +11984,20 @@ class SimpleFacadeBeanHelper implements BeanHelper
 		$model     = $bean->getMeta( 'type' );
 		$prefix    = defined( 'REDBEAN_MODEL_PREFIX' ) ? REDBEAN_MODEL_PREFIX : '\\Model_';
 
+		return $this->resolveModel($prefix, $model, $bean);
+	}
+
+	/**
+	 * Resolves the model associated with the bean using the model name (type),
+	 * the prefix and the bean.
+	 *
+	 * @param string   $prefix Prefix to use for resolution
+	 * @param string   $model  Type name
+	 * @param OODBBean $bean   Bean to resolve model for
+	 *
+	 * @return SimpleModel|CustomModel|NULL
+	 */
+	protected function resolveModel($prefix, $model, $bean) {
 		if ( strpos( $model, '_' ) !== FALSE ) {
 			$modelParts = explode( '_', $model );
 			$modelName = '';
@@ -11919,6 +12029,63 @@ class SimpleFacadeBeanHelper implements BeanHelper
 	{
 		return Facade::getExtractedToolbox();
 	}
+}
+}
+
+namespace RedBeanPHP\BeanHelper {
+
+use RedBeanPHP\BeanHelper as BeanHelper;
+use RedBeanPHP\Facade as Facade;
+use RedBeanPHP\OODBBean as OODBBean;
+use RedBeanPHP\SimpleModelHelper as SimpleModelHelper;
+use RedBeanPHP\BeanHelper\SimpleFacadeBeanHelper as SimpleFacadeBeanHelper;
+
+/**
+ * Dynamic Bean Helper.
+ *
+ * The dynamic bean helper allows you to use differently namespaced
+ * classes for models per database connection.
+ *
+ * @file    RedBeanPHP/BeanHelper/DynamicBeanHelper.php
+ * @author  Gabor de Mooij and the RedBeanPHP Community
+ * @license BSD/GPLv2
+ *
+ * @copyright
+ * (c) copyright G.J.G.T. (Gabor) de Mooij and the RedBeanPHP Community
+ * This source file is subject to the BSD/GPLv2 License that is bundled
+ * with this source code in the file license.txt.
+ */
+class DynamicBeanHelper extends SimpleFacadeBeanHelper implements BeanHelper
+{
+	/**
+	 * Model prefix to be used for the current database connection.
+	 *
+	 * @var string
+	 */
+	private $modelPrefix;
+
+	/**
+	 * Constructor
+	 *
+	 * Usage:
+	 *
+	 * <code>
+	 * R::addDatabase( ..., new DynamicBeanHelper('Prefix1_')  );
+	 * </code>
+	 *
+	 * @param string $modelPrefix prefix
+	 */
+	public function __construct( $modelPrefix ) {
+		$this->modelPrefix = $modelPrefix;
+	}
+
+	/**
+	 * @see BeanHelper::getModelForBean
+	 */
+	public function getModelForBean( OODBBean $bean )
+	{
+		return $this->resolveModel( $this->modelPrefix, $bean->getMeta( 'type' ), $bean );
+	}	
 }
 }
 
@@ -12701,7 +12868,7 @@ use RedBeanPHP\Util\Feature;
  * RedBean Facade
  *
  * Version Information
- * RedBean Version @version 5.6
+ * RedBean Version @version 5.7
  *
  * This class hides the object landscape of
  * RedBeanPHP behind a single letter class providing
@@ -12721,7 +12888,7 @@ class Facade
 	/**
 	 * RedBeanPHP version constant.
 	 */
-	const C_REDBEANPHP_VERSION = '5.6';
+	const C_REDBEANPHP_VERSION = '5.7';
 
 	/**
 	 * @var ToolBox
@@ -13068,28 +13235,35 @@ class Facade
 	 * This method allows you to dynamically add (and select) new databases
 	 * to the facade. Adding a database with the same key will cause an exception.
 	 *
-	 * @param string      $key    ID for the database
-	 * @param string      $dsn    DSN for the database
-	 * @param string      $user   user for connection
-	 * @param NULL|string $pass   password for connection
-	 * @param bool        $frozen whether this database is frozen or not
+	 * @param string      $key    		ID for the database
+	 * @param string      $dsn    		DSN for the database
+	 * @param string      $user   		user for connection
+	 * @param NULL|string $pass   		password for connection
+	 * @param bool        $frozen 		whether this database is frozen or not
+	 * @param bool 		  $partialBeans should we load partial beans?
+	 * @param array		  $options		additional options for the query writer
+	 * @param BeanHelper  $beanHelper	Beanhelper to use (use this for DB specific model prefixes)
 	 *
 	 * @return void
 	 */
-	public static function addDatabase( $key, $dsn, $user = NULL, $pass = NULL, $frozen = FALSE, $partialBeans = FALSE, $options = array() )
+	public static function addDatabase( $key, $dsn, $user = NULL, $pass = NULL, $frozen = FALSE, $partialBeans = FALSE, $options = array(), $beanHelper = NULL )
 	{
 		if ( isset( self::$toolboxes[$key] ) ) {
 			throw new RedException( 'A database has already been specified for this key.' );
 		}
 
 		self::$toolboxes[$key] = self::createToolbox($dsn, $user, $pass, $frozen, $partialBeans, $options);
+
+		if ( !is_null( $beanHelper ) ) {
+			self::$toolboxes[$key]->getRedBean()->setBeanHelper( $beanHelper );
+		}
 	}
 
 	/**
 	 * Creates a toolbox. This method can be called if you want to use redbean non-static.
-   * It has the same interface as R::setup(). The createToolbx() method can be called
-   * without any arguments, in this case it will try to create a SQLite database in
-   * /tmp called red.db (this only works on UNIX-like systems).
+	 * It has the same interface as R::setup(). The createToolbx() method can be called
+	 * without any arguments, in this case it will try to create a SQLite database in
+	 * /tmp called red.db (this only works on UNIX-like systems).
 	 *
 	 * Usage:
 	 *
@@ -13118,8 +13292,8 @@ class Facade
 	 *
 	 * @return ToolBox
 	 */
-  public static function createToolbox( $dsn = NULL, $username = NULL, $password = NULL, $frozen = FALSE, $partialBeans = FALSE, $options = array() )
-  {
+	public static function createToolbox( $dsn = NULL, $username = NULL, $password = NULL, $frozen = FALSE, $partialBeans = FALSE, $options = array() )
+	{
 		if ( is_object($dsn) ) {
 			$db  = new RPDO( $dsn );
 			$dbType = $db->getDatabaseType();
@@ -13191,6 +13365,7 @@ class Facade
 		if ( !isset( self::$toolboxes[$key] ) ) {
 			throw new RedException( 'Database not found in registry. Add database using R::addDatabase().' );
 		}
+
 
 		self::configureFacadeWithToolbox( self::$toolboxes[$key] );
 		self::$currentDB = $key;
@@ -13481,7 +13656,7 @@ class Facade
 	 * @param string $sql      SQL query to find the desired bean, starting right after WHERE clause
 	 * @param array  $bindings array of values to be bound to parameters in query
 	 *
-	 * @return array
+	 * @return OODBBean|NULL
 	 */
 	public static function findOneForUpdate( $type, $sql = NULL, $bindings = array() )
 	{
@@ -13656,6 +13831,9 @@ class Facade
 	 * @param string $sql      SQL query to find the desired bean, starting right after WHERE clause
 	 * @param array  $bindings array of values to be bound to parameters in query
 	 * @param string $snippet  SQL snippet to include in query (for example: FOR UPDATE)
+	 *
+	 * @phpstan-param literal-string|null $sql
+	 * @psalm-param   literal-string|null $sql
 	 *
 	 * @return array
 	 */
@@ -14036,7 +14214,7 @@ class Facade
 	 * @param boolean  $pid     for internal usage
 	 * @param array    $filters white list filter with bean types to duplicate
 	 *
-	 * @return array
+	 * @return OODBBean
 	 */
 	public static function dup( $bean, $trail = array(), $pid = FALSE, $filters = array() )
 	{
@@ -14066,7 +14244,7 @@ class Facade
 	 * @param OODBBean $bean  bean to be copied
 	 * @param array    $white white list filter with bean types to duplicate
 	 *
-	 * @return array
+	 * @return OODBBean
 	 */
 	public static function duplicate( $bean, $filters = array() )
 	{
@@ -15955,6 +16133,58 @@ class Facade
 	}
 
 	/**
+	 * Globally available service method for RedBeanPHP.
+	 * Converts a snake cased string to a camel cased string.
+	 * If the parameter is an array, the keys will be converted.
+	 *
+	 * @param string|array $snake snake_cased string to convert to camelCase
+	 * @param boolean $dolphin exception for Ids - (bookId -> bookID)
+	 *                         too complicated for the human mind, only dolphins can understand this
+	 *
+	 * @return string|array
+	 */
+	public static function camelfy( $snake, $dolphin = false )
+	{
+		if ( is_array( $snake ) ) {
+			$newArray = array();
+			foreach( $snake as $key => $value ) {
+				$newKey = self::camelfy( $key, $dolphin );
+				if ( is_array( $value ) ) {
+					$value = self::camelfy( $value, $dolphin );
+				}
+				$newArray[ $newKey ] = $value;
+			}
+			return $newArray;
+		}
+		return AQueryWriter::snakeCamel( $snake, $dolphin );
+	}
+
+	/**
+	 * Globally available service method for RedBeanPHP.
+	 * Converts a camel cased string to a snake cased string.
+	 * If the parameter is an array, the keys will be converted.
+	 *
+	 * @param string|array $camel camelCased string to convert to snake case
+	 *
+	 * @return string|array
+	 */
+	public static function uncamelfy( $camel )
+	{
+		if ( is_array( $camel ) ) {
+			$newArray = array();
+			foreach( $camel as $key => $value ) {
+				$newKey = self::uncamelfy( $key );
+				if ( is_array( $value ) ) {
+					$value = self::uncamelfy( $value );
+				}
+				$newArray[ $newKey ] = $value;
+			}
+			return $newArray;
+		}
+		return AQueryWriter::camelsSnake( $camel );
+	}
+
+	/**
 	 * Selects the feature set you want as specified by
 	 * the label.
 	 *
@@ -16300,7 +16530,7 @@ class DuplicationManager
 	public function camelfy( $array, $dolphinMode = FALSE ) {
 		$newArray = array();
 		foreach( $array as $key => $element ) {
-			$newKey = preg_replace_callback( '/_(\w)/', function( &$matches ){
+			$newKey = preg_replace_callback( '/_(\w)/', function( $matches ){
 				return strtoupper( $matches[1] );
 			}, $key);
 
@@ -17759,7 +17989,7 @@ class Feature
 			case self::C_FEATURE_NOVICE_LATEST:
 			case self::C_FEATURE_NOVICE_5_4:
 			case self::C_FEATURE_NOVICE_5_5:
-				OODBBean::useFluidCount( FALSE );
+				OODBBean::useFluidCount( TRUE );
 				R::noNuke( TRUE );
 				R::setAllowHybridMode( FALSE );
 				R::useISNULLConditions( TRUE );
@@ -17767,7 +17997,7 @@ class Feature
 			case self::C_FEATURE_LATEST:
 			case self::C_FEATURE_5_4:
 			case self::C_FEATURE_5_5:
-				OODBBean::useFluidCount( FALSE );
+				OODBBean::useFluidCount( TRUE );
 				R::noNuke( FALSE );
 				R::setAllowHybridMode( TRUE );
 				R::useISNULLConditions( TRUE );
@@ -17911,5 +18141,60 @@ if ( !function_exists( 'array_flatten' ) ) {
 	}
 }
 
+/**
+ * Function pstr() generates [ $value, \PDO::PARAM_STR ]
+ * Ensures that your parameter is being treated as a string.
+ *
+ * Usage:
+ *
+ * <code>
+ * R::find('book', 'title = ?', [ pstr('1') ]);
+ * </code>
+ */
+if ( !function_exists( 'pstr' ) ) {
+
+	function pstr( $value )
+	{
+		return array( strval( $value ) , \PDO::PARAM_STR );
+	}
+}
+
+
+/**
+ * Function pint() generates [ $value, \PDO::PARAM_INT ]
+ * Ensures that your parameter is being treated as an integer.
+ *
+ * Usage:
+ *
+ * <code>
+ * R::find('book', ' pages > ? ', [ pint(2) ] );
+ * </code>
+ */
+if ( !function_exists( 'pint' ) ) {
+
+	function pint( $value )
+	{
+		return array( intval( $value ) , \PDO::PARAM_INT );
+	}
+}
+
+/**
+ * Function DBPrefix() is a simple function to allow you to
+ * quickly set a different namespace for FUSE model resolution
+ * per database connection. It works by creating a new DynamicBeanHelper
+ * with the specified string as model prefix.
+ *
+ * Usage:
+ *
+ * <code>
+ * R::addDatabase( ..., DBPrefix( 'Prefix1_' )  );
+ * </code>
+ */
+if ( !function_exists( 'DBPrefix' ) ) {
+
+	function DBPrefix( $prefix = '\\Model' ) {
+		return new \RedBeanPHP\BeanHelper\DynamicBeanHelper( $prefix );
+	}
+}
 
 }

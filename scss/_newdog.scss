@@ -1,0 +1,38 @@
+/* newdog.php*/
+.wrapper2 {
+  -webkit-box-shadow: 5px 5px 15px 5px #727272;
+  box-shadow: 5px 5px 15px 5px #727272;
+  border-radius: 15px;
+  margin-left: 15%; /* Отступ слева */
+  width: 1250px; /* Ширина слоя */
+  height: auto;
+}
+
+TD {
+  vertical-align: top; /* Выравнивание по верхнему краю ячейки */
+}
+#col1 {
+  width: 450px;
+  /*background: #F5F5DC; /* Цвет фона первой колонки */
+}
+#col2 {
+  width: 100px;
+  /*background: #F5F5DC; /* Цвет фона второй колонки */
+}
+#buttom {
+  margin-left: 2rem;
+}
+#lf {
+  width: 450px;
+  /*background: #F5F5DC; /* Цвет фона  колонки */
+}
+#rt {
+  width: 450px;
+  /*background: #F5F5DC;; /* Цвет фона  колонки */
+}
+details summary::after {
+  content: " открыть";
+}
+details[open] summary::after {
+  content: " закрыть";
+}

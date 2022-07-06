@@ -1,22 +1,32 @@
 <?php
-//подключение файлов
-require_once(__DIR__ . '/libs/up.php');
+//require_once(__DIR__ . '/libs/up.php');
+//подключение библиотеки redBeanphp
+require $_SERVER['DOCUMENT_ROOT']."/db.php";
+//подключение шапки
+require_once(__DIR__ . '/html/header.html');
 require_once(__DIR__ . '/includes/func.php');
+//включение ошибок//включение отчета по ошибкам
+ini_set('display_errors',1);
+error_reporting(E_ALL);
+
 $printdog = new PrintDog();
 $dog = new Dog();
 $owner = $dog->retOwnerNoId(); //сохраняем название владельца в переменную из куки
 $ken = new Kennels();
-$kennel_name = $ken->retKennel($owner);
+$kennel = $ken->retKennel($owner);
 $count = $ken->retCountPuppyDog($owner);
 $coins = $printdog->printMoney($owner);
 ?>
 <div class="content">
-<p class="kennel"><br>Питомник: <?php echo $kennel_name;?> // Владелец: <?php echo $owner;?>
-    // Количество щенков: <?php echo $count;?>
-    // <img src = "/pici/coins_mini.png"><?php echo  $coins;
+    <div class="kennel-stroka">
+    Питомник: <?php echo $kennel;?> // Владелец: <?php echo $owner;?>// Количество щенков в питомнике <?php echo $count;?><br><?php $printdog->picCoins(); echo  $coins;?>
+    </div>
+    <!--создаем форму с кнопками по сортировке собак на виды-->
     
-/****************************** Если нажата кнопка щенки выводим на экран всех собак, пренадлежащих владельцу*/
-?><p class="left"><img src = "/pici/puppy_mini.png" alt = "щенки" width="3%"></p>
-<?php  
-$ken->printPuppyByKennel($owner);
+    <div>
+    <img src = "/pici/puppy_mini.png" width="3%">
+    </div>
+    <?php    $ken->printPuppyByKennel($owner); ?>
+
+</div>
     
