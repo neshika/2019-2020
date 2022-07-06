@@ -68,6 +68,13 @@ require_once(__DIR__ . '/includes/func.php');
 </div>
 -->
 <div id="content">
+<img src="pici/resnuh.png" alt="альтернативный текст" height="100px">
+<img src="pici/resspd.png" alt="альтернативный текст" height="100px">
+<img src="pici/restrn.png" alt="альтернативный текст" height="100px">
+<img src="pici/поиск.png" alt="альтернативный текст" height="100px">
+<img src="pici/spd.png" alt="альтернативный текст" height="100px">
+<img src="pici/fnd.png" alt="альтернативный текст" height="100px">
+<img src="pici/lck.png" alt="альтернативный текст" height="100px">
 <?php
 
 

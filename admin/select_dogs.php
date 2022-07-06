@@ -31,6 +31,7 @@ require "settings.php";
 
         </td>
         <td><button>рандом</button><button>создать статы</button></td>
+      
     </tr>
 </table>
    
