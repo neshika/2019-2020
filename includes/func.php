@@ -350,10 +350,10 @@ public function buying($owner, $money)
         // $money = 5000;
         $item = 1;
 
-        $now = $itm->retItemByOwner($item, $owner);
+        $now = $itm->retCountItemByOwner($item, $owner);
         //echo $now;
         $itm->removeItemByOwner($item, $owner, $money);
-        $now = $itm->retItemByOwner($item, $owner);
+        $now = $itm->retCountItemByOwner($item, $owner);
         //echo ' soff ' . $now;
     }
 } 
@@ -833,6 +833,24 @@ class Tabl
 
         $sql = 'SELECT * FROM ' . $tabl .  ' WHERE id =' . $id;
         return R::getRow($sql);
+    }
+    public function PrintItem(){
+        $items = R::findAll('items');
+      
+        ?><table class="table"> 
+        <tr>
+            <td>id</td>
+            <td>name</td>
+            <td>icons</td>
+        </tr><?php  foreach ($items as $key=>$item):?>
+        <tr>
+            <td><?php echo $key?> </td>
+            <td><?php echo $item['name']?></td>
+            <td><?php echo $item['icons']?></td>
+            <?php endforeach?>
+        </tr>
+    </table>
+   <?php  
     }
 }
 /************************ Работа с таблицей USERS ***************/
@@ -1722,26 +1740,35 @@ class Matting extends Dog
 /**************************    предменты владельца питомника  ***************/
 class OwnerItems
 {
-
+/* функция возвращает ИД итема из таблицы Items по названию*/
+    public function retItemIdByName($nameItem){
+        
+        $id = R::getCell('SELECT `id` FROM items WHERE `name` = ? LIMIT 1', [$nameItem]);
+       
+        return $id;
+    }   
+/*функция возвращает номер ИД по названию итема у владельца*/
     public function retIdOwnerItems($item, $owner)
     {
         $user = new Users();
-
         $owner_id = $user->retId($owner); //возвращает id Юзера
+        $id_item = $this->retItemIdByName($item);
         $id = R::getCell('SELECT id FROM owneritems WHERE owner_id = :id AND item_id = :item', [
             'id' => $owner_id,
-            'item' => $item
+            'item' => $id_item
         ]);
         return $id;
     }
-    public function retItemByOwner($item, $owner)
+/*функция возвращает количество итемов по ИД */    
+    public function retCountItemByOwner($item, $owner)
     {
         $user = new Users();
 
         $owner_id = $user->retId($owner); //возвращает id Юзера
+        $id_item = $this->retItemIdByName($item);
         $sql = R::getCell('SELECT count FROM owneritems WHERE owner_id = :id AND item_id = :item', [
             'id' => $owner_id,
-            'item' => $item
+            'item' => $id_item
         ]);
         //var_dump($sql);
         if (empty($sql)) {
@@ -1749,19 +1776,73 @@ class OwnerItems
         }
         return $sql;
     }
+/*Функция удаляет итем у пользователя */    
     public function removeItemByOwner($item, $owner, $count)
     {
         //echo ' function removeItemByOwner($item,$owner,$count) ';
         $tabl = new Tabl();
-        $now = $this->retItemByOwner($item, $owner);
+        $now = $this->retCountItemByOwner($item, $owner);
+        var_dump($now);
         if ($now >= $count) {
-            $now = $now - $count;
+            $new = $now - $count;
             $id = $this->retIdOwnerItems($item, $owner);
-            $tabl->UpdateData('owneritems', $id, 'count', $now);
+            $tabl->UpdateData('owneritems', $id, 'count', $new);
         } else {
             echo '<br> Не хватает предметов! ';
         }
     }
+/*Функция добавляет предменты пользователю */
+public function addItemToOwner($item, $owner,$count){
+  
+    $tabl = new Tabl();
+    $stroka = $this->retIdOwnerItems($item,$owner);
+    $now = $this->retCountItemByOwner($item, $owner);
+    $new = $now + $count;
+    $tabl->UpdateData('owneritems', $stroka, 'count', $new);
+    
+    
+}
+/* функция вносит новый предмет в базу данных*/
+public function AddItem($ItemName)
+{
+    $VBaze = NULL;
+    $VBaze = R::findOne('items', 'name LIKE ?', ["%$ItemName%"]);
+   // var_dump($VBaze);
+     if(NULL != $VBaze){
+        echo '<br><strong>' . $ItemName . '</strong> уже есть в базе'; 
+        return FALSE;
+    
+     }
+     else
+     {
+         $itm = R::dispense('items');
+	     $itm->name = $ItemName;
+         return R::store($itm);
+         //echo 'сохранил в базе';
+     }
+}
+/* функция вносит в базу картинку к предмету*/
+    public function AddIcon($ItemName, $Icon){
+        $VBaze = NULL;
+        $VBaze = R::findOne('items', 'name = ?', ["$ItemName"]);
+        $new_icon = '/pici/' . $Icon . '.png';
+        //var_dump($VBaze['id']);
+        if(isset($VBaze['id'])){
+            echo '<br><strong>' . $ItemName . '</strong> в базе'; 
+            $icn = R::load('items',$VBaze['id']);
+            $icn->icons = $new_icon;
+            return R::store($icn);
+            echo $new_icon; 
+        }
+        else
+        {
+            echo '<br>предмет: <strong>' . $ItemName . '</strong> не найден'; 
+            return FALSE;
+        }
+        
+
+    }
+
 }
 /**************************   регистрация вязки литтеры ***************/
 class Registry

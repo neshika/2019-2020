@@ -77,25 +77,33 @@ require_once(__DIR__ . '/includes/func.php');
 <img src="pici/lck.png" alt="альтернативный текст" height="100px">
 <?php
 
+$owner = 'Nesh';
+$green = 'green';
+$red = 'red';
+$blue = 'blue';
+$numR =rand(1,5); 
+$item = new OwnerItems();
+// $itm = $item->retIdOwnerItems(10,$owner);
+// var_dump($itm);
+// $count = $item->retCountItemByOwner(10,$owner);
+// //var_dump($count);
+// if(FALSE != $count)
+// {
+//     echo $count;
+// }
+// else
+// echo "такого итема нету";
+// $id = $item->retItemIdByName('green');
+// var_dump($id);
 
-$id = 1;
-$array_fml = R::getRow('SELECT * FROM `family` WHERE `id` = ? ', [$id]);
-       // echo 'что в строке'  . $id . '<br>';
-        debug($array_fml);
-
-        $fml = R::dispense('family');
-            
-        foreach ($array_fml as $key => $value)
-        {
-            
-            if ($key != 'id'){
-                //echo $key . " = " . $value . ' ';
-                $fml->$key = 0;
-            }
-            
-        }
-        $id_new_fml = R::store($fml);
-        echo 'new afamily ' . $id_new_fml;
+// echo '<hr>';
+// $idStroki = $item->retIdOwnerItems($nameItem, $owner);
+// var_dump($idStroki);
+//echo '<br>was ' . $item->retCountItemByOwner($nameItem, $owner);
+//$item->addItemToOwner($nameItem, $owner,100);
+//echo '<br>now ' . $item->retCountItemByOwner($nameItem, $owner);
+//$item->removeItemByOwner($nameItem, $owner, 10);
+//echo '<br>now - ' . $item->retCountItemByOwner($nameItem, $owner);
 
 ?>
 

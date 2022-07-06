@@ -19,7 +19,7 @@ require "settings.php";
         <li class ="menu__list"><a href="">CRUD</a>
           <ul class ="menu__drop">
           
-              <li ><a href="crud.php">Меняем базу</a></li>
+              <li ><a href="crud.php">Внести новый предмет</a></li>
               <li><a href="#">ПодПункт 2</a></li>
               <li><a href="#">ПодПункт 3</a></li>
               <li><a href="#">ПодПункт 4</a></li>
