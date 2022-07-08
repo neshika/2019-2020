@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Май 03 2022 г., 17:01
+-- Время создания: Июл 08 2022 г., 19:02
 -- Версия сервера: 8.0.24
 -- Версия PHP: 8.0.8
 
@@ -121,7 +121,7 @@ INSERT INTO `ages` (`id`, `age`, `text`) VALUES
 CREATE TABLE `animals` (
   `id` int NOT NULL,
   `name` varchar(255) NOT NULL DEFAULT 'без имени',
-  `race` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT 'КХС',
+  `race` varchar(100) DEFAULT NULL,
   `origin` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'происхождение РКФ',
   `breeder` varchar(100) NOT NULL DEFAULT 'Заводчик' COMMENT 'заводчик',
   `owner` varchar(100) NOT NULL DEFAULT 'Владелец' COMMENT 'владелец',
@@ -132,13 +132,13 @@ CREATE TABLE `animals` (
   `dna_id` int DEFAULT '0' COMMENT 'ссылка на днк',
   `family_id` int DEFAULT '0' COMMENT 'ссылка на семью',
   `mark_id` int NOT NULL DEFAULT '7' COMMENT 'ссылка на оценку',
-  `weight` int DEFAULT '4000' COMMENT 'вес собаки',
-  `height` int DEFAULT '30' COMMENT 'рост собаки',
-  `vitality` int NOT NULL DEFAULT '100',
-  `hp` int DEFAULT '100',
-  `joy` int NOT NULL DEFAULT '100',
+  `weight` int DEFAULT NULL COMMENT 'вес собаки',
+  `height` int DEFAULT NULL COMMENT 'рост собаки',
+  `vitality` int NOT NULL DEFAULT '100' COMMENT 'Энергия',
+  `hp` int DEFAULT '100' COMMENT 'Здоровье',
+  `joy` int NOT NULL DEFAULT '100' COMMENT 'Счастье',
   `birth` varchar(100) NOT NULL DEFAULT '00.00.0000',
-  `now` int DEFAULT '3000',
+  `now` int DEFAULT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '1',
   `puppy` int NOT NULL DEFAULT '0',
   `litter` int NOT NULL DEFAULT '0'
@@ -151,18 +151,18 @@ CREATE TABLE `animals` (
 INSERT INTO `animals` (`id`, `name`, `race`, `origin`, `breeder`, `owner`, `kennel`, `estrus`, `reg_id`, `age_id`, `dna_id`, `family_id`, `mark_id`, `weight`, `height`, `vitality`, `hp`, `joy`, `birth`, `now`, `status`, `puppy`, `litter`) VALUES
 (1, 'первая Шоко', 'Китайская хохлатая собака', 1, 'nesh', 'nesh', 'Чарующий соблазн', 35, 0, 34, 11, 1, 2, 3830, 25, 15, 100, 100, '15.09.2017', 1380, 1, 8, 8),
 (2, 'Маленькая', 'Китайская хохлатая собака', 1, 'nesh', 'shelter', 'Чарующий соблазн', 24, 0, 22, 12, 2, 2, 3973, 26, 50, 90, 100, '17.09.2017', 0, 1, 3, 3),
-(3, '3шоколадкин', 'Китайская хохлатая собака', 0, 'nesh', 'nesh', 'Чарующий соблазн', 0, 0, 17, 13, 3, 2, 4547, 30, 100, 100, 10, '17.09.2017', 0, 1, 5, 5),
-(4, '4 кобель', 'Китайская хохлатая собака', 1, 'nesh', 'nesh', 'Чарующий соблазн', 0, 1, 1, 14, 4, 0, 4547, 30, 100, 100, 100, '17.09.2017', 0, 1, 0, 0),
+(3, '3шоколадкин', 'Китайская хохлатая собака', 0, 'nesh', 'nesh', 'Чарующий соблазн', 0, 0, 17, 13, 3, 2, 4547, 30, 100, 100, 10, '17.09.2017', 0, 1, 6, 6),
+(4, '4 кобель', 'Китайская хохлатая собака', 1, 'nesh', 'nesh', 'Чарующий соблазн', 0, 1, 1, 14, 4, 0, 4547, 30, 100, 100, 20, '17.09.2017', 0, 1, 0, 0),
 (5, '5он', 'Китайская хохлатая собака', 0, 'nesh', 'nesh', 'Чарующий соблазн', 0, 0, 14, 15, 5, 0, 4547, 30, 15, 90, 10, '17.09.2017', 0, 1, 1, 1),
 (6, 'шестой пух', 'Китайская хохлатая собака', 1, 'nesh', 'shelter', 'Чарующий соблазн', 0, 2, 17, 16, 6, 2, 0, 0, 100, 100, 100, '10.01.2018', 0, 1, 2, 2),
-(7, 'Семь', 'Китайская хохлатая собака', 1, 'nesh', 'nesh', 'Чарующий соблазн', 0, 3, 3, 17, 7, 0, 0, 0, 100, 100, 100, '10.01.2018', 0, 1, 0, 0),
-(8, 'Зяма', 'Китайская хохлатая собака', 1, 'nesh', 'nesh', 'Чарующий соблазн', 0, 4, 21, 18, 9, 0, 0, 0, 100, 100, 100, '22.11.2018', 0, 1, 1, 1),
-(9, 'Новый Мальчик', 'Китайская хохлатая собака', 1, 'nesh', 'nesh', 'Чарующий соблазн', 0, 0, 18, 19, 10, 2, 0, 0, 100, 100, 100, '28.01.2019', 0, 1, 1, 1),
+(7, 'Семь', 'Китайская хохлатая собака', 1, 'nesh', 'nesh', 'Чарующий соблазн', 0, 3, 20, 17, 7, 2, 0, 0, 15, 100, 100, '10.01.2018', 0, 1, 4, 4),
+(8, 'Зяма', 'Китайская хохлатая собака', 1, 'nesh', 'nesh', 'Чарующий соблазн', 0, 4, 21, 18, 9, 0, 0, 0, 15, 100, 100, '22.11.2018', 0, 1, 1, 1),
+(9, 'Новый Мальчик', 'Китайская хохлатая собака', 1, 'nesh', 'nesh', 'Чарующий соблазн', 0, 0, 18, 19, 10, 2, 0, 0, 100, 50, 100, '28.01.2019', 0, 1, 2, 2),
 (10, 'Десятый мальчик', 'Китайская хохлатая собака', 1, 'nesh', 'nesh', 'Чарующий соблазн', 0, 3, 1, 20, 7, 0, 0, 0, 100, 100, 100, '10.01.2019', 0, 1, 0, 0),
 (11, '11 девочка (21)', 'Китайская хохлатая собака', 1, 'nesh', 'shelter', 'Чарующий соблазн', 22, 0, 20, 21, 1, 1, 3973, 26, 100, 90, 100, '17.09.2020', 0, 1, 3, 3),
 (12, 'Беленькая', 'КХС', 1, 'Бесты-первый лучший', 'Заводчик', 'Пушистики', 14, 0, 10, 27, 12, 1, 0, 0, 10, 50, 99, '00.00.0000', 0, 1, 0, 0),
 (13, 'Без имени', 'КХС', 1, 'не известен', 'Черныши', 'Черныши - Блек Джек', 0, 0, 1, 0, 0, 0, 0, 0, 100, 100, 100, '00.00.0000', 0, 1, 0, 0),
-(14, 'Без имени', 'КХС', 1, 'Бесты-первый лучший', 'кто-то', 'Голубые бантики', 14, 0, 10, 32, 14, 1, 0, 0, 100, 100, 100, '22.08.2020', 0, 1, 0, 0),
+(14, 'Грустинка', 'КХС', 1, 'Бесты-первый лучший', 'кто-то', 'Голубые бантики', 14, 0, 10, 32, 14, 1, 0, 0, 100, 100, 100, '22.08.2020', 0, 1, 0, 0),
 (15, 'Без имени', 'КХС', 0, 'Бесты-первый лучший', 'кто-то', 'Голубые бантики', 0, 0, 10, 33, 14, 1, 0, 0, 100, 100, 100, '22.08.2020', 0, 1, 0, 0),
 (16, 'Черная вдова', 'КХС', 1, 'Бесты-первый лучший', 'Елена', 'Лучики', 15, 0, 14, 34, 15, 1, 0, 0, 100, 100, 100, '22.08.2020', 0, 1, 0, 0),
 (17, 'Рыжий бес', 'КХС', 0, 'Бесты-первый лучший', 'Елена', 'Лучики', 0, 0, 10, 35, 15, 1, 0, 0, 100, 100, 100, '22.08.2020', 0, 1, 0, 0),
@@ -174,30 +174,26 @@ INSERT INTO `animals` (`id`, `name`, `race`, `origin`, `breeder`, `owner`, `kenn
 (23, 'БежЖенький', 'КХС', 1, 'Бесты-первый лучший', 'Заводчик', 'Пушистики', 0, 0, 13, 45, 21, 1, 0, 0, 100, 100, 100, '28.03.2021', 0, 1, 0, 0),
 (24, 'Верный', 'КХС', 1, 'Бесты-первый лучший', 'Заводчик', 'Пушистики', 0, 0, 13, 46, 22, 1, 0, 0, 100, 100, 100, '28.03.2021', 0, 1, 0, 0),
 (25, 'Адельеф', 'КХС', 1, 'Бесты-первый лучший', 'Заводчик', 'Пушистики', 0, 0, 13, 47, 23, 1, 0, 0, 100, 100, 100, '28.03.2021', 0, 1, 0, 0),
-(26, 'Белый кролик', 'КХС', 1, 'Бесты-первый лучший', 'nesh', 'Чарующий соблазн', 15, 0, 13, 48, 24, 1, 0, 0, 100, 100, 100, '10.05.2021', 0, 1, 0, 0),
-(27, 'Пятныш', 'КХС', 1, 'Бесты-первый лучший', 'nesh', 'Чарующий соблазн', 0, 0, 13, 49, 25, 1, 0, 0, 100, 100, 100, '10.05.2021', 0, 1, 0, 0),
+(26, 'Белый кролик', 'КХС', 1, 'Бесты-первый лучший', 'nesh', 'Чарующий соблазн', 15, 0, 13, 48, 24, 1, 0, 0, 15, 100, 100, '10.05.2021', 0, 1, 0, 0),
+(27, 'Пятныш', 'КХС', 1, 'Бесты-первый лучший', 'nesh', 'Чарующий соблазн', 0, 0, 13, 49, 25, 1, 0, 0, 15, 100, 100, '10.05.2021', 0, 1, 0, 0),
 (28, 'Чернуха', 'КХС', 1, 'Бесты-первый лучший', 'Заводчик', 'Пушистики', 3, 0, 13, 50, 26, 1, 0, 0, 100, 100, 100, '29.05.2021', 0, 1, 0, 0),
 (29, 'Красавчик29', 'КХС', 1, 'Бесты-первый лучший', 'Дима', 'Чашка', 0, 0, 19, 51, 27, 1, 0, 0, 100, 100, 100, '11.06.2021', 0, 1, 0, 0),
 (30, 'Богатырь-30', 'КХС', 1, 'Бесты-первый лучший', 'Дима', 'Чашка', 0, 0, 17, 52, 28, 1, 0, 0, 100, 100, 100, '12.06.2021', 0, 1, 0, 0),
 (31, '31Белек', 'КХС', 1, 'Бесты-первый лучший', 'Дима', 'Чашка', 0, 0, 13, 53, 29, 1, 0, 0, 100, 100, 100, '14.06.2021', 0, 1, 0, 0),
 (32, '32Милашка', 'КХС', 1, 'Бесты-первый лучший', 'Дима', 'Чашка', 15, 0, 13, 54, 30, 1, 0, 0, 100, 100, 100, '24.06.2021', 0, 1, 0, 0),
 (33, '33ШоккингБой', 'КХС', 1, 'Бесты-первый лучший', 'Дима', 'Чашка', 0, 0, 13, 56, 31, 1, 0, 0, 100, 100, 100, '24.06.2021', 0, 1, 0, 0),
-(34, 'Мелкая', 'КХС', 1, 'nesh', 'nesh', 'Чарующий соблазн', 14, 0, 1, 57, 32, 1, 0, 0, 100, 100, 10, '14.11.2021', 0, 1, 0, 0),
-(35, 'Kolla', 'КХС', 1, 'nesh', 'nesh', 'Чарующий соблазн', 14, 0, 1, 58, 33, 1, 0, 0, 100, 100, 20, '14.11.2021', 0, 1, 0, 0),
-(36, 'Без имени', 'КХС', 1, 'nesh', 'shelter', 'Чарующий соблазн', 14, 9, 1, 59, 34, 1, 0, 0, 100, 100, 100, '04.12.2021', 0, 1, 0, 0),
-(37, 'Без имени', 'КХС', 1, 'nesh', 'shelter', 'Чарующий соблазн', 14, 10, 1, 60, 35, 1, 0, 0, 100, 100, 100, '01.01.2022', 0, 1, 0, 0),
-(38, 'Без имени', 'КХС', 1, 'nesh', 'shelter', 'Чарующий соблазн', 14, 11, 1, 61, 36, 1, 0, 0, 100, 50, 100, '01.01.2022', 0, 1, 0, 0),
-(39, 'Без имени', 'КХС', 1, 'nesh', 'shelter', 'Чарующий соблазн', 0, 12, 1, 62, 37, 1, 0, 0, 100, 50, 100, '01.01.2022', 0, 1, 0, 0),
-(42, 'Без имени', 'КХС', 1, 'Бесты-первый лучший', 'shelter', 'Чарующий соблазн', 0, 0, 13, 64, 38, 1, 0, 0, 100, 100, 100, '10.04.2022', 0, 1, 0, 0),
-(43, 'Без имени', 'КХС', 1, 'Бесты-первый лучший', 'shelter', 'Чарующий соблазн', 0, 0, 13, 65, 39, 1, 4595, 31, 100, 100, 100, '10.04.2022', 3000, 1, 0, 0),
-(44, 'Без имени', 'КХС', 1, 'Бесты-первый лучший', 'shelter', 'Чарующий соблазн', 0, 0, 13, 66, 40, 1, 4739, 29, 100, 100, 100, '10.04.2022', 3000, 1, 0, 0),
-(45, 'Без имени', 'КХС', 1, 'Бесты-первый лучший', 'shelter', 'Чарующий соблазн', 0, 0, 13, 67, 41, 1, 4849, 32, 100, 100, 100, '10.04.2022', 3000, 1, 0, 0),
-(46, 'БлэкДжек', 'КХС', 1, 'Бесты-первый лучший', 'nesh', 'Чарующий соблазн', 0, 0, 13, 68, 42, 1, 4849, 32, 10, 100, 100, '10.04.2022', 3000, 1, 0, 0),
-(47, 'Без имени', 'КХС', 1, 'Бесты-первый лучший', 'shelter', 'Чарующий соблазн', 0, 0, 13, 69, 43, 1, 4933, 32, 100, 100, 100, '10.04.2022', 3000, 1, 0, 0),
-(48, 'Без имени', 'КХС', 1, 'Бесты-первый лучший', 'shelter', 'Чарующий соблазн', 14, 0, 13, 70, 44, 1, 3350, 29, 100, 100, 100, '10.04.2022', 3000, 1, 0, 0),
-(49, 'Без имени', 'КХС', 1, 'Бесты-первый лучший', 'shelter', 'Чарующий соблазн', 0, 0, 13, 71, 45, 1, 4964, 32, 100, 100, 100, '10.04.2022', 3000, 1, 0, 0),
-(50, 'Без имени', 'КХС', 1, 'Бесты-первый лучший', 'shelter', 'Чарующий соблазн', 14, 0, 13, 72, 46, 1, 4087, 28, 100, 100, 100, '10.04.2022', 3000, 1, 0, 0),
-(51, 'Без имени', 'КХС', 1, 'Бесты-первый лучший', 'shelter', 'Чарующий соблазн', 0, 0, 13, 73, 47, 1, 4728, 29, 100, 100, 100, '10.04.2022', 3000, 1, 0, 0);
+(34, 'Мелкая', 'КХС', 1, 'nesh', 'nesh', 'Чарующий соблазн', 17, 0, 17, 57, 32, 1, 0, 0, 100, 100, 10, '14.11.2021', NULL, 1, 6, 6),
+(35, 'Kolla', 'КХС', 1, 'nesh', 'nesh', 'Чарующий соблазн', 14, 0, 1, 58, 33, 1, 0, 0, 100, 100, 20, '14.11.2021', NULL, 1, 0, 0),
+(36, 'Без имени', 'КХС', 1, 'nesh', 'shelter', 'Чарующий соблазн', 14, 9, 1, 59, 34, 1, NULL, NULL, 100, 100, 100, '04.12.2021', NULL, 1, 0, 0),
+(37, 'Снегурка', 'КХС', 1, 'nesh', 'nesh', 'Чарующий соблазн', 14, 10, 1, 60, 35, 1, NULL, NULL, 100, 100, 20, '01.01.2022', NULL, 1, 0, 0),
+(38, 'Снежинка', 'КХС', 1, 'nesh', 'nesh', 'Чарующий соблазн', 14, 11, 1, 61, 36, 1, NULL, NULL, 100, 50, 100, '01.01.2022', NULL, 1, 0, 0),
+(39, 'Дед Мороз', 'КХС', 1, 'nesh', 'nesh', 'Чарующий соблазн', 0, 12, 1, 62, 37, 1, NULL, NULL, 100, 50, 100, '01.01.2022', NULL, 1, 0, 0),
+(40, 'Шкура', 'КХС', 1, 'nesh', 'nesh', 'Чарующий соблазн', 14, 13, 1, 63, 38, 1, NULL, NULL, 100, 100, 20, '01.01.2022', NULL, 1, 0, 0),
+(41, 'неудачка', 'КХС', 1, 'nesh', 'nesh', 'Чарующий соблазн', 14, 14, 1, 64, 39, 1, NULL, NULL, 100, 100, 10, '01.01.2022', NULL, 1, 0, 0),
+(42, 'Без имени', 'КХС', 1, 'nesh', 'nesh', 'Чарующий соблазн', 0, 15, 1, 65, 40, 1, NULL, NULL, 100, 100, 10, '07.01.2022', NULL, 1, 0, 0),
+(43, 'Удачный', 'КХС', 1, 'nesh', 'nesh', 'Чарующий соблазн', 0, 16, 1, 66, 41, 1, NULL, NULL, 100, 50, 100, '07.01.2022', NULL, 1, 0, 0),
+(44, 'Без имени', 'КХС', 1, 'nesh', 'nesh', 'Чарующий соблазн', 0, 17, 1, 67, 42, 1, NULL, NULL, 100, 100, 20, '07.01.2022', NULL, 1, 0, 0),
+(45, 'Без имени', 'КХС', 1, 'nesh', 'nesh', 'Чарующий соблазн', 0, 18, 1, 68, 43, 1, NULL, NULL, 100, 100, 20, '07.01.2022', NULL, 1, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -215,11 +211,7 @@ CREATE TABLE `book` (
 --
 
 INSERT INTO `book` (`id`, `dogs`) VALUES
-(1, 10),
-(2, 2),
-(3, 55),
-(4, 55),
-(5, 5);
+(1, 10);
 
 -- --------------------------------------------------------
 
@@ -335,16 +327,13 @@ INSERT INTO `family` (`id`, `mum`, `dad`, `g1dad`, `g1mum`, `g0dad`, `g0mum`, `g
 (35, 1, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 (36, 1, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 (37, 1, 8, 6, 1, 0, 0, 5, 1, 0, 0, 0, 0, 0, 0),
-(38, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(39, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(40, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(41, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(42, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(43, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(44, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(45, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(46, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(47, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+(38, 34, 9, 5, 2, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0),
+(39, 34, 3, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0),
+(40, 34, 7, 6, 2, 3, 1, 5, 1, 0, 0, 0, 0, 0, 0),
+(41, 34, 7, 6, 2, 3, 1, 5, 1, 0, 0, 0, 0, 0, 0),
+(42, 34, 7, 6, 2, 3, 1, 5, 1, 0, 0, 0, 0, 0, 0),
+(43, 34, 7, 6, 2, 3, 1, 5, 1, 0, 0, 0, 0, 0, 0),
+(44, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -380,7 +369,7 @@ INSERT INTO `female` (`wt`, `ht`) VALUES
 CREATE TABLE `items` (
   `id` int NOT NULL,
   `name` varchar(25) NOT NULL,
-  `icons` varchar(75) NOT NULL
+  `icons` varchar(75) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
@@ -396,7 +385,20 @@ INSERT INTO `items` (`id`, `name`, `icons`) VALUES
 (6, 'comp', '/Pici/comp.png'),
 (7, 'walk', '/Pici/walk.png'),
 (8, 'zzz', '/Pici/zzz.png'),
-(9, 'up', '/Pici/up.png');
+(9, 'up', '/Pici/up.png'),
+(10, 'red', '/pici/red.png'),
+(11, 'green', ''),
+(12, 'blue', ''),
+(13, 'бумага', ''),
+(14, 'чернила', ''),
+(15, 'кусок 1', ''),
+(16, 'кусок 2', ''),
+(17, 'кусок 3', ''),
+(18, 'кусок 4', ''),
+(19, 'кусок 5', ''),
+(20, 'кусок 6', ''),
+(21, 'кусок 7', ''),
+(22, 'кусок 8', '');
 
 -- --------------------------------------------------------
 
@@ -420,7 +422,7 @@ CREATE TABLE `kennels` (
 
 INSERT INTO `kennels` (`id`, `name_k`, `owner_k`, `date`, `dogs`, `l_litter`, `email`) VALUES
 (1, 'Бесты-первый лучший', 'Бесты-первый лучший', '01.01.2001', 2000, '', NULL),
-(29, 'Чарующий соблазн', 'nesh', '02.09.2017', 13, 'E', 'stepanova@mail.ru'),
+(29, 'Чарующий соблазн', 'nesh', '02.09.2017', 17, 'E', 'stepanova@mail.ru'),
 (30, 'Тестики', 'test', '03.09.2017', 2, 'A', 'test@test'),
 (31, 'НовыйПитомник', 'новый заводчик', '18.11.2020', 2, '', 'test@test2.ru'),
 (32, 'Пушистики', 'Заводчик', '19.11.2020', 6, '', 'test1@test.ru'),
@@ -521,9 +523,12 @@ CREATE TABLE `owneritems` (
 --
 
 INSERT INTO `owneritems` (`id`, `owner_id`, `item_id`, `count`) VALUES
-(1, 1, 1, 326618),
+(1, 1, 1, 46618),
 (2, 9, 1, 35000),
-(3, 4, 1, 150000);
+(3, 4, 1, 150000),
+(4, 1, 10, 100),
+(5, 1, 11, 3),
+(6, 1, 12, 5);
 
 -- --------------------------------------------------------
 
@@ -582,13 +587,13 @@ CREATE TABLE `randodna` (
 --
 
 INSERT INTO `randodna` (`id`, `sex`, `lucky`, `spd`, `agl`, `tch`, `jmp`, `nuh`, `fnd`, `mut`, `type`, `dna`, `about`, `url`, `url_puppy`, `hr`, `ww`, `ff`, `bb`, `tt`, `mm`) VALUES
-(1, '0', 91, 10, 10, 11, 9, 9, 9, 74, 'Холерик', 'hr0w1f1b0t1m0', 'start', '', '', 'hrhr', 'Ww', 'Ff', 'bb', 'Tt', 'mm'),
-(2, '1', 65, 10, 10, 11, 11, 10, 9, 26, 'Сангвиник', 'hr1w0f0b0t0m0', 'start', '', '', 'Hrhr', 'ww', 'ff', 'bb', 'tt', 'mm'),
-(3, '1', 28, 10, 9, 11, 10, 9, 9, 34, 'Меланхолик', 'hr0w0f1b0t1m1', 'shop', 'pici/hrhr/hr0w0f1b0t0m1_03.png', 'pici/puppy/hr0f1_02.png', NULL, NULL, NULL, NULL, NULL, NULL),
-(4, '1', 79, 10, 11, 10, 10, 11, 10, 14, 'Меланхолик', 'hr0w1f1b0t1m0', 'shop', 'pici/hrhr/hr0w1f0b0t0m0_04.png', 'pici/puppy/hr0w1_03.png', NULL, NULL, NULL, NULL, NULL, NULL),
-(5, '1', 99, 11, 9, 9, 11, 11, 10, 17, 'Холерик', 'hr0w0f0b1t0m0', 'shop', 'pici/hrhr/hr0w0f0b1t0m0_04.png', 'pici/puppy/hr0b1_03.png', NULL, NULL, NULL, NULL, NULL, NULL),
-(6, '0', 36, 9, 10, 9, 11, 10, 10, 16, 'Флегматик', 'hr0w0f1b1t0m1', 'puppyPodkinut', 'pici/hrhr/hr0w0f1b0t0m1_02.png', 'pici/puppy/hr0f1_02.png', NULL, NULL, NULL, NULL, NULL, NULL),
-(7, '1', 26, 11, 10, 10, 11, 10, 9, 38, 'Флегматик', 'hr0w1f0b0t1m1', 'OldPodkinut', 'pici/hrhr/hr0w1f0b0t0m0_04.png', 'pici/puppy/hr0w1_02.png', NULL, NULL, NULL, NULL, NULL, NULL),
+(1, '0', 29, 11, 11, 11, 10, 9, 10, 80, 'Холерик', 'hr0w1f0b1t0m1', 'start', '', '', 'hrhr', 'Ww', 'ff', 'Bb', 'tt', 'Mm'),
+(2, '1', 96, 10, 10, 10, 9, 11, 9, 4, 'Сангвиник', 'hr1w0f1b1t0m0', 'start', '', '', 'Hrhr', 'ww', 'Ff', 'Bb', 'tt', 'mm'),
+(3, '0', 90, 9, 10, 11, 11, 11, 11, 14, 'Холерик', 'hr1w1f1b1t0m1', 'shop', 'pici/MM/hr1w1f1b1t0m1_03.png', 'pici/puppy/hr1w1_02.png', NULL, NULL, NULL, NULL, NULL, NULL),
+(4, '0', 5, 10, 11, 10, 10, 9, 11, 16, 'Сангвиник', 'hr0w1f0b0t0m1', 'shop', 'pici/hrhr/hr0w1f0b0t0m0_03.png', 'pici/puppy/hr0w1_01.png', NULL, NULL, NULL, NULL, NULL, NULL),
+(5, '0', 53, 11, 11, 9, 9, 9, 11, 26, 'Сангвиник', 'hr0w1f1b1t0m1', 'shop', 'pici/hrhr/hr0w1f0b1t0m0_01.png', 'pici/puppy/hr0w1_02.png', NULL, NULL, NULL, NULL, NULL, NULL),
+(6, '1', 85, 9, 11, 9, 10, 9, 10, 48, 'Меланхолик', 'hr0w1f0b0t0m0', 'puppyPodkinut', 'pici/hrhr/hr0w1f0b0t0m0_04.png', 'pici/puppy/hr0w1_02.png', NULL, NULL, NULL, NULL, NULL, NULL),
+(7, '1', 89, 10, 10, 9, 11, 9, 11, 20, 'Сангвиник', 'hr0w0f1b0t1m1', 'OldPodkinut', 'pici/hrhr/hr0w0f1b0t0m1_02.png', 'pici/puppy/hr0f1_02.png', NULL, NULL, NULL, NULL, NULL, NULL),
 (8, '', 0, 0, 0, 0, 0, 0, 0, 0, 'Флегматик', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL),
 (9, '', 0, 0, 0, 0, 0, 0, 0, 0, 'Флегматик', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL),
 (10, '', 0, 0, 0, 0, 0, 0, 0, 0, 'Меланхолик', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL),
@@ -641,20 +646,15 @@ INSERT INTO `randodna` (`id`, `sex`, `lucky`, `spd`, `agl`, `tch`, `jmp`, `nuh`,
 (57, '0', 4, 10.5, 10.5, 10.5, 10.5, 10.5, 9.5, 3, 'Меланхолик', 'hr1w1f0b0t1m0', 'owner', 'pici/TT/hr1w0f0b0t1m0_01.png', 'pici/puppy/hr1w1_03.png', NULL, NULL, NULL, NULL, NULL, NULL),
 (58, '0', 11, 10.45, 10.45, 10.45, 10.45, 10.45, 9.45, 51, 'Флегматик', 'hr0w0f0b0t1m0', 'owner', 'pici/hrhr/hr0w0f0b0t0m0_04.png', 'pici/puppy/hr0b0_01.png', NULL, NULL, NULL, NULL, NULL, NULL),
 (59, '0', 76, 10.11, 9.87, 10.36, 9.87, 9.87, 9.38, 95, 'Сангвиник', 'hr1w1f1b0t0m0', 'shelter', 'pici/hr1w1f1b0t0m0_01.png', 'pici/puppy/hr1w1_03.png', NULL, NULL, NULL, NULL, NULL, NULL),
-(60, '0', 33, 10.48, 10.48, 10.48, 10.48, 10.48, 9.48, 22, 'Флегматик', 'hr1w1f0b0t1m0', 'shelter', 'pici/TT/hr1w0f0b0t1m0_03.png', 'pici/puppy/hr1w1_03.png', NULL, NULL, NULL, NULL, NULL, NULL),
-(61, '0', 84, 10.41, 10.41, 10.41, 10.41, 10.41, 9.41, 90, 'Холерик', 'hr0w1f0b0t1m0', 'shelter', 'pici/hrhr/hr0w1f0b0t0m0_03.png', 'pici/puppy/hr0w1_02.png', NULL, NULL, NULL, NULL, NULL, NULL),
-(62, '1', 9, 10.17, 10.05, 10.05, 9.8, 9.92, 10.17, 49, 'Холерик', 'hr1w1f0b0t1m0', 'shelter', 'pici/TT/hr1w0f0b0t1m0_01.png', 'pici/puppy/hr1w1_02.png', NULL, NULL, NULL, NULL, NULL, NULL),
-(63, '1', 92, 10, 10, 11, 10, 9, 9, 30, 'Меланхолик', 'hr0w1f1b0t1m1', 'shop', 'pici/hrhr/hr0w1f0b0t0m0_03.png', 'pici/puppy/hr0w1_01.png', NULL, NULL, NULL, NULL, NULL, NULL),
-(64, '1', 1, 11, 10, 10, 10, 10, 10, 26, 'Сангвиник', 'hr0w0f1b1t0m1', 'shelter', 'pici/hrhr/hr0w0f1b0t0m1_02.png', 'pici/puppy/hr0f1_01.png', NULL, NULL, NULL, NULL, NULL, NULL),
-(65, '1', 1, 11, 10, 10, 10, 10, 10, 26, 'Сангвиник', 'hr0w0f1b1t0m1', 'shelter', 'pici/hrhr/hr0w0f1b0t0m1_02.png', 'pici/puppy/hr0f1_01.png', NULL, NULL, NULL, NULL, NULL, NULL),
-(66, '1', 26, 9, 10, 9, 11, 10, 10, 34, 'Сангвиник', 'hr0w1f0b1t0m0', 'shelter', 'pici/hrhr/hr0w1f0b1t0m0_02.png', 'pici/puppy/hr0w1_01.png', NULL, NULL, NULL, NULL, NULL, NULL),
-(67, '1', 26, 9, 10, 9, 11, 10, 10, 34, 'Сангвиник', 'hr0w1f0b1t0m0', 'shelter', 'pici/hrhr/hr0w1f0b1t0m0_02.png', 'pici/puppy/hr0w1_01.png', NULL, NULL, NULL, NULL, NULL, NULL),
-(68, '1', 94, 10, 11, 9, 10, 9, 10, 82, 'Меланхолик', 'hr0w0f0b1t1m0', 'shop', 'pici/hrhr/hr0w0f0b1t0m0_01.png', 'pici/puppy/hr0b1_01.png', NULL, NULL, NULL, NULL, NULL, NULL),
-(69, '1', 79, 9, 10, 11, 11, 10, 11, 9, 'Сангвиник', 'hr1w0f1b0t0m0', 'shelter', 'pici/hr1w0f1b0t0m0_01.png', 'pici/puppy/hr1f1_02.png', NULL, NULL, NULL, NULL, NULL, NULL),
-(70, '0', 60, 10, 11, 10, 11, 9, 10, 15, 'Меланхолик', 'hr1w0f0b1t0m1', 'shelter', 'pici/MM/hr1w0f0b1t0m1_03.png', 'pici/puppy/hr1b1_03.png', NULL, NULL, NULL, NULL, NULL, NULL),
-(71, '1', 82, 11, 9, 10, 11, 11, 10, 73, 'Флегматик', 'hr1w1f1b1t0m1', 'shelter', 'pici/MM/hr1w1f1b1t0m1_01.png', 'pici/puppy/hr1w1_01.png', NULL, NULL, NULL, NULL, NULL, NULL),
-(72, '0', 49, 11, 9, 10, 10, 10, 10, 25, 'Сангвиник', 'hr1w0f0b0t1m0', 'shelter', 'pici/TT/hr1w0f0b0t1m0_01.png', 'pici/puppy/hr1w1_02.png', NULL, NULL, NULL, NULL, NULL, NULL),
-(73, '1', 99, 11, 9, 9, 11, 11, 10, 17, 'Холерик', 'hr0w0f0b1t0m0', 'shelter', 'pici/hrhr/hr0w0f0b1t0m0_04.png', 'pici/puppy/hr0b1_03.png', NULL, NULL, NULL, NULL, NULL, NULL);
+(60, '0', 33, 10.48, 10.48, 10.48, 10.48, 10.48, 9.48, 22, 'Флегматик', 'hr1w1f0b0t1m0', 'owner', 'pici/TT/hr1w0f0b0t1m0_03.png', 'pici/puppy/hr1w1_03.png', NULL, NULL, NULL, NULL, NULL, NULL),
+(61, '0', 84, 10.41, 10.41, 10.41, 10.41, 10.41, 9.41, 90, 'Холерик', 'hr0w1f0b0t1m0', 'owner', 'pici/hrhr/hr0w1f0b0t0m0_03.png', 'pici/puppy/hr0w1_02.png', NULL, NULL, NULL, NULL, NULL, NULL),
+(62, '1', 9, 10.17, 10.05, 10.05, 9.8, 9.92, 10.17, 49, 'Холерик', 'hr1w1f0b0t1m0', 'owner', 'pici/TT/hr1w0f0b0t1m0_01.png', 'pici/puppy/hr1w1_02.png', NULL, NULL, NULL, NULL, NULL, NULL),
+(63, '0', 94, 10.41, 10.17, 10.66, 10.17, 10.17, 9.67, 44, 'Флегматик', 'hr1w0f1b0t0m0', 'owner', 'pici/hr1w0f1b0t0m0_01.png', 'pici/puppy/hr1f1_01.png', NULL, NULL, NULL, NULL, NULL, NULL),
+(64, '0', 17, 10.84, 10.84, 10.84, 10.84, 10.84, 9.83, 82, 'Меланхолик', 'hr1w0f0b0t1m0', 'owner', 'pici/TT/hr1w0f0b0t1m0_01.png', 'pici/puppy/hr1w1_02.png', NULL, NULL, NULL, NULL, NULL, NULL),
+(65, '1', 45, 10.63, 10.5, 10.75, 10, 10.38, 9.87, 56, 'Меланхолик', 'hr0w1f0b0t1m0', 'owner', 'pici/hrhr/hr0w1f0b0t0m0_05.png', 'pici/puppy/hr0w1_01.png', NULL, NULL, NULL, NULL, NULL, NULL),
+(66, '1', 87, 10.6, 10.48, 10.73, 9.98, 10.36, 9.85, 76, 'Холерик', 'hr1w1f0b0t0m0', 'owner', 'pici/hr1w1f0b0t0m0_03.png', 'pici/puppy/hr1w1_01.png', NULL, NULL, NULL, NULL, NULL, NULL),
+(67, '1', 73, 10.65, 10.52, 10.77, 10.02, 10.4, 9.9, 35, 'Флегматик', 'hr1w1f0b0t0m0', 'owner', 'pici/hr1w1f0b0t0m0_02.png', 'pici/puppy/hr1w1_02.png', NULL, NULL, NULL, NULL, NULL, NULL),
+(68, '1', 57, 10.59, 10.47, 10.72, 9.97, 10.34, 9.84, 87, 'Флегматик', 'hr0w0f0b0t1m0', 'owner', 'pici/hrhr/hr0w0f0b0t0m0_01.png', 'pici/puppy/hr0b0_01.png', NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -692,7 +692,13 @@ INSERT INTO `registry` (`id`, `lit`, `date`, `mum`, `dad`, `datebirth`, `count`,
 (9, 'З', '2021-12-04', 1, 9, '56', 1, 1, 1, 0, 0),
 (10, 'И', '2022-01-01', 1, 3, '63', 1, 1, 1, 0, 0),
 (11, 'К', '2022-01-01', 1, 3, '68', 1, 1, 1, 0, 0),
-(12, 'Л', '2022-01-01', 1, 8, '56', 1, 1, 0, 1, 0);
+(12, 'Л', '2022-01-01', 1, 8, '56', 1, 1, 0, 1, 0),
+(13, 'М', '2022-01-01', 34, 9, '60', 1, 1, 1, 0, 0),
+(14, 'Н', '2022-01-01', 34, 3, '55', 1, 1, 1, 0, 0),
+(15, 'О', '2022-01-07', 34, 7, '62', 1, 1, 0, 1, 0),
+(16, 'П', '2022-01-07', 34, 7, '57', 1, 1, 0, 1, 0),
+(17, 'Р', '2022-01-07', 34, 7, '63', 1, 1, 0, 1, 0),
+(18, 'С', '2022-01-07', 34, 7, '65', 1, 1, 0, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -730,7 +736,7 @@ CREATE TABLE `users` (
   `login` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `email` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `password` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `kennel` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `kennel` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'заводчик',
   `f_time` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '00.00.0000',
   `l_time` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT '00.00.0000',
   `online` tinyint(1) DEFAULT NULL,
@@ -743,7 +749,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `login`, `email`, `password`, `kennel`, `f_time`, `l_time`, `online`, `sign`, `visits`) VALUES
-(1, 'nesh', 'stepanova@mail.ru', '$2y$10$pinvDspcODn0zxHMfyEUoufayxxNfwrQoqHGX2.Ky1I.fB7FnDan.', 'Чарующий соблазн', '03.09.2017', '10.04.2022', 0, 0, 215),
+(1, 'nesh', 'stepanova@mail.ru', '$2y$10$pinvDspcODn0zxHMfyEUoufayxxNfwrQoqHGX2.Ky1I.fB7FnDan.', 'Чарующий соблазн', '03.09.2017', '03.07.2022', 0, 0, 243),
 (2, 'test', 'test@test', '$2y$10$Vy0Am7CkZj5SYrzoNR26W.XsiO21HWtuQezqns20CfpcqAqdlm7D.', 'Тестики', '04.09.2017', '10.09.2017', 0, 0, 4),
 (3, 'новый заводчик', 'test@test2.ru', '$2y$10$eOSfjXze0C3M1FJgNsR3F.A2gohq8kG/avSzH4VEt1.U9q09wUGu2', 'НовыйПитомник', '18.11.2020', '00.00.0000', 0, 0, 0),
 (4, 'Заводчик', 'test1@test.ru', '$2y$10$PsPFKFAR7shobc1ugQ983eppBEsxSnyncfSbwGui4ItBxt5bq6ibG', 'Пушистики', '19.11.2020', '29.05.2021', 0, 0, 47),
@@ -752,7 +758,7 @@ INSERT INTO `users` (`id`, `login`, `email`, `password`, `kennel`, `f_time`, `l_
 (7, 'Елена', 'Lena43@gmail.com', '$2y$10$SUk/YNyPE9uAdhxr1S8XzON6gtrz6f/eVGJGcOdqzMDVzTex1ztVe', 'Лучики', '22.11.2020', '07.03.2021', 0, 0, 5),
 (8, 'Ольга Тимофеева', 'o.timka@yandex.ru', '$2y$10$3B6nNiMKg51z1dZqjyoLse0r038gfWxXNmspF.4e83I1Ln6hq2s7C', 'Звездочки', '22.11.2020', '22.11.2020', 0, 0, 0),
 (9, 'Дима', 'da/steapnoav@gdjn.com', '$2y$10$DEN378cVvv4G00vElvZ4Me4YRYG/QzdtIxAOtQHqWL5xssZqDZJ26', 'Чашка', '22.11.2020', '30.06.2021', 1, 0, 23),
-(10, 'admin', 'neshika69@gmail.com', '$2y$10$76P.G56/4KGMmPTCtDfBTeoPFhNet.UKJCDb6JfDG5HF..6eqN6Hy', NULL, '00.00.0000', '2022-04-15', 1, 0, 1);
+(10, 'admin', 'admin@dog.ru', '$2y$10$NWuAFT7lI1D4vPL4Aum4ou2ZLwjikWEvNl36mXfMEZ5c6ca9.16hW', 'заводчик', '05.07.2022', '2022-07-05', 1, 1, 1);
 
 --
 -- Индексы сохранённых таблиц
@@ -874,13 +880,13 @@ ALTER TABLE `ages`
 -- AUTO_INCREMENT для таблицы `animals`
 --
 ALTER TABLE `animals`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT для таблицы `book`
 --
 ALTER TABLE `book`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT для таблицы `characteristics`
@@ -898,13 +904,13 @@ ALTER TABLE `dnaagt`
 -- AUTO_INCREMENT для таблицы `family`
 --
 ALTER TABLE `family`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT для таблицы `items`
 --
 ALTER TABLE `items`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT для таблицы `kennels`
@@ -928,19 +934,19 @@ ALTER TABLE `marks`
 -- AUTO_INCREMENT для таблицы `owneritems`
 --
 ALTER TABLE `owneritems`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT для таблицы `randodna`
 --
 ALTER TABLE `randodna`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
 
 --
 -- AUTO_INCREMENT для таблицы `registry`
 --
 ALTER TABLE `registry`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT для таблицы `test`
