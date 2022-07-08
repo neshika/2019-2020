@@ -90,6 +90,11 @@ function RandChar(){
 function ret_owner(){
     return $_SESSION['logged_user']->login;
 }
+function invisible($array,$title='Данные'){
+    echo '<details><summary>' . $title . '</summary>';
+    echo $array;
+    echo '</details>';
+}
 /**************************   СОЗДАНИЕ НОВОЙ СОБАКИ ***************/
 class GreateNewDog
 {
@@ -1818,6 +1823,24 @@ public function AddItem($ItemName)
          $itm = R::dispense('items');
 	     $itm->name = $ItemName;
          return R::store($itm);
+         //echo 'сохранил в базе';
+     }
+}
+public function AddResept($ResName)
+{
+    $VBaze = NULL;
+    $VBaze = R::findOne('resepts', 'name LIKE ?', ["%$ResName%"]);
+   // var_dump($VBaze);
+     if(NULL != $VBaze){
+        echo '<br><strong>' . $ResName . '</strong> уже есть в базе'; 
+        return FALSE;
+    
+     }
+     else
+     {
+         $res = R::dispense('resepts');
+	     $res->name = $ResName;
+         return R::store($res);
          //echo 'сохранил в базе';
      }
 }

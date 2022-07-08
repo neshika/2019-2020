@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Июл 08 2022 г., 19:02
+-- Время создания: Июл 08 2022 г., 22:09
 -- Версия сервера: 8.0.24
 -- Версия PHP: 8.0.8
 
@@ -368,37 +368,42 @@ INSERT INTO `female` (`wt`, `ht`) VALUES
 
 CREATE TABLE `items` (
   `id` int NOT NULL,
-  `name` varchar(25) NOT NULL,
-  `icons` varchar(75) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT ''
+  `name` varchar(25) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'название ингредиента',
+  `icons` varchar(75) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '' COMMENT 'ссылка на картинку',
+  `res_id` int DEFAULT NULL COMMENT 'индекс Рецепта'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Дамп данных таблицы `items`
 --
 
-INSERT INTO `items` (`id`, `name`, `icons`) VALUES
-(1, 'coins', '/pici/coins_mini.png'),
-(2, 'logo', '/Pici/logo_mini.png'),
-(3, 'food', '/Pici/food_mini.png'),
-(4, 'water', '/Pici/water.png'),
-(5, 'badd', '/Pici/badd_mini.png\r\n'),
-(6, 'comp', '/Pici/comp.png'),
-(7, 'walk', '/Pici/walk.png'),
-(8, 'zzz', '/Pici/zzz.png'),
-(9, 'up', '/Pici/up.png'),
-(10, 'red', '/pici/red.png'),
-(11, 'green', ''),
-(12, 'blue', ''),
-(13, 'бумага', ''),
-(14, 'чернила', ''),
-(15, 'кусок 1', ''),
-(16, 'кусок 2', ''),
-(17, 'кусок 3', ''),
-(18, 'кусок 4', ''),
-(19, 'кусок 5', ''),
-(20, 'кусок 6', ''),
-(21, 'кусок 7', ''),
-(22, 'кусок 8', '');
+INSERT INTO `items` (`id`, `name`, `icons`, `res_id`) VALUES
+(1, 'coins', '/pici/coins_mini.png', NULL),
+(2, 'logo', '/Pici/logo_mini.png', NULL),
+(3, 'food', '/Pici/food_mini.png', NULL),
+(4, 'water', '/Pici/water.png', NULL),
+(5, 'badd', '/Pici/badd_mini.png\r\n', NULL),
+(6, 'comp', '/Pici/comp.png', NULL),
+(7, 'walk', '/Pici/walk.png', NULL),
+(8, 'zzz', '/Pici/zzz.png', NULL),
+(9, 'up', '/Pici/up.png', NULL),
+(10, 'red', '/pici/red.png', NULL),
+(11, 'green', '', NULL),
+(12, 'blue', '', NULL),
+(13, 'бумага', '', NULL),
+(14, 'чернила', '', NULL),
+(15, 'кусок 1', '', NULL),
+(16, 'кусок 2', '', NULL),
+(17, 'кусок 3', '', NULL),
+(18, 'кусок 4', '', NULL),
+(19, 'кусок 5', '', NULL),
+(20, 'кусок 6', '', NULL),
+(21, 'кусок 7', '', NULL),
+(22, 'кусок 8', '', NULL),
+(24, 'попона', '', 2),
+(25, 'тест', '', 4),
+(26, 'краска', '', 5),
+(27, 'карта', '', 6);
 
 -- --------------------------------------------------------
 
@@ -526,7 +531,7 @@ INSERT INTO `owneritems` (`id`, `owner_id`, `item_id`, `count`) VALUES
 (1, 1, 1, 46618),
 (2, 9, 1, 35000),
 (3, 4, 1, 150000),
-(4, 1, 10, 100),
+(4, 1, 10, 10),
 (5, 1, 11, 3),
 (6, 1, 12, 5);
 
@@ -551,6 +556,30 @@ INSERT INTO `races` (`id`, `name_race`) VALUES
 (1, 'КХС'),
 (3, 'пудель'),
 (2, 'шпиц');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `rainbow`
+--
+
+CREATE TABLE `rainbow` (
+  `id` int NOT NULL,
+  `name` varchar(255) NOT NULL COMMENT 'характеристика'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+--
+-- Дамп данных таблицы `rainbow`
+--
+
+INSERT INTO `rainbow` (`id`, `name`) VALUES
+(1, 'красный'),
+(2, 'оранжевый'),
+(3, 'желтый'),
+(4, 'зеленый'),
+(5, 'голубой'),
+(6, 'синий'),
+(7, 'фиолетовый');
 
 -- --------------------------------------------------------
 
@@ -703,6 +732,37 @@ INSERT INTO `registry` (`id`, `lit`, `date`, `mum`, `dad`, `datebirth`, `count`,
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `resepts`
+--
+
+CREATE TABLE `resepts` (
+  `id` int NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'предмет' COMMENT 'название рецепта',
+  `rainbow_id` int DEFAULT NULL COMMENT 'ИД характеристики',
+  `val1` int DEFAULT NULL COMMENT 'ингредиент 1',
+  `count1` int DEFAULT NULL COMMENT 'кол-во ингредиента 1',
+  `val2` int DEFAULT NULL COMMENT 'ингредиент 2',
+  `count2` int DEFAULT NULL COMMENT 'кол-во ингредиента 2',
+  `val3` int DEFAULT NULL COMMENT 'ингредиент 3',
+  `count3` int DEFAULT NULL COMMENT 'кол-во ингредиента 3',
+  `val4` int DEFAULT NULL COMMENT 'ингредиент 4',
+  `count4` int DEFAULT NULL COMMENT 'кол-во ингредиента 4'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+--
+-- Дамп данных таблицы `resepts`
+--
+
+INSERT INTO `resepts` (`id`, `name`, `rainbow_id`, `val1`, `count1`, `val2`, `count2`, `val3`, `count3`, `val4`, `count4`) VALUES
+(1, 'рецепт', 1, 13, 1, 14, 1, NULL, NULL, NULL, NULL),
+(2, 'попона', 1, 23, 3, 10, 1, NULL, NULL, NULL, NULL),
+(4, 'тест', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(5, 'краска', NULL, 10, 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(6, 'карта', NULL, 15, 1, 16, 1, 17, 1, 18, 1);
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `test`
 --
 
@@ -842,6 +902,12 @@ ALTER TABLE `races`
   ADD KEY `name_race` (`name_race`);
 
 --
+-- Индексы таблицы `rainbow`
+--
+ALTER TABLE `rainbow`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Индексы таблицы `randodna`
 --
 ALTER TABLE `randodna`
@@ -851,6 +917,12 @@ ALTER TABLE `randodna`
 -- Индексы таблицы `registry`
 --
 ALTER TABLE `registry`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `resepts`
+--
+ALTER TABLE `resepts`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -910,7 +982,7 @@ ALTER TABLE `family`
 -- AUTO_INCREMENT для таблицы `items`
 --
 ALTER TABLE `items`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT для таблицы `kennels`
@@ -937,6 +1009,12 @@ ALTER TABLE `owneritems`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
+-- AUTO_INCREMENT для таблицы `rainbow`
+--
+ALTER TABLE `rainbow`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
 -- AUTO_INCREMENT для таблицы `randodna`
 --
 ALTER TABLE `randodna`
@@ -947,6 +1025,12 @@ ALTER TABLE `randodna`
 --
 ALTER TABLE `registry`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
+-- AUTO_INCREMENT для таблицы `resepts`
+--
+ALTER TABLE `resepts`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT для таблицы `test`
