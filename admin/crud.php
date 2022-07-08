@@ -34,6 +34,11 @@
       <br><br>
       <button type="submit" name="addResept">Создать рецепт</button>
       <a class="buttons" href="admin.php">назад</a>
+    <!--   Форма рецепта -->
+    <details><summary>рецепт: </summary>
+    <input type="text" placeholder="название рецепта" name="retResName"><input type="text" placeholder="ИД реца" name="retResId" size="10">
+    <button type="submit" name="FndRes">Найти рецепт</button>
+    </details> 
     </form>
     <?php
 
@@ -174,8 +179,54 @@
         }
       }
     }
+    if(isset($_POST['FndRes']) AND (!empty($_POST['retResName']))){
+     // echo 'knopka nagata и внесено название рецепта';
+      $id_resepta = $item->retReseptIdByName($_POST['retResName']);
+      if(!empty($id_resepta)){
+        echo '  id ' . $id_resepta;
+        $_POST['retResId'] = $id_resepta;
+      }
+    }
+      if(isset($_POST['FndRes']) AND (!empty($_POST['retResId']))){
+       //echo 'knopka nagata  и введен ИД';
+        $str_resepta = $item->retReseptNameById($_POST['retResId']);
+       
+        if(!empty($str_resepta)){
+        // debug($str_resepta);
+         dataRes($str_resepta);
+        }
+      }
+     function dataRes($str_resepta){
+      $item = new OwnerItems();
+      ?>
+      <h2><?php echo $str_resepta['name'] . ' id = ' . $str_resepta['id']; ?></h2>
+      <div class="table2">
+            <table class="table">
+          <tr>
+              <td> <?php echo $item->retNameItemById($str_resepta['val1']);?> </td>
+              <td> <?php echo $str_resepta['count1'];?> </td>
+          </tr>
+          <tr>
+            <td> <?php echo $item->retNameItemById($str_resepta['val2']);?> </td>
+              <td> <?php echo $str_resepta['count2'];?> </td>
+          </tr>
+          <tr>
+            <td> <?php echo $item->retNameItemById($str_resepta['val3']);?> </td>
+              <td> <?php echo $str_resepta['count3'];?> </td>
+          </tr>
+          <tr>
+            <td> <?php echo $item->retNameItemById($str_resepta['val4']);?> </td>
+              <td> <?php echo $str_resepta['count4'];?> </td>
+          </tr>
+      </table>
+    </div>
+     
+      
+      
+<?php    
+     }
 
-   ?>
+?>
   </div>
 </body>
 
