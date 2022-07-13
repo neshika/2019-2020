@@ -83,27 +83,6 @@ $red = 'red';
 $blue = 'blue';
 $numR =rand(1,5); 
 $item = new OwnerItems();
-// $itm = $item->retIdOwnerItems(10,$owner);
-// var_dump($itm);
-// $count = $item->retCountItemByOwner(10,$owner);
-// //var_dump($count);
-// if(FALSE != $count)
-// {
-//     echo $count;
-// }
-// else
-// echo "такого итема нету";
-// $id = $item->retItemIdByName('green');
-// var_dump($id);
-
-// echo '<hr>';
-// $idStroki = $item->retIdOwnerItems($nameItem, $owner);
-// var_dump($idStroki);
-//echo '<br>was ' . $item->retCountItemByOwner($nameItem, $owner);
-//$item->addItemToOwner($nameItem, $owner,100);
-//echo '<br>now ' . $item->retCountItemByOwner($nameItem, $owner);
-//$item->removeItemByOwner($nameItem, $owner, 10);
-//echo '<br>now - ' . $item->retCountItemByOwner($nameItem, $owner);
 
 ?>
 

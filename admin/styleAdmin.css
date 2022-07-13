@@ -256,6 +256,7 @@ a.buttons:not(:hover) {
     transition: 0.6s;
     outline: none;
 }
+<<<<<<< HEAD
 .resept{
     width: 90px;
     height: 90px;
@@ -283,3 +284,10 @@ table.iksweb tr:hover td{/*color:#000000;cursor:default;*/}
     font-weight:normal;
     font-size:16px;
 }
+=======
+
+.table2{
+    width: 200px;
+    height: auto;
+}
+>>>>>>> ef947700f0e0a7ee0816ef9988d8e11086f61b0b

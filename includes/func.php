@@ -94,6 +94,10 @@ function invisible($array,$title='Данные'){
     echo '<details><summary>' . $title . '</summary>';
     echo $array;
     echo '</details>';
+
+    // echo '<details><summary>Таблица: Items</summary>';
+    // echo 'скрытый текст';
+    // echo '</details>';  
 }
 /**************************   СОЗДАНИЕ НОВОЙ СОБАКИ ***************/
 class GreateNewDog
@@ -1752,6 +1756,7 @@ class OwnerItems
        
         return $id;
     }   
+<<<<<<< HEAD
     /* функция возвращает ИД итема из таблицы Items по названию*/
     public function retReseptIdByName($nameRes){
         
@@ -1759,6 +1764,15 @@ class OwnerItems
        
         return $id;
     }   
+=======
+    /* функция возвращает название итема по ИД*/
+    public function retNameItemById($id){
+            
+        $id = R::getCell('SELECT name FROM items WHERE `id` = ? LIMIT 1', [$id]);
+    
+        return $id;
+    }
+>>>>>>> ef947700f0e0a7ee0816ef9988d8e11086f61b0b
 /*функция возвращает номер ИД по названию итема у владельца*/
     public function retIdOwnerItems($item, $owner)
     {
@@ -1851,6 +1865,22 @@ public function AddResept($ResName)
          //echo 'сохранил в базе';
      }
 }
+/* функция возвращает ИД итема из таблицы Resepts по названию*/
+public function retReseptIdByName($nameResept){
+        
+    $id = R::getCell('SELECT id FROM resepts WHERE `name` = ? LIMIT 1', [$nameResept]);
+   
+    return $id;
+} 
+/* функция возвращает строку итема из таблицы Resepts по ИД*/  
+public function retReseptNameById($id){
+        
+    $string = R::getRow('SELECT * FROM resepts WHERE `id` = ? LIMIT 1', [$id]);
+   
+    return $string;
+}
+
+
 /* функция вносит в базу картинку к предмету*/
     public function AddIcon($ItemName, $Icon){
         $VBaze = NULL;

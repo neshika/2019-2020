@@ -8,7 +8,43 @@
   <!-- Стили -->
   <link rel="stylesheet" type="text/css" href="styleAdmin.css">
 </head>
+<<<<<<< HEAD
 <?php
+=======
+
+<body>
+  <div class="wrapper">
+    <form action="crud.php" method="POST">
+      <!--  /* форма создания ингредиента*/  -->
+      <h1>Создать новый предмет</h1>
+      <input type="text" placeholder="Внести новый предмет" name="ItemName">
+      <button type="submit" name="addItem">Добавить в базу</button>
+      <br>
+      <input type="text" placeholder="Внести icons" name="icons">
+      <button type="submit" name="addPic">Добавить картинку по имени предмета</button>
+      <hr>
+      <!--  /* форма создания рецепта*/  -->
+      <h1>Создать новый рецепт</h1>
+      <input type="text" placeholder="название рецепта" name="resept">
+      <br><br>
+      <input type="text" placeholder="ингредиент 1" name="item1"><input type="text" placeholder="кол-во 1" name="count1" size="5">
+      <br>
+      <input type="text" placeholder="ингредиент 2" name="item2"><input type="text" placeholder="кол-во 2" name="count2" size="5">
+      <br>
+      <input type="text" placeholder="ингредиент 3" name="item3"><input type="text" placeholder="кол-во 3" name="count3" size="5">
+      <br>
+      <input type="text" placeholder="ингредиент 4" name="item4"><input type="text" placeholder="кол-во 4" name="count4" size="5">
+      <br><br>
+      <button type="submit" name="addResept">Создать рецепт</button>
+      <a class="buttons" href="admin.php">назад</a>
+    <!--   Форма рецепта -->
+    <details><summary>рецепт: </summary>
+    <input type="text" placeholder="название рецепта" name="retResName"><input type="text" placeholder="ИД реца" name="retResId" size="10">
+    <button type="submit" name="FndRes">Найти рецепт</button>
+    </details> 
+    </form>
+    <?php
+>>>>>>> ef947700f0e0a7ee0816ef9988d8e11086f61b0b
 
     $data = $_POST;
     $item = new OwnerItems();
@@ -213,6 +249,7 @@
         }
       }
     }
+<<<<<<< HEAD
    
    
 
@@ -258,6 +295,56 @@
       <a class="buttons" href="admin.php">назад</a>
     </form>
     
+=======
+    if(isset($_POST['FndRes']) AND (!empty($_POST['retResName']))){
+     // echo 'knopka nagata и внесено название рецепта';
+      $id_resepta = $item->retReseptIdByName($_POST['retResName']);
+      if(!empty($id_resepta)){
+        echo '  id ' . $id_resepta;
+        $_POST['retResId'] = $id_resepta;
+      }
+    }
+      if(isset($_POST['FndRes']) AND (!empty($_POST['retResId']))){
+       //echo 'knopka nagata  и введен ИД';
+        $str_resepta = $item->retReseptNameById($_POST['retResId']);
+       
+        if(!empty($str_resepta)){
+        // debug($str_resepta);
+         dataRes($str_resepta);
+        }
+      }
+     function dataRes($str_resepta){
+      $item = new OwnerItems();
+      ?>
+      <h2><?php echo $str_resepta['name'] . ' id = ' . $str_resepta['id']; ?></h2>
+      <div class="table2">
+            <table class="table">
+          <tr>
+              <td> <?php echo $item->retNameItemById($str_resepta['val1']);?> </td>
+              <td> <?php echo $str_resepta['count1'];?> </td>
+          </tr>
+          <tr>
+            <td> <?php echo $item->retNameItemById($str_resepta['val2']);?> </td>
+              <td> <?php echo $str_resepta['count2'];?> </td>
+          </tr>
+          <tr>
+            <td> <?php echo $item->retNameItemById($str_resepta['val3']);?> </td>
+              <td> <?php echo $str_resepta['count3'];?> </td>
+          </tr>
+          <tr>
+            <td> <?php echo $item->retNameItemById($str_resepta['val4']);?> </td>
+              <td> <?php echo $str_resepta['count4'];?> </td>
+          </tr>
+      </table>
+    </div>
+     
+      
+      
+<?php    
+     }
+
+?>
+>>>>>>> ef947700f0e0a7ee0816ef9988d8e11086f61b0b
   </div>
 </body>
 
