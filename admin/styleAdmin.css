@@ -256,3 +256,30 @@ a.buttons:not(:hover) {
     transition: 0.6s;
     outline: none;
 }
+.resept{
+    width: 90px;
+    height: 90px;
+
+}
+.item{
+    width: 60px;
+    height: 60px;
+
+}
+
+/* Стили таблицы (IKSWEB) */
+table.iksweb{text-decoration: none;border-collapse:collapse;width:50%;text-align:left;}
+table.iksweb th{font-weight:normal;font-size:14px; color:#000000;background-color:#ffffff;}
+table.iksweb td{font-size:13px;color:#fff; text-align: left;}
+table.iksweb td,table.iksweb th{/*white-space:pre-wrap;*/padding:10px 5px;line-height:13px;/*vertical-align: middle;*/border: 1px solid #c9c9c9;}
+table.iksweb tr:hover{/*background-color:#f9fafb*/}
+table.iksweb tr:hover td{/*color:#000000;cursor:default;*/}
+.tameriali{
+    text-align: left;
+}
+.nazvanie{
+    text-align: left;
+    vertical-align: top;
+    font-weight:normal;
+    font-size:16px;
+}

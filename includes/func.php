@@ -1752,6 +1752,13 @@ class OwnerItems
        
         return $id;
     }   
+    /* функция возвращает ИД итема из таблицы Items по названию*/
+    public function retReseptIdByName($nameRes){
+        
+        $id = R::getCell('SELECT `id` FROM resepts WHERE `name` = ? LIMIT 1', [$nameRes]);
+       
+        return $id;
+    }   
 /*функция возвращает номер ИД по названию итема у владельца*/
     public function retIdOwnerItems($item, $owner)
     {
@@ -1865,6 +1872,35 @@ public function AddResept($ResName)
         
 
     }
+    /* функция возвращает картинку по названию предмета*/
+    public function retUrlByName($ItemName){
+        
+        $id = $this->retItemIdByName($ItemName);
+        $url = R::getCell('SELECT `icons` FROM items WHERE `id` = ? LIMIT 1', [$id]);
+        return $url;
+       
+    }
+     /* функция возвращает картинку по названию предмета*/
+     public function retNameById($id){
+        
+        
+        $name = R::getCell('SELECT `name` FROM items WHERE `id` = ? LIMIT 1', [$id]);
+        return $name;
+       
+    }
+    /*функция рисует картинку по названию предмета*/ 
+    public function printPic($ItemName, $class){
+        $name = $this-> retUrlByName($ItemName);
+       // var_dump($name);
+        if(!empty($name)){
+            echo '<img src="' . $name . '" alt="' . $name . '" class="'. $class. '">';
+        }
+        else{
+            echo '<img src="/pici/blank2.png" alt="пусто" class="'. $class. '">';
+        }
+        
+    }
+
 
 }
 /**************************   регистрация вязки литтеры ***************/
