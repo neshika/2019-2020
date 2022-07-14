@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Июл 08 2022 г., 22:09
+-- Время создания: Июл 13 2022 г., 23:22
 -- Версия сервера: 8.0.24
 -- Версия PHP: 8.0.8
 
@@ -388,8 +388,8 @@ INSERT INTO `items` (`id`, `name`, `icons`, `res_id`) VALUES
 (8, 'zzz', '/Pici/zzz.png', NULL),
 (9, 'up', '/Pici/up.png', NULL),
 (10, 'red', '/pici/red.png', NULL),
-(11, 'green', '', NULL),
-(12, 'blue', '', NULL),
+(11, 'green', '/pici/green.png', NULL),
+(12, 'blue', '/pici/blue.png', NULL),
 (13, 'бумага', '', NULL),
 (14, 'чернила', '', NULL),
 (15, 'кусок 1', '', NULL),
@@ -402,8 +402,12 @@ INSERT INTO `items` (`id`, `name`, `icons`, `res_id`) VALUES
 (22, 'кусок 8', '', NULL),
 (24, 'попона', '', 2),
 (25, 'тест', '', 4),
-(26, 'краска', '', 5),
-(27, 'карта', '', 6);
+(26, 'краска', '/pici/kraska.png', 5),
+(27, 'карта', '', 6),
+(28, 'кожа', '/pici/koja.png.png', NULL),
+(29, 'нитки', '/pici/nitki.png', NULL),
+(30, 'витамины', '/pici/vitamini.png', NULL),
+(31, 'лекарства', '/pici/lekarstva.png', 7);
 
 -- --------------------------------------------------------
 
@@ -757,8 +761,9 @@ INSERT INTO `resepts` (`id`, `name`, `rainbow_id`, `val1`, `count1`, `val2`, `co
 (1, 'рецепт', 1, 13, 1, 14, 1, NULL, NULL, NULL, NULL),
 (2, 'попона', 1, 23, 3, 10, 1, NULL, NULL, NULL, NULL),
 (4, 'тест', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(5, 'краска', NULL, 10, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(6, 'карта', NULL, 15, 1, 16, 1, 17, 1, 18, 1);
+(5, 'краска', NULL, 10, 1, 11, 1, 17, 1, NULL, NULL),
+(6, 'карта', NULL, 15, 1, 16, 1, 17, 1, 18, 1),
+(7, 'лекарства', NULL, 30, 1, 10, 2, 11, 10, 12, 5);
 
 -- --------------------------------------------------------
 
@@ -818,7 +823,7 @@ INSERT INTO `users` (`id`, `login`, `email`, `password`, `kennel`, `f_time`, `l_
 (7, 'Елена', 'Lena43@gmail.com', '$2y$10$SUk/YNyPE9uAdhxr1S8XzON6gtrz6f/eVGJGcOdqzMDVzTex1ztVe', 'Лучики', '22.11.2020', '07.03.2021', 0, 0, 5),
 (8, 'Ольга Тимофеева', 'o.timka@yandex.ru', '$2y$10$3B6nNiMKg51z1dZqjyoLse0r038gfWxXNmspF.4e83I1Ln6hq2s7C', 'Звездочки', '22.11.2020', '22.11.2020', 0, 0, 0),
 (9, 'Дима', 'da/steapnoav@gdjn.com', '$2y$10$DEN378cVvv4G00vElvZ4Me4YRYG/QzdtIxAOtQHqWL5xssZqDZJ26', 'Чашка', '22.11.2020', '30.06.2021', 1, 0, 23),
-(10, 'admin', 'admin@dog.ru', '$2y$10$NWuAFT7lI1D4vPL4Aum4ou2ZLwjikWEvNl36mXfMEZ5c6ca9.16hW', 'заводчик', '05.07.2022', '2022-07-05', 1, 1, 1);
+(10, 'admin', 'admin@dog.ru', '$2y$10$NWuAFT7lI1D4vPL4Aum4ou2ZLwjikWEvNl36mXfMEZ5c6ca9.16hW', 'заводчик', '05.07.2022', '2022-07-13', 1, 1, 1);
 
 --
 -- Индексы сохранённых таблиц
@@ -982,7 +987,7 @@ ALTER TABLE `family`
 -- AUTO_INCREMENT для таблицы `items`
 --
 ALTER TABLE `items`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT для таблицы `kennels`
@@ -1030,7 +1035,7 @@ ALTER TABLE `registry`
 -- AUTO_INCREMENT для таблицы `resepts`
 --
 ALTER TABLE `resepts`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT для таблицы `test`
