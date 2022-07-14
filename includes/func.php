@@ -1756,15 +1756,7 @@ class OwnerItems
        
         return $id;
     }   
-<<<<<<< HEAD
-    /* функция возвращает ИД итема из таблицы Items по названию*/
-    public function retReseptIdByName($nameRes){
-        
-        $id = R::getCell('SELECT `id` FROM resepts WHERE `name` = ? LIMIT 1', [$nameRes]);
-       
-        return $id;
-    }   
-=======
+
     /* функция возвращает название итема по ИД*/
     public function retNameItemById($id){
             
@@ -1772,7 +1764,7 @@ class OwnerItems
     
         return $id;
     }
->>>>>>> ef947700f0e0a7ee0816ef9988d8e11086f61b0b
+
 /*функция возвращает номер ИД по названию итема у владельца*/
     public function retIdOwnerItems($item, $owner)
     {
