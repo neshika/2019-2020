@@ -843,7 +843,8 @@ class Tabl
         $sql = 'SELECT * FROM ' . $tabl .  ' WHERE id =' . $id;
         return R::getRow($sql);
     }
-    public function PrintItem(){
+    /*Функция печатает данные из таблицы ITEMS*/
+    public function PrintItems(){
         $items = R::findAll('items');
       
         ?><table class="table"> 
@@ -856,6 +857,41 @@ class Tabl
             <td><?php echo $key?> </td>
             <td><?php echo $item['name']?></td>
             <td><?php echo $item['icons']?></td>
+            <?php endforeach?>
+        </tr>
+    </table>
+   <?php  
+    }
+    /*Функция печатает данные из таблицы RESEPTS*/
+    public function printResepts(){
+        $respt = R::findAll('resepts');
+        //var_dump($respt);
+        ?><table class="table"> 
+        <tr>
+            <td>id</td>
+            <td>name</td>
+            <td>rainbow</td>
+            <td>val1</td>
+            <td>count1</td>
+            <td>val2</td>
+            <td>count2</td>
+            <td>val3</td>
+            <td>count3</td>
+            <td>val4</td>
+            <td>count4</td>
+        </tr><?php  foreach ($respt as $key=>$respt):?>
+        <tr>
+            <td><?php echo $key?> </td>
+            <td><?php echo $respt['name']?></td>
+            <td><?php echo $respt['rainbow_id']?></td>
+            <td><?php echo $respt['val1']?></td>
+            <td><?php echo $respt['count1']?></td>
+            <td><?php echo $respt['val2']?></td>
+            <td><?php echo $respt['count2']?></td>
+            <td><?php echo $respt['val3']?></td>
+            <td><?php echo $respt['count3']?></td>
+            <td><?php echo $respt['val4']?></td>
+            <td><?php echo $respt['count4']?></td>
             <?php endforeach?>
         </tr>
     </table>

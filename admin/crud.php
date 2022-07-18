@@ -8,6 +8,81 @@
   <!-- Стили -->
   <link rel="stylesheet" type="text/css" href="styleAdmin.css">
 </head>
+<body>
+  <div class="wrapper">
+    <form action="crud.php" method="POST">
+      <!--  /* форма создания ингредиента*/  -->
+      <h1>Создать новый предмет</h1>
+      <input type="text" class="stroka" placeholder="Внести новый предмет" name="ItemName">
+      <button type="submit" class="knopka" name="addItem">Добавить в базу</button>
+      <br>
+      <input type="text" class="stroka" placeholder="Внести icons" name="icons">
+      <button type="submit" class="knopka" name="addPic">Добавить картинку по имени предмета</button>
+      <?php /*Выводит данные таблицы Items*/
+      echo '<details><summary>Таблица: Items</summary>';
+      $tbl = new Tabl();
+      $tbl->PrintItems();
+      echo '</details>';  ?>
+      <br><br><hr>
+      <!--  /* форма создания рецепта*/  -->
+      <h1>Создать новый рецепт</h1>
+      <input type="text" class="stroka2" placeholder="название рецепта" name="resept">
+      <br><br>
+      <input type="text" class="stroka" placeholder="ингредиент 1" name="item1">  <input type="text" class="stroka3" placeholder=" кол-во 1" name="count1" size="5">
+      <br>
+      <input type="text" class="stroka" placeholder="ингредиент 2" name="item2">  <input type="text" class="stroka3" placeholder=" кол-во 2" name="count2" size="5">
+      <br>
+      <input type="text" class="stroka" placeholder="ингредиент 3" name="item3">  <input type="text" class="stroka3" placeholder=" кол-во 3" name="count3" size="5">
+      <br>
+      <input type="text" class="stroka" placeholder="ингредиент 4" name="item4">  <input type="text" class="stroka3" placeholder=" кол-во 4" name="count4" size="5">
+      <br><br>
+      <button type="submit" class="knopka" name="addResept">Создать рецепт</button>
+
+      <?php if ((!empty($_POST['resept'])) and (!empty($_POST['item1']))){
+              printResept($_POST['resept']);
+            }?>
+     
+      <!--   Форма рецепта -->
+      <h2>поиск рецепта:</h2>
+        <input type="text" class= "stroka" placeholder="название рецепта" name="retResName"><input type="text" class= "stroka" placeholder="ИД реца" name="retResId" size="10">
+        <button type="submit" class="knopka" name="FndRes">Найти рецепт</button>
+        <?php
+        $item = new OwnerItems(); 
+        if (isset($_POST['FndRes']) and (!empty($_POST['retResName']))) {
+              // echo 'knopka nagata и внесено название рецепта';
+              $id_resepta = $item->retReseptIdByName($_POST['retResName']);
+              if (!empty($id_resepta)) {
+              //  echo '  id ' . $id_resepta;
+                $_POST['retResId'] = $id_resepta;
+              }
+              // else{
+              //   echo 'рецепта с таким названием нету в базе.';
+              //   var_dump($id_resepta);
+              // }
+            }
+            if (isset($_POST['FndRes']) and (!empty($_POST['retResId']))) {
+              //echo 'knopka nagata  и введен ИД';
+              $str_resepta = $item->retReseptNameById($_POST['retResId']);
+
+              if (!empty($str_resepta)) {
+                // debug($str_resepta);
+                dataRes($str_resepta);
+              }
+            }
+            /*Выводит данные таблицы Items*/
+            echo '<details><summary>Таблица: Items</summary>';
+            $tbl = new Tabl();
+            $tbl->printResepts();
+            echo '</details>';  ?>
+          <!--   кнопка возврата на предыдущую страницу -->
+       <a class="buttons" href="admin.php">назад</a>
+    </form>
+
+  </div>
+</body>
+
+
+
 <?php
 $data = $_POST;
 $item = new OwnerItems();
@@ -20,7 +95,7 @@ function printResept($resept)
 
   $id = $item->retReseptIdByName($resept);
   $stringRes = $tbl->retRow($id, 'resepts');
-  var_dump($stringRes);
+  //var_dump($stringRes);
   $item1 = $item->retNameById($stringRes['val1']);
   $item2 = $item->retNameById($stringRes['val2']);
   $item3 = $item->retNameById($stringRes['val3']);
@@ -52,6 +127,7 @@ function printResept($resept)
 <?php
 }
 
+
 /* если нажали кнопку "Добавить в базу" и заполнили название предмента*/
 if ((isset($data['addItem'])) and (!empty($data['ItemName']))) {
   // echo 'Кнопка нажата, вы ввели: ' . $data['ItemName'];
@@ -65,10 +141,7 @@ if ((isset($data['addPic'])) and (!empty($data['ItemName']) and (!empty($data['i
   echo 'insert icons';
   $item->AddIcon($data['ItemName'], $data['icons']);
 }
-/*Выводит данные таблицы Items*/
-// echo '<details><summary>Таблица: Items</summary>';
-// $tbl->PrintItem();
-// echo '</details>';  
+
 
 /* форма создания рецепта*/
 //var_dump($_POST);
@@ -207,96 +280,24 @@ if (isset($_POST['addResept'])) {
   }
 }
 
-if (isset($_POST['FndRes']) and (!empty($_POST['retResName']))) {
-  // echo 'knopka nagata и внесено название рецепта';
-  $id_resepta = $item->retReseptIdByName($_POST['retResName']);
-  if (!empty($id_resepta)) {
-    echo '  id ' . $id_resepta;
-    $_POST['retResId'] = $id_resepta;
-  }
-}
-if (isset($_POST['FndRes']) and (!empty($_POST['retResId']))) {
-  //echo 'knopka nagata  и введен ИД';
-  $str_resepta = $item->retReseptNameById($_POST['retResId']);
+function dataRes($str_resepta){
 
-  if (!empty($str_resepta)) {
-    // debug($str_resepta);
-    dataRes($str_resepta);
-  }
-}
-function dataRes($str_resepta)
-{
   $item = new OwnerItems();
-?>
-  <h2><?php echo $str_resepta['name'] . ' id = ' . $str_resepta['id']; ?></h2>
-  <div class="table2">
-    <table class="table">
-      <tr>
-        <td> <?php echo $item->retNameItemById($str_resepta['val1']); ?> </td>
-        <td> <?php echo $str_resepta['count1']; ?> </td>
-      </tr>
-      <tr>
-        <td> <?php echo $item->retNameItemById($str_resepta['val2']); ?> </td>
-        <td> <?php echo $str_resepta['count2']; ?> </td>
-      </tr>
-      <tr>
-        <td> <?php echo $item->retNameItemById($str_resepta['val3']); ?> </td>
-        <td> <?php echo $str_resepta['count3']; ?> </td>
-      </tr>
-      <tr>
-        <td> <?php echo $item->retNameItemById($str_resepta['val4']); ?> </td>
-        <td> <?php echo $str_resepta['count4']; ?> </td>
-      </tr>
-    </table>
-  </div><?php
-      } ?>
-
-
-
-<body>
-  <div class="wrapper">
-    <form action="crud.php" method="POST">
-      <!--  /* форма создания ингредиента*/  -->
-      <h1>Создать новый предмет</h1>
-      <input type="text" class="stroka" placeholder="Внести новый предмет" name="ItemName">
-      <button type="submit" class="knopka" name="addItem">Добавить в базу</button>
-
-      <br>
-      <input type="text" class="stroka" placeholder="Внести icons" name="icons">
-      <button type="submit" class="knopka" name="addPic">Добавить картинку по имени предмета</button>
-      <br>
-      <br>
-      <hr>
-      <!--  /* форма создания рецепта*/  -->
-      <h1>Создать новый рецепт</h1>
-      <input type="text" class="stroka2" placeholder="название рецепта" name="resept">
-      <br><br>
-      <input type="text" class="stroka" placeholder="ингредиент 1" name="item1">  <input type="text" class="stroka3" placeholder=" кол-во 1" name="count1" size="5">
-      <br>
-      <input type="text" class="stroka" placeholder="ингредиент 2" name="item2">  <input type="text" class="stroka3" placeholder=" кол-во 2" name="count2" size="5">
-      <br>
-      <input type="text" class="stroka" placeholder="ингредиент 3" name="item3">  <input type="text" class="stroka3" placeholder=" кол-во 3" name="count3" size="5">
-      <br>
-      <input type="text" class="stroka" placeholder="ингредиент 4" name="item4">  <input type="text" class="stroka3" placeholder=" кол-во 4" name="count4" size="5">
-      <br><br>
-      <button type="submit" class="knopka" name="addResept">Создать рецепт</button>
-
-      <?php if ((!empty($_POST['resept'])) and (!empty($_POST['item1']))) {
-        printResept($_POST['resept']);
-      }
-
-
-      ?>
-      <a class="buttons" href="admin.php">назад</a>
-      <!--   Форма рецепта -->
-      <details>
-        <summary>рецепт: </summary>
-        <input type="text" placeholder="название рецепта" name="retResName"><input type="text" placeholder="ИД реца" name="retResId" size="10">
-        <button type="submit" class="knopka" name="FndRes">Найти рецепт</button>
-      </details>
-    </form>
-
-  </div>
-</body>
-
+  echo '<h2>' . $str_resepta['name'] . ' id = ' . $str_resepta['id'] . '</h2>';
+  if(!empty($item->retNameItemById($str_resepta['val1']))){
+    echo '- ' . $item->retNameItemById($str_resepta['val1']) . ' ' . $str_resepta['count1'];;
+  }
+  if(!empty($item->retNameItemById($str_resepta['val2']))){
+    echo '<br> - ' . $item->retNameItemById($str_resepta['val2']) . ' ' . $str_resepta['count2'];;
+  }
+  if(!empty($item->retNameItemById($str_resepta['val3']))){
+    echo '<br> - ' . $item->retNameItemById($str_resepta['val3']) . ' ' . $str_resepta['count3'];;
+  }
+  if(!empty($item->retNameItemById($str_resepta['val4']))){
+    echo '<br> - '  . $item->retNameItemById($str_resepta['val4']) . ' ' . $str_resepta['count4'];;
+  }
+}
+  ?>
+  
+</div>
 </html>
