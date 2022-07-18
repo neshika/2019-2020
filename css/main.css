@@ -471,7 +471,7 @@ div.title_cont {
   /*text-align: center;  выровнять текст и картинки по горизонтали */
 }
 
-.image_wrap {
+.imagewrap {
   height: 600px;
   border: 5px solid #626262;
   border-radius: 10px;

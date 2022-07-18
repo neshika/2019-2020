@@ -224,14 +224,17 @@ a.buttons:not(:hover) {
 /*************************************ВИД КНОПКИ*/
 
 .knopka {
-    width: 150px;
-    height: 50px;
+    width: auto;
+    height: auto;
+    padding: 3px;
+    font: 1em Georgia;
     text-decoration: none;
     color: #a675b3;
     text-align: center;
     line-height: 20px;
-    display: block;
-    margin: 20px auto;
+    /*display: block;*/
+    /*margin: 20px auto;*/
+    margin-left: 1em;
     border: 3px solid #311d47;
     font: normal 17px arial;
     outline: none;
@@ -257,6 +260,26 @@ a.buttons:not(:hover) {
     outline: none;
 }
 
+.stroka{
+    height: 2.5em;
+    border: 3px solid #311d47;
+    font: 1em Georgia;
+   
+}
+.stroka2{
+    height: 2.5em;
+    width: 17em;
+    border: 3px solid #311d47;
+    font: 1em Georgia;
+   
+}
+.stroka3{
+    height: 2.5em;
+    width: 5rem;
+    border: 3px solid #311d47;
+    font: 1em Georgia;
+   
+}
 .resept{
     width: 90px;
     height: 90px;

@@ -258,28 +258,28 @@ function dataRes($str_resepta)
     <form action="crud.php" method="POST">
       <!--  /* форма создания ингредиента*/  -->
       <h1>Создать новый предмет</h1>
-      <input type="text" placeholder="Внести новый предмет" name="ItemName">
-      <button type="submit" name="addItem">Добавить в базу</button>
+      <input type="text" class="stroka" placeholder="Внести новый предмет" name="ItemName">
+      <button type="submit" class="knopka" name="addItem">Добавить в базу</button>
 
       <br>
-      <input type="text" placeholder="Внести icons" name="icons">
-      <button type="submit" name="addPic">Добавить картинку по имени предмета</button>
+      <input type="text" class="stroka" placeholder="Внести icons" name="icons">
+      <button type="submit" class="knopka" name="addPic">Добавить картинку по имени предмета</button>
       <br>
       <br>
       <hr>
       <!--  /* форма создания рецепта*/  -->
       <h1>Создать новый рецепт</h1>
-      <input type="text" placeholder="название рецепта" name="resept">
+      <input type="text" class="stroka2" placeholder="название рецепта" name="resept">
       <br><br>
-      <input type="text" placeholder="ингредиент 1" name="item1"><input type="text" placeholder="кол-во 1" name="count1" size="5">
+      <input type="text" class="stroka" placeholder="ингредиент 1" name="item1">  <input type="text" class="stroka3" placeholder=" кол-во 1" name="count1" size="5">
       <br>
-      <input type="text" placeholder="ингредиент 2" name="item2"><input type="text" placeholder="кол-во 2" name="count2" size="5">
+      <input type="text" class="stroka" placeholder="ингредиент 2" name="item2">  <input type="text" class="stroka3" placeholder=" кол-во 2" name="count2" size="5">
       <br>
-      <input type="text" placeholder="ингредиент 3" name="item3"><input type="text" placeholder="кол-во 3" name="count3" size="5">
+      <input type="text" class="stroka" placeholder="ингредиент 3" name="item3">  <input type="text" class="stroka3" placeholder=" кол-во 3" name="count3" size="5">
       <br>
-      <input type="text" placeholder="ингредиент 4" name="item4"><input type="text" placeholder="кол-во 4" name="count4" size="5">
+      <input type="text" class="stroka" placeholder="ингредиент 4" name="item4">  <input type="text" class="stroka3" placeholder=" кол-во 4" name="count4" size="5">
       <br><br>
-      <button type="submit" name="addResept">Создать рецепт</button>
+      <button type="submit" class="knopka" name="addResept">Создать рецепт</button>
 
       <?php if ((!empty($_POST['resept'])) and (!empty($_POST['item1']))) {
         printResept($_POST['resept']);
@@ -292,7 +292,7 @@ function dataRes($str_resepta)
       <details>
         <summary>рецепт: </summary>
         <input type="text" placeholder="название рецепта" name="retResName"><input type="text" placeholder="ИД реца" name="retResId" size="10">
-        <button type="submit" name="FndRes">Найти рецепт</button>
+        <button type="submit" class="knopka" name="FndRes">Найти рецепт</button>
       </details>
     </form>
 
