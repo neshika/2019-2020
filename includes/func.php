@@ -879,6 +879,7 @@ class Tabl
             <td>count3</td>
             <td>val4</td>
             <td>count4</td>
+            <td>info</td>
         </tr><?php  foreach ($respt as $key=>$respt):?>
         <tr>
             <td><?php echo $key?> </td>
@@ -892,6 +893,7 @@ class Tabl
             <td><?php echo $respt['count3']?></td>
             <td><?php echo $respt['val4']?></td>
             <td><?php echo $respt['count4']?></td>
+            <td><?php echo $respt['info']?></td>
             <?php endforeach?>
         </tr>
     </table>
@@ -1889,6 +1891,12 @@ public function AddResept($ResName)
      {
          $res = R::dispense('resepts');
 	     $res->name = $ResName;
+         if(empty($_POST['info'])){
+            $res->info = 'нет данных';  // если данные с описанием занесены в поле ИНФО
+         }
+         else{
+            $res->info = $_POST['info'];  // позже будет поле для ввода описания
+         }
          return R::store($res);
          //echo 'сохранил в базе';
      }
@@ -1947,7 +1955,7 @@ public function retReseptNameById($id){
        
     }
     /*функция рисует картинку по названию предмета*/ 
-    public function printPic($ItemName, $class){
+    public function printPic($ItemName, $class = 'resept'){
         $name = $this-> retUrlByName($ItemName);
        // var_dump($name);
         if(!empty($name)){
@@ -1958,7 +1966,71 @@ public function retReseptNameById($id){
         }
         
     }
+    /* функция печатает рецет на экране */
+    public function printResept($resept){
 
+    $tbl = new Tabl();
+    $item = new OwnerItems();
+
+    $id = $item->retReseptIdByName($resept);
+    $stringRes = $tbl->retRow($id, 'resepts');
+    //var_dump($stringRes);
+    $item1 = $item->retNameById($stringRes['val1']);
+    $item2 = $item->retNameById($stringRes['val2']);
+    $item3 = $item->retNameById($stringRes['val3']);
+    $item4 = $item->retNameById($stringRes['val4']);
+
+    $info = $stringRes['info'];
+        //echo $info;
+
+
+    ?>
+    <table class="iksweb">
+        <h1>Создан новый рецепт:</h1>
+        <tbody>
+        <tr>
+            <td><?php $item = new OwnerItems();
+                $item->printPic($resept, 'resept'); ?></td>
+            <td colspan="3" class="nazvanie"><?php echo '<h4>' . $resept . '</h4><br>' . $info; ?></td>
+        </tr>
+        <tr>
+            <td colspan="4" class="td3">материалы</td>
+        </tr>
+        <tr>
+            <td class="tameriali"><?php $item->printPic($item1, 'item'); ?></td>
+            <td class="tameriali"><?php $item->printPic($item2, 'item'); ?></td>
+            <td class="tameriali"><?php $item->printPic($item3, 'item'); ?></td>
+            <td class="tameriali"><?php $item->printPic($item4, 'item'); ?></td>
+
+        </tr>
+        </tbody>
+    </table>
+    <?php
+    }
+/* выводит данные рецепта по ID относится к поиску*/
+    public function dataRes($str_resepta){
+
+        //$item = new OwnerItems();
+        echo '<h2>' . $str_resepta['name'] . ' id = ' . $str_resepta['id'] . '</h2>';
+        if(!empty($this->retNameItemById($str_resepta['val1']))){
+          echo '- ' . $this->retNameItemById($str_resepta['val1']) . ' ' . $str_resepta['count1'];;
+        }
+        if(!empty($this->retNameItemById($str_resepta['val2']))){
+          echo '<br> - ' . $this->retNameItemById($str_resepta['val2']) . ' ' . $str_resepta['count2'];;
+        }
+        if(!empty($this->retNameItemById($str_resepta['val3']))){
+          echo '<br> - ' . $this->retNameItemById($str_resepta['val3']) . ' ' . $str_resepta['count3'];;
+        }
+        if(!empty($this->retNameItemById($str_resepta['val4']))){
+          echo '<br> - '  . $this->retNameItemById($str_resepta['val4']) . ' ' . $str_resepta['count4'];;
+        }
+      }
+      /* выводит данные предмета по ID относится к поиску*/
+    public function dataItem($str_item){
+        
+        echo '<h2>' . $str_item['name'] . ' id = ' . $str_item['id'] . '</h2>';
+        $this->printPic($str_item['name']);
+    }   
 
 }
 /**************************   регистрация вязки литтеры ***************/
