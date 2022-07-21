@@ -1,8 +1,9 @@
-
 <?php 
 /*require_once(__DIR__ . '/libs/up.php');*/
 require_once(__DIR__ . '/db.php');
 require_once(__DIR__ . '/includes/func.php');
+$itm = new OwnerItems(); 
+$tbl = new Tabl();
 
 
 
@@ -14,7 +15,7 @@ require_once(__DIR__ . '/includes/func.php');
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Симулятор заводчика</title>
      <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
-     <link rel="stylesheet" type="text/css" href="css/test5.css" />
+     
      <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
      <link rel="stylesheet" href="https://use.fontawesome.com/8fea78c7d8.css">
 
@@ -75,14 +76,47 @@ require_once(__DIR__ . '/includes/func.php');
 <img src="pici/spd.png" alt="альтернативный текст" height="100px">
 <img src="pici/fnd.png" alt="альтернативный текст" height="100px">
 <img src="pici/lck.png" alt="альтернативный текст" height="100px">
+<br><hr>
+
+<form action="test.php" method="GET">
+    <table border="1">
+        <tr><td><?php $res = R::findAll('resepts');
+    
+                foreach ($res as $key=>$value){
+                    $_GET['id'] = $itm->retReseptIdByName($value['name']);
+                    echo '<a href="http://dog.ru/test.php?value=' .  $_GET['id']. '">' . $value['name'] . '<br></a>';
+
+                    
+                }
+               ?>
+            </td>
+            <td><h1>создать</h1>
+<div>поиск 
+    <input type="text" placeholder="поиск"> <button type="submit" name="find">поиск</button> 
+</div><br>
+<div><img src="<?php  echo $itm->retUrlByName($itm->retReseptNameById($_GET['value'])) ?>" height="100px" accesskey="название">
+    <?php if (isset($_GET['value'])){
+            $_GET['name'] = $itm->retReseptNameById($_GET['value']);
+            echo $_GET['name'];
+            echo ' : ' . $tbl->retCellById($_GET['value'],'info','resepts');
+     //var_dump($tbl->retCellById($_GET['value'],'info','resepts'));
+    }?></div>
+<div>Материалы:</div>
+<img src="<?php $id_val1 = $tbl->retCellById($_GET['value'],'val1','resept'); echo $itm->retUrlById($id_val1); ?>" height="100px" accesskey="название">
+<img src="<?php $id_val2 = $tbl->retCellById($_GET['value'],'val2','resept'); echo $itm->retUrlById($id_val2); ?>" height="100px" accesskey="название">
+<img src="<?php $id_val3 = $tbl->retCellById($_GET['value'],'val3','resept'); echo $itm->retUrlById($id_val3); ?>" height="100px" accesskey="название">
+<img src="<?php $id_val4 = $tbl->retCellById($_GET['value'],'val4','resept'); echo $itm->retUrlById($id_val4); ?>" height="100px" accesskey="название">
+
+<br><div>кол-во предметов<input type="text"><button type="submit" name="plas">+</button><button type="submit" name="minus">-</button><button type="submit" name="min">min</button><button type="submit" name="max">max</button></div>
+<p>
+<button type="submit" name="greate">создать</button><button type="submit" name="greateAll">создать все</button><button type="submit" name="close">закрыть</button>
+</p</form>
+
+
+
 <?php
 
-$owner = 'Nesh';
-$green = 'green';
-$red = 'red';
-$blue = 'blue';
-$numR =rand(1,5); 
-$item = new OwnerItems();
+
 
 ?>
 
@@ -90,5 +124,6 @@ $item = new OwnerItems();
 <script src="https://use.fontawesome.com/e1a1261a75.js"></script>
       <script src="{% static 'app/scripts/modernizr-2.6.2.js' %}"></script>
     <script src="{% static 'app/scripts/modernizr-2.6.2.js' %}"></script>
+</div>
 </body>
 </html>

@@ -804,8 +804,14 @@ class Tabl
     /*Функция достает даннные из заданного поля($cell) по ее Id из таблицы $tabl*/
     public function retCellById($id, $cell, $tabl)
     {
-        $sql =  'SELECT '  . $cell . ' FROM ' . $tabl .  ' WHERE id =' . $id;
-        return R::getCell($sql); 
+        /*return R::getcell('SELECT cell =:cel FROM tabl =:tabl WHERE id =:id', 
+        array(':id' => $id,
+            ':cell' => $cell,
+            ':tabl' => $tabl));
+         */
+        $str = R::findOne('resepts', 'id = ?', ["$id"]); 
+        //var_dump($str) ;
+        return $str[$cell];
     }
 
     public function getSql($id, $tabl)
@@ -1911,9 +1917,9 @@ public function retReseptIdByName($nameResept){
 /* функция возвращает строку итема из таблицы Resepts по ИД*/  
 public function retReseptNameById($id){
         
-    $string = R::getRow('SELECT * FROM resepts WHERE `id` = ? LIMIT 1', [$id]);
+    return R::getCell('SELECT name FROM resepts WHERE `id` = ? LIMIT 1', [$id]);
    
-    return $string;
+    
 }
 
 
@@ -1946,11 +1952,19 @@ public function retReseptNameById($id){
         return $url;
        
     }
+       /* функция возвращает картинку по ID предмета*/
+       public function retUrlById($ItemId){
+        
+        //$id = $this->retItemIdByName($ItemName);
+        $url = R::getCell('SELECT `icons` FROM items WHERE `id` = ? LIMIT 1', [$ItemId]);
+        return $url;
+       
+    }
      /* функция возвращает картинку по названию предмета*/
-     public function retNameById($id){
+     public function retNameById($id_item){
         
         
-        $name = R::getCell('SELECT `name` FROM items WHERE `id` = ? LIMIT 1', [$id]);
+        $name = R::getCell('SELECT `name` FROM items WHERE `id` = ? LIMIT 1', [$id_item]);
         return $name;
        
     }
