@@ -5,7 +5,18 @@ require_once(__DIR__ . '/includes/func.php');
 $itm = new OwnerItems(); 
 $tbl = new Tabl();
 
-
+if (isset($_POST['find']) and (!empty($_POST['textRes']))) {
+    $_GET['value'] = $itm->retReseptIdByName($_POST['textRes']);
+    $_GET['id'] = $_GET['value'];
+    //var_dump($_GET);
+}
+if(isset($_POST['find']) and (empty($_POST['textRes']))){
+    //echo 'название не введено';
+    ?><script>
+            alert("Введите навание предмета для поиска");
+        </script><?php
+        //!!!скинуть все настройки см. книгу
+}
 
 ?>
 <!DOCTYPE html>
@@ -15,7 +26,6 @@ $tbl = new Tabl();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Симулятор заводчика</title>
      <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
-     
      <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
      <link rel="stylesheet" href="https://use.fontawesome.com/8fea78c7d8.css">
 
@@ -80,32 +90,22 @@ $tbl = new Tabl();
 
 <form action="test.php" method="GET">
     <table border="1">
-        <tr><td><?php $res = R::findAll('resepts');
-    
-                foreach ($res as $key=>$value){
-                    $_GET['id'] = $itm->retReseptIdByName($value['name']);
-                    echo '<a href="http://dog.ru/test.php?value=' .  $_GET['id']. '">' . $value['name'] . '<br></a>';
-
-                    
-                }
-               ?>
+        <tr><td><?php listResepts();?>
             </td>
             <td><h1>создать</h1>
 <div>поиск 
-    <input type="text" placeholder="поиск"> <button type="submit" name="find">поиск</button> 
+</form>
+<form action="test.php" method="POST">    
+    <input type="text" placeholder="поиск" name="textRes"><button type="submit" name="find">поиск</button> 
+</form>
+<form action="test.php" method="GET">
 </div><br>
-<div><img src="<?php  echo $itm->retUrlByName($itm->retReseptNameById($_GET['value'])) ?>" height="100px" accesskey="название">
-    <?php if (isset($_GET['value'])){
-            $_GET['name'] = $itm->retReseptNameById($_GET['value']);
-            echo $_GET['name'];
-            echo ' : ' . $tbl->retCellById($_GET['value'],'info','resepts');
-     //var_dump($tbl->retCellById($_GET['value'],'info','resepts'));
-    }?></div>
+<div><img src="<?php echo retPicRes(); ?>" height="100px" accesskey="название"><?php echo retNameInfoRes();?></div>
 <div>Материалы:</div>
-<img src="<?php $id_val1 = $tbl->retCellById($_GET['value'],'val1','resept'); echo $itm->retUrlById($id_val1); ?>" height="100px" accesskey="название">
-<img src="<?php $id_val2 = $tbl->retCellById($_GET['value'],'val2','resept'); echo $itm->retUrlById($id_val2); ?>" height="100px" accesskey="название">
-<img src="<?php $id_val3 = $tbl->retCellById($_GET['value'],'val3','resept'); echo $itm->retUrlById($id_val3); ?>" height="100px" accesskey="название">
-<img src="<?php $id_val4 = $tbl->retCellById($_GET['value'],'val4','resept'); echo $itm->retUrlById($id_val4); ?>" height="100px" accesskey="название">
+<img src="<?php echo retpicItem('val1');?>" height="100px" accesskey="название">
+<img src="<?php echo retpicItem('val2');?>" height="100px" accesskey="название">
+<img src="<?php echo retpicItem('val3');?>" height="100px" accesskey="название">
+<img src="<?php echo retpicItem('val4');?>" height="100px" accesskey="название">
 
 <br><div>кол-во предметов<input type="text"><button type="submit" name="plas">+</button><button type="submit" name="minus">-</button><button type="submit" name="min">min</button><button type="submit" name="max">max</button></div>
 <p>
@@ -113,8 +113,45 @@ $tbl = new Tabl();
 </p</form>
 
 
-
 <?php
+
+/*функция проверяет есть ли у данного итема ссылка на картинку, если нету, рисует пустой квадрат(blank2.png)*/
+function retPicItem($val){
+    $tbl = new Tabl();
+    $itm = new OwnerItems();
+    $id_val = $tbl->retCellById($_GET['value'],$val,'resept');
+    if(isset($id_val)){
+        return $itm->retUrlById($id_val);
+    }
+    else{
+        return '/Pici/blank2.png';
+    }
+}
+/*функция проверяет есть ли у данного рецепта(итема) ссылка на картинку, если нету, рисует пустой квадрат(blank2.png)*/
+function retPicRes(){
+    $itm = new OwnerItems();
+    return $itm->retUrlByName($itm->retReseptNameById($_GET['value'])); 
+}
+/*функция проверяет есть ли у данного рецепта название и выводит текст название и его описание из поля info*/
+function retNameInfoRes(){
+    $tbl = new Tabl();
+    $itm = new OwnerItems();
+    if (isset($_GET['value'])){
+        $_GET['name'] = $itm->retReseptNameById($_GET['value']);
+        $array = $_GET['name'] . ' : ' . $tbl->retCellById($_GET['value'],'info','resepts');
+        return $array;
+    }
+}
+/* функция отрисовывает список рецептов в алфавитном порядке и в виде ссылки*/
+function listResepts(){
+    $itm = new OwnerItems();
+    $res = R::getAll('SELECT * FROM `resepts` ORDER BY name');
+    foreach ($res as $key=>$value){
+    $_GET['id'] = $itm->retReseptIdByName($value['name']);
+    echo '<a href="http://dog.ru/test.php?value=' .  $_GET['id']. '">' . $value['name'] . '<br></a>';
+    
+    }
+}
 
 
 
