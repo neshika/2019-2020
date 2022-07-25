@@ -12,6 +12,7 @@ error_reporting(E_ALL);
 
 
 
+
 if (!isset($_GET['id']) || !isset($_GET['owner'])) {
     $id = $_SESSION['Dog'];
     $dog = new PrintDog();
@@ -32,129 +33,145 @@ $_SESSION['joy'] = $dog->retJoy($id);
 $_SESSION['hp'] = $dog->retHp($id);
 
 /*Если кнопка "сменить имя" нажата*/
-if (isset($_POST['newName'])) {
+if (isset($_POST['newName'])):
 
-    if ("" != $_POST['name1']) {
+    if ("" != $_POST['name1']):
         $newName = new Tabl();
         $newName->UpdateData('animals', $id, 'name', $_POST['name1']);
-    } else {  // всплывающее окно, если имя не ввели
-?> <script>
-            alert("Введите имя");
-        </script><?php
-                }
-            }
-            /*Если нажата кнопка продать
-if( isset($_POST['cell'])){
-   ?> 
-    <SCRIPT LANGUAGE="javascript">
-        if (confirm("Хотите продать собаку?")) {
-            var peremka = 'продана';
-           alert("Собака продана");
-        }
-        else {
-            var peremka = 'отмена';
-           alert("Оставляем собаку");
-            
-           
-            }
-               
-    </SCRIPT>
-    <?php
-    
-    if (isset($_GET['u_name']))
-    {
-        echo '<script type="text/javascript">';
-        echo 'document.location.href="' . $_SERVER['REQUEST_URI'] . '&u_name=" + peremka';
-        echo '</script>';
-       
-        if('продана' == $_GET['u_name']){
-            $newName = new Tabl();
-            $newName->UpdateData('animals', $_GET['id'], 'owner', 'shop');?>
-            <script type="text/javascript">
-                function goToOtherPage() {
-                    window.location.href = "http://www.yandex.ru/";
-                }
+    elseif("" == $_POST['name1']):  // всплывающее окно, если имя не ввели?> 
+        <script>alert("Введите имя");</script><?php
+    endif;
+endif;          
+      
+/*Если нажата кнопка "Растить"*/
 
-                window.setTimeout(goToOtherPage, 1);
-            </script>
-        <?php }
-        exit;
-               
-    }
-    else {
-        echo '<script type="text/javascript">';
-        echo 'document.location.href="' . $_SERVER['REQUEST_URI'] . '&u_name=" + peremka';
-        echo '</script>';
-        exit();
-    }
-   
-    
+if (!empty($_POST['add_age'])) {
+    $age = new Dog();
+    $age->addAge($id);
 }
-*/
-            /*Если нажата кнопка "Растить"*/
+/*если нажата кнопка кушать*/
 
-            if (!empty($_POST['add_age'])) {
-                $age = new Dog();
-                $age->addAge($id);
-            }
-            /*если нажата кнопка кушать*/
+if (isset($_POST['eat'])) {
+}
 
-            if (isset($_POST['eat'])) {
-            }
-            /* Проверка внесения данных*/
-            function bdika($cell, $count)
-            {
+/* Проверка внесения данных*/
+function bdika($cell, $count)
+{
 
-                if ($cell >= 0 && $cell <= 100) {
-                    $cell = $cell + $count;
-                    if ($cell > 100) {
-                        $cell = 100;
-                    }
-                    if ($cell < 0) {
-                        $cell = 0;
-                    }
-                    return $cell;
-                }
-            }
-            /*если нажата кнопка добавки - добавляет 13 энергии*/
-            if (isset($_POST['badd'])) {
-                $cell = $dog->retVitality($id);
-                $vit = bdika($cell, 13);
-                $dog->UpdateData('animals', $id, 'Vitality', $vit);
-            }
-            /*если нажата кнопка спа салон - добавляет 21 счастья*/
-            if (isset($_POST['spa'])) {
-                $cell = $dog->retJoy($id);
-                $joy = bdika($cell, 21);
-                $dog->UpdateData('animals', $id, 'joy', $joy);
-            }
+    if ($cell >= 0 && $cell <= 100) {
+        $cell = $cell + $count;
+        if ($cell > 100) {
+            $cell = 100;
+        }
+        if ($cell < 0) {
+            $cell = 0;
+        }
+        return $cell;
+    }
+}
+/*если нажата кнопка добавки - добавляет 13 энергии*/
+if (isset($_POST['badd'])) {
+    $cell = $dog->retVitality($id);
+    $vit = bdika($cell, 13);
+    $dog->UpdateData('animals', $id, 'Vitality', $vit);
+}
+/*если нажата кнопка спа салон - добавляет 21 счастья*/
+if (isset($_POST['spa'])) {
+    $cell = $dog->retJoy($id);
+    $joy = bdika($cell, 21);
+    $dog->UpdateData('animals', $id, 'joy', $joy);
+}
 
-            /*если нажата кнопка ветврач - добавляет 5 здоровья*/
-            if (isset($_POST['vet'])) {
-                $cell = $dog->retHp($id);
-                $hp = bdika($cell, 5);
-                $dog->UpdateData('animals', $id, 'Hp', $hp);
-            }
-            /*если нажата кнопка тренировки - добавляет -10 энергии + 10 здоровья*/
-            if (isset($_POST['train'])) {
-                $vit = $dog->retVitality($id);
-                if ($vit >= 0 && $vit <= 100) {
-                    $vit = $vit - 10;
-                    if ($vit > 100) {
-                        $vit = 100;
-                    }
-                    if ($vit < 0) {
-                        $vit = 0;
-                    }
-                }
-                $hp = $dog->retHp($id);
-                $hp = bdika($hp, 10);
-                $dog->UpdateData('animals', $id, 'Vitality', $vit);
-                $dog->UpdateData('animals', $id, 'Hp', $hp);
-            }
-            $_SESSION['vit'] = $dog->retVitality($id);
-            $_SESSION['joy'] = $dog->retJoy($id);
-            $_SESSION['hp'] = $dog->retHp($id);
+/*если нажата кнопка ветврач - добавляет 5 здоровья*/
+if (isset($_POST['vet'])) {
+    $cell = $dog->retHp($id);
+    $hp = bdika($cell, 5);
+    $dog->UpdateData('animals', $id, 'Hp', $hp);
+}
+/*если нажата кнопка тренировки - добавляет -10 энергии + 10 здоровья*/
+if (isset($_POST['train'])) {
+    $vit = $dog->retVitality($id);
+    if ($vit >= 0 && $vit <= 100) {
+        $vit = $vit - 10;
+        if ($vit > 100) {
+            $vit = 100;
+        }
+        if ($vit < 0) {
+            $vit = 0;
+        }
+    }
+    $hp = $dog->retHp($id);
+    $hp = bdika($hp, 10);
+    $dog->UpdateData('animals', $id, 'Vitality', $vit);
+    $dog->UpdateData('animals', $id, 'Hp', $hp);
+}
+/* функция возвращает количество кристаллов (итемов) по пользователю */
+function addItem($item,$count){
+    $itm = new OwnerItems();
+    $tbl = new Tabl();
+    $user = new Users();
+    $num = 0;
+    $id = $_SESSION['Dog'];
+    $dog = new PrintDog();
+    $owner = $dog->retOwner($id);
+    $owner_id = $user->retId($owner); //возвращает id Юзера
+      
+    //echo $owner;
+    $num = $itm->retCountItemByOwner($item, $owner);
+    //echo " NOW: $num";
+    $num =  $num + $count;
+    $item_id = $itm->retItemIdByName($item);
+    $id = R::getCell('SELECT id FROM owneritems WHERE owner_id = :id AND item_id = :item', [
+        'id' => $owner_id,
+        'item' => $item_id]);
+       // echo "ID $id";
+   if(isset($id)){
+    $tbl->UpdateData('owneritems',$id,'count',$num);
+   }
+   else{
+    echo 'мы в еще';
+    $newitem = R::dispense('owneritems');
+    $newitem->owner_id = $owner_id;
+    $newitem->item_id = $item_id;
+    $newitem->count = $num;
+    $newId = R::store($newitem);
+    echo "создана новая строка $newId";
+
+   }
+    
+    return $num;
+
+}
+/*после прогулки собака приносит рандомно вещи рецепты с 11-17
+ вещи состоят из разного количества кристалов РЕД, ГРИН И БЛЮ
+ число принесеных вещей высчитывается по формуле с 1 по Рандлмное число до количства указанного в базе*/
+function insertRandRGB(){
+    $itm = new OwnerItems();
+    $tbl = new Tabl();
+    $user = new Users();
+   
+    $randItemId = Rand(11,17);
+    $randItem =  $itm->retReseptNameById($randItemId);
+   //echo "<br>собака принесла: $randItem";
+    $red = $tbl->retCellById($randItemId,'count1','resepts');
+    $green = $tbl->retCellById($randItemId,'count2','resepts');
+    $blue = $tbl->retCellById($randItemId,'count3','resepts');
+    $red = rand(0,$red); //id10
+    $green = rand(0,$green);//id 11
+    $blue = rand(0,$blue);//id 12
+    echo "<br>собака принесла: $randItem " . '(' . $red . '/'. $green . '/' . $blue . ')';
+  // echo "<br>! кристалы:"  . $red . ', ' . $green .', ' .  $blue;
+   $red = addItem('red',$red);
+   $green = addItem('green',$green);
+   $blue = addItem('blue',$blue);
+    
+   echo "<br>! кристалов стало:"  . $red . ', ' . $green .', ' .  $blue;
+
+}
+
+$_SESSION['vit'] = $dog->retVitality($id);
+$_SESSION['joy'] = $dog->retJoy($id);
+$_SESSION['hp'] = $dog->retHp($id);
 
 
                     ?>
@@ -170,7 +187,7 @@ if( isset($_POST['cell'])){
                             <button type="submit" class="btn btn-dark" name="eat">Есть <i class="fa fa-cutlery" aria-hidden="true"></i></button>
                             <button type="button" class="btn btn-dark">Пить <i class="fa fa-tint" aria-hidden="true"></i></button>
                             <button type="button" class="btn btn-dark">Чесать <i class="fa fa-bath" aria-hidden="true"></i></button>
-                            <button type="button" class="btn btn-dark">Гулять <i class="fa fa-umbrella" aria-hidden="true"></i></button>
+                            <button type="submit" class="btn btn-dark" name="walk">Гулять <i class="fa fa-umbrella" aria-hidden="true"></i></button>
                             <button type="button" class="btn btn-dark">Спать <i class="fa fa-bed" aria-hidden="true"></i></button>
                             <input type="submit" class="btn btn-dark" name="add_age" value="Растить">
 
@@ -225,7 +242,14 @@ if( isset($_POST['cell'])){
                     echo '<br> vit ' . $_SESSION['vit'];
                     echo '<br> joy ' . $_SESSION['joy'];
                     echo '<br> hp ' . $_SESSION['hp'];
-                    ?>
+                    /*если нажата кнопка гулять*/
+
+                    if (isset($_POST['walk'])) {
+                        insertRandRGB();
+                    }
+                    
+
+                    ?>;
                 </div>
             </td>
         </tr>
