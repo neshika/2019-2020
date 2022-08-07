@@ -25,9 +25,8 @@ if(isset($_POST['find']) and (empty($_POST['textRes']))){
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Симулятор заводчика</title>
-     <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
-     <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
-     <link rel="stylesheet" href="https://use.fontawesome.com/8fea78c7d8.css">
+
+     <link rel="stylesheet" type="text/css" href="css/main.css" />
 
 </head>
 <body>
@@ -78,6 +77,7 @@ if(isset($_POST['find']) and (empty($_POST['textRes']))){
   </span>
 </div>
 -->
+
 <div id="content">
 <img src="pici/resnuh.png" alt="альтернативный текст" height="100px">
 <img src="pici/resspd.png" alt="альтернативный текст" height="100px">
@@ -100,7 +100,7 @@ if(isset($_POST['find']) and (empty($_POST['textRes']))){
 </form>
 <form action="test.php" method="GET">
 </div><br>
-<div><img src="<?php echo retPicRes(); ?>" height="100px" accesskey="название"><?php echo retNameInfoRes();?></div>
+<div><img src="<?php echo bdika();?>" height="100px" accesskey="название"><?php echo retNameInfoRes();?></div>
 <div>Материалы:</div>
 <img src="<?php echo retpicItem('val1');?>" height="100px" accesskey="название">
 <img src="<?php echo retpicItem('val2');?>" height="100px" accesskey="название">
@@ -110,8 +110,7 @@ if(isset($_POST['find']) and (empty($_POST['textRes']))){
 <br><div>кол-во предметов<input type="text"><button type="submit" name="plas">+</button><button type="submit" name="minus">-</button><button type="submit" name="min">min</button><button type="submit" name="max">max</button></div>
 <p>
 <button type="submit" name="greate">создать</button><button type="submit" name="greateAll">создать все</button><button type="submit" name="close">закрыть</button>
-</p</form>
-
+</p></form>
 
 <?php
 
@@ -119,18 +118,37 @@ if(isset($_POST['find']) and (empty($_POST['textRes']))){
 function retPicItem($val){
     $tbl = new Tabl();
     $itm = new OwnerItems();
-    $id_val = $tbl->retCellById($_GET['value'],$val,'resept');
-    if(isset($id_val)){
-        return $itm->retUrlById($id_val);
+    if (isset($_GET['value'])){
+        $id_val = $tbl->retCellById($_GET['value'],$val,'resept');
+        if(isset($id_val)){
+            return $itm->retUrlById($id_val);
+        }
+        else{
+            return '/Pici/blank2.png';
+        }
+    }
+    
+    
+}
+/*фунуия проверяет есть ли выбранный рецепт или страница только ззагружена*/
+function bdika(){
+    if(false == retPicRes()){
+        return 'Необходимо выбрать рецепт справа';
     }
     else{
-        return '/Pici/blank2.png';
+        return retPicRes();
     }
 }
 /*функция проверяет есть ли у данного рецепта(итема) ссылка на картинку, если нету, рисует пустой квадрат(blank2.png)*/
 function retPicRes(){
     $itm = new OwnerItems();
-    return $itm->retUrlByName($itm->retReseptNameById($_GET['value'])); 
+    if(isset($itm) && isset($_GET['value'])){
+        return $itm->retUrlByName($itm->retReseptNameById($_GET['value'])); 
+    }
+    else{
+        return false;
+    }
+    
 }
 /*функция проверяет есть ли у данного рецепта название и выводит текст название и его описание из поля info*/
 function retNameInfoRes(){
@@ -140,6 +158,9 @@ function retNameInfoRes(){
         $_GET['name'] = $itm->retReseptNameById($_GET['value']);
         $array = $_GET['name'] . ' : ' . $tbl->retCellById($_GET['value'],'info','resepts');
         return $array;
+    }
+    else {
+        return 'Необходимо выбрать рецепт справа';
     }
 }
 /* функция отрисовывает список рецептов в алфавитном порядке и в виде ссылки*/

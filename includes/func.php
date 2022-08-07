@@ -849,6 +849,18 @@ class Tabl
         $sql = 'SELECT * FROM ' . $tabl .  ' WHERE id =' . $id;
         return R::getRow($sql);
     }
+    
+    /*функция проверяет есть ли у данного id_item ссылка на картинку, если нету, рисует пустой квадрат(blank2.png)*/
+function retPicItem($id){
+    
+    $itm = new OwnerItems();
+    //if(isset($id)){
+        return $itm->retUrlById($id);
+   // }
+      
+    
+}
+    
     /*Функция печатает данные из таблицы ITEMS*/
     public function PrintItems(){
         $items = R::findAll('items');
@@ -863,6 +875,7 @@ class Tabl
             <td><?php echo $key?> </td>
             <td><?php echo $item['name']?></td>
             <td><?php echo $item['icons']?></td>
+            <td><img src="<?php echo $this->retPicItem($key);?>" height="50px" accesskey="название"></td>
             <?php endforeach?>
         </tr>
     </table>
