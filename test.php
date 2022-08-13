@@ -48,7 +48,7 @@ if(isset($_POST['find']) and (empty($_POST['textRes']))){
     position: absolute;
     right: 0;
     bottom: 10px;
-    font-size: 14px;
+    font-size: 16px;
     padding: 3px 5px;
 }
  </style> 
@@ -124,26 +124,16 @@ if(isset($_POST['find']) and (empty($_POST['textRes']))){
 <div><img src="<?php echo bdika();?>" height="100px" accesskey="название"><?php echo retNameInfoRes();?></div>
 <div>Материалы:</div>
 <div class='imgblock'>
-    <?php if(false!= bdikaZnach($_GET['value'],'val1')):?>
-        <img src="<?php echo retpicItem('val1');?>" accesskey="название">
-        <span><?php echo retCountItem($_GET['value'],'count1'); endif;?></span>
-
+    <?php insertPic($_GET['value'],'val1','count1');?>
 </div>
 <div class='imgblock'>
-    <?php if(false!= bdikaZnach($_GET['value'],'val2')):?>
-        <img src="<?php echo retpicItem('val2');?>" accesskey="название">
-        <span><?php echo retCountItem($_GET['value'],'count2'); 
-    endif;?></span>
+    <?php insertPic($_GET['value'],'val2','count2');?>
 </div>
 <div class='imgblock'>
-    <?php if(false!= bdikaZnach($_GET['value'],'val3')):?>
-        <img src="<?php echo retpicItem('val3');?>" accesskey="название">
-        <span><?php echo retCountItem($_GET['value'],'count3');endif;?></span>
+    <?php insertPic($_GET['value'],'val3','count3');?>
 </div>
 <div class='imgblock'>
-<?php if(false!= bdikaZnach($_GET['value'],'val4')):?>
-    <img src="<?php echo retpicItem('val4');?>" accesskey="название">
-    <span><?php echo retCountItem($_GET['value'],'count4'); endif;?></span>
+    <?php insertPic($_GET['value'],'val4','count4');?>
 </div>
 
 
@@ -184,9 +174,10 @@ function bdikaZnach($id,$val){
 /*функция проверяет есть ли у данного рецепта по ШЬЕМУ(val) количество и выводит его на экран*/
 function retCountItem($id,$count){
     $tbl = new Tabl();
+    $itm = new OwnerItems();
     $tabl = 'resepts';
     return $tbl->retCellById($id, $count, $tabl);
-   
+  
 }
 /*фунуия проверяет есть ли выбранный рецепт или страница только ззагружена*/
 function bdika(){
@@ -230,6 +221,25 @@ function listResepts(){
     echo '<a href="http://dog.ru/test.php?value=' .  $_GET['id']. '">' . $value['name'] . '<br></a>';
     
     }
+}
+function insertPic($id,$val,$count){
+    $tbl = new Tabl();
+    $itm = new OwnerItems();
+    if(false!= bdikaZnach($id,$val)):?>
+        <img src="<?php echo retpicItem($val);?>" accesskey="название">
+        <?php 
+        $id_item = $tbl->retCellById($id,$val,'resepts');
+        $item = $itm->retNameById($id_item);
+        $owner = ret_owner();
+        $nujno = retCountItem($id,$count); 
+        $est = $itm->retCountItemByOwner($item, $owner);
+        $color = 'white';
+        if($nujno > $est){
+            $color = 'red';
+        
+        }
+        echo "<span style=\"color:$color;\">$nujno  / $est </span>";
+        endif;
 }
 
 
