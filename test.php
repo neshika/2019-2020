@@ -30,13 +30,34 @@ if(isset($_POST['find']) and (empty($_POST['textRes']))){
 
 </head>
 <body>
-  
+ <style>
+    .imgblock {
+    position: relative;
+    display: inline-block;
+}
+
+.imgblock img {
+    height: 100px;
+   /* width: 250px;*/
+}
+.imgblock span {
+    /*background: rgba(0,0,0,0.7); (полупрозрачность)*/
+    background: #222;
+    color: #fff;
+    border-radius: 2px;
+    position: absolute;
+    right: 0;
+    bottom: 10px;
+    font-size: 14px;
+    padding: 3px 5px;
+}
+ </style> 
 <div id="container">
     <div id="header">
         <table width="900">
             <tr>
                 <td><h1>Симулятор заводчика</h1></td>
-                <h2><td><img src="pici/test2.png"><img src="pici/test.png"></td></h2>
+                <h2><td><img src="pici/left.png"><img src="pici/right.png"></td></h2>
             </tr>
         </table>
                 
@@ -102,12 +123,32 @@ if(isset($_POST['find']) and (empty($_POST['textRes']))){
 </div><br>
 <div><img src="<?php echo bdika();?>" height="100px" accesskey="название"><?php echo retNameInfoRes();?></div>
 <div>Материалы:</div>
-<img src="<?php echo retpicItem('val1');?>" height="100px" accesskey="название">
-<img src="<?php echo retpicItem('val2');?>" height="100px" accesskey="название">
-<img src="<?php echo retpicItem('val3');?>" height="100px" accesskey="название">
-<img src="<?php echo retpicItem('val4');?>" height="100px" accesskey="название">
+<div class='imgblock'>
+    <?php if(false!= bdikaZnach($_GET['value'],'val1')):?>
+        <img src="<?php echo retpicItem('val1');?>" accesskey="название">
+        <span><?php echo retCountItem($_GET['value'],'count1'); endif;?></span>
 
-<br><div>кол-во предметов<input type="text"><button type="submit" name="plas">+</button><button type="submit" name="minus">-</button><button type="submit" name="min">min</button><button type="submit" name="max">max</button></div>
+</div>
+<div class='imgblock'>
+    <?php if(false!= bdikaZnach($_GET['value'],'val2')):?>
+        <img src="<?php echo retpicItem('val2');?>" accesskey="название">
+        <span><?php echo retCountItem($_GET['value'],'count2'); 
+    endif;?></span>
+</div>
+<div class='imgblock'>
+    <?php if(false!= bdikaZnach($_GET['value'],'val3')):?>
+        <img src="<?php echo retpicItem('val3');?>" accesskey="название">
+        <span><?php echo retCountItem($_GET['value'],'count3');endif;?></span>
+</div>
+<div class='imgblock'>
+<?php if(false!= bdikaZnach($_GET['value'],'val4')):?>
+    <img src="<?php echo retpicItem('val4');?>" accesskey="название">
+    <span><?php echo retCountItem($_GET['value'],'count4'); endif;?></span>
+</div>
+
+
+
+<br><div>кол-во предметов<input type="text"><button type="submit" name="plas">-</button><button type="submit" name="minus">+</button><button type="submit" name="min">min</button><button type="submit" name="max">max</button></div>
 <p>
 <button type="submit" name="greate">создать</button><button type="submit" name="greateAll">создать все</button><button type="submit" name="close">закрыть</button>
 </p></form>
@@ -129,6 +170,23 @@ function retPicItem($val){
     }
     
     
+}
+function bdikaZnach($id,$val){
+    $tbl = new Tabl();
+    $id_val = $tbl->retCellById($id,$val,'resept');
+    if(isset($id_val)){
+        return $id_val;
+    }
+    else{
+        return false;
+    }    
+}
+/*функция проверяет есть ли у данного рецепта по ШЬЕМУ(val) количество и выводит его на экран*/
+function retCountItem($id,$count){
+    $tbl = new Tabl();
+    $tabl = 'resepts';
+    return $tbl->retCellById($id, $count, $tabl);
+   
 }
 /*фунуия проверяет есть ли выбранный рецепт или страница только ззагружена*/
 function bdika(){
