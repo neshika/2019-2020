@@ -1866,7 +1866,7 @@ class OwnerItems
             echo '<br> Не хватает предметов! ';
         }
     }
-/*Функция добавляет предменты пользователю */
+/*Функция добавляет предметы по названию пользователю */
 public function addItemToOwner($item, $owner,$count){
   
     $tabl = new Tabl();
@@ -1874,9 +1874,8 @@ public function addItemToOwner($item, $owner,$count){
     $now = $this->retCountItemByOwner($item, $owner);
     $new = $now + $count;
     $tabl->UpdateData('owneritems', $stroka, 'count', $new);
-    
-    
 }
+
 /* функция вносит новый предмет в базу данных*/
 public function AddItem($ItemName)
 {

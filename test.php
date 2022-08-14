@@ -2,20 +2,6 @@
 /*require_once(__DIR__ . '/libs/up.php');*/
 require_once(__DIR__ . '/db.php');
 require_once(__DIR__ . '/includes/func.php');
-$itm = new OwnerItems(); 
-$tbl = new Tabl();
-if (isset($_POST['find']) and (!empty($_POST['textRes']))):
-    $_GET['value'] = $itm->retReseptIdByName($_POST['textRes']);
-    $_GET['id'] = $_GET['value'];
-endif;   
-if(isset($_POST['find']) and (empty($_POST['textRes']))){
-    //echo 'название не введено';
-    ?><script>
-            alert("Введите навание предмета для поиска");
-        </script><?php
-        //!!!скинуть все настройки см. книгу
-        
-}
 
 ?>
 <!DOCTYPE html>
@@ -29,31 +15,7 @@ if(isset($_POST['find']) and (empty($_POST['textRes']))){
 
 </head>
 <body>
- <style>
-    .imgblock {
-    position: relative;
-    display: inline-block;
-}
-
-.imgblock img {
-    margin-left: 1em;
-    height: 100px;
-    /*width: 100px;*/
-    margin-bottom: 1em;
-}
-.imgblock span {
-    /*background: rgba(0,0,0,0.7); (полупрозрачность)*/
-    background: #222;
-    color: #fff;
-    border-radius: 2px;
-    position: absolute;
-    right: 0;
-    bottom: 10px;
-    font-size: 16px;
-    padding: 3px 5px;
-}
- </style> 
-<div id="container">
+ <div id="container">
     <div id="header">
         <table width="900">
             <tr>
@@ -76,6 +38,7 @@ if(isset($_POST['find']) and (empty($_POST['textRes']))){
                     <li><a href="/kennel_m.php"><span>кобели</span></a></li>
                     <li><a href="/kennel_p.php"><span>щенки</span></a></li>
                     <li><a href="shelter.php"><span>приют</span></a></li>
+                    <li><a href="/greateRes.php"><span>создать рецепт</span></a></li>
                 </ul>
             </li>
             <li class="dropdown">
@@ -91,176 +54,63 @@ if(isset($_POST['find']) and (empty($_POST['textRes']))){
                     <li><a href="/logout.php">выйти</a></li>
             </ul>
     </div>
-</div>
+    <br>
+    <form method="POST">
+        <button type="submit" class="btn btn-dark" name="walk">Гулять <i class="fa fa-umbrella" aria-hidden="true"></i></button>
+    </form>
+    <?php 
+      if(isset($_POST['walk'])){
+        echo 'кнорка нажата';
+        $id = 5;
+        $owner = 'Nesh';
+        $id_res = randoNumRes();
+        ?><div><img src="<?php echo picRes($id_res); ?>" height="50px" accesskey="название"></div><?php
+        randoRGB($id,$id_res,$owner);
+      }
+      /* Функция рандомно раздает количество красных, зеленых и синих шаров */
+      function randoRGB($id_dog,$id_res,$owner){
+        //echo ' now start ';
+      $tbl = new Tabl();
+      $itm = new OwnerItems();
+      $cnt1 = $itm->retCountItemByOwner('red',$owner);
+      $cnt2 = $itm->retCountItemByOwner('green',$owner);
+      $cnt3 = $itm->retCountItemByOwner('blue',$owner);
+      echo " было $cnt1 + $cnt2 + $cnt3 <br>";
+      $count1 = $tbl->retCellById($id_res,'count1','resepts');
+      $count2 = $tbl->retCellById($id_res,'count2','resepts');
+      $count3 = $tbl->retCellById($id_res,'count3','resepts');
+     //echo " было $count1 + $count2 + $count3 <br>";
+     $count1 = Rand(1,$count1);
+     $count2 = Rand(1,$count2);
+     $count3 = Rand(1,$count3);
+     echo " сколько добавить $count1 + $count2 + $count3 <br>";
 
-<!--<div class="progress-bar">
-  <span class="bar">
-    <span class="progress"></span>
-  </span>
-</div>
+       $itm->addItemToOwner('red',$owner,$count1); 
+       $itm->addItemToOwner('green',$owner,$count2); 
+       $itm->addItemToOwner('blue',$owner,$count3); 
 
-
-<div id="content">
-<img src="pici/resnuh.png" alt="альтернативный текст" height="100px">
-<img src="pici/resspd.png" alt="альтернативный текст" height="100px">
-<img src="pici/restrn.png" alt="альтернативный текст" height="100px">
-<img src="pici/поиск.png" alt="альтернативный текст" height="100px">
-<img src="pici/spd.png" alt="альтернативный текст" height="100px">
-<img src="pici/fnd.png" alt="альтернативный текст" height="100px">
-<img src="pici/lck.png" alt="альтернативный текст" height="100px">
-<br><hr>
--->
-<form action="test.php" method="GET">
-    <table border="1">
-        <tr><td><?php listResepts();?>
-            </td>
-            <td><h1>создать</h1>
-<div>поиск 
-</form>
-<form action="test.php" method="POST">    
-    <input type="text" placeholder="поиск" name="textRes"><button type="submit" name="find">поиск</button> 
-</form>
-<form action="test.php" method="GET">
-</div><br>
-<?php if(false != bdika()): 
-        echo bdika();
-    else: 
-        ?><div><img src="<?php echo retPicRes();?>" height="100px" accesskey="название"><?php echo retNameInfoRes();?></div>
-        <div>Материалы:</div>
-        <?php
-
-        if (isset($_POST['find']) and (!empty($_POST['textRes']))):
-            $_GET['value'] = $itm->retReseptIdByName($_POST['textRes']);
-            $_GET['id'] = $_GET['value'];
-        endif;
-        ?>
-        <div class='imgblock'>
-            <?php insertPic($_GET['value'],'val1','count1');?>
-        </div>
-        <div class='imgblock'>
-            <?php insertPic($_GET['value'],'val2','count2');?>
-        </div>
-        <div class='imgblock'>
-            <?php insertPic($_GET['value'],'val3','count3');?>
-        </div>
-        <div class='imgblock'>
-            <?php insertPic($_GET['value'],'val4','count4');?>
-        </div>
-
-        <br><div>кол-во предметов<input type="text"><button type="submit" name="plas">-</button><button type="submit" name="minus">+</button><button type="submit" name="min">min</button><button type="submit" name="max">max</button></div>
-        <p>
-        <button type="submit" name="greate">создать</button><button type="submit" name="greateAll">создать все</button><button type="submit" name="close">закрыть</button>
-
-    <?php endif;
-    //endif;?>
-
-</p></form>
-
-<?php
-
-/*функция проверяет есть ли у данного итема ссылка на картинку, если нету, рисует пустой квадрат(blank2.png)*/
-function retPicItem($val){
-    $tbl = new Tabl();
-    $itm = new OwnerItems();
-    if (isset($_GET['value'])){
-        $id_val = $tbl->retCellById($_GET['value'],$val,'resept');
-        if(isset($id_val)){
-            return $itm->retUrlById($id_val);
-        }
-        else{
-            return '/Pici/blank2.png';
-        }
-    }
-    
-    
-}
-function bdikaZnach($id,$val){
-    $tbl = new Tabl();
-    $id_val = $tbl->retCellById($id,$val,'resept');
-    if(isset($id_val)){
-        return $id_val;
-    }
-    else{
-        return false;
-    }    
-}
-/*функция проверяет есть ли у данного рецепта по ШЬЕМУ(val) количество и выводит его на экран*/
-function retCountItem($id,$count){
-    $tbl = new Tabl();
-    $itm = new OwnerItems();
-    $tabl = 'resepts';
-    return $tbl->retCellById($id, $count, $tabl);
-  
-}
-/*фунуия проверяет есть ли выбранный рецепт или страница только ззагружена*/
-function bdika(){
-    if(false == retPicRes()){
-        return 'Необходимо выбрать рецепт справа  или в строке поиск введите название.';
-    }
-    else{
-        return false;
-    }
-}
-/*функция проверяет есть ли у данного рецепта(итема) ссылка на картинку, если нету, рисует пустой квадрат(blank2.png)*/
-function retPicRes(){
-    $itm = new OwnerItems();
-    if(isset($itm) && isset($_GET['value'])){
-        return $itm->retUrlByName($itm->retReseptNameById($_GET['value'])); 
-    }
-    else{
-        return false;
-    }
-    
-}
-/*функция проверяет есть ли у данного рецепта название и выводит текст название и его описание из поля info*/
-function retNameInfoRes(){
-    $tbl = new Tabl();
-    $itm = new OwnerItems();
-    if (isset($_GET['value'])){
-        $_GET['name'] = $itm->retReseptNameById($_GET['value']);
-        $array = $_GET['name'] . ' : ' . $tbl->retCellById($_GET['value'],'info','resepts');
-        return $array;
-    }
-    else {
-        return 'Необходимо выбрать рецепт справа';
-    }
-}
-/* функция отрисовывает список рецептов в алфавитном порядке и в виде ссылки*/
-function listResepts(){
-    $itm = new OwnerItems();
-    $res = R::getAll('SELECT * FROM `resepts` ORDER BY name');
-    foreach ($res as $key=>$value){
-    $_GET['id'] = $itm->retReseptIdByName($value['name']);
-    echo '<a href="http://dog.ru/test.php?value=' .  $_GET['id']. '">' . $value['name'] . '<br></a>';
-    
-    }
-}
-function insertPic($id,$val,$count){
-    $tbl = new Tabl();
-    $itm = new OwnerItems();
-    if(false!= bdikaZnach($id,$val)):?>
-        <img src="<?php echo retpicItem($val);?>" accesskey="название">
-        <?php 
-        $id_item = $tbl->retCellById($id,$val,'resepts');
-        $item = $itm->retNameById($id_item);
-        $owner = ret_owner();
-        $nujno = retCountItem($id,$count); 
-        $est = $itm->retCountItemByOwner($item, $owner);
-        $color = 'white';
-        if($nujno > $est){
-            $color = 'red';
+       $cnt1 = $itm->retCountItemByOwner('red',$owner);
+       $cnt2 = $itm->retCountItemByOwner('green',$owner);
+       $cnt3 = $itm->retCountItemByOwner('blue',$owner);
+       echo "  стало  $cnt1 + $cnt2 + $cnt3 <br>";
         
-        }
-        echo "<span style=\"color:$color;\">$nujno  / $est </span>";
-        endif;
-}
+      }
+      // получаем нномер рандомного рецепта(предмета) который принесла собака
+      function randoNumRes(){
+        $itm = new OwnerItems();
+        $num = Rand(11,17);
+        return $num;
+      }
+      // отрисовываем ранжомный предмет,который принесла сообака
+      function picRes($num){
+        $itm = new OwnerItems();
+        return $itm->retUrlByName($itm->retReseptNameById($num));
+      }
+     
+    ?>
 
 
-
-
-?>
-
-
+</div>
 <script src="https://use.fontawesome.com/e1a1261a75.js"></script>
       <script src="{% static 'app/scripts/modernizr-2.6.2.js' %}"></script>
     <script src="{% static 'app/scripts/modernizr-2.6.2.js' %}"></script>
