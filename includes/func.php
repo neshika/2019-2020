@@ -2036,7 +2036,8 @@ public function retReseptNameById($id){
 /* выводит данные рецепта по ID относится к поиску*/
     public function dataRes($str_resepta){
 
-        //$item = new OwnerItems();
+        $str_resepta = R::getRow('SELECT * FROM resepts WHERE `name` = ? LIMIT 1', [$str_resepta]);
+
         echo '<h2>' . $str_resepta['name'] . ' id = ' . $str_resepta['id'] . '</h2>';
         if(!empty($this->retNameItemById($str_resepta['val1']))){
           echo '- ' . $this->retNameItemById($str_resepta['val1']) . ' ' . $str_resepta['count1'];;
