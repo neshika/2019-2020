@@ -37,8 +37,10 @@ if(isset($_POST['find']) and (empty($_POST['textRes']))){
 }
 
 .imgblock img {
+    margin-left: 1em;
     height: 100px;
-   /* width: 250px;*/
+    /*width: 100px;*/
+    margin-bottom: 1rem;
 }
 .imgblock span {
     /*background: rgba(0,0,0,0.7); (полупрозрачность)*/
