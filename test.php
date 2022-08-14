@@ -4,18 +4,17 @@ require_once(__DIR__ . '/db.php');
 require_once(__DIR__ . '/includes/func.php');
 $itm = new OwnerItems(); 
 $tbl = new Tabl();
-
-if (isset($_POST['find']) and (!empty($_POST['textRes']))) {
+if (isset($_POST['find']) and (!empty($_POST['textRes']))):
     $_GET['value'] = $itm->retReseptIdByName($_POST['textRes']);
     $_GET['id'] = $_GET['value'];
-    //var_dump($_GET);
-}
+endif;   
 if(isset($_POST['find']) and (empty($_POST['textRes']))){
     //echo 'название не введено';
     ?><script>
             alert("Введите навание предмета для поиска");
         </script><?php
         //!!!скинуть все настройки см. книгу
+        
 }
 
 ?>
@@ -40,7 +39,7 @@ if(isset($_POST['find']) and (empty($_POST['textRes']))){
     margin-left: 1em;
     height: 100px;
     /*width: 100px;*/
-    margin-bottom: 1rem;
+    margin-bottom: 1em;
 }
 .imgblock span {
     /*background: rgba(0,0,0,0.7); (полупрозрачность)*/
@@ -99,7 +98,7 @@ if(isset($_POST['find']) and (empty($_POST['textRes']))){
     <span class="progress"></span>
   </span>
 </div>
--->
+
 
 <div id="content">
 <img src="pici/resnuh.png" alt="альтернативный текст" height="100px">
@@ -110,7 +109,7 @@ if(isset($_POST['find']) and (empty($_POST['textRes']))){
 <img src="pici/fnd.png" alt="альтернативный текст" height="100px">
 <img src="pici/lck.png" alt="альтернативный текст" height="100px">
 <br><hr>
-
+-->
 <form action="test.php" method="GET">
     <table border="1">
         <tr><td><?php listResepts();?>
@@ -123,26 +122,38 @@ if(isset($_POST['find']) and (empty($_POST['textRes']))){
 </form>
 <form action="test.php" method="GET">
 </div><br>
-<div><img src="<?php echo bdika();?>" height="100px" accesskey="название"><?php echo retNameInfoRes();?></div>
-<div>Материалы:</div>
-<div class='imgblock'>
-    <?php insertPic($_GET['value'],'val1','count1');?>
-</div>
-<div class='imgblock'>
-    <?php insertPic($_GET['value'],'val2','count2');?>
-</div>
-<div class='imgblock'>
-    <?php insertPic($_GET['value'],'val3','count3');?>
-</div>
-<div class='imgblock'>
-    <?php insertPic($_GET['value'],'val4','count4');?>
-</div>
+<?php if(false != bdika()): 
+        echo bdika();
+    else: 
+        ?><div><img src="<?php echo retPicRes();?>" height="100px" accesskey="название"><?php echo retNameInfoRes();?></div>
+        <div>Материалы:</div>
+        <?php
 
+        if (isset($_POST['find']) and (!empty($_POST['textRes']))):
+            $_GET['value'] = $itm->retReseptIdByName($_POST['textRes']);
+            $_GET['id'] = $_GET['value'];
+        endif;
+        ?>
+        <div class='imgblock'>
+            <?php insertPic($_GET['value'],'val1','count1');?>
+        </div>
+        <div class='imgblock'>
+            <?php insertPic($_GET['value'],'val2','count2');?>
+        </div>
+        <div class='imgblock'>
+            <?php insertPic($_GET['value'],'val3','count3');?>
+        </div>
+        <div class='imgblock'>
+            <?php insertPic($_GET['value'],'val4','count4');?>
+        </div>
 
+        <br><div>кол-во предметов<input type="text"><button type="submit" name="plas">-</button><button type="submit" name="minus">+</button><button type="submit" name="min">min</button><button type="submit" name="max">max</button></div>
+        <p>
+        <button type="submit" name="greate">создать</button><button type="submit" name="greateAll">создать все</button><button type="submit" name="close">закрыть</button>
 
-<br><div>кол-во предметов<input type="text"><button type="submit" name="plas">-</button><button type="submit" name="minus">+</button><button type="submit" name="min">min</button><button type="submit" name="max">max</button></div>
-<p>
-<button type="submit" name="greate">создать</button><button type="submit" name="greateAll">создать все</button><button type="submit" name="close">закрыть</button>
+    <?php endif;
+    //endif;?>
+
 </p></form>
 
 <?php
@@ -184,10 +195,10 @@ function retCountItem($id,$count){
 /*фунуия проверяет есть ли выбранный рецепт или страница только ззагружена*/
 function bdika(){
     if(false == retPicRes()){
-        return 'Необходимо выбрать рецепт справа';
+        return 'Необходимо выбрать рецепт справа  или в строке поиск введите название.';
     }
     else{
-        return retPicRes();
+        return false;
     }
 }
 /*функция проверяет есть ли у данного рецепта(итема) ссылка на картинку, если нету, рисует пустой квадрат(blank2.png)*/
@@ -243,6 +254,7 @@ function insertPic($id,$val,$count){
         echo "<span style=\"color:$color;\">$nujno  / $est </span>";
         endif;
 }
+
 
 
 
