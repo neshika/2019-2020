@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Авг 21 2022 г., 09:56
+-- Время создания: Окт 29 2022 г., 12:28
 -- Версия сервера: 8.0.24
 -- Версия PHP: 8.0.8
 
@@ -561,9 +561,9 @@ INSERT INTO `owneritems` (`id`, `owner_id`, `item_id`, `count`) VALUES
 (1, 1, 1, 146618),
 (2, 9, 1, 35000),
 (3, 4, 1, 150000),
-(4, 1, 10, 24),
-(5, 1, 11, 18),
-(6, 1, 12, 22),
+(4, 1, 10, 27),
+(5, 1, 11, 22),
+(6, 1, 12, 25),
 (7, 9, 10, 9),
 (8, 9, 11, 4),
 (9, 9, 12, 8),
@@ -866,7 +866,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `login`, `email`, `password`, `kennel`, `f_time`, `l_time`, `online`, `sign`, `visits`) VALUES
-(1, 'nesh', 'stepanova@mail.ru', '$2y$10$pinvDspcODn0zxHMfyEUoufayxxNfwrQoqHGX2.Ky1I.fB7FnDan.', 'Чарующий соблазн', '03.09.2017', '14.08.2022', 1, 0, 253),
+(1, 'nesh', 'stepanova@mail.ru', '$2y$10$pinvDspcODn0zxHMfyEUoufayxxNfwrQoqHGX2.Ky1I.fB7FnDan.', 'Чарующий соблазн', '03.09.2017', '29.10.2022', 0, 0, 254),
 (2, 'test', 'test@test', '$2y$10$Vy0Am7CkZj5SYrzoNR26W.XsiO21HWtuQezqns20CfpcqAqdlm7D.', 'Тестики', '04.09.2017', '10.09.2017', 0, 0, 4),
 (3, 'новый заводчик', 'test@test2.ru', '$2y$10$eOSfjXze0C3M1FJgNsR3F.A2gohq8kG/avSzH4VEt1.U9q09wUGu2', 'НовыйПитомник', '18.11.2020', '00.00.0000', 0, 0, 0),
 (4, 'Заводчик', 'test1@test.ru', '$2y$10$PsPFKFAR7shobc1ugQ983eppBEsxSnyncfSbwGui4ItBxt5bq6ibG', 'Пушистики', '19.11.2020', '29.05.2021', 0, 0, 47),
@@ -875,7 +875,7 @@ INSERT INTO `users` (`id`, `login`, `email`, `password`, `kennel`, `f_time`, `l_
 (7, 'Елена', 'Lena43@gmail.com', '$2y$10$pinvDspcODn0zxHMfyEUoufayxxNfwrQoqHGX2.Ky1I.fB7FnDan.', 'Лучики', '22.11.2020', '27.07.2022', 0, 0, 7),
 (8, 'Ольга Тимофеева', 'o.timka@yandex.ru', '$2y$10$3B6nNiMKg51z1dZqjyoLse0r038gfWxXNmspF.4e83I1Ln6hq2s7C', 'Звездочки', '22.11.2020', '22.11.2020', 0, 0, 0),
 (9, 'Дима', 'da/steapnoav@gdjn.com', '$2y$10$pinvDspcODn0zxHMfyEUoufayxxNfwrQoqHGX2.Ky1I.fB7FnDan.', 'Чашка', '22.11.2020', '25.07.2022', 0, 0, 24),
-(10, 'admin', 'admin@dog.ru', '$2y$10$NWuAFT7lI1D4vPL4Aum4ou2ZLwjikWEvNl36mXfMEZ5c6ca9.16hW', 'заводчик', '05.07.2022', '2022-08-14', 0, 1, 1);
+(10, 'admin', 'admin@dog.ru', '$2y$10$NWuAFT7lI1D4vPL4Aum4ou2ZLwjikWEvNl36mXfMEZ5c6ca9.16hW', 'заводчик', '05.07.2022', '2022-10-29', 1, 1, 1);
 
 --
 -- Индексы сохранённых таблиц
