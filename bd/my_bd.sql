@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Авг 21 2022 г., 09:56
+-- Время создания: Дек 09 2022 г., 20:10
 -- Версия сервера: 8.0.24
 -- Версия PHP: 8.0.8
 
@@ -193,7 +193,10 @@ INSERT INTO `animals` (`id`, `name`, `race`, `origin`, `breeder`, `owner`, `kenn
 (42, 'Без имени', 'КХС', 1, 'nesh', 'nesh', 'Чарующий соблазн', 0, 15, 1, 65, 40, 1, NULL, NULL, 100, 100, 10, '07.01.2022', NULL, 1, 0, 0),
 (43, 'Удачный', 'КХС', 1, 'nesh', 'nesh', 'Чарующий соблазн', 0, 16, 1, 66, 41, 1, NULL, NULL, 100, 50, 100, '07.01.2022', NULL, 1, 0, 0),
 (44, 'Без имени', 'КХС', 1, 'nesh', 'nesh', 'Чарующий соблазн', 0, 17, 1, 67, 42, 1, NULL, NULL, 100, 100, 20, '07.01.2022', NULL, 1, 0, 0),
-(45, 'Без имени', 'КХС', 1, 'nesh', 'nesh', 'Чарующий соблазн', 0, 18, 1, 68, 43, 1, NULL, NULL, 100, 100, 20, '07.01.2022', NULL, 1, 0, 0);
+(45, 'Без имени', 'КХС', 1, 'nesh', 'nesh', 'Чарующий соблазн', 0, 18, 1, 68, 43, 1, NULL, NULL, 100, 100, 20, '07.01.2022', NULL, 1, 0, 0),
+(47, 'Без имени', 'КХС', 1, 'Бесты-первый лучший', 'nesh', 'Чарующий соблазн', 14, 0, 13, 69, 45, 1, 4348, 28, 100, 100, 100, '09.12.2022', NULL, 1, 0, 0),
+(48, 'Без имени', 'КХС', 1, 'Бесты-первый лучший', 'nesh', 'Чарующий соблазн', 14, 0, 13, 70, 46, 1, 3844, 30, 100, 100, 100, '09.12.2022', NULL, 1, 0, 0),
+(49, 'Без имени', 'КХС', 1, 'Бесты-первый лучший', 'nesh', 'Чарующий соблазн', 14, 0, 13, 72, 47, 1, 3856, 29, 100, 100, 100, '09.12.2022', NULL, 1, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -333,7 +336,10 @@ INSERT INTO `family` (`id`, `mum`, `dad`, `g1dad`, `g1mum`, `g0dad`, `g0mum`, `g
 (41, 34, 7, 6, 2, 3, 1, 5, 1, 0, 0, 0, 0, 0, 0),
 (42, 34, 7, 6, 2, 3, 1, 5, 1, 0, 0, 0, 0, 0, 0),
 (43, 34, 7, 6, 2, 3, 1, 5, 1, 0, 0, 0, 0, 0, 0),
-(44, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+(44, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(45, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(46, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(47, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -370,70 +376,71 @@ CREATE TABLE `items` (
   `id` int NOT NULL,
   `name` varchar(25) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'название ингредиента',
   `icons` varchar(75) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '' COMMENT 'ссылка на картинку',
-  `res_id` int DEFAULT NULL COMMENT 'индекс Рецепта'
+  `res_id` int DEFAULT NULL COMMENT 'индекс Рецепта',
+  `cost` int NOT NULL DEFAULT '0' COMMENT 'стоимость ИТЕМа'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Дамп данных таблицы `items`
 --
 
-INSERT INTO `items` (`id`, `name`, `icons`, `res_id`) VALUES
-(1, 'coins', '/pici/coins_mini.png', NULL),
-(2, 'logo', '/Pici/logo_mini.png', NULL),
-(3, 'food', '/Pici/food_mini.png', NULL),
-(4, 'water', '/Pici/water.png', NULL),
-(5, 'badd', '/Pici/badd_mini.png\r\n', NULL),
-(6, 'comp', '/Pici/comp.png', NULL),
-(7, 'walk', '/Pici/walk.png', NULL),
-(8, 'zzz', '/Pici/zzz.png', NULL),
-(9, 'up', '/pici/up.png', NULL),
-(10, 'red', '/pici/red.png', NULL),
-(11, 'green', '/pici/green.png', NULL),
-(12, 'blue', '/pici/blue.png', NULL),
-(13, 'бумага', '/pici/bumaga.png', NULL),
-(14, 'чернила', '/pici/chernila.png', NULL),
-(15, 'кусок1', '/pici/kusok1.png', NULL),
-(16, 'кусок 2', '/pici/kusok2.png', NULL),
-(17, 'кусок 3', '/pici/kusok3.png', NULL),
-(18, 'кусок 4', '/pici/kusok4.png', NULL),
-(19, 'кусок 5', '/pici/kusok5.png', NULL),
-(20, 'кусок 6', '/pici/kusok6.png', NULL),
-(21, 'кусок 7', '/pici/kusok7.png', NULL),
-(22, 'кусок 8', '/pici/kusok8.png', NULL),
-(24, 'попона', '/pici/popona.png', 2),
-(25, 'тест', '/pici/test.png', 4),
-(26, 'краска', '/pici/kraska.png', 5),
-(27, 'карта', '/pici/karta.png', 6),
-(28, 'кожа', '/pici/koja.png', NULL),
-(29, 'нитки', '/pici/nitki.png', NULL),
-(30, 'витамины', '/pici/vitamini.png', NULL),
-(31, 'лекарства', '/pici/lekarstva.png', 7),
-(32, 'шнур', '/pici/shnur.png', 8),
-(33, 'металлическая нить ', '/pici/metalnit.png', 9),
-(34, 'металлическое волокно', '/pici/metalicheskoevolokno.png', NULL),
-(35, 'люверс', '/pici/luvers.png', 10),
-(36, 'башмак', '/pici/bashmak.png', 11),
-(37, 'мячик', '/pici/machik.png', 12),
-(38, 'палку', '/pici/palku.png', 13),
-(39, 'бутылку', '/pici/butilku.png', 14),
-(40, 'блох', '/pici/bloh.png', 15),
-(41, 'игрушку', '/pici/igrushku.png', 16),
-(42, 'савок', '/pici/savok.png', 17),
-(43, 'сухой корм', '/pici/suhoikorm.png', 18),
-(44, 'подкормка', '/pici/podkormka.png', 24),
-(45, 'ткань', '/pici/tkan.png', 19),
-(46, 'одежда', '/pici/odejda.png', 20),
-(48, 'поводок', '/pici/povodok.png', 21),
-(49, 'ошейник', '/pici/osheinik.png', NULL),
-(50, 'шлейка', '/pici/shleika.png', NULL),
-(51, 'украшение', '/pici/ukrashenie.png', 22),
-(52, 'драгоценные камни', '/pici/dragocennyekamni.png', 26),
-(53, 'проволка', '/pici/provolka.png', 23),
-(54, 'свиток', '/pici/svitok.png', 25),
-(55, 'мясо', '/pici/maso.png', NULL),
-(56, 'золото', '/pici/zoloto.png', NULL),
-(57, 'трос', '/pici/tros.png', NULL),
-(58, 'серебро', '/pici/serebro.png', NULL);
+INSERT INTO `items` (`id`, `name`, `icons`, `res_id`, `cost`) VALUES
+(1, 'coins', '/pici/coins_mini.png', NULL, 1),
+(2, 'logo', '/Pici/logo_mini.png', NULL, 0),
+(3, 'food', '/Pici/food_mini.png', NULL, 0),
+(4, 'water', '/Pici/water.png', NULL, 0),
+(5, 'badd', '/Pici/badd_mini.png\r\n', NULL, 0),
+(6, 'comp', '/Pici/comp.png', NULL, 0),
+(7, 'walk', '/Pici/walk.png', NULL, 0),
+(8, 'zzz', '/Pici/zzz.png', NULL, 0),
+(9, 'up', '/pici/up.png', NULL, 0),
+(10, 'red', '/pici/red.png', NULL, 10),
+(11, 'green', '/pici/green.png', NULL, 10),
+(12, 'blue', '/pici/blue.png', NULL, 10),
+(13, 'бумага', '/pici/bumaga.png', NULL, 300),
+(14, 'чернила', '/pici/chernila.png', NULL, 170),
+(15, 'кусок1', '/pici/kusok1.png', NULL, 50),
+(16, 'кусок 2', '/pici/kusok2.png', NULL, 50),
+(17, 'кусок 3', '/pici/kusok3.png', NULL, 50),
+(18, 'кусок 4', '/pici/kusok4.png', NULL, 50),
+(19, 'кусок 5', '/pici/kusok5.png', NULL, 50),
+(20, 'кусок 6', '/pici/kusok6.png', NULL, 50),
+(21, 'кусок 7', '/pici/kusok7.png', NULL, 50),
+(22, 'кусок 8', '/pici/kusok8.png', NULL, 50),
+(24, 'попона', '/pici/popona.png', 2, 0),
+(25, 'тест', '/pici/test.png', 4, 0),
+(26, 'краска', '/pici/kraska.png', 5, 0),
+(27, 'карта', '/pici/karta.png', 6, 0),
+(28, 'кожа', '/pici/koja.png', NULL, 330),
+(29, 'нитки', '/pici/nitki.png', NULL, 114),
+(30, 'витамины', '/pici/vitamini.png', NULL, 720),
+(31, 'лекарства', '/pici/lekarstva.png', 7, 0),
+(32, 'шнур', '/pici/shnur.png', 8, 0),
+(33, 'металлическая нить ', '/pici/metalnit.png', 9, 0),
+(34, 'металлическое волокно', '/pici/metalicheskoevolokno.png', NULL, 33000),
+(35, 'люверс', '/pici/luvers.png', 10, 0),
+(36, 'башмак', '/pici/bashmak.png', 11, 0),
+(37, 'мячик', '/pici/machik.png', 12, 0),
+(38, 'палку', '/pici/palku.png', 13, 0),
+(39, 'бутылку', '/pici/butilku.png', 14, 0),
+(40, 'блох', '/pici/bloh.png', 15, 0),
+(41, 'игрушку', '/pici/igrushku.png', 16, 0),
+(42, 'савок', '/pici/savok.png', 17, 0),
+(43, 'сухой корм', '/pici/suhoikorm.png', 18, 0),
+(44, 'подкормка', '/pici/podkormka.png', 24, 0),
+(45, 'ткань', '/pici/tkan.png', 19, 0),
+(46, 'одежда', '/pici/odejda.png', 20, 0),
+(48, 'поводок', '/pici/povodok.png', 21, 0),
+(49, 'ошейник', '/pici/osheinik.png', NULL, 1300),
+(50, 'шлейка', '/pici/shleika.png', NULL, 1490),
+(51, 'украшение', '/pici/ukrashenie.png', 22, 0),
+(52, 'драгоценные камни', '/pici/dragocennyekamni.png', 26, 0),
+(53, 'проволка', '/pici/provolka.png', 23, 0),
+(54, 'свиток', '/pici/svitok.png', 25, 0),
+(55, 'мясо', '/pici/maso.png', NULL, 330),
+(56, 'золото', '/pici/zoloto.png', NULL, 1760),
+(57, 'трос', '/pici/tros.png', NULL, 2250),
+(58, 'серебро', '/pici/serebro.png', NULL, 53);
 
 -- --------------------------------------------------------
 
@@ -638,88 +645,86 @@ CREATE TABLE `randodna` (
   `dna` varchar(255) NOT NULL COMMENT 'генетический код',
   `about` varchar(100) NOT NULL,
   `url` varchar(255) NOT NULL COMMENT 'ссылка на собаку',
-  `url_puppy` varchar(255) NOT NULL COMMENT 'ссылка на щенка',
-  `hr` varchar(191) DEFAULT NULL,
-  `ww` varchar(191) DEFAULT NULL,
-  `ff` varchar(191) DEFAULT NULL,
-  `bb` varchar(191) DEFAULT NULL,
-  `tt` varchar(191) DEFAULT NULL,
-  `mm` varchar(191) DEFAULT NULL
+  `url_puppy` varchar(255) NOT NULL COMMENT 'ссылка на щенка'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Дамп данных таблицы `randodna`
 --
 
-INSERT INTO `randodna` (`id`, `sex`, `lucky`, `spd`, `agl`, `tch`, `jmp`, `nuh`, `fnd`, `mut`, `type`, `dna`, `about`, `url`, `url_puppy`, `hr`, `ww`, `ff`, `bb`, `tt`, `mm`) VALUES
-(1, '0', 11, 9, 11, 11, 11, 9, 9, 56, 'Холерик', 'hr0w0f1b0t1m0', 'start', '', '', 'hrhr', 'ww', 'Ff', 'bb', 'Tt', 'mm'),
-(2, '1', 72, 9, 10, 10, 11, 9, 10, 40, 'Сангвиник', 'hr0w1f1b1t1m0', 'start', '', '', 'hrhr', 'Ww', 'Ff', 'Bb', 'Tt', 'mm'),
-(3, '0', 90, 9, 10, 11, 11, 11, 11, 14, 'Холерик', 'hr1w1f1b1t0m1', 'shop', 'pici/MM/hr1w1f1b1t0m1_03.png', 'pici/puppy/hr1w1_02.png', NULL, NULL, NULL, NULL, NULL, NULL),
-(4, '0', 5, 10, 11, 10, 10, 9, 11, 16, 'Сангвиник', 'hr0w1f0b0t0m1', 'shop', 'pici/hrhr/hr0w1f0b0t0m0_03.png', 'pici/puppy/hr0w1_01.png', NULL, NULL, NULL, NULL, NULL, NULL),
-(5, '0', 53, 11, 11, 9, 9, 9, 11, 26, 'Сангвиник', 'hr0w1f1b1t0m1', 'shop', 'pici/hrhr/hr0w1f0b1t0m0_01.png', 'pici/puppy/hr0w1_02.png', NULL, NULL, NULL, NULL, NULL, NULL),
-(6, '1', 85, 9, 11, 9, 10, 9, 10, 48, 'Меланхолик', 'hr0w1f0b0t0m0', 'puppyPodkinut', 'pici/hrhr/hr0w1f0b0t0m0_04.png', 'pici/puppy/hr0w1_02.png', NULL, NULL, NULL, NULL, NULL, NULL),
-(7, '1', 89, 10, 10, 9, 11, 9, 11, 20, 'Сангвиник', 'hr0w0f1b0t1m1', 'OldPodkinut', 'pici/hrhr/hr0w0f1b0t0m1_02.png', 'pici/puppy/hr0f1_02.png', NULL, NULL, NULL, NULL, NULL, NULL),
-(8, '', 0, 0, 0, 0, 0, 0, 0, 0, 'Флегматик', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL),
-(9, '', 0, 0, 0, 0, 0, 0, 0, 0, 'Флегматик', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL),
-(10, '', 0, 0, 0, 0, 0, 0, 0, 0, 'Меланхолик', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL),
-(11, '0', 12, 10, 10, 9, 9, 9, 11, 0, 'Сангвиник', 'hr1w1f0b0t1m0', 'owner', 'pici/TT/hr1w0f0b0t1m0_01.png', 'pici/puppy/hr1b0_02.png', NULL, NULL, NULL, NULL, NULL, NULL),
-(12, '0', 13, 11, 11, 11, 9, 9, 8, 0, 'Меланхолик', 'hr1w0f1b0t0m0', 'shelter', 'pici/hr1w0f1b0t0m0_04.png', 'pici/puppy/hr1f1_01.png', NULL, NULL, NULL, NULL, NULL, NULL),
-(13, '1', 15, 11, 11, 11, 11, 11, 9, 0, 'Меланхолик', 'hr1w0f0b0t0m0', 'owner', 'pici/hr1w0f0b0t0m0_05.png', 'pici/puppy/hr1b0_01.png', NULL, NULL, NULL, NULL, NULL, NULL),
-(14, '1', 12, 11.6, 11.6, 11.6, 9.05, 10.6, 9.05, 1, 'Флегматик', 'hr0w0f0b0t0m0', 'owner', 'pici/hrhr/hr0w0f0b0t0m0_01.png', 'pici/puppy/hr0b0_01.png', NULL, NULL, NULL, NULL, NULL, NULL),
-(15, '1', 75, 10, 9, 11, 11, 11, 10, 0, 'Сангвиник', 'hr1w0f0b0t0m0', 'owner', 'pici/hr1w0f0b0t0m0_03.png', 'pici/puppy/hr1b0_02.png', NULL, NULL, NULL, NULL, NULL, NULL),
-(16, '1', 27, 10.55, 10.05, 11.05, 10.05, 10.55, 9.55, 0, 'Флегматик', 'hr0w0f0b0t0m0', 'shelter', 'pici/hrhr/hr0w0f0b0t0m0_04.png', 'pici/puppy/hr0b0_03.png', NULL, NULL, NULL, NULL, NULL, NULL),
-(17, '1', 13, 10.87, 10.62, 11.12, 9.61, 10.37, 9.36, 1, 'Сангвиник', 'hr1w0f0b0t0m0', 'owner', 'pici/hr1w0f0b0t0m0_05.png', 'pici/puppy/hr1b0_01.png', NULL, NULL, NULL, NULL, NULL, NULL),
-(18, '1', 74, 10.25, 10, 10, 9.5, 9.75, 10.25, 0, 'Сангвиник', 'hr0w0f0b0t1m0', 'owner', 'pici/hrhr/hr0w0f0b0t0m0_04.png', 'pici/puppy/hr0b0_03.png', NULL, NULL, NULL, NULL, NULL, NULL),
-(19, '1', 97, 10.42, 9.92, 10.91, 9.92, 9.92, 8.93, 1, 'Холерик', 'hr1w0f1b0t0m0', 'owner', 'pici/hr1w0f1b0t0m0_04.png', 'pici/puppy/hr1f1_03.png', NULL, NULL, NULL, NULL, NULL, NULL),
-(20, '1', 97, 10.42, 12, 10.91, 9.92, 9.92, 8.93, 1, 'Флегматик', 'hr1w1f1b0t0m0', 'owner', 'pici/hr1w1f1b0t0m0_01.png', 'pici/puppy/hr1b0_02.png', NULL, NULL, NULL, NULL, NULL, NULL),
-(21, '0', 74, 10.25, 10, 10, 9.5, 12, 12, 0, 'Сангвиник', 'hr0w0f0b0t1m0', 'shelter', 'pici/hr1w0f1b0t0m0_01.png', 'pici/puppy/hr1f1_03.png', NULL, NULL, NULL, NULL, NULL, NULL),
-(22, '', 0, 0, 0, 0, 0, 0, 0, 0, 'Меланхолик', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL),
-(23, '', 0, 0, 0, 0, 0, 0, 0, 0, 'Флегматик', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL),
-(24, '', 0, 0, 0, 0, 0, 0, 0, 0, 'Холерик', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL),
-(25, '0', 39, 11, 10, 11, 9, 9, 10, 86, 'Сангвиник', 'hr1w0f0b1t1m0', 'start', '', '', NULL, NULL, NULL, NULL, NULL, NULL),
-(26, '1', 71, 9, 9, 10, 10, 11, 11, 100, 'Сангвиник', 'hr0w0f0b0t0m1', 'start', '', '', NULL, NULL, NULL, NULL, NULL, NULL),
-(27, '0', 90, 10, 9, 9, 10, 11, 9, 21, 'Холерик', 'hr0w1f0b1t0m1', 'start', 'pici/hrhr/hr0w1f0b1t0m0_02.png', 'pici/puppy/hr0b0_03.png', NULL, NULL, NULL, NULL, NULL, NULL),
-(28, '0', 71, 11, 11, 10, 11, 10, 10, 63, 'Сангвиник', 'hr1w0f1b1t0m0', 'start', '', '', NULL, NULL, NULL, NULL, NULL, NULL),
-(29, '0', 71, 11, 11, 10, 11, 10, 10, 63, 'Сангвиник', 'hr1w0f1b1t0m0', 'start', '', '', NULL, NULL, NULL, NULL, NULL, NULL),
-(30, '0', 69, 10, 11, 9, 9, 10, 11, 86, 'Холерик', 'hr0w1f0b0t0m1', 'start', '', '', NULL, NULL, NULL, NULL, NULL, NULL),
-(31, '1', 97, 9, 11, 11, 10, 11, 11, 63, 'Сангвиник', 'hr1w0f1b0t1m0', 'start', '', '', NULL, NULL, NULL, NULL, NULL, NULL),
-(32, '0', 77, 9, 10, 9, 9, 9, 11, 22, 'Флегматик', 'hr1w0f0b0t0m1', 'start', 'pici/hr1w0f0b0t0m1_01.png', 'pici/puppy/hr1b0_03.png', NULL, NULL, NULL, NULL, NULL, NULL),
-(33, '1', 94, 10, 11, 11, 9, 10, 11, 40, 'Холерик', 'hr1w0f0b0t1m0', 'start', 'pici/TT/hr1w0f0b0t1m0_05.png', 'pici/puppy/hr1b0_04.png', NULL, NULL, NULL, NULL, NULL, NULL),
-(34, '0', 2, 9, 10, 9, 11, 11, 9, 33, 'Сангвиник', 'hr0w0f0b1t0m0', 'start', 'pici/hrhr/hr0w0f0b1t0m0_02.png', 'pici/puppy/hr0b1_03.png', NULL, NULL, NULL, NULL, NULL, NULL),
-(35, '1', 46, 9, 11, 9, 11, 11, 9, 60, 'Сангвиник', 'hr0w0f1b1t0m0', 'start', 'pici/hrhr/hr0w0f1b1t0m0_03.png', 'pici/puppy/hr0f1_01.png', NULL, NULL, NULL, NULL, NULL, NULL),
-(36, '0', 92, 10, 9, 11, 10, 9, 10, 28, 'Холерик', 'hr1w1f0b0t1m0', 'start', 'pici/TT/hr1w0f0b0t1m0_04.png', 'pici/puppy/hr1w1_02.png', NULL, NULL, NULL, NULL, NULL, NULL),
-(37, '1', 49, 10, 10, 10, 11, 11, 9, 45, 'Флегматик', 'hr1w0f0b0t0m1', 'start', 'pici/MM/hr1w0f0b0t0m1_03.png', 'pici/puppy/hr1b0_01.png', NULL, NULL, NULL, NULL, NULL, NULL),
-(38, '0', 48, 10, 9, 10, 11, 10, 9, 98, 'Флегматик', 'hr0w0f1b0t1m1', 'start', 'pici/hrhr/hr0w0f1b0t0m0_03.png', 'pici/puppy/hr0f1_02.png', NULL, NULL, NULL, NULL, NULL, NULL),
-(39, '1', 98, 11, 10, 11, 10, 9, 10, 95, 'Сангвиник', 'hr0w1f0b0t0m1', 'shelter', 'pici/hrhr/hr0w1f0b0t0m0_03.png', 'pici/puppy/hr0w1_03.png', NULL, NULL, NULL, NULL, NULL, NULL),
-(40, '0', 21, 11, 11, 10, 10, 9, 10, 4, 'Флегматик', 'hr1w0f0b0t0m0', 'shop', '', '', NULL, NULL, NULL, NULL, NULL, NULL),
-(41, '1', 75, 10, 9, 10, 11, 11, 9, 74, 'Флегматик', 'hr0w1f0b0t1m0', 'shop', '', '', NULL, NULL, NULL, NULL, NULL, NULL),
-(42, '1', 82, 11, 11, 11, 9, 10, 10, 10, 'Сангвиник', 'hr1w1f0b0t0m1', 'shop', '', '', NULL, NULL, NULL, NULL, NULL, NULL),
-(43, '1', 40, 11, 11, 9, 9, 11, 11, 49, 'Холерик', 'hr0w1f1b0t1m0', 'shop', '', '', NULL, NULL, NULL, NULL, NULL, NULL),
-(44, '0', 12, 10, 10, 10, 9, 11, 10, 10, 'Сангвиник', 'hr1w1f0b0t0m0', 'owner', 'pici/hr1w1f0b0t0m0_03.png', 'pici/puppy/hr1w1_04.png', NULL, NULL, NULL, NULL, NULL, NULL),
-(45, '1', 70, 11, 10, 9, 10, 9, 10, 69, 'Флегматик', 'hr0w0f1b1t0m0', 'owner', 'pici/hrhr/hr0w0f1b0t0m0_05.png', 'pici/puppy/hr0f1_03.png', NULL, NULL, NULL, NULL, NULL, NULL),
-(46, '1', 37, 11, 11, 9, 11, 10, 9, 32, 'Холерик', 'hr0w0f0b0t1m1', 'owner', 'pici/hrhr/hr0w0f0b0t0m1_04.png', 'pici/puppy/hr0b0_01.png', NULL, NULL, NULL, NULL, NULL, NULL),
-(47, '1', 59, 9, 10, 9, 11, 9, 9, 63, 'Меланхолик', 'hr1w0f1b0t1m1', 'owner', 'pici/TM/hr1w0f0b0t1m1_02.png', 'pici/puppy/hr1w1_03.png', NULL, NULL, NULL, NULL, NULL, NULL),
-(48, '0', 43, 9, 10, 11, 9, 9, 11, 41, 'Сангвиник', 'hr0w0f0b1t0m1', 'owner', 'pici/hrhr/hr0w0f0b1t0m1_03.png', 'pici/puppy/hr0b1_01.png', NULL, NULL, NULL, NULL, NULL, NULL),
-(49, '1', 17, 11, 11, 11, 11, 10, 10, 82, 'Сангвиник', 'hr1w0f1b1t0m1', 'owner', 'pici/MM/hr1w0f1b1t0m1_03.png', 'pici/puppy/hr1f1_03.png', NULL, NULL, NULL, NULL, NULL, NULL),
-(50, '0', 81, 9, 9, 10, 10, 11, 9, 48, 'Меланхолик', 'hr1w0f0b1t0m1', 'owner', 'pici/MM/hr1w0f0b1t0m1_02.png', 'pici/puppy/hr1b1_03.png', NULL, NULL, NULL, NULL, NULL, NULL),
-(51, '1', 3, 11, 10, 11, 9, 10, 11, 29, 'Флегматик', 'hr1w1f0b1t1m0', 'owner', 'pici/TT/hr1w0f0b1t1m0_03.png', 'pici/puppy/hr1w1_04.png', NULL, NULL, NULL, NULL, NULL, NULL),
-(52, '1', 16, 10, 9, 9, 9, 11, 11, 11, 'Флегматик', 'hr1w1f0b0t1m1', 'owner', 'pici/TM/hr1w0f0b0t1m1_01.png', 'pici/puppy/hr1w1_02.png', NULL, NULL, NULL, NULL, NULL, NULL),
-(53, '1', 92, 11, 11, 9, 11, 10, 11, 93, 'Холерик', 'hr0w1f0b0t1m1', 'owner', 'pici/hrhr/hr0w1f0b0t0m0_05.png', 'pici/puppy/hr0w1_03.png', NULL, NULL, NULL, NULL, NULL, NULL),
-(54, '0', 42, 10, 10, 11, 9, 10, 9, 75, 'Флегматик', 'hr1w0f1b0t0m0', 'owner', 'pici/hr1w0f1b0t0m0_02.png', 'pici/puppy/hr1f1_03.png', NULL, NULL, NULL, NULL, NULL, NULL),
-(55, '0', 48, 9, 9, 9, 10, 10, 11, 63, 'Холерик', 'hr1w1f0b0t1m0', 'owner', 'pici/TT/hr1w0f0b0t1m0_02.png', 'pici/puppy/hr1w1_01.png', NULL, NULL, NULL, NULL, NULL, NULL),
-(56, '1', 80, 11, 9, 9, 10, 11, 10, 94, 'Флегматик', 'hr0w0f0b1t1m1', 'owner', 'pici/hrhr/hr0w0f0b1t0m1_04.png', 'pici/puppy/hr0b1_02.png', NULL, NULL, NULL, NULL, NULL, NULL),
-(57, '0', 4, 10.5, 10.5, 10.5, 10.5, 10.5, 9.5, 3, 'Меланхолик', 'hr1w1f0b0t1m0', 'owner', 'pici/TT/hr1w0f0b0t1m0_01.png', 'pici/puppy/hr1w1_03.png', NULL, NULL, NULL, NULL, NULL, NULL),
-(58, '0', 11, 10.45, 10.45, 10.45, 10.45, 10.45, 9.45, 51, 'Флегматик', 'hr0w0f0b0t1m0', 'owner', 'pici/hrhr/hr0w0f0b0t0m0_04.png', 'pici/puppy/hr0b0_01.png', NULL, NULL, NULL, NULL, NULL, NULL),
-(59, '0', 76, 10.11, 9.87, 10.36, 9.87, 9.87, 9.38, 95, 'Сангвиник', 'hr1w1f1b0t0m0', 'shelter', 'pici/hr1w1f1b0t0m0_01.png', 'pici/puppy/hr1w1_03.png', NULL, NULL, NULL, NULL, NULL, NULL),
-(60, '0', 33, 10.48, 10.48, 10.48, 10.48, 10.48, 9.48, 22, 'Флегматик', 'hr1w1f0b0t1m0', 'owner', 'pici/TT/hr1w0f0b0t1m0_03.png', 'pici/puppy/hr1w1_03.png', NULL, NULL, NULL, NULL, NULL, NULL),
-(61, '0', 84, 10.41, 10.41, 10.41, 10.41, 10.41, 9.41, 90, 'Холерик', 'hr0w1f0b0t1m0', 'owner', 'pici/hrhr/hr0w1f0b0t0m0_03.png', 'pici/puppy/hr0w1_02.png', NULL, NULL, NULL, NULL, NULL, NULL),
-(62, '1', 9, 10.17, 10.05, 10.05, 9.8, 9.92, 10.17, 49, 'Холерик', 'hr1w1f0b0t1m0', 'owner', 'pici/TT/hr1w0f0b0t1m0_01.png', 'pici/puppy/hr1w1_02.png', NULL, NULL, NULL, NULL, NULL, NULL),
-(63, '0', 94, 10.41, 10.17, 10.66, 10.17, 10.17, 9.67, 44, 'Флегматик', 'hr1w0f1b0t0m0', 'owner', 'pici/hr1w0f1b0t0m0_01.png', 'pici/puppy/hr1f1_01.png', NULL, NULL, NULL, NULL, NULL, NULL),
-(64, '0', 17, 10.84, 10.84, 10.84, 10.84, 10.84, 9.83, 82, 'Меланхолик', 'hr1w0f0b0t1m0', 'owner', 'pici/TT/hr1w0f0b0t1m0_01.png', 'pici/puppy/hr1w1_02.png', NULL, NULL, NULL, NULL, NULL, NULL),
-(65, '1', 45, 10.63, 10.5, 10.75, 10, 10.38, 9.87, 56, 'Меланхолик', 'hr0w1f0b0t1m0', 'owner', 'pici/hrhr/hr0w1f0b0t0m0_05.png', 'pici/puppy/hr0w1_01.png', NULL, NULL, NULL, NULL, NULL, NULL),
-(66, '1', 87, 10.6, 10.48, 10.73, 9.98, 10.36, 9.85, 76, 'Холерик', 'hr1w1f0b0t0m0', 'owner', 'pici/hr1w1f0b0t0m0_03.png', 'pici/puppy/hr1w1_01.png', NULL, NULL, NULL, NULL, NULL, NULL),
-(67, '1', 73, 10.65, 10.52, 10.77, 10.02, 10.4, 9.9, 35, 'Флегматик', 'hr1w1f0b0t0m0', 'owner', 'pici/hr1w1f0b0t0m0_02.png', 'pici/puppy/hr1w1_02.png', NULL, NULL, NULL, NULL, NULL, NULL),
-(68, '1', 57, 10.59, 10.47, 10.72, 9.97, 10.34, 9.84, 87, 'Флегматик', 'hr0w0f0b0t1m0', 'owner', 'pici/hrhr/hr0w0f0b0t0m0_01.png', 'pici/puppy/hr0b0_01.png', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `randodna` (`id`, `sex`, `lucky`, `spd`, `agl`, `tch`, `jmp`, `nuh`, `fnd`, `mut`, `type`, `dna`, `about`, `url`, `url_puppy`) VALUES
+(1, '0', 11, 9, 11, 11, 11, 9, 9, 56, 'Холерик', 'hr0w0f1b0t1m0', 'start', '', ''),
+(2, '1', 72, 9, 10, 10, 11, 9, 10, 40, 'Сангвиник', 'hr0w1f1b1t1m0', 'start', '', ''),
+(3, '0', 37, 9, 10, 11, 11, 11, 10, 52, 'Сангвиник', 'hr0w0f1b1t0m0', 'shop', 'pici/hrhr/hr0w0f1b0t0m0_03.png', 'pici/puppy/hr0f1_03.png'),
+(4, '0', 99, 10, 9, 9, 11, 10, 10, 29, 'Меланхолик', 'hr1w0f0b1t1m1', 'shop', 'pici/TM/hr1w0f0b1t1m1_02.png', 'pici/puppy/hr1w1_02.png'),
+(5, '0', 51, 9, 9, 11, 10, 9, 11, 43, 'Флегматик', 'hr1w1f1b1t0m1', 'shop', 'pici/MM/hr1w1f1b1t0m1_03.png', 'pici/puppy/hr1w1_03.png'),
+(6, '1', 85, 9, 11, 9, 10, 9, 10, 48, 'Меланхолик', 'hr0w1f0b0t0m0', 'puppyPodkinut', 'pici/hrhr/hr0w1f0b0t0m0_04.png', 'pici/puppy/hr0w1_02.png'),
+(7, '1', 89, 10, 10, 9, 11, 9, 11, 20, 'Сангвиник', 'hr0w0f1b0t1m1', 'OldPodkinut', 'pici/hrhr/hr0w0f1b0t0m1_02.png', 'pici/puppy/hr0f1_02.png'),
+(8, '', 0, 0, 0, 0, 0, 0, 0, 0, 'Флегматик', '', '', '', ''),
+(9, '', 0, 0, 0, 0, 0, 0, 0, 0, 'Флегматик', '', '', '', ''),
+(10, '', 0, 0, 0, 0, 0, 0, 0, 0, 'Меланхолик', '', '', '', ''),
+(11, '0', 12, 10, 10, 9, 9, 9, 11, 0, 'Сангвиник', 'hr1w1f0b0t1m0', 'owner', 'pici/TT/hr1w0f0b0t1m0_01.png', 'pici/puppy/hr1b0_02.png'),
+(12, '0', 13, 11, 11, 11, 9, 9, 8, 0, 'Меланхолик', 'hr1w0f1b0t0m0', 'shelter', 'pici/hr1w0f1b0t0m0_04.png', 'pici/puppy/hr1f1_01.png'),
+(13, '1', 15, 11, 11, 11, 11, 11, 9, 0, 'Меланхолик', 'hr1w0f0b0t0m0', 'owner', 'pici/hr1w0f0b0t0m0_05.png', 'pici/puppy/hr1b0_01.png'),
+(14, '1', 12, 11.6, 11.6, 11.6, 9.05, 10.6, 9.05, 1, 'Флегматик', 'hr0w0f0b0t0m0', 'owner', 'pici/hrhr/hr0w0f0b0t0m0_01.png', 'pici/puppy/hr0b0_01.png'),
+(15, '1', 75, 10, 9, 11, 11, 11, 10, 0, 'Сангвиник', 'hr1w0f0b0t0m0', 'owner', 'pici/hr1w0f0b0t0m0_03.png', 'pici/puppy/hr1b0_02.png'),
+(16, '1', 27, 10.55, 10.05, 11.05, 10.05, 10.55, 9.55, 0, 'Флегматик', 'hr0w0f0b0t0m0', 'shelter', 'pici/hrhr/hr0w0f0b0t0m0_04.png', 'pici/puppy/hr0b0_03.png'),
+(17, '1', 13, 10.87, 10.62, 11.12, 9.61, 10.37, 9.36, 1, 'Сангвиник', 'hr1w0f0b0t0m0', 'owner', 'pici/hr1w0f0b0t0m0_05.png', 'pici/puppy/hr1b0_01.png'),
+(18, '1', 74, 10.25, 10, 10, 9.5, 9.75, 10.25, 0, 'Сангвиник', 'hr0w0f0b0t1m0', 'owner', 'pici/hrhr/hr0w0f0b0t0m0_04.png', 'pici/puppy/hr0b0_03.png'),
+(19, '1', 97, 10.42, 9.92, 10.91, 9.92, 9.92, 8.93, 1, 'Холерик', 'hr1w0f1b0t0m0', 'owner', 'pici/hr1w0f1b0t0m0_04.png', 'pici/puppy/hr1f1_03.png'),
+(20, '1', 97, 10.42, 12, 10.91, 9.92, 9.92, 8.93, 1, 'Флегматик', 'hr1w1f1b0t0m0', 'owner', 'pici/hr1w1f1b0t0m0_01.png', 'pici/puppy/hr1b0_02.png'),
+(21, '0', 74, 10.25, 10, 10, 9.5, 12, 12, 0, 'Сангвиник', 'hr0w0f0b0t1m0', 'shelter', 'pici/hr1w0f1b0t0m0_01.png', 'pici/puppy/hr1f1_03.png'),
+(22, '', 0, 0, 0, 0, 0, 0, 0, 0, 'Меланхолик', '', '', '', ''),
+(23, '', 0, 0, 0, 0, 0, 0, 0, 0, 'Флегматик', '', '', '', ''),
+(24, '', 0, 0, 0, 0, 0, 0, 0, 0, 'Холерик', '', '', '', ''),
+(25, '0', 39, 11, 10, 11, 9, 9, 10, 86, 'Сангвиник', 'hr1w0f0b1t1m0', 'start', '', ''),
+(26, '1', 71, 9, 9, 10, 10, 11, 11, 100, 'Сангвиник', 'hr0w0f0b0t0m1', 'start', '', ''),
+(27, '0', 90, 10, 9, 9, 10, 11, 9, 21, 'Холерик', 'hr0w1f0b1t0m1', 'start', 'pici/hrhr/hr0w1f0b1t0m0_02.png', 'pici/puppy/hr0b0_03.png'),
+(28, '0', 71, 11, 11, 10, 11, 10, 10, 63, 'Сангвиник', 'hr1w0f1b1t0m0', 'start', '', ''),
+(29, '0', 71, 11, 11, 10, 11, 10, 10, 63, 'Сангвиник', 'hr1w0f1b1t0m0', 'start', '', ''),
+(30, '0', 69, 10, 11, 9, 9, 10, 11, 86, 'Холерик', 'hr0w1f0b0t0m1', 'start', '', ''),
+(31, '1', 97, 9, 11, 11, 10, 11, 11, 63, 'Сангвиник', 'hr1w0f1b0t1m0', 'start', '', ''),
+(32, '0', 77, 9, 10, 9, 9, 9, 11, 22, 'Флегматик', 'hr1w0f0b0t0m1', 'start', 'pici/hr1w0f0b0t0m1_01.png', 'pici/puppy/hr1b0_03.png'),
+(33, '1', 94, 10, 11, 11, 9, 10, 11, 40, 'Холерик', 'hr1w0f0b0t1m0', 'start', 'pici/TT/hr1w0f0b0t1m0_05.png', 'pici/puppy/hr1b0_04.png'),
+(34, '0', 2, 9, 10, 9, 11, 11, 9, 33, 'Сангвиник', 'hr0w0f0b1t0m0', 'start', 'pici/hrhr/hr0w0f0b1t0m0_02.png', 'pici/puppy/hr0b1_03.png'),
+(35, '1', 46, 9, 11, 9, 11, 11, 9, 60, 'Сангвиник', 'hr0w0f1b1t0m0', 'start', 'pici/hrhr/hr0w0f1b1t0m0_03.png', 'pici/puppy/hr0f1_01.png'),
+(36, '0', 92, 10, 9, 11, 10, 9, 10, 28, 'Холерик', 'hr1w1f0b0t1m0', 'start', 'pici/TT/hr1w0f0b0t1m0_04.png', 'pici/puppy/hr1w1_02.png'),
+(37, '1', 49, 10, 10, 10, 11, 11, 9, 45, 'Флегматик', 'hr1w0f0b0t0m1', 'start', 'pici/MM/hr1w0f0b0t0m1_03.png', 'pici/puppy/hr1b0_01.png'),
+(38, '0', 48, 10, 9, 10, 11, 10, 9, 98, 'Флегматик', 'hr0w0f1b0t1m1', 'start', 'pici/hrhr/hr0w0f1b0t0m0_03.png', 'pici/puppy/hr0f1_02.png'),
+(39, '1', 98, 11, 10, 11, 10, 9, 10, 95, 'Сангвиник', 'hr0w1f0b0t0m1', 'shelter', 'pici/hrhr/hr0w1f0b0t0m0_03.png', 'pici/puppy/hr0w1_03.png'),
+(40, '0', 21, 11, 11, 10, 10, 9, 10, 4, 'Флегматик', 'hr1w0f0b0t0m0', 'shop', '', ''),
+(41, '1', 75, 10, 9, 10, 11, 11, 9, 74, 'Флегматик', 'hr0w1f0b0t1m0', 'shop', '', ''),
+(42, '1', 82, 11, 11, 11, 9, 10, 10, 10, 'Сангвиник', 'hr1w1f0b0t0m1', 'shop', '', ''),
+(43, '1', 40, 11, 11, 9, 9, 11, 11, 49, 'Холерик', 'hr0w1f1b0t1m0', 'shop', '', ''),
+(44, '0', 12, 10, 10, 10, 9, 11, 10, 10, 'Сангвиник', 'hr1w1f0b0t0m0', 'owner', 'pici/hr1w1f0b0t0m0_03.png', 'pici/puppy/hr1w1_04.png'),
+(45, '1', 70, 11, 10, 9, 10, 9, 10, 69, 'Флегматик', 'hr0w0f1b1t0m0', 'owner', 'pici/hrhr/hr0w0f1b0t0m0_05.png', 'pici/puppy/hr0f1_03.png'),
+(46, '1', 37, 11, 11, 9, 11, 10, 9, 32, 'Холерик', 'hr0w0f0b0t1m1', 'owner', 'pici/hrhr/hr0w0f0b0t0m1_04.png', 'pici/puppy/hr0b0_01.png'),
+(47, '1', 59, 9, 10, 9, 11, 9, 9, 63, 'Меланхолик', 'hr1w0f1b0t1m1', 'owner', 'pici/TM/hr1w0f0b0t1m1_02.png', 'pici/puppy/hr1w1_03.png'),
+(48, '0', 43, 9, 10, 11, 9, 9, 11, 41, 'Сангвиник', 'hr0w0f0b1t0m1', 'owner', 'pici/hrhr/hr0w0f0b1t0m1_03.png', 'pici/puppy/hr0b1_01.png'),
+(49, '1', 17, 11, 11, 11, 11, 10, 10, 82, 'Сангвиник', 'hr1w0f1b1t0m1', 'owner', 'pici/MM/hr1w0f1b1t0m1_03.png', 'pici/puppy/hr1f1_03.png'),
+(50, '0', 81, 9, 9, 10, 10, 11, 9, 48, 'Меланхолик', 'hr1w0f0b1t0m1', 'owner', 'pici/MM/hr1w0f0b1t0m1_02.png', 'pici/puppy/hr1b1_03.png'),
+(51, '1', 3, 11, 10, 11, 9, 10, 11, 29, 'Флегматик', 'hr1w1f0b1t1m0', 'owner', 'pici/TT/hr1w0f0b1t1m0_03.png', 'pici/puppy/hr1w1_04.png'),
+(52, '1', 16, 10, 9, 9, 9, 11, 11, 11, 'Флегматик', 'hr1w1f0b0t1m1', 'owner', 'pici/TM/hr1w0f0b0t1m1_01.png', 'pici/puppy/hr1w1_02.png'),
+(53, '1', 92, 11, 11, 9, 11, 10, 11, 93, 'Холерик', 'hr0w1f0b0t1m1', 'owner', 'pici/hrhr/hr0w1f0b0t0m0_05.png', 'pici/puppy/hr0w1_03.png'),
+(54, '0', 42, 10, 10, 11, 9, 10, 9, 75, 'Флегматик', 'hr1w0f1b0t0m0', 'owner', 'pici/hr1w0f1b0t0m0_02.png', 'pici/puppy/hr1f1_03.png'),
+(55, '0', 48, 9, 9, 9, 10, 10, 11, 63, 'Холерик', 'hr1w1f0b0t1m0', 'owner', 'pici/TT/hr1w0f0b0t1m0_02.png', 'pici/puppy/hr1w1_01.png'),
+(56, '1', 80, 11, 9, 9, 10, 11, 10, 94, 'Флегматик', 'hr0w0f0b1t1m1', 'owner', 'pici/hrhr/hr0w0f0b1t0m1_04.png', 'pici/puppy/hr0b1_02.png'),
+(57, '0', 4, 10.5, 10.5, 10.5, 10.5, 10.5, 9.5, 3, 'Меланхолик', 'hr1w1f0b0t1m0', 'owner', 'pici/TT/hr1w0f0b0t1m0_01.png', 'pici/puppy/hr1w1_03.png'),
+(58, '0', 11, 10.45, 10.45, 10.45, 10.45, 10.45, 9.45, 51, 'Флегматик', 'hr0w0f0b0t1m0', 'owner', 'pici/hrhr/hr0w0f0b0t0m0_04.png', 'pici/puppy/hr0b0_01.png'),
+(59, '0', 76, 10.11, 9.87, 10.36, 9.87, 9.87, 9.38, 95, 'Сангвиник', 'hr1w1f1b0t0m0', 'shelter', 'pici/hr1w1f1b0t0m0_01.png', 'pici/puppy/hr1w1_03.png'),
+(60, '0', 33, 10.48, 10.48, 10.48, 10.48, 10.48, 9.48, 22, 'Флегматик', 'hr1w1f0b0t1m0', 'owner', 'pici/TT/hr1w0f0b0t1m0_03.png', 'pici/puppy/hr1w1_03.png'),
+(61, '0', 84, 10.41, 10.41, 10.41, 10.41, 10.41, 9.41, 90, 'Холерик', 'hr0w1f0b0t1m0', 'owner', 'pici/hrhr/hr0w1f0b0t0m0_03.png', 'pici/puppy/hr0w1_02.png'),
+(62, '1', 9, 10.17, 10.05, 10.05, 9.8, 9.92, 10.17, 49, 'Холерик', 'hr1w1f0b0t1m0', 'owner', 'pici/TT/hr1w0f0b0t1m0_01.png', 'pici/puppy/hr1w1_02.png'),
+(63, '0', 94, 10.41, 10.17, 10.66, 10.17, 10.17, 9.67, 44, 'Флегматик', 'hr1w0f1b0t0m0', 'owner', 'pici/hr1w0f1b0t0m0_01.png', 'pici/puppy/hr1f1_01.png'),
+(64, '0', 17, 10.84, 10.84, 10.84, 10.84, 10.84, 9.83, 82, 'Меланхолик', 'hr1w0f0b0t1m0', 'owner', 'pici/TT/hr1w0f0b0t1m0_01.png', 'pici/puppy/hr1w1_02.png'),
+(65, '1', 45, 10.63, 10.5, 10.75, 10, 10.38, 9.87, 56, 'Меланхолик', 'hr0w1f0b0t1m0', 'owner', 'pici/hrhr/hr0w1f0b0t0m0_05.png', 'pici/puppy/hr0w1_01.png'),
+(66, '1', 87, 10.6, 10.48, 10.73, 9.98, 10.36, 9.85, 76, 'Холерик', 'hr1w1f0b0t0m0', 'owner', 'pici/hr1w1f0b0t0m0_03.png', 'pici/puppy/hr1w1_01.png'),
+(67, '1', 73, 10.65, 10.52, 10.77, 10.02, 10.4, 9.9, 35, 'Флегматик', 'hr1w1f0b0t0m0', 'owner', 'pici/hr1w1f0b0t0m0_02.png', 'pici/puppy/hr1w1_02.png'),
+(68, '1', 57, 10.59, 10.47, 10.72, 9.97, 10.34, 9.84, 87, 'Флегматик', 'hr0w0f0b0t1m0', 'owner', 'pici/hrhr/hr0w0f0b0t0m0_01.png', 'pici/puppy/hr0b0_01.png'),
+(69, '0', 7, 10, 10, 10, 9, 9, 10, 17, 'Сангвиник', 'hr0w0f1b0t1m0', 'shop', 'pici/hrhr/hr0w0f1b0t0m0_05.png', 'pici/puppy/hr0f1_03.png'),
+(70, '0', 1, 10, 9, 11, 10, 11, 11, 6, 'Холерик', 'hr1w1f1b1t0m1', 'shop', 'pici/MM/hr1w1f1b1t0m1_01.png', 'pici/puppy/hr1w1_03.png'),
+(71, '0', 1, 10, 9, 11, 10, 11, 11, 6, 'Холерик', 'hr1w1f1b1t0m1', 'shop', 'pici/MM/hr1w1f1b1t0m1_01.png', 'pici/puppy/hr1w1_03.png'),
+(72, '0', 37, 9, 10, 11, 11, 11, 10, 52, 'Сангвиник', 'hr0w0f1b1t0m0', 'shop', 'pici/hrhr/hr0w0f1b0t0m0_03.png', 'pici/puppy/hr0f1_03.png');
 
 -- --------------------------------------------------------
 
@@ -866,7 +871,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `login`, `email`, `password`, `kennel`, `f_time`, `l_time`, `online`, `sign`, `visits`) VALUES
-(1, 'nesh', 'stepanova@mail.ru', '$2y$10$pinvDspcODn0zxHMfyEUoufayxxNfwrQoqHGX2.Ky1I.fB7FnDan.', 'Чарующий соблазн', '03.09.2017', '14.08.2022', 1, 0, 253),
+(1, 'nesh', 'stepanova@mail.ru', '$2y$10$pinvDspcODn0zxHMfyEUoufayxxNfwrQoqHGX2.Ky1I.fB7FnDan.', 'Чарующий соблазн', '03.09.2017', '09.12.2022', 0, 0, 255),
 (2, 'test', 'test@test', '$2y$10$Vy0Am7CkZj5SYrzoNR26W.XsiO21HWtuQezqns20CfpcqAqdlm7D.', 'Тестики', '04.09.2017', '10.09.2017', 0, 0, 4),
 (3, 'новый заводчик', 'test@test2.ru', '$2y$10$eOSfjXze0C3M1FJgNsR3F.A2gohq8kG/avSzH4VEt1.U9q09wUGu2', 'НовыйПитомник', '18.11.2020', '00.00.0000', 0, 0, 0),
 (4, 'Заводчик', 'test1@test.ru', '$2y$10$PsPFKFAR7shobc1ugQ983eppBEsxSnyncfSbwGui4ItBxt5bq6ibG', 'Пушистики', '19.11.2020', '29.05.2021', 0, 0, 47),
@@ -1009,7 +1014,7 @@ ALTER TABLE `ages`
 -- AUTO_INCREMENT для таблицы `animals`
 --
 ALTER TABLE `animals`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- AUTO_INCREMENT для таблицы `book`
@@ -1033,7 +1038,7 @@ ALTER TABLE `dnaagt`
 -- AUTO_INCREMENT для таблицы `family`
 --
 ALTER TABLE `family`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT для таблицы `items`
@@ -1075,7 +1080,7 @@ ALTER TABLE `rainbow`
 -- AUTO_INCREMENT для таблицы `randodna`
 --
 ALTER TABLE `randodna`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
 
 --
 -- AUTO_INCREMENT для таблицы `registry`
