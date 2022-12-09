@@ -57,6 +57,7 @@ require_once(__DIR__ . '/includes/func.php');
     <br>
     <form method="POST">
         <button type="submit" class="btn btn-dark" name="walk">Гулять <i class="fa fa-umbrella" aria-hidden="true"></i></button>
+          <button type="submit" class="btn btn-dark" name="test">Тест <i class="fa fa-umbrella" aria-hidden="true"></i></button>
     </form>
     <?php 
       if(isset($_POST['walk'])){
@@ -106,7 +107,15 @@ require_once(__DIR__ . '/includes/func.php');
         $itm = new OwnerItems();
         return $itm->retUrlByName($itm->retReseptNameById($num));
       }
-     
+      if(isset($_POST['test'])){
+        $sql = "UPDATE `items` SET `cost` = 1 WHERE `items`.`id` = 1";
+        
+        mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+  $mysqli = new mysqli("127.0.0.1", "root", "321478828", "my_bd");
+  $mysqli->query($sql);
+
+      }
+
     ?>
 
 
