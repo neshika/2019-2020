@@ -6,6 +6,7 @@ $data = $_POST;
 
 if (isset($data['do_login'])) {
 	$errors = array();
+
 	$user = R::findOne('users', 'login = ?', array($data['login']));
 
 	if ($user) {  //если Юзер найден
