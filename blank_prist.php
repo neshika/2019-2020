@@ -96,7 +96,7 @@ $data = $_POST;
   </style>
   <form action="/registry.php" method="POST">
     <div>
-      <h1 align="center"> <img src="/pic/logo_mini.png" alt="logo">Витруальное кинологическое объединение<br>
+      <h1 align="center"> <img src="/pici/logo_mini.png" alt="logo">Витруальное кинологическое объединение<br>
         ЗАЯВКА НА РЕГИСТРАЦИЮ ЗАВОДСКОЙ ПРИСТАВКИ <br></h1>
       <p> <input type="radio" name="ken">Питомник
         <input type="radio" name="ken">Заводская приставка

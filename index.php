@@ -18,9 +18,9 @@ require "db.php";
 <?php  
 /** Проверяет залогинен ли польззователь Если да, дает выбор действий **/
 if( isset($_SESSION['logged_user'])):
-    echo "Привет, " . $_SESSION['logged_user']->login . '!  Чем займемся?';
+    echo "Привет, " . $_SESSION['logged_user']['login'] . '!  Чем займемся?';
           
-    if('admin' == $_SESSION['logged_user']->login ):
+    if('admin' == $_SESSION['logged_user']['login'] ):
         echo '<br><a class="buttons" href="/admin/admin.php">В админку</a>';
     else:
         echo '<br><a class="buttons" href="/office.php" >В офис</a>';

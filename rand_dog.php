@@ -1,27 +1,19 @@
 <?php
 
 require "db.php";
-require "includes/functions.php";
+require "includes/func.php";
 
 
 /*****************  НОВАЯ СОБАКА   ******************/
 function rand_dog1($id){
-  $data_dna['hr']=f_rand_col('HrHr','Hrhr','hrhr');
-  $data_dna['ww']=f_rand_col('WW','Ww','ww');
-  $data_dna['ff']=f_rand_col('FF','Ff','ff');
-  $data_dna['bb']=f_rand_col('BB','Bb','bb');
-  $data_dna['tt']=f_rand_col('TT','Tt','tt');
-  $data_dna['mm']=f_rand_col('MM','Mm','mm');
- 
-   ('Hrhr'==$data_dna['hr'] ? $Hr='hr1' : $Hr='hr0');   //hr1 Hrhr - голая  // hr0 - hrhr  - пух
-    ('ww'==$data_dna['ww'] ? $W='w0' : $W='w1');
-    ('ff'==$data_dna['ff'] ? $F='f0' : $F='f1');
-    ('bb'==$data_dna['bb'] ? $B='b0' : $B='b1');
-    ('tt'==$data_dna['tt'] ? $T='t0' : $T='t1');
-    ('mm'==$data_dna['mm'] ? $M='m0' : $M='m1');
-    
-        
-    echo '<br>DNA^ ' . $dna=$Hr . $W . $F . $B . $T . $M;
+
+  $dog = new RandDog;
+  if($id == 1){
+    $sex = 0; //сука
+  }
+  else $sex = 1; //кобель
+          
+    echo '<br>DNA^ ' . $dna=$dog->randDna();
          
     echo '<br>удача ' . $lucky= rand(1,100);
     echo '<br>скорость ' . $spd= rand(9,11);
@@ -32,17 +24,14 @@ function rand_dog1($id){
     echo ' <br>поиск ' . $fnd= rand(9,11);
     echo ' <br>мутации ' . $mut= rand(1,100);
     
-    
+     
+   $url = $dog->doUrl($dna);  
+   $url_puppy = $dog->doUrlPuppy($url); 
     //$id = 1;
     // Загружаем объект с ID = 1
     $dog = R::load('randodna', $id);
     // Обращаемся к свойству объекта и назначаем ему новое значение
-    $dog->hr = $data_dna['hr'];
-    $dog->ww = $data_dna['ww'];
-    $dog->ff = $data_dna['ff'];
-    $dog->bb = $data_dna['bb'];
-    $dog->tt = $data_dna['tt'];
-    $dog->mm = $data_dna['mm'];
+    $dog->sex = $sex;
     $dog->lucky = $lucky;
     $dog->spd = $spd;
     $dog->agl = $agl;
@@ -51,14 +40,18 @@ function rand_dog1($id){
     $dog->nuh = $nuh;
     $dog->fnd = $fnd;
     $dog->mut = $mut;
+    $dog->type = RandChar();
     $dog->dna = $dna;
     $dog->about = 'start';
-
-    // Сохраняем объект
-    R::store($dog);
-  
-    return $dna;
     
+    //создаем картинки собак
+    
+      $dog->url = $url;
+      $dog->url_puppy = $url_puppy;
+        // Сохраняем объект
+        R::store($dog);
+  
+    return $url;
 }
 
  
@@ -76,21 +69,9 @@ function rand_dog1($id){
 <div style="background: #ed969e; text-align: center; height: 570px; width: 350px; float:left; margin-left: 180px;">
   <h2> самка: </h2>
 	<?php 
-	//echo "<br>" . f_bdika_sex();	//дает рандомный пол
-/** Содаем рандомную собаку и выводим на экран **/	
-  	$_SESSION['hr1']=$Hr=f_rand_col('HrHr','Hrhr','hrhr');
-  	$_SESSION['ww1']=$W=f_rand_col('WW','Ww','ww');
-  	$_SESSION['ff1']=$F=f_rand_col('FF','Ff','ff');
-  	$_SESSION['bb1']=$B=f_rand_col('BB','Bb','bb');
-  
-  	$_SESSION['tt1']=$T=f_rand_col('TT','Tt','tt');
-  	$_SESSION['mm1']=$M=f_rand_col('MM','Mm','mm');
-
-      $all= "<br>".$Hr."<br>".$W."<br>".$F."<br>".$B."<br>".$T."<br>".$M;
-    //echo $all;
-     // $_SESSION['url']=$url=bdika_color ($Hr,$W,$F,$B,$T,$M);
+	   
       $_SESSION['url']=$url=rand_dog1('1');
-      $_SESSION['url_pici']=do_url($url);
+      $_SESSION['url_pici']=$url;
       ?>
   <br> <img src="<?php echo $_SESSION['url_pici']?>">
  
@@ -98,21 +79,8 @@ function rand_dog1($id){
 <div style="background: blue; text-align: center; height: 570px; width: 350px; float: right; margin-right: 180px; ">
     <h2> самец: </h2>
 	<?php 
-	//echo "<br>" . f_bdika_sex();	//дает рандомный пол
-/** Содаем рандомную собаку и выводим на экран **/	
-  	$_SESSION['hr2']=$Hr=f_rand_col('HrHr','Hrhr','hrhr');
-    $_SESSION['ww2']=$W=f_rand_col('WW','Ww','ww');
-    $_SESSION['ff2']=$F=f_rand_col('FF','Ff','ff');
-    $_SESSION['bb2']=$B=f_rand_col('BB','Bb','bb');
-  
-    $_SESSION['tt2']=$T=f_rand_col('TT','Tt','tt');
-    $_SESSION['mm2']=$M=f_rand_col('MM','Mm','mm');
-
-      $all= "<br>".$Hr."<br>".$W."<br>".$F."<br>".$B."<br>".$T."<br>".$M;
-    //echo $all;
-     // $_SESSION['url2']=$url=bdika_color ($Hr,$W,$F,$B,$T,$M);
-       $_SESSION['url2']=$url2=rand_dog1('2');
-       $_SESSION['url2_pici']=do_url($url2);
+	    $_SESSION['url2']=$url2=rand_dog1('2');
+     $_SESSION['url2_pici']=$url2;
       ?><br> <img src="<?php echo $_SESSION['url2_pici']?>">
 </div>
 <form action="rand_dog.php" method="POST">

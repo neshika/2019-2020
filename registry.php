@@ -56,6 +56,13 @@ if (isset($data['do_sighup'])) {  //если кнопка нажата
     $errors[] = 'такой питомник уже есть';
   }
   if (empty($errors)) {
+    //сохраняем данные  о пользователе.
+   //var_dump($_SESSION['logged_user']['login']);
+   //var_dump($data['login']);
+    $_SESSION['logged_user']['login'] = $data['login'];
+    //var_dump($_SESSION['logged_user']);
+
+    var_dump($_SESSION['logged_user']['login']);
     //все хорошо, регистрируем 
     /*  создаем базу через REdBeen*/
     echo "<br>создаем пользователя";
@@ -65,6 +72,9 @@ if (isset($data['do_sighup'])) {  //если кнопка нажата
     $user->kennel = $data['kennel'];
     $user->f_time = date('d.m.Y');
     $user->l_time = date('d.m.Y');
+    $user->online = 1;
+    $user->sign = 1;
+    $user->visits = 1;
     $user->password = password_hash($data['password'], PASSWORD_DEFAULT); //зашифровываем пароль
     $owner_id = R::store($user);
 
@@ -83,19 +93,12 @@ if (isset($data['do_sighup'])) {  //если кнопка нажата
     $items->count = 0;
     R::store($items);
 
-
     echo "<br>вносим генетический код"; //randodna
-
     //создаем первую собаку        
     $arr[] = ret_Row(1, 'randodna');
     //debug($arr);
+
     $dog = R::dispense('randodna');
-    $dog->hr = $arr[0]['hr'];
-    $dog->ww = $arr[0]['ww'];
-    $dog->ff = $arr[0]['ff'];
-    $dog->bb = $arr[0]['bb'];
-    $dog->tt = $arr[0]['tt'];
-    $dog->mm = $arr[0]['mm'];
     $dog->sex = $arr[0]['sex'];
     $dog->lucky = $arr[0]['lucky'];
     $dog->spd = $arr[0]['spd'];
@@ -107,18 +110,15 @@ if (isset($data['do_sighup'])) {  //если кнопка нажата
     $dog->mut = $arr[0]['mut'];
     $dog->dna = $arr[0]['dna'];
     $dog->about = $arr[0]['about'];
+    $dog->url = $arr[0]['url'];
+    $dog->url_puppy = $arr[0]['url_puppy'];
     echo $dna_id_dog1 = R::store($dog);
 
     //создаем вторую собаку
     $arr2[] = ret_Row(2, 'randodna');
     //debug($arr);
     $dog2 = R::dispense('randodna');
-    $dog2->hr = $arr2[0]['hr'];
-    $dog2->ww = $arr2[0]['ww'];
-    $dog2->ff = $arr2[0]['ff'];
-    $dog2->bb = $arr2[0]['bb'];
-    $dog2->tt = $arr2[0]['tt'];
-    $dog2->mm = $arr2[0]['mm'];
+  
     $dog2->sex = $arr2[0]['sex'];
     $dog2->lucky = $arr2[0]['lucky'];
     $dog2->spd = $arr2[0]['spd'];
@@ -130,38 +130,36 @@ if (isset($data['do_sighup'])) {  //если кнопка нажата
     $dog2->mut = $arr2[0]['mut'];
     $dog2->dna = $arr2[0]['dna'];
     $dog2->about = $arr2[0]['about'];
+    $dog2->url = $arr2[0]['url'];
+    $dog2->url_puppy = $arr2[0]['url_puppy'];
     echo $dna_id_dog2 = R::store($dog2);
 
 
     echo "<br>создаем предков собаки №1:";
 
-    $dog = R::dispense('family');
-    foreach ($dog as $key) {
-      if ($key != 'id') {
-        $dog->$key = 0;  //вносим всех предков по нулям
-      }
-    }
-    echo $family_id = R::store($dog);
+    $dog11 = R::dispense('family');
+    $dog11->mum = 0;
+    $dog11->dad =0;
+    $family_id = R::store($dog11);
+    echo"<br> создали первую семью с ИД" . $family_id;
+
 
     echo "<br>создаем предков собаки №2:";
 
     $dog22 = R::dispense('family');
-    foreach ($dog22 as $key) {
-      if ($key != 'id') {
-        $dog22->$key = 0;  //вносим всех предков по нулям
-      }
-    }
-    echo $family_id2 = R::store($dog22);
-
+      $dog22->mum = 0;
+      $dog22->dad =0;
+    $family_id2 = R::store($dog22);
+    echo"<br> создали первую семью с ИД" . $family_id2;
+    
+    
     echo "<br>создаем собак:";
-    //расчет формулы воззаста в зависимости от даты создания
+    //расчет формулы возраста в зависимости от даты создания
     $age = 10;
     $date = new DateTime();
     $date->modify('-3 month');
     $date->format('d.m.Y');
     //конец расчета
-
-
 
     $dogs = R::dispense('animals');
     $dogs->name = 'Без имени';
@@ -175,11 +173,15 @@ if (isset($data['do_sighup'])) {  //если кнопка нажата
     $dogs->family_id = $family_id;
     $dogs->mark_id = 1; //отлично оценка
     $dogs->birth = $date->format('d.m.Y');
+    // параметры, зависящие от пола
+    $dogs->estrus = 14; //установка у суки течки
+    $height = Rand(23, 30);
+    $dogs->height = $height;
+    $weight = Rand(3000, 4500);
+    $dogs->weight = $weight;
+  // сохраняем первую собаку(сука)
     $id_new_dog1 = R::store($dogs);
-    /*вносим в табл URL*/
 
-    insert_url($id_new_dog1, $_SESSION['url_pici']);
-    insert_url_puppy($id_new_dog1);
 
     echo "<br>Создана 1 собака" . $id_new_dog1;
 
@@ -195,29 +197,27 @@ if (isset($data['do_sighup'])) {  //если кнопка нажата
     $dog2->family_id = $family_id2;
     $dog2->mark_id = 1; //отлично оценка
     $dog2->birth = $date->format('d.m.Y');
+    // параметры, зависящие от пола
+    $dog2->estrus = 0; //течки у кобеля не бывает
+    $height = Rand(28, 33);
+    $dog2->height = $height;
+    $weight = Rand(4500, 5000);
+    $dog2->weight = $weight;
+    // сохраняем вторую собаку(кобель)
     $id_new_dog2 = R::store($dog2);
-
-
-    insert_url($id_new_dog2, $_SESSION['url2_pici']);
-    insert_url_puppy($id_new_dog2);
-
+   
 
     echo "<br>Создана 2 собака" . $id_new_dog2;
 
-    echo 'создаю счет в банке';
+    echo '<br><br>создаю счет в банке';
     $cost = R::dispense('owneritem');
     $cost->owner_id = $owner_id;
     $cost->item_id = 1;
     $cost->count = 0;
     R::store($cost);
 
-
-
-
-
-
     echo '<div style="color:green;">Добро пожаловать, все успешно!</div>';
-    $_SESSION['logged_user']->login = $data['login'];
+   
   } else {
 
     //echo '<div id="okno">' . array_shift($errors) . '<a href="#" class="close">Закрыть окно</a></div>';

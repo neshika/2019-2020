@@ -12,7 +12,7 @@ require_once(__DIR__ . '/includes/func.php');
     <?php
 
 
-    $login = $_SESSION['logged_user']->login;
+    $login = $_SESSION['logged_user']['login'];
     echo 'Добро пожаловать, ' . $GLOBALS['name'] = $login . ' .<br>';
     echo '<br>сегодня: ' . date('d.m.Y');
     $dog = new Dog;
@@ -24,7 +24,7 @@ require_once(__DIR__ . '/includes/func.php');
     $print = new PrintDog;
 
     $now = date('d.m.Y'); //03.08.2017
-    $owner = $user->retOwner();
+    $owner = $login;
     //$dog->countDogs($owner); // считает количество собак у владельца
 
     echo '<br> количество посещений: ' . $user->retVisits($owner);
