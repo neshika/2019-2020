@@ -1,8 +1,15 @@
 <?php
 //подключение файлов
 require "db.php";
+
+// if(empty($_SESSION['logged_user']['login'])):
+//     echo "авторизуйтесь";
+//     header('Location: /index.php');
+// 	exit;
+// else:
+require_once(__DIR__ . '/includes/func.php'); 
 require_once(__DIR__ . '/html/header.html');
-require_once(__DIR__ . '/includes/func.php');
+
 
 ?>
 <div class="content">
@@ -143,6 +150,7 @@ require_once(__DIR__ . '/includes/func.php');
     <?php
     endif;
 
+//endif;    
     ?>
     <style>
         #picdog,
@@ -157,3 +165,4 @@ require_once(__DIR__ . '/includes/func.php');
     </style>
     <!--<div id="picdog"><img src="/pici/hr1w0f0b0t0m0_02.png" width="300px"> </div>
 <div id="firewokfs"><img src="/pici/fireworks.gif" width="300px"></div>
+

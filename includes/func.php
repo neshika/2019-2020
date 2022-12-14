@@ -63,7 +63,11 @@ $GLOBALS['timer'] = 1440;
 
 
 // ***********************************************************
-
+if(empty($_SESSION['logged_user']['login'])):
+    echo "авторизуйтесь";
+    header('Location: /index.php');
+	exit;
+endif;
 function globals()
 {
 echo '<br> Глобальные переменные:';

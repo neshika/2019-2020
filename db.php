@@ -2,7 +2,6 @@
 //файл db.php
 
 require 'libs/rb.php';
-
 // локальное подключение
 if ($_SERVER['HTTP_HOST'] == 'dog.ru') {
   R::setup(
@@ -19,4 +18,5 @@ if ($_SERVER['HTTP_HOST'] == 'dog.ru') {
   );
 }
 session_start();
-  //echo 'db включена';
+
+//echo 'db включена';

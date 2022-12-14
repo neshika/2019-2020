@@ -3,8 +3,8 @@
 //подключение библиотеки redBeanphp
 require $_SERVER['DOCUMENT_ROOT'] . "/db.php";
 //подключение шапки
-require_once(__DIR__ . '/html/header.html');
 require_once(__DIR__ . '/includes/func.php');
+require_once(__DIR__ . '/html/header.html');
 /* http://dog.ru/name.php?id=1&owner=nesh */
 //включение ошибок//включение отчета по ошибкам
 ini_set('display_errors', 1);

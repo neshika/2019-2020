@@ -1,6 +1,6 @@
 <?php
 require "db.php";
-require "includes/functions.php";
+//require "includes/functions.php";
 
 $data = $_POST;
 //debug($_POST);
