@@ -64,9 +64,22 @@ $GLOBALS['timer'] = 1440;
 
 // ***********************************************************
 if(empty($_SESSION['logged_user']['login'])):
-    echo "авторизуйтесь";
-    header('Location: /index.php');
-	exit;
+    //var_dump($_SERVER['HTTP_HOST']);
+   //echo "авторизуйтесь";
+    //$redirect_url = 'index.php';
+    //header('Location: /index.php');
+    //header('Location: index.php');
+    if ($_SERVER['HTTP_HOST'] == 'dog.ru') {
+        header('Location: /index.php');
+        exit;
+       
+    }
+    else{
+        //echo 'мы на сайте';
+        ?> <a href="http://neshika.ru/index.php">Отправиться в начало</a>
+        <?php header('Location: /index.php');
+        exit;
+    }
 endif;
 function globals()
 {
