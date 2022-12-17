@@ -1,0 +1,33 @@
+{
+  "name": "dog",
+  "version": "2.0.0",
+  "description": "",
+  "main": "index.php",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npx tailwindcss -i ./src/input.css -o ./css/style.css --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "tailwindcss": "^3.2.4"
+  },
+  "dependencies": {
+    "jquery": "^3.6.1"
+  },
+  "file.associations":{
+     "*.css": "tailwindcss"
+
+  },
+  "editor.inlineSuggest.enable": true,
+  "editor.quickSuggestions": {
+    "strings": true
+  },
+  "css.validate": false,
+  "tailwindCSS.includeLanguages": {
+    "html": "tpl",
+    "javascript": "javascript"
+  }
+}
+
